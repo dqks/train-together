@@ -1,0 +1,30 @@
+.AuthForm {
+  max-width: 320px;
+  width: 100%;
+  padding: 15px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  flex-grow: 1;
+}
+
+.title {
+  align-self: center;
+  font-weight: normal;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  color: var(--primary-text-color);
+  text-decoration: underline;
+}
+
+.createAccText {
+  text-align: center;
+}

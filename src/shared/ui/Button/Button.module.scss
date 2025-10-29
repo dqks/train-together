@@ -1,0 +1,21 @@
+.Button {
+  cursor: pointer;
+  font-family: var(--font-family-main), serif;
+  color: var(--secondary-text-color);
+  background: var(--secondary-color);
+  border-radius: 8px;
+  border: 1px solid black;
+  padding: 5px 10px
+}
+
+.Button:hover {
+  transition: .1s;
+  background: var(--primary-higlight-color);
+  color: var(--primary-text-color);
+}
+
+.Button:active {
+  transition: .1s;
+  color: var(--secondary-text-color);
+  background: var(--secondary-color)
+}
