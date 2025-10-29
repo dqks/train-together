@@ -6,12 +6,11 @@ declare module "*.module.scss" {
     export = classNames;
 }
 
-declare module "*.svg" {
-    import React, { SVGProps } from "react"
-    const SVG: React.FC<React.SVGProps<SVGProps<SVGElement>>>
-    export default SVG
-}
-
 declare module "*.png";
 declare module "*.jpg";
 declare module "*.jpeg";
+declare module "*.svg?react" {
+    import React = require("react");
+    const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
+    export default ReactComponent;
+}

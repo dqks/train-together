@@ -1,0 +1,21 @@
+.Chip {
+  background: var(--secondary-color);
+  padding: 5px 10px;
+  width: 150px;
+  border-radius: 8px;
+  color: var(--secondary-text-color);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  transition: .1s;
+}
+
+.spanText {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+}
+
+.selected {
+  background: var(--primary-color);
+}
