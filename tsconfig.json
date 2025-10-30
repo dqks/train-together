@@ -1,7 +1,23 @@
 {
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    // Important for path resolution
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+      // Add paths for other aliases if defined in vite.config.js
+      // "components/*": ["./src/components/*"],
+    }
+  }
 }

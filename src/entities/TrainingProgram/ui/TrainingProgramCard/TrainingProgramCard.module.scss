@@ -1,0 +1,37 @@
+.TrainingProgramCard {
+  max-width: 1000px;
+  width: 100%;
+  border: var(--border-style);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin: 100px; //TODO удалить
+  display: flex;
+  gap: 20px;
+}
+
+.TrainingProgramCard:hover {
+  transition: .1s;
+  background: #D7FFC8;
+}
+
+.pictureWrapper {
+  background: #e0dede;
+}
+
+.picture {
+  width: 207px;
+  height: 186px;
+}
+
+.infoWrapper {
+  flex-grow: 1;
+}
+
+.hr {
+  border-top: 1px solid black;
+}
+
+.selected {
+  transition: .1s;
+  background: #D7FFC8;
+}
