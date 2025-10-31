@@ -7,7 +7,7 @@ interface AuthPageProps {
     className?: string;
 }
 
-export const AuthPage = ({className}: AuthPageProps) => {
+const AuthPage = ({className}: AuthPageProps) => {
     return (
         <div className={classNames(cls.AuthPage, {}, [className])}>
             <AuthForm className={cls.authForm}/>
@@ -15,6 +15,8 @@ export const AuthPage = ({className}: AuthPageProps) => {
         </div>
     )
 }
+
+export default AuthPage;
 
 // .AuthLayout {
 //     height: calc(100vh - var(--footer-height));
