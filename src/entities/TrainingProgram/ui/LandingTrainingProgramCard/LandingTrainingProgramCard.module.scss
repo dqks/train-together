@@ -9,7 +9,7 @@
     margin: 30px; //TODO удалить
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 .picture {
@@ -20,7 +20,6 @@
 .title {
     font-size: var(--font-size-m);
 }
-
 
 .userName {
     font-size: var(--font-size-sm);
