@@ -1,0 +1,16 @@
+.EquipmentCard {
+    max-width: 730px;
+    width: 100%;
+    padding: 30px;
+    margin: 30px; //TODO удалить
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.picture {
+    width: 186px;
+    height: 130px;
+}

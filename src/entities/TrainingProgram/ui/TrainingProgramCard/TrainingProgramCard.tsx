@@ -4,6 +4,10 @@ import picture from "../../../../shared/assets/images/picture.png"
 
 interface TrainingProgramCardProps {
     className?: string;
+    programName?: string
+    userName?: string;
+    description?: string;
+    image?: string
 }
 
 export const TrainingProgramCard = ({className} : TrainingProgramCardProps) => {

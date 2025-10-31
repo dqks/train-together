@@ -4,6 +4,8 @@ import userPicture from "../../../../shared/assets/images/userPicture.jpg"
 
 interface UserCardProps {
     className?: string;
+    name?: string;
+    image?: string;
 }
 
 export const UserCard = ({className} : UserCardProps) => {

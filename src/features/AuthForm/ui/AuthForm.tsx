@@ -9,6 +9,7 @@ interface AuthFormProps {
 }
 
 export const AuthForm = ({className} : AuthFormProps) => {
+
     return (
         <div className={classNames(cls.AuthForm, {}, [className])}>
             <h1 className={cls.title}>Авторизация</h1>
