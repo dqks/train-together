@@ -10,6 +10,7 @@ import { UserCard } from "../../../entities/User";
 import { EmailForm } from "../../../features/EmailForm/ui/EmailForm.tsx";
 import { EquipmentCard } from "../../../entities/Equipment/index.ts";
 import { LandingTrainingProgramCard } from "../../../entities/TrainingProgram/ui/LandingTrainingProgramCard/LandingTrainingProgramCard.tsx";
+import { RequirementCard } from "../../../shared/ui/RequirementCard/RequirementCard.tsx";
 
 
 interface MainPageProps {
@@ -29,9 +30,14 @@ const MainPage = ({className} : MainPageProps) => {
 
             <LandingSection 
                 title="Создавайте тренировки под свои требования" 
-                description="Вы можете автоматически создать программу тренировок, под выбранные вами требования"
+                description="Вы можете создать автоматически создать тренировки для:"
             >
-                <p>Тело</p>
+                <div className={cls.requirementCardWrapper}>
+                    <RequirementCard  title="Набор мышечной массы" description="Созданная тренировка идеально подойдет для гипертрофии мышц, а следовательно набора мышечной массы  и увеличения объемов"/>
+                    <RequirementCard  title="Набор мышечной массы" description="Созданная тренировка идеально подойдет для гипертрофии мышц, а следовательно набора мышечной массы  и увеличения объемов"/>
+                    <RequirementCard  title="Набор мышечной массы" description="Созданная тренировка идеально подойдет для гипертрофии мышц, а следовательно набора мышечной массы  и увеличения объемов"/>
+                    <RequirementCard  title="Набор мышечной массы" description="Созданная тренировка идеально подойдет для гипертрофии мышц, а следовательно набора мышечной массы  и увеличения объемов"/>
+                </div>
             </LandingSection>
 
             <LandingSection 
@@ -51,7 +57,11 @@ const MainPage = ({className} : MainPageProps) => {
             <LandingSection 
                 title="Самые популярные тренировки пользователей" 
             >
-                <p>Тело</p>
+                <div className={cls.trainingProgramCardsWrapper}>
+                    <LandingTrainingProgramCard/>
+                    <LandingTrainingProgramCard/>
+                    <LandingTrainingProgramCard/>
+                </div>
             </LandingSection>
 
             <ExerciseCard />
@@ -60,7 +70,9 @@ const MainPage = ({className} : MainPageProps) => {
             <UserCard />
             <EquipmentCard />
 
-            <LandingTrainingProgramCard/>
+
+
+            
 
             <Footer />
         </div>

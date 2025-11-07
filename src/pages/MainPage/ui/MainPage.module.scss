@@ -1,0 +1,15 @@
+.requirementCardWrapper {
+    display: grid;
+    margin: 0 auto;
+    // justify-content: center;
+    // align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 50px;
+}
+
+.trainingProgramCardsWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}

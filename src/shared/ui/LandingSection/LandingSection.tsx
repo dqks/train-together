@@ -18,7 +18,9 @@ export const LandingSection = ({
         <div className={classNames(cls.LandingSection, {}, [className])}>
                 <h1 className={cls.title}>{title}</h1>
                 <p className={cls.description}>{description}</p>
-                {children}
+                <>
+                    {children}
+                </>
         </div>
     )
 }
