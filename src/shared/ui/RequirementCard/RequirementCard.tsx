@@ -2,13 +2,13 @@ import cls from "./RequirementCard.module.scss"
 import { classNames } from "../../lib/classNames/classNames.ts";
 import Hexagon from "../../assets/icons/hexagon.svg?react"
 
-interface ChipProps {
+interface RequirementCardProps {
     className?: string;
     title: string
     description: string
 }
 
-export const RequirementCard = ({className, title, description}: ChipProps) => {
+export const RequirementCard = ({className, title, description}: RequirementCardProps) => {
 
     return (
         <div

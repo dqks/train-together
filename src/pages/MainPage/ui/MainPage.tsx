@@ -11,6 +11,7 @@ import { EmailForm } from "../../../features/EmailForm/ui/EmailForm.tsx";
 import { EquipmentCard } from "../../../entities/Equipment/index.ts";
 import { LandingTrainingProgramCard } from "../../../entities/TrainingProgram/ui/LandingTrainingProgramCard/LandingTrainingProgramCard.tsx";
 import { RequirementCard } from "../../../shared/ui/RequirementCard/RequirementCard.tsx";
+import { CreateExerciseForm } from "../../../features/CreateExerciseForm/ui/CreateExerciseForm.tsx";
 
 
 interface MainPageProps {
@@ -51,7 +52,7 @@ const MainPage = ({className} : MainPageProps) => {
                 title="Добавляйте свои упражнения" 
                 description="Вы можете добавить свои упражнения, которые будут доступны только вам"
             >
-                <p>Тело</p>
+                <CreateExerciseForm className={cls.createExerciseForm} submitButtonText="Опробовать"/>
             </LandingSection>
 
             <LandingSection 
@@ -69,10 +70,6 @@ const MainPage = ({className} : MainPageProps) => {
             <TrainingProgramCard/>
             <UserCard />
             <EquipmentCard />
-
-
-
-            
 
             <Footer />
         </div>

@@ -1,0 +1,20 @@
+.CreateExerciseForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}   
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.chipWrapper {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
