@@ -13,7 +13,6 @@ import { LandingTrainingProgramCard } from "../../../entities/TrainingProgram/ui
 import { RequirementCard } from "../../../shared/ui/RequirementCard/RequirementCard.tsx";
 import { CreateExerciseForm } from "../../../features/CreateExerciseForm/ui/CreateExerciseForm.tsx";
 
-
 interface MainPageProps {
     className?: string;
 }
