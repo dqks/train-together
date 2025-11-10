@@ -12,8 +12,10 @@ export const SubscribeProgram = ({className}: SubscribeProgramProps) => {
         <div
             className={classNames(cls.SubscribeProgram, {}, [className])}
         >
-            <h2>Подпишитесь, чтобы программа отображалась в ваших подписках</h2>
-            <Button>Подписаться</Button>
+            <div className={cls.titleWrapper}>
+                <h2>Подпишитесь, чтобы программа отображалась в ваших подписках</h2>
+            </div>
+            <Button>+ Подписаться</Button>
         </div>
     )
 }

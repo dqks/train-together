@@ -2,7 +2,7 @@ import cls from "./AuthForm.module.scss"
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
 import { Input } from "../../../shared/ui/Input/Input.tsx";
 import { Button } from "../../../shared/ui/Button/Button.tsx";
-import { AppLink } from "../../../shared/ui/AppLink/AppLink.tsx";
+import { AppLink, LinkColor } from "../../../shared/ui/AppLink/AppLink.tsx";
 
 interface AuthFormProps {
     className?: string;
@@ -23,8 +23,8 @@ export const AuthForm = ({className} : AuthFormProps) => {
             </div>
             <Button className={cls.authButton}>Войти</Button>
             <div>
-                <AppLink className={cls.link} to={""}>Забыли пароль?</AppLink>
-                <p className={cls.createAccText}>Нет аккаунта? <AppLink className={cls.link} to={""}>Создайте</AppLink></p>
+                <AppLink linkColor={LinkColor.BLACK} className={cls.link} to={""}>Забыли пароль?</AppLink>
+                <p className={cls.createAccText}>Нет аккаунта? <AppLink linkColor={LinkColor.BLACK} className={cls.link} to={""}>Создайте</AppLink></p>
             </div>
         </div>
     )

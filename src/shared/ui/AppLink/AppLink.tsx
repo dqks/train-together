@@ -8,10 +8,16 @@ export enum AppLinkTheme {
     SECONDARY = 'secondary',
 }
 
+export enum LinkColor  {
+    BLACK = "black",
+    WHITE = "white",
+}
+
 interface AppLinkProps extends LinkProps {
     className?: string;
     children: ReactNode;
     theme?: AppLinkTheme;
+    linkColor?: LinkColor
 }
 
 export const AppLink = (props: AppLinkProps) => {
@@ -20,11 +26,12 @@ export const AppLink = (props: AppLinkProps) => {
         className,
         children,
         theme = AppLinkTheme.PRIMARY,
+        linkColor = LinkColor.WHITE,
         ...other
     } = props;
     return (
         <Link to={to}
-            className={classNames(cls.AppLink, {}, [className, cls[theme]])}
+            className={classNames(cls.AppLink, {}, [className, cls[theme], cls[linkColor]])}
             {...other}
         >
             {children}
