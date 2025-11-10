@@ -3,12 +3,20 @@ import { classNames } from "../../../shared/lib/classNames/classNames.ts";
 import { Input } from "../../../shared/ui/Input/Input.tsx";
 import { Button } from "../../../shared/ui/Button/Button.tsx";
 import { AppLink, LinkColor } from "../../../shared/ui/AppLink/AppLink.tsx";
+import { useNavigate } from "react-router";
+import { AuthRoutePath } from "../../../shared/config/routeConfig/authRouteConfig.tsx";
 
 interface AuthFormProps {
     className?: string;
 }
 
 export const AuthForm = ({className} : AuthFormProps) => {
+
+    const navigate = useNavigate();
+
+    const onButtonClick = () => {
+        navigate(AuthRoutePath.exercises)
+    }
 
     return (
         <div className={classNames(cls.AuthForm, {}, [className])}>
@@ -21,7 +29,7 @@ export const AuthForm = ({className} : AuthFormProps) => {
                 <label htmlFor="password">Пароль</label>
                 <Input id="password" name="password" type="password"/>
             </div>
-            <Button className={cls.authButton}>Войти</Button>
+            <Button onClick={onButtonClick} className={cls.authButton}>Войти</Button>
             <div>
                 <AppLink linkColor={LinkColor.BLACK} className={cls.link} to={""}>Забыли пароль?</AppLink>
                 <p className={cls.createAccText}>Нет аккаунта? <AppLink linkColor={LinkColor.BLACK} className={cls.link} to={""}>Создайте</AppLink></p>

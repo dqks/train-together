@@ -1,18 +1,35 @@
 import { Suspense } from "react";
 import { Route, Routes } from "react-router";
-import { routeConfig } from "../../../../shared/config/routeConfig/routeConfig.tsx";
+import { publicRouteConfig } from "../../../../shared/config/routeConfig/publicRouteConfig.tsx";
+import { AppLayout } from "../../../../widgets/AppLayout";
+import { authRouteConfig } from "../../../../shared/config/routeConfig/authRouteConfig.tsx";
 
 export const AppRouter = () => {
     return (
         <Suspense fallback={<div>Loading</div>}>
             <Routes>
-                {Object.values(routeConfig).map(({element, path}) => (
+                {Object.values(publicRouteConfig).map(({element, path}) => (
                     <Route
                         key={path}
                         element={element}
                         path={path}
                     />
                 ))}
+
+                <Route
+                    path="/app"
+                    element={
+                        <AppLayout/>
+                    }
+                >
+                    {Object.values(authRouteConfig).map(({element, path}) => (
+                        <Route
+                            key={path}
+                            element={element}
+                            path={path}
+                        />
+                    ))}
+                </Route>
             </Routes>
         </Suspense>
     )

@@ -1,25 +1,14 @@
 .Navbar {
+  max-width: 240px;
   width: 100%;
-  height: var(--navbar-height);
-  background-color: var(--primary-color);
-  padding: 20px;
+  height: 100vh;
+  padding: 10px;
+  background: var(--primary-color);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.item {
-  margin: 0 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 60px;
+.userCard {
+  margin: 20px 0;
 }
-
-//.links {
-//  margin-left: auto;
-//}
-//
-//.mainLink {
-//  margin-right: 15px;
-//}

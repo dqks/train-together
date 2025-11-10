@@ -13,7 +13,7 @@ export const UserCard = ({className} : UserCardProps) => {
         <div className={classNames(cls.UserCard, {}, [className])}>
             {/* <AppLink to={""}> */}
                 <img className={cls.picture} src={userPicture} alt="Картинка пользователя" />
-                <p>Username</p>
+                <p className={cls.userName}>Username</p>
             {/* </AppLink> */}
         </div>
     )

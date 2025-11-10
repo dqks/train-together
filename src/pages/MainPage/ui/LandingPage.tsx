@@ -2,7 +2,7 @@ import cls from "./LandingPagePage.module.scss"
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
 import { TrainingProgramCard } from "../../../entities/TrainingProgram";
 import { Footer } from "../../../shared/ui/Footer/Footer.tsx";
-import { Navbar } from "../../../widgets/Navbar";
+import { Header } from "../../../widgets/Header";
 import { LandingSection } from "../../../shared/ui/LandingSection/LandingSection.tsx";
 import { EmailForm } from "../../../features/EmailForm/ui/EmailForm.tsx";
 import {
@@ -19,7 +19,7 @@ interface LandingPageProps {
 const LandingPage = ({className}: LandingPageProps) => {
     return (
         <div className={classNames(cls.MainPage, {}, [className])}>
-            <Navbar/>
+            <Header/>
             <LandingSection
                 title="Создавайте и делитесь своими программами тренировок"
                 description="Зарегистрируйтесь, чтобы использовать полный функционал"
