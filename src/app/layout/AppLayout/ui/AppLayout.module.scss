@@ -1,14 +1,21 @@
 .AppLayout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 240px 1fr;
   grid-template-rows: 1fr;
+  gap: 20px;
 }
 
 .contentWrapper {
+  max-width: 1570px;
+  width: 100%;
   margin: 100px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
   font-weight: 400;
   font-size: var(--font-size-lg);
+  text-align: center;
 }
