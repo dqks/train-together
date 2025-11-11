@@ -13,8 +13,8 @@ export const Navbar = ({className}: NavbarProps) => {
         <div className={classNames(cls.Navbar, {}, [className])}>
             <UserCard className={cls.userCard}/>
             <AppLink deleteUnderLine={true} to={AuthRoutePath.exercises}>Упражнения</AppLink>
-            <AppLink deleteUnderLine={true} to={""}>Тренировки пользователей</AppLink>
-            <AppLink deleteUnderLine={true} to={""}>Ваши тренировки</AppLink>
+            <AppLink deleteUnderLine={true} to={AuthRoutePath.programs}>Тренировки пользователей</AppLink>
+            <AppLink deleteUnderLine={true} to={AuthRoutePath.myPrograms}>Ваши тренировки</AppLink>
             <AppLink deleteUnderLine={true} to={""}>Выйти</AppLink>
         </div>
     )

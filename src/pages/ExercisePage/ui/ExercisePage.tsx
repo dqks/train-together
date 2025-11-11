@@ -8,7 +8,7 @@ interface ExercisePageProps {
 const ExercisePage = ({className} : ExercisePageProps) => {
     return (
         <div className={classNames(cls.ExercisePage, {}, [className])}>
-            <p>dasdasd</p>
+
         </div>
     )
 }
