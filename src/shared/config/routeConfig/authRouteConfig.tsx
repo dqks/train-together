@@ -2,6 +2,7 @@ import type { RouteProps } from "react-router";
 import { ExercisePage } from "../../../pages/ExercisePage";
 import { ProgramsPage } from "../../../pages/TrainingProgramsPage";
 import { MyProgramsPage } from "../../../pages/YourTrainingProgramsPage";
+import { Suspense } from "react";
 
 export enum AuthAppRoutes {
     EXERCISES = "exercises",
@@ -18,14 +19,20 @@ export const AuthRoutePath: Record<AuthAppRoutes, string> = {
 export const authRouteConfig: Record<AuthAppRoutes, RouteProps> = {
     [AuthAppRoutes.EXERCISES]: {
         path: AuthRoutePath.exercises,
-        element: <ExercisePage/>
+        element: <Suspense fallback={<div>Loading</div>}>
+                <ExercisePage/>
+            </Suspense>
     },
     [AuthAppRoutes.PROGRAMS]: {
         path: AuthRoutePath.programs,
-        element: <ProgramsPage/>
+        element: <Suspense fallback={<div>Loading</div>}>
+                <ProgramsPage/>
+            </Suspense>
     },
     [AuthAppRoutes.YOUR_PROGRAMS]: {
         path: AuthRoutePath.myPrograms,
-        element: <MyProgramsPage/>
+        element: <Suspense fallback={<div>Loading</div>}>
+                <MyProgramsPage/>
+            </Suspense>
     },
 }

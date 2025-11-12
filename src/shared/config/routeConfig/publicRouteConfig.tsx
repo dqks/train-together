@@ -1,6 +1,7 @@
 import type { RouteProps } from "react-router";
 import { MainPage } from "../../../pages/MainPage";
 import { AuthPage } from "../../../pages/AuthPage";
+import { Suspense } from "react";
 
 export enum PublicAppRoutes {
     LANDING = "landing",
@@ -15,10 +16,14 @@ export const PublicRoutePath: Record<PublicAppRoutes, string> = {
 export const publicRouteConfig: Record<PublicAppRoutes, RouteProps> = {
     [PublicAppRoutes.LANDING]: {
         path: PublicRoutePath.landing,
-        element: <MainPage/>
+        element: <Suspense fallback={<div>Loading</div>}>
+                    <MainPage/>
+                </Suspense>
     },
     [PublicAppRoutes.REGISTRATION]: {
         path: PublicRoutePath.registration,
-        element: <AuthPage/>
+        element: <Suspense fallback={<div>Loading</div>}>
+                    <AuthPage/>
+                </Suspense>
     },
 }
