@@ -1,3 +1,3 @@
-import { TrainingProgramCard } from "./ui/TrainingProgramCard/TrainingProgramCard.tsx";
+import { ProgramCard } from "./ui/ProgramCard/ProgramCard.tsx";
 
-export { TrainingProgramCard }
+export { ProgramCard }

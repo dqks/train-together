@@ -1,8 +1,8 @@
-import cls from "./TrainingProgramCard.module.scss"
+import cls from "./ProgramCard.module.scss"
 import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
 import picture from "../../../../shared/assets/images/picture.png"
 
-interface TrainingProgramCardProps {
+interface ProgramCardProps {
     className?: string;
     programName?: string
     userName?: string;
@@ -10,9 +10,9 @@ interface TrainingProgramCardProps {
     image?: string
 }
 
-export const TrainingProgramCard = ({className} : TrainingProgramCardProps) => {
+export const ProgramCard = ({className} : ProgramCardProps) => {
     return (
-        <div className={classNames(cls.TrainingProgramCard, {}, [className])}>
+        <div className={classNames(cls.ProgramCard, {}, [className])}>
             <div className={cls.pictureWrapper}>
                 <img className={cls.picture} src={picture} alt="Picture"/>
             </div>

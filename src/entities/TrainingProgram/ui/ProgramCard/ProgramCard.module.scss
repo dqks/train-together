@@ -1,4 +1,4 @@
-.TrainingProgramCard {
+.ProgramCard {
   max-width: 1000px;
   width: 100%;
   border: var(--border-style);
@@ -8,14 +8,14 @@
   gap: 20px;
 }
 
-.TrainingProgramCard:hover {
+.ProgramCard:hover {
   transition: .1s;
   background: #D7FFC8;
 }
 
 .pictureWrapper {
   background: #e0dede;
-}
+} 
 
 .picture {
   width: 207px;

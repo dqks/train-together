@@ -1,6 +1,6 @@
 import cls from "./LandingPagePage.module.scss"
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
-import { TrainingProgramCard } from "../../../entities/TrainingProgram";
+import { ProgramCard } from "../../../entities/TrainingProgram";
 import { Footer } from "../../../shared/ui/Footer/Footer.tsx";
 import { Header } from "../../../widgets/Header";
 import { LandingSection } from "../../../shared/ui/LandingSection/LandingSection.tsx";
@@ -47,7 +47,7 @@ const LandingPage = ({className}: LandingPageProps) => {
                 title="Сохраняйте тренировки пользователей себе"
                 description="Вы можете отслеживатья тренировки, созданные другими пользователями"
             >
-                <TrainingProgramCard/>
+                <ProgramCard/>
                 <SubscribeProgram/>
             </LandingSection>
 
