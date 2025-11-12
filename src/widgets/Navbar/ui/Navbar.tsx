@@ -11,11 +11,13 @@ interface NavbarProps {
 export const Navbar = ({className}: NavbarProps) => {
     return (
         <div className={classNames(cls.Navbar, {}, [className])}>
-            <UserCard className={cls.userCard}/>
-            <AppLink deleteUnderLine={true} to={AuthRoutePath.exercises}>Упражнения</AppLink>
-            <AppLink deleteUnderLine={true} to={AuthRoutePath.programs}>Тренировки пользователей</AppLink>
-            <AppLink deleteUnderLine={true} to={AuthRoutePath.myPrograms}>Ваши тренировки</AppLink>
-            <AppLink deleteUnderLine={true} to={""}>Выйти</AppLink>
+            <div className={cls.content}>
+                <UserCard className={cls.userCard}/>
+                <AppLink deleteUnderLine={true} to={AuthRoutePath.exercises}>Упражнения</AppLink>
+                <AppLink deleteUnderLine={true} to={AuthRoutePath.programs}>Тренировки пользователей</AppLink>
+                <AppLink deleteUnderLine={true} to={AuthRoutePath.myPrograms}>Ваши тренировки</AppLink>
+                <AppLink deleteUnderLine={true} to={""}>Выйти</AppLink>
+            </div>
         </div>
     )
 }

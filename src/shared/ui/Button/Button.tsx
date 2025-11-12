@@ -10,6 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     children: React.ReactNode;
     theme?: ThemeButton;
+    isOutlined?: boolean
 }
 
 export const Button = (props : ButtonProps) => {
@@ -17,12 +18,13 @@ export const Button = (props : ButtonProps) => {
         className,
         children,
         theme,
+        isOutlined = false,
         ...otherProps
     } = props
 
     return (
         <button
-            className={classNames(cls.Button, {}, [className, theme && cls[theme]])}
+            className={classNames(cls.Button, {[cls.outline] : isOutlined}, [className, theme && cls[theme]])}
             {...otherProps}
         >
             {children}

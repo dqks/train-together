@@ -1,7 +1,7 @@
 import type { RouteProps } from "react-router";
 import { ExercisePage } from "../../../pages/ExercisePage";
-import { ProgramsPage } from "../../../pages/TrainingProgramsPage";
-import { MyProgramsPage } from "../../../pages/YourTrainingProgramsPage";
+import { ProgramsPage } from "../../../pages/ProgramsPage";
+import { MyProgramsPage } from "../../../pages/MyProgramsPage";
 import { Suspense } from "react";
 
 export enum AuthAppRoutes {

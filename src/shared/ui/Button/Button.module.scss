@@ -4,7 +4,7 @@
   color: var(--secondary-text-color);
   background: var(--secondary-color);
   border-radius: 8px;
-  border: 1px solid black;
+  border: none;
   padding: 10px 15px
 }
 
@@ -18,4 +18,8 @@
   transition: .1s;
   color: var(--secondary-text-color);
   background: var(--secondary-color)
+}
+
+.outline {
+  border: 1px solid black;
 }

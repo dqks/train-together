@@ -5,6 +5,10 @@
   height: 100%;
   padding: 10px;
   background: var(--primary-color);
+}
+
+.content {
+  position: fixed;
   display: flex;
   flex-direction: column;
   gap: 5px;
