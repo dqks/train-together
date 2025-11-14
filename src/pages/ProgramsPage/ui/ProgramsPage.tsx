@@ -4,6 +4,7 @@ import { useOutletContext } from "react-router";
 import type { AppContextType } from "../../../app/layout/AppLayout/ui/AppLayout.tsx";
 import { useEffect } from "react";
 import { ProgramsList } from "../../../widgets/ProgramsList";
+import { FilterPrograms } from "../../../widgets/FilterPrograms";
 
 interface ProgramsPageProps {
     className?: string;
@@ -18,6 +19,7 @@ const ProgramsPage = ({className} : ProgramsPageProps) => {
     return (
         <div className={classNames(cls.ProgramsPage, {}, [className])}>
             <ProgramsList />
+            <FilterPrograms />
         </div>
     )
 }

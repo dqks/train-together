@@ -1,0 +1,15 @@
+.ProgramCategory {
+    max-width: 270px;
+    width: 100%;
+    padding: 30px 20px;
+    border-radius: 30px;
+    background: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title {
+    font-size: var(--font-size-sm);
+    color: var(--secondary-text-color)
+}
