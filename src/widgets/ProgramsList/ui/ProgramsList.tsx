@@ -1,6 +1,6 @@
 import cls from "./ProgramsList.module.scss"
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
-import { ProgramCard } from "../../../entities/TrainingProgram/index.ts";
+import { ProgramCard } from "../../../entities/TrainingProgram";
 
 
 interface ProgramsListProps {
@@ -10,6 +10,10 @@ interface ProgramsListProps {
 export const ProgramsList = ({className}: ProgramsListProps) => {
     return (
         <div className={classNames(cls.ProgramsList, {}, [className])}>
+            <ProgramCard />
+            <ProgramCard />
+            <ProgramCard />
+            <ProgramCard />
             <ProgramCard />
         </div>
     )
