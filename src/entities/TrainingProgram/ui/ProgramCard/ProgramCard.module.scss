@@ -33,6 +33,10 @@
   border-top: 1px solid black;
 }
 
+.deleteCreator {
+  display: none;
+}
+
 .selected {
   transition: .1s;
   background: #D7FFC8;

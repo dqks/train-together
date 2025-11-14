@@ -3,6 +3,8 @@ import { classNames } from "../../../shared/lib/classNames/classNames.ts";
 import { useOutletContext } from "react-router";
 import type { AppContextType } from "../../../app/layout/AppLayout/ui/AppLayout.tsx";
 import { useEffect } from "react";
+import { ProgramsList } from "../../../widgets/ProgramsList/index.ts";
+import { FilterMyProgram } from "../../../widgets/FilterMyPrograms";
 
 interface YourTrainingProgramsPageProps {
     className?: string;
@@ -16,8 +18,9 @@ const MyProgramsPage = ({className} : YourTrainingProgramsPageProps) => {
     }, [setTitle])
 
     return (
-        <div className={classNames(cls.TrainingProgramsPage, {}, [className])}>
-
+        <div className={classNames(cls.MyProgramsPage, {}, [className])}>
+            <FilterMyProgram />
+            <ProgramsList/>
         </div>
     )
 }

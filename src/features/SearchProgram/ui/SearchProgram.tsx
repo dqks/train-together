@@ -9,7 +9,7 @@ interface SearchProgramProps {
 export const SearchProgram = ({className} : SearchProgramProps) => {
     return (
         <div className={classNames(cls.SearchProgram, {}, [className])}>
-            <Input id="programName" name="programName" type="text"/>
+            <Input id="programName" name="programName" type="search"/>
         </div>
     )
 }

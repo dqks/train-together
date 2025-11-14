@@ -9,7 +9,7 @@ interface FindExerciseProps {
 export const FindExercise = ({className}: FindExerciseProps) => {
     return (
         <div className={classNames(cls.FindExercise, {}, [className])}>
-            <Input id={"exerciseName"} type={"text"} name={"exerciseName"}/>
+            <Input id="exerciseName" type="search" name="exerciseName"/>
         </div>
     )
 }

@@ -7,10 +7,11 @@ interface ProgramCardProps {
     programName?: string
     userName?: string;
     description?: string;
-    image?: string
+    image?: string;
+    deleteCreator?: boolean;
 }
 
-export const ProgramCard = ({className} : ProgramCardProps) => {
+export const ProgramCard = ({className, deleteCreator = false} : ProgramCardProps) => {
     return (
         <div className={classNames(cls.ProgramCard, {}, [className])}>
             <div className={cls.pictureWrapper}>
@@ -19,7 +20,7 @@ export const ProgramCard = ({className} : ProgramCardProps) => {
             <div className={cls.infoWrapper}>
                 <h3>Название</h3>
                 <hr className={cls.hr}/>
-                <p>От Username</p>
+                <p className={classNames("", {[cls.deleteCreator]: deleteCreator}, [])}>От Username</p>
                 <p>Описание</p>
             </div>
         </div>

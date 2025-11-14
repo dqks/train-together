@@ -1,0 +1,21 @@
+// .SearchInput {
+//   position: relative; /* Для абсолютного позиционирования крестика */
+//   width: 200px; /* Ширина контейнера */
+// }
+
+// .input {
+//   width: 100%;
+//   padding: 5px 20px 5px 5px; /* Отступ для крестика */
+//   box-sizing: border-box; /* Учитывать padding в ширине */
+// }
+
+// /* Пример с псевдоэлементом */
+// .input::after {
+//   content: '\00D7'; /* Символ крестика */
+//   position: absolute;
+//   top: 50%;
+//   right: 10px;
+//   transform: translateY(-50%);
+//   cursor: pointer;
+//   color: red;
+// }
