@@ -1,4 +1,5 @@
-import cls from "./Modal.module.css"
+import { classNames } from "../../lib/classNames/classNames";
+import cls from "./Modal.module.scss"
 import { type CSSProperties, useEffect, useRef } from "react";
 
 type ModalProps = {
@@ -6,9 +7,17 @@ type ModalProps = {
     wrapperStyle?: CSSProperties
     contentStyle?: CSSProperties
     onOutsideClick?: () => void;
+    isOpen: boolean;
+    className?: string;
 }
 
-export const Modal = ({children, wrapperStyle, contentStyle, onOutsideClick}: ModalProps) => {
+export const Modal = ({children, 
+    wrapperStyle, 
+    contentStyle, 
+    onOutsideClick, 
+    isOpen,
+    className
+}: ModalProps) => {
     const componentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -26,10 +35,19 @@ export const Modal = ({children, wrapperStyle, contentStyle, onOutsideClick}: Mo
     }, [onOutsideClick]);
 
     return (
-        <div ref={componentRef} style={wrapperStyle} className={cls.wrapper}>
-            <div style={contentStyle} className={cls.content}>
-                {children}
-            </div>
-        </div>
+        <>
+            {
+                isOpen &&
+                <div ref={componentRef}
+                    style={wrapperStyle} 
+                    className={classNames(cls.Modal, {}, [className])}
+                 >
+                    <div style={contentStyle} className={cls.content}>
+                        {children}
+                    </div>
+                </div>
+            }
+        </>
+
     )
 }

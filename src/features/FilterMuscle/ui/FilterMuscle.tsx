@@ -7,6 +7,7 @@ interface FilterMuscleProps {
 }
 
 export const FilterMuscle = ({className} : FilterMuscleProps) => {
+
     return (
         <div className={classNames(cls.FilterMuscle, {}, [className])}>
             <Button>Мышцы</Button>

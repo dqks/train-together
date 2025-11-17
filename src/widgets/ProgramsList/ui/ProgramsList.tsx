@@ -10,12 +10,12 @@ interface ProgramsListProps {
 export const ProgramsList = ({className}: ProgramsListProps) => {
     return (
         <div className={classNames(cls.ProgramsList, {}, [className])}>
-            <ProgramCard deleteCreator={true}/>
-            <ProgramCard deleteCreator={true}/>
-            <ProgramCard deleteCreator={true}/>
-            <ProgramCard deleteCreator={true}/>
-            <ProgramCard deleteCreator={true}/>
-            <ProgramCard deleteCreator={true}/>
+            <ProgramCard/>
+            <ProgramCard/>
+            <ProgramCard/>
+            <ProgramCard/>
+            <ProgramCard/>
+            <ProgramCard/>
         </div>
     )
 }
