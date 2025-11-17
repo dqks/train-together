@@ -5,18 +5,15 @@ import { type CSSProperties, useEffect, useRef } from "react";
 type ModalProps = {
     children: React.ReactNode
     wrapperStyle?: CSSProperties
-    contentStyle?: CSSProperties
     onOutsideClick?: () => void;
     isOpen: boolean;
-    className?: string;
+    contentClassName?: string;
 }
 
 export const Modal = ({children, 
-    wrapperStyle, 
-    contentStyle, 
     onOutsideClick, 
     isOpen,
-    className
+    contentClassName
 }: ModalProps) => {
     const componentRef = useRef<HTMLDivElement>(null);
 
@@ -39,10 +36,11 @@ export const Modal = ({children,
             {
                 isOpen &&
                 <div ref={componentRef}
-                    style={wrapperStyle} 
-                    className={classNames(cls.Modal, {}, [className])}
+                    className={cls.Modal}
                  >
-                    <div style={contentStyle} className={cls.content}>
+                    <div 
+                        className={classNames(cls.content, {}, [contentClassName])}
+                    >
                         {children}
                     </div>
                 </div>

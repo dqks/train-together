@@ -20,17 +20,19 @@ export const AddExercise = ({className} : AddExerciseProps) => {
     return (
         <div className={classNames(cls.AddExercise, {}, [className])}>
             <Button onClick={modalHandler}>+</Button>
-            <Modal isOpen={isOpen} onOutsideClick={modalHandler}>
-                <h2>Создание упражнения</h2>
-                <label htmlFor=""></label>
-                <Input id={""} type={""} name={""} />
+            <Modal contentClassName={cls.modal} isOpen={isOpen} onOutsideClick={modalHandler}>
+                <h2 className={cls.modalTitle}>Создание упражнения</h2>
+                <div className={cls.inputWrapper}>
+                    <label htmlFor="exerciseName">Название</label>
+                    <Input id={"exerciseName"} type={"text"} name={"exerciseName"} />
+                </div>
                 <Select name="equipment">
                     <option value="none" selected disabled>Оборудование</option>
                 </Select>
                 <Select name="muscle">
                     <option value="none" selected disabled>Мышечная группа</option>
                 </Select>
-                <Button>Войти</Button>
+                <Button>Создать</Button>
             </Modal>
         </div>
     )
