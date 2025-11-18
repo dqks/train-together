@@ -9,9 +9,13 @@ interface LandingTrainingProgramCardProps {
     userName?: string;
 }
 
-export const LandingTrainingProgramCard = ({className} : LandingTrainingProgramCardProps) => {
+export const LandingTrainingProgramCard = ({
+    className
+} : LandingTrainingProgramCardProps) => {
     return (
-        <div className={classNames(cls.LandingTrainingProgramCardProps, {}, [className])}>
+        <div className={classNames(cls.LandingTrainingProgramCardProps,
+            {},
+            [className])}>
             <img className={cls.picture} src={picture} alt="Картинка" />
             <p className={cls.title}>Название тренировки</p>
             <p className={cls.userName}>Username</p>

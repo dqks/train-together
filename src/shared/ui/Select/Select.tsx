@@ -1,5 +1,5 @@
 import cls from "./Select.module.scss"
-import { classNames } from "../../../shared/lib/classNames/classNames.ts";
+import { classNames } from "../../lib/classNames/classNames.ts";
 import type { ReactNode, SelectHTMLAttributes } from "react";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {

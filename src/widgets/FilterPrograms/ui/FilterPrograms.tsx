@@ -1,7 +1,7 @@
 import cls from "./FilterPrograms.module.scss"
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
-import { SearchProgram } from "../../../features/SearchProgram/index.ts";
-import { ProgramCategory } from "../../../features/ProgramCategory/index.ts";
+import { SearchProgram } from "../../../features/SearchProgram";
+import { ProgramCategory } from "../../../features/ProgramCategory";
 
 interface FilterProgramsProps {
     className?: string;

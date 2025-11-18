@@ -13,7 +13,6 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
 export const Input = (props : InputProps) => {
     const {
         className,
-        value,
         ...otherProps
     } = props
     return (

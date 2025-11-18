@@ -17,7 +17,10 @@ export const Chip = ({className, text}: ChipProps) => {
 
     return (
         <div
-            className={classNames(cls.Chip, {[cls.selected]: isSelected}, [className])}
+            className={
+                classNames(cls.Chip, 
+                    {[cls.selected]: isSelected},
+                    [className])}
             onClick={onToggle}
         >
             <span className={cls.spanText}>

@@ -16,11 +16,11 @@ export const LandingSection = ({
 } : LandingSectionProps) => {
     return (
         <div className={classNames(cls.LandingSection, {}, [className])}>
-                <h1 className={cls.title}>{title}</h1>
-                <p className={cls.description}>{description}</p>
-                <>
-                    {children}
-                </>
+            <h1 className={cls.title}>{title}</h1>
+            <p className={cls.description}>{description}</p>
+            <>
+                {children}
+            </>
         </div>
     )
 }

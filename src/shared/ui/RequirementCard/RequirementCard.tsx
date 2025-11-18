@@ -8,8 +8,10 @@ interface RequirementCardProps {
     description: string
 }
 
-export const RequirementCard = ({className, title, description}: RequirementCardProps) => {
-
+export const RequirementCard = ({
+    className, 
+    title, 
+    description}: RequirementCardProps) => {
     return (
         <div
             className={classNames(cls.RequirementCard, {}, [className])}

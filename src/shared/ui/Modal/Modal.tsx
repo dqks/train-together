@@ -10,8 +10,9 @@ type ModalProps = {
     contentClassName?: string;
 }
 
-export const Modal = ({children, 
-    onOutsideClick, 
+export const Modal = ({
+    children,
+    onOutsideClick,
     isOpen,
     contentClassName
 }: ModalProps) => {
@@ -20,7 +21,8 @@ export const Modal = ({children,
     useEffect(() => {
         if (onOutsideClick) {
             const clickHandler = (event: MouseEvent) => {
-                if (componentRef.current && componentRef.current === event.target) {
+                if (componentRef.current &&
+                    componentRef.current === event.target) {
                     onOutsideClick()
                 }
             }
@@ -37,9 +39,12 @@ export const Modal = ({children,
                 isOpen &&
                 <div ref={componentRef}
                     className={cls.Modal}
-                 >
-                    <div 
-                        className={classNames(cls.content, {}, [contentClassName])}
+                >
+                    <div
+                        className={classNames(cls.content, 
+                            {}, 
+                            [contentClassName])
+                        }
                     >
                         {children}
                     </div>

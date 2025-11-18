@@ -8,7 +8,7 @@ export enum AppLinkTheme {
     SECONDARY = 'secondary',
 }
 
-export enum LinkColor  {
+export enum LinkColor {
     BLACK = "black",
     WHITE = "white",
 }
@@ -33,7 +33,10 @@ export const AppLink = (props: AppLinkProps) => {
     } = props;
     return (
         <Link to={to}
-            className={classNames(cls.AppLink, {[cls.underLined]: deleteUnderLine}, [className, cls[theme], cls[linkColor]])}
+            className={classNames(cls.AppLink,
+                {[cls.underLined]: deleteUnderLine},
+                [className, cls[theme], cls[linkColor]])
+            }
             {...other}
         >
             {children}

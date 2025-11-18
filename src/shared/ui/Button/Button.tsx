@@ -24,7 +24,10 @@ export const Button = (props : ButtonProps) => {
 
     return (
         <button
-            className={classNames(cls.Button, {[cls.outline] : isOutlined}, [className, theme && cls[theme]])}
+            className={classNames(cls.Button,
+                {[cls.outline] : isOutlined},
+                [className, theme && cls[theme]])
+            }
             {...otherProps}
         >
             {children}
