@@ -28,7 +28,7 @@ export const Navbar = ({className}: NavbarProps) => {
                 <AppLink deleteUnderLine={true} to={""}>
                     {t("Выйти")}
                 </AppLink>
-                <LangSwitcher />
+                <LangSwitcher className={cls.changeLang}/>
             </div>
         </div>
     )

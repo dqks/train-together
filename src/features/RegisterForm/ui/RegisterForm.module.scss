@@ -1,0 +1,26 @@
+.RegisterForm {
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.accountExists {
+  float: right;
+  align-self: flex-end;
+}
+
+.login {
+  color: var(--primary-text-color)
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputDescription {
+  font-size: var(--font-size-tiny);
+  line-height: 16px;
+}

@@ -1,0 +1,15 @@
+.NotFoundPage {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  font-size: var(--font-size-giant);
+}
+
+.text {
+  font-size: var(--font-size-m);
+}

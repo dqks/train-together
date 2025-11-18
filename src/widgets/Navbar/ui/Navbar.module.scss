@@ -8,7 +8,8 @@
 }
 
 .content {
-  position: fixed;
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -16,4 +17,7 @@
 
 .userCard {
   margin: 20px 0;
+}
+
+.changeLang {
 }

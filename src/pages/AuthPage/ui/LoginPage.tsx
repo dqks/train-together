@@ -7,7 +7,7 @@ interface AuthPageProps {
     className?: string;
 }
 
-const AuthPage = ({className}: AuthPageProps) => {
+const LoginPage = ({className}: AuthPageProps) => {
     return (
         <div className={classNames(cls.AuthPage, {}, [className])}>
             <AuthForm className={cls.authForm}/>
@@ -16,7 +16,7 @@ const AuthPage = ({className}: AuthPageProps) => {
     )
 }
 
-export default AuthPage;
+export default LoginPage;
 
 // .AuthLayout {
 //     height: calc(100vh - var(--footer-height));

@@ -3,9 +3,11 @@ import { useNavigate } from "react-router";
 import { AppLink } from "../../../shared/ui/AppLink/AppLink.tsx";
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
 import { Button } from "../../../shared/ui/Button/Button.tsx";
-import { PublicRoutePath } from "../../../shared/config/routeConfig/publicRouteConfig.tsx";
+import { PublicAppRoutes }
+    from "../../../shared/config/routeConfig/publicRouteConfig.tsx";
 import { useTranslation } from "react-i18next";
-import { LangSwitcher } from "../../../features/LangSwitcher/ui/LangSwitcher.tsx";
+import { LangSwitcher }
+    from "../../../features/LangSwitcher";
 
 interface NavbarProps {
     className?: string;
@@ -16,7 +18,7 @@ export const Header = ({className}: NavbarProps) => {
 
     const navigate = useNavigate()
     const onButtonClick = () => {
-        navigate(PublicRoutePath.registration);
+        navigate(PublicAppRoutes.REGISTRATION);
     }
 
     return (
@@ -27,8 +29,10 @@ export const Header = ({className}: NavbarProps) => {
                 <AppLink to={""}>{t("Пользовательские тренировки")}</AppLink>
             </div>
             <div className={cls.item}>
-                <AppLink to={""}>{t("Войти")}</AppLink>
-                <Button onClick={onButtonClick}>{t("Зарегистрироваться")}</Button>
+                <AppLink to={PublicAppRoutes.LOGIN}>{t("Войти")}</AppLink>
+                <Button onClick={onButtonClick}>
+                    {t("Зарегистрироваться")}
+                </Button>
             </div>
         </div>
     )
