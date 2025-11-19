@@ -12,7 +12,7 @@ const LoginPage = ({className}: AuthPageProps) => {
         <div className={classNames(cls.AuthPage, {}, [className])}>
             <AuthForm className={cls.authForm}/>
             <Footer/>
-        </div>
+        </div>  
     )
 }
 
