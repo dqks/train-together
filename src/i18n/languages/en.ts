@@ -60,6 +60,8 @@ export const enTranslation = {
         "Профиль": "Profile",
         "Редактировать профиль": "Edit profile",
         "Сохранить": "Save",
-        "Отменить": "Cancel"
+        "Отменить": "Cancel",
+        "Произошла непредвиденная ошибка": "Unexpected error happened",
+        "Перезагрузить страницу": "Reload page",
     }
 }

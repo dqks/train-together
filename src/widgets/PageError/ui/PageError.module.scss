@@ -1,0 +1,28 @@
+.PageError {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  font-weight: 400;
+}
+
+.button {
+  color: white;
+  background: #0095FFFF;
+}
+
+.button:hover {
+  background: #44FF00FF;
+  color: #000000;
+}
+
+.button:active {
+  color: white;
+  background: #0095FFFF;
+}
