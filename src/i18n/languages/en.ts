@@ -59,5 +59,7 @@ export const enTranslation = {
         "Войдите": "Log in",
         "Профиль": "Profile",
         "Редактировать профиль": "Edit profile",
+        "Сохранить": "Save",
+        "Отменить": "Cancel"
     }
 }
