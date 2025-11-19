@@ -55,9 +55,9 @@ export const enTranslation = {
         "Никнейм может только состоять из алфавитных символов и цифр":
             "Username may only contain alphanumeric characters",
         "Регистрация": "Registration",
-        "Уже есть аккаунт?": "Already have an account?",
+        "Уже есть аккаунт? ": "Already have an account? ",
         "Войдите": "Log in",
-
-
+        "Профиль": "Profile",
+        "Редактировать профиль": "Edit profile",
     }
 }

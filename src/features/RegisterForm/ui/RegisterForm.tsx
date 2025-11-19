@@ -4,6 +4,9 @@ import { Input } from "../../../shared/ui/Input/Input.tsx";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../../shared/ui/Button/Button.tsx";
 import { AppLink } from "../../../shared/ui/AppLink/AppLink.tsx";
+import { useNavigate } from "react-router";
+import { AuthRoutePath } from "../../../shared/config/routeConfig/authRouteConfig.tsx";
+import { PublicRoutePath } from "../../../shared/config/routeConfig/publicRouteConfig.tsx";
 
 interface RegisterFormProps {
     className?: string;
@@ -11,11 +14,17 @@ interface RegisterFormProps {
 
 export const RegisterForm = ({className} : RegisterFormProps) => {
     const { t } = useTranslation();
+    const navigate = useNavigate()
+
+    const createHandler = () => {
+        navigate(AuthRoutePath.my_profile)
+    };
+
     return (
         <div className={classNames(cls.RegisterForm, {}, [className])}>
             <p className={cls.accountExists}>
-                {t("Уже есть аккаунт?")}
-                <AppLink className={cls.login} to={""}>{t("Войдите")}</AppLink>
+                {t("Уже есть аккаунт? ")}
+                <AppLink className={cls.login} to={PublicRoutePath.login}>{t("Войдите")}</AppLink>
             </p>
             <div className={cls.inputWrapper}>
                 <label htmlFor="email">{t('Email')}</label>
@@ -38,7 +47,7 @@ export const RegisterForm = ({className} : RegisterFormProps) => {
                         " из алфавитных символов и цифр")}
                 </p>
             </div>
-            <Button type="submit">{t("Создать аккаунт")}</Button>
+            <Button onClick={createHandler} type="submit">{t("Создать аккаунт")}</Button>
         </div>
     )
 }

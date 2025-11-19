@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { AuthRoutePath }
     from "../../../shared/config/routeConfig/authRouteConfig.tsx";
 import { useTranslation } from "react-i18next";
+import { PublicRoutePath } from "../../../shared/config/routeConfig/publicRouteConfig.tsx";
 
 interface AuthFormProps {
     className?: string;
@@ -48,7 +49,7 @@ export const AuthForm = ({className}: AuthFormProps) => {
                     <AppLink
                         linkColor={LinkColor.BLACK}
                         className={cls.link}
-                        to={""}
+                        to={PublicRoutePath.registration}
                     >
                         {t("Создайте")}
                     </AppLink>

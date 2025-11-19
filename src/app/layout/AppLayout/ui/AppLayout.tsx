@@ -9,7 +9,6 @@ interface AppLayoutProps {
 }
 
 export type AppContextType = {
-    title: string,
     setTitle: (title: string) => void
 }
 
@@ -17,7 +16,6 @@ export const AppLayout = ({className}: AppLayoutProps) => {
     const [title, setTitle] = useState('');
 
     const appContext : AppContextType = {
-        title,
         setTitle
     }
 
