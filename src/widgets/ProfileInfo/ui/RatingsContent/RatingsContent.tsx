@@ -19,12 +19,13 @@ export const RatingsContent = ({className} : RatingsContentProps) => {
                                 id="programName" 
                                 name="programName" 
                                 type="text" 
-                                placeholder={t("Найти программу")}
+                                className={cls.programInput}
+                                placeholder={t("Найти оцененную программу")}
                             />
                             <Select>
-                                <option value="none" disabled selected>Sort</option>
-                                <option value="name">Name</option>
-                                <option value="rating">Rating</option>
+                                <option value="none" disabled selected>{t("Сортировать")}</option>
+                                <option value="name">{t("По имени")}</option>
+                                <option value="rating">{t("Рейтингу")}</option>
                             </Select>
                         </form>
                         <div className={cls.programsWrapper}>

@@ -72,5 +72,10 @@ export const enTranslation = {
         "Советы": "Advices",
         "Личная заметка": "Personal note",
         "Текст заметки": "Text of the note",
+        "Найти оцененную программу": "Find rated program",
+        "Сортировать": "Sort",
+        "По имени": "Name",
+        "Рейтингу": "Rating",
+        "Дате обновления": "Last updated",
     }
 }

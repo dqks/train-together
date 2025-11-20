@@ -11,6 +11,9 @@ export const usePageTitle = ( title : string, t :TFunction ) => {
     } else {
         useEffect(() => {
             context.setTitle(t(title))
+            return () => {
+            context.setTitle("")
+            }
         }, [context.setTitle, t])
     }
 }
