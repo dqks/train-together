@@ -22,7 +22,7 @@ export const AppRouter = () => {
                 />
             ))}
 
-            <Route
+            {/* <Route
                 path="/app"
                 element={
                     <AppLayout/>
@@ -42,7 +42,7 @@ export const AppRouter = () => {
                             />
                         ))
                 }
-            </Route>
+            </Route> */}
         </Routes>
     )
 }

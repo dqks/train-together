@@ -28,7 +28,7 @@ export const RatingsContent = ({className} : RatingsContentProps) => {
                             </Select>
                         </form>
                         <div className={cls.programsWrapper}>
-                            {/* Какую он оценку поставил */}
+                            {/* Какую он оценку поставилв */}
                             <ProgramCard showRating={true} className={cls.program} />
                             <ProgramCard showRating={true} className={cls.program}/>
                             <ProgramCard showRating={true} className={cls.program}/>

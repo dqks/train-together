@@ -23,10 +23,14 @@ export const UserInfo = ({className} : UserInfoProps) => {
             <img className={cls.avatar} alt="Avatar" src={userPicture}/>
             {
                 editMode 
-                    ? <form>
+                    ? <form className={cls.form}>
                         <div className={cls.inputWrapper}>
                             <label htmlFor="nickname">Nick</label>
-                            <Input type="text" name="nickname" id="nickname"/>
+                            <Input type="text" placeholder="Nick" name="nickname" id="nickname"/>
+                        </div>
+                        <div className={cls.inputWrapper}>
+                            <label htmlFor="bio">Bio</label>
+                            <textarea className={cls.bioTextarea} placeholder="Add a bio" name="bio" id="bio"/>
                         </div>
                         <div className={cls.buttonWrapper}>
                             <Button onClick={editHandler}>
@@ -39,6 +43,7 @@ export const UserInfo = ({className} : UserInfoProps) => {
                     </form>
                     : <>
                         <h2 className={cls.nick}>Username</h2>
+                        <p>Bio</p>
                         <Button
                             onClick={editHandler}
                             className={cls.editButton}
