@@ -1,25 +1,25 @@
-import cls from "./ExercisePage.module.scss"
+import cls from "./ExercisesPage.module.scss"
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
-import { ExerciseCardList } from "../../../widgets/ExerciseCardList";
+import { ExerciseCardList } from "../../../widgets/ExerciseCardList/index.ts";
 import { FilterExercises } from
     "../../../widgets/FIlterExercises/ui/FilterExercises.tsx";
 import { useTranslation } from "react-i18next";
 import { usePageTitle } from "../../../shared/lib/usePageTItle/usePageTitle.ts";
 
-interface ExercisePageProps {
+interface ExercisesPageProps {
     className?: string;
 }
 
-const ExercisePage = ({className} : ExercisePageProps) => {
+const ExercisesPage = ({className} : ExercisesPageProps) => {
     const { t } = useTranslation();
     usePageTitle('Упражнения', t)
 
     return (
-        <div className={classNames(cls.ExercisePage, {}, [className])}>
+        <div className={classNames(cls.ExercisesPage, {}, [className])}>
             <FilterExercises />
             <ExerciseCardList />
         </div>
     )
 }
 
-export default ExercisePage;
+export default ExercisesPage;

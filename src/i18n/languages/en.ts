@@ -68,5 +68,9 @@ export const enTranslation = {
         "Оценки": "Ratings",
         "Закрепленные программы": "Pinned programs",
         "Найти программу": "Find a program",
+        "Техника выполнения": "Technique",
+        "Советы": "Advices",
+        "Личная заметка": "Personal note",
+        "Текст заметки": "Text of the note",
     }
 }

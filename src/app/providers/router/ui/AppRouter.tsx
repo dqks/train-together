@@ -14,7 +14,9 @@ export const AppRouter = () => {
                 <Route
                     key={path}
                     element={
-                        <Suspense fallback={<PageLoader/>}>
+                        <Suspense
+                            key={path} 
+                            fallback={<PageLoader/>}>
                             {element}
                         </Suspense>
                     }
@@ -22,7 +24,7 @@ export const AppRouter = () => {
                 />
             ))}
 
-            {/* <Route
+            <Route
                 path="/app"
                 element={
                     <AppLayout/>
@@ -34,7 +36,9 @@ export const AppRouter = () => {
                         .map(({element, path}) => (
                             <Route
                                 key={path}
-                                element={(<Suspense fallback={<PageLoader/>}>
+                                element={(<Suspense
+                                    key={path}
+                                    fallback={<PageLoader/>}>
                                         {element}
                                     </Suspense>)
                                     }
@@ -42,7 +46,7 @@ export const AppRouter = () => {
                             />
                         ))
                 }
-            </Route> */}
+            </Route>
         </Routes>
     )
 }

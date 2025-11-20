@@ -1,0 +1,14 @@
+.ExerciseInfo {
+    max-width: 635px;
+    width: 100%;
+    padding: 30px 40px;
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title {
+    font-weight: 600;
+}
