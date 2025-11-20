@@ -2,7 +2,6 @@ import type { RouteProps } from "react-router";
 import { ExercisePage } from "../../../pages/ExercisePage";
 import { ProgramsPage } from "../../../pages/ProgramsPage";
 import { MyProgramsPage } from "../../../pages/MyProgramsPage";
-import { Suspense } from "react";
 import { ProfilePage } from "../../../pages/ProfilePage/ui/ProfilePage";
 
 export enum AuthAppRoutes {
@@ -24,32 +23,23 @@ export const AuthRoutePath: Record<AuthAppRoutes, string> = {
 export const authRouteConfig: Record<AuthAppRoutes, RouteProps> = {
     [AuthAppRoutes.MY_PROFILE]: {
         path: AuthRoutePath.profile,
-        element: <Suspense fallback={<div>Loading</div>}>
-                <ProfilePage/>
-            </Suspense>
+        element: <ProfilePage/>
+
     },
     [AuthAppRoutes.PROFILE]: {
         path: AuthRoutePath.profile,
-        element: <Suspense fallback={<div>Loading</div>}>
-                <ProfilePage/>
-            </Suspense>
+        element: <ProfilePage/>
     },
     [AuthAppRoutes.EXERCISES]: {
         path: AuthRoutePath.exercises,
-        element: <Suspense fallback={<div>Loading</div>}>
-                <ExercisePage/>
-            </Suspense>
+        element: <ExercisePage/>
     },
     [AuthAppRoutes.PROGRAMS]: {
         path: AuthRoutePath.programs,
-        element: <Suspense fallback={<div>Loading</div>}>
-                <ProgramsPage/>
-            </Suspense>
+        element: <ProgramsPage/>
     },
     [AuthAppRoutes.YOUR_PROGRAMS]: {
         path: AuthRoutePath.myPrograms,
-        element: <Suspense fallback={<div>Loading</div>}>
-                <MyProgramsPage/>
-            </Suspense>
+        element: <MyProgramsPage/>
     },
 }

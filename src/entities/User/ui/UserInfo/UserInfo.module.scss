@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-
 }
 
 .avatar {
@@ -31,5 +30,5 @@
 }
 
 .editButton {
-    flex-grow: 1;
+    flex-grow: 0;
 }

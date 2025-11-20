@@ -5,7 +5,7 @@ import { authRouteConfig }
     from "../../../../shared/config/routeConfig/authRouteConfig.tsx";
 import { AppLayout } from "../../../layout/AppLayout";
 import { Suspense } from "react";
-
+import { PageLoader } from "../../../../shared/ui/PageLoader/PageLoader.tsx";
 
 export const AppRouter = () => {
     return (
@@ -13,7 +13,11 @@ export const AppRouter = () => {
             {Object.values(publicRouteConfig).map(({element, path}) => (
                 <Route
                     key={path}
-                    element={element}
+                    element={
+                        <Suspense fallback={<PageLoader/>}>
+                            {element}
+                        </Suspense>
+                    }
                     path={path}
                 />
             ))}
@@ -31,7 +35,7 @@ export const AppRouter = () => {
                             <Route
                                 key={path}
                                 element={
-                                    <Suspense fallback={<div>Loading</div>}>
+                                    <Suspense fallback={<PageLoader/>}>
                                         {element}
                                     </Suspense>}
                                 path={path}

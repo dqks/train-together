@@ -23,22 +23,29 @@ export const UserInfo = ({className} : UserInfoProps) => {
             <img className={cls.avatar} alt="Avatar" src={userPicture}/>
             {
                 editMode 
-                ? <form>
-                    <div className={cls.inputWrapper}>
-                        <label htmlFor="nickname">Nick</label>
-                        <Input type="text" name="nickname" id="nickname"/>
-                    </div>
-                    <div className={cls.buttonWrapper}>
-                        <Button onClick={editHandler}>{t('Сохранить')}</Button>
-                        <Button onClick={editHandler}>{t('Отменить')}</Button>
-                    </div>
-                </form>
-                : <>
-                    <h2 className={cls.nick}>Username</h2>
-                    <Button onClick={editHandler} className={cls.editButton}>
-                        {t("Редактировать профиль")}
-                    </Button>
-                </>
+                    ? <form>
+                        <div className={cls.inputWrapper}>
+                            <label htmlFor="nickname">Nick</label>
+                            <Input type="text" name="nickname" id="nickname"/>
+                        </div>
+                        <div className={cls.buttonWrapper}>
+                            <Button onClick={editHandler}>
+                                {t('Сохранить')}
+                            </Button>
+                            <Button onClick={editHandler}>
+                                {t('Отменить')}
+                            </Button>
+                        </div>
+                    </form>
+                    : <>
+                        <h2 className={cls.nick}>Username</h2>
+                        <Button
+                            onClick={editHandler}
+                            className={cls.editButton}
+                        >
+                            {t("Редактировать профиль")}
+                        </Button>
+                    </>
             }
         </div>
     )

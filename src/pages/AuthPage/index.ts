@@ -1,3 +1,3 @@
-import { LoginPageAsync } from "./ui/LoginPage.async.tsx"
+import { LoginPageAsync } from "./ui/LoginPage.async"
 
 export { LoginPageAsync as LoginPage };

@@ -63,5 +63,8 @@ export const enTranslation = {
         "Отменить": "Cancel",
         "Произошла непредвиденная ошибка": "Unexpected error happened",
         "Перезагрузить страницу": "Reload page",
+        "Общее": "Overview",
+        "Программы": "Programs",
+        "Оценки": "Ratings",
     }
 }
