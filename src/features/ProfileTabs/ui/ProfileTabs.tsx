@@ -12,13 +12,23 @@ export const ProfileTabs = ({className} : ProfileTabsProps) => {
 
     return (
         <div className={classNames(cls.ProfileTabs, {}, [className])}>
-            <AppLink linkColor={LinkColor.BLACK} to={""}>
+            <AppLink linkColor={LinkColor.BLACK} to={{
+                search: '?tab=overview'
+                }
+            }
+            >
                 {t("Общее")}
             </AppLink>
-            <AppLink linkColor={LinkColor.BLACK} to={""}>
+            <AppLink linkColor={LinkColor.BLACK} to={{
+                search: '?tab=programs'
+                }
+            }>
                 {t("Программы")}
             </AppLink>
-            <AppLink linkColor={LinkColor.BLACK} to={""}>
+            <AppLink linkColor={LinkColor.BLACK} to={{
+                search: '?tab=ratings'
+                }
+            }>
                 {t("Оценки")}
             </AppLink>
         </div>

@@ -66,5 +66,7 @@ export const enTranslation = {
         "Общее": "Overview",
         "Программы": "Programs",
         "Оценки": "Ratings",
+        "Закрепленные программы": "Pinned programs",
+        "Найти программу": "Find a program",
     }
 }

@@ -34,10 +34,10 @@ export const AppRouter = () => {
                         .map(({element, path}) => (
                             <Route
                                 key={path}
-                                element={
-                                    <Suspense fallback={<PageLoader/>}>
+                                element={(<Suspense fallback={<PageLoader/>}>
                                         {element}
-                                    </Suspense>}
+                                    </Suspense>)
+                                    }
                                 path={path}
                             />
                         ))
