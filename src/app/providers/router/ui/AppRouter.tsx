@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes } from 'react-router';
 import { publicRouteConfig }
     from "../../../../shared/config/routeConfig/publicRouteConfig.tsx";
 import { authRouteConfig }
