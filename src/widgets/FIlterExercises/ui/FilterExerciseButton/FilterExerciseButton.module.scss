@@ -1,5 +1,9 @@
 .sidePanelContent {
-    width: 30%;
+    width: 20%;
     flex-direction: column;
     gap: 10px;
+}
+
+li {
+    list-style-type: disclosure-closed;
 }

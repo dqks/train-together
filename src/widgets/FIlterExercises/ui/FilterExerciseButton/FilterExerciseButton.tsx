@@ -3,6 +3,7 @@ import { classNames } from "../../../../shared/lib/classNames/classNames";
 import cls from "./FilterExerciseButton.module.scss"
 import { FilterButton } from "../../../../features/FIlterButton";
 import { useTranslation } from "react-i18next";
+import { MuscleList } from "../MuscleList/MuscleList";
 
 interface FilterExerciseButtonProps {
     className?: string;
@@ -26,22 +27,19 @@ export const FilterExerciseButton = ({className} : FilterExerciseButtonProps) =>
                 sidePageChildren={
                     <>
                         <h1>{t("Фильтры")}</h1>
-                        <p>{t("Мышцы")}:</p>                        
-                        <ul>
-                            <li>
-                                Грудь
-                                <ul><li>dsd</li></ul>
-                            </li>
-                            <li>Спина</li>
-                            <li>Ноги</li>
-                            <li>Руки</li>
-                            <li>Пресс</li>
-                        </ul>
+                        <p>{t("Мышцы")}:</p>     
+                        <MuscleList title={"Грудь"} muscles={[{
+                                id: 1,
+                                name: "Верхняя часть груди"
+                            }, {
+                                id: 2,
+                                name: "Средняя часть груди"
+                            }, {
+                                id: 3,
+                                name: "Нижняя часть груди"
+                            }]} 
+                        />                   
                         <p>{t("Оборудование")}:</p>
-                        <ul>
-                            <li>Свободные веса</li>
-                            <li>Тренажеры</li>
-                        </ul>
                     </>
                 }
             />
