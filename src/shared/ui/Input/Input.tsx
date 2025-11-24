@@ -17,7 +17,6 @@ export const Input = (props : InputProps) => {
     } = props
     return (
         <input
-
             className={classNames(cls.Input, {}, [className])}
             {...otherProps}
         />

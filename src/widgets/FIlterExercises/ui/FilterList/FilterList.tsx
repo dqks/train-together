@@ -1,25 +1,25 @@
 import { classNames } from "../../../../shared/lib/classNames/classNames";
 import ChevronRight from "../../../../shared/assets/icons/chevron-right.svg?react"
-import cls from "./MuscleList.module.scss"
+import cls from "./FilterList.module.scss"
 import { useState } from "react";
 import { Input } from "../../../../shared/ui/Input/Input";
 
-type Muscle = {
+type ListItem = {
     id: number;
     name: string;
 }
 
-interface MuscleListProps {
+interface FilterListProps {
     className?: string;
     title: string;
-    muscles: Muscle[];
+    muscles: ListItem[];
 }
 
-export const MuscleList = ({
+export const FilterList = ({
     className,
     title,
     muscles
-} : MuscleListProps) => {
+} : FilterListProps) => {
     const [showMuscles, setShowMuscles] = useState(false);
 
     const showHander = () => {
@@ -42,7 +42,7 @@ export const MuscleList = ({
                         return (
                             <div key={el.id} className={cls.inputWrapper}>
                                 <Input name={el.id.toString()} id={el.id.toString()} type="checkbox"/>
-                                <label htmlFor="">{el.name}</label>
+                                <label htmlFor={el.id.toString()}>{el.name}</label>
                             </div>
                         )
                     })}
