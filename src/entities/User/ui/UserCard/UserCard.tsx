@@ -16,7 +16,6 @@ export const UserCard = ({className} : UserCardProps) => {
     const navigate = useNavigate();
 
     const clickHandler = () => {
-        // navigate(AuthRoutePath.my_profile);
         navigate(AuthRoutePath.my_profile + "?tab=overview");
     }
 

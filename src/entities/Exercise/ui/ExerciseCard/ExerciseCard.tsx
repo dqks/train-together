@@ -2,6 +2,8 @@ import cls from "./ExerciseCard.module.scss"
 import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
 import picture from "../../../../shared/assets/images/picture.png"
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { AuthRoutePath } from "../../../../shared/config/routeConfig/authRouteConfig.tsx";
 
 interface ExerciseCardProps {
     className?: string;
@@ -12,8 +14,15 @@ interface ExerciseCardProps {
 
 export const ExerciseCard = ({className} : ExerciseCardProps) => {
     const { t } = useTranslation();
+    
+    const navigate = useNavigate()
+
+    const clickHandler = () => {
+        navigate(AuthRoutePath.exercise_details + "32")
+    }
+
     return (
-        <div className={classNames(cls.ExerciseCard, {}, [className])}>
+        <div onClick={clickHandler} className={classNames(cls.ExerciseCard, {}, [className])}>
             <div className={cls.pictureWrapper}>
                 <img className={cls.picture} src={picture} alt=""/>
             </div>

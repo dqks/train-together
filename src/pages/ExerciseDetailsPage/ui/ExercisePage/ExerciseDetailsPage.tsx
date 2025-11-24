@@ -10,7 +10,7 @@ interface ExercisePageProps {
     className?: string;
 }
 
-const ExercisePage = ({className} : ExercisePageProps) => {
+const ExerciseDetailsPage = ({className} : ExercisePageProps) => {
     const { t } = useTranslation()
 
     usePageTitle('Жим лежа', t);
@@ -49,4 +49,4 @@ const ExercisePage = ({className} : ExercisePageProps) => {
     )
 }
 
-export default ExercisePage;
+export default ExerciseDetailsPage;
