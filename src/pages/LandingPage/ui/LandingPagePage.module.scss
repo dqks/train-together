@@ -15,6 +15,11 @@
     padding: 50px;
 }
 
+.programCard, .subscribeProgram  {
+    max-width: 1000px;
+    width: 100%;
+}
+
 .trainingProgramCardsWrapper {
     display: flex;
     justify-content: space-between;

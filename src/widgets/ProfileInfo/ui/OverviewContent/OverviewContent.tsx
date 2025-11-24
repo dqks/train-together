@@ -1,6 +1,6 @@
 import cls from "./OveriviewContent.module.scss"
 import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
-import { ProgramCard } from "../../../../entities/TrainingProgram/index.ts";
+import { ProgramCard } from "../../../../entities/Program";
 import { useTranslation } from "react-i18next";
 
 interface OverviewContentProps {

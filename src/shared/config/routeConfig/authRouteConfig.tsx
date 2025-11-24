@@ -13,7 +13,7 @@ export enum AuthAppRoutes {
     EXERCISE_DETAILS = "exercise_details",
     PROGRAMS = "programs",
     PROGRAM_DETAILS = "program_details",
-    YOUR_PROGRAMS = "myPrograms",
+    YOUR_PROGRAMS = "my_programs",
 }
 
 export const AuthRoutePath: Record<AuthAppRoutes, string> = {
@@ -52,7 +52,7 @@ export const authRouteConfig: Record<AuthAppRoutes, RouteProps> = {
         element: <ExerciseDetailsPage/>
     },
     [AuthAppRoutes.YOUR_PROGRAMS]: {
-        path: AuthRoutePath.myPrograms,
+        path: AuthRoutePath.my_programs,
         element: <MyProgramsPage/>
     },
 }

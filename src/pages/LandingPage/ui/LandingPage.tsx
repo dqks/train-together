@@ -1,14 +1,14 @@
 import cls from "./LandingPagePage.module.scss"
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
-import { ProgramCard } from "../../../entities/TrainingProgram";
+import { ProgramCard } from "../../../entities/Program";
 import { Footer } from "../../../shared/ui/Footer/Footer.tsx";
 import { Header } from "../../../widgets/Header";
 import { LandingSection }
     from "../../../shared/ui/LandingSection/LandingSection.tsx";
 import { EmailForm } from "../../../features/EmailForm/ui/EmailForm.tsx";
 import {
-    LandingTrainingProgramCard
-} from "../../../entities/TrainingProgram";
+    LandingProgramCard
+} from "../../../entities/Program";
 import { RequirementCard }
     from "../../../shared/ui/RequirementCard/RequirementCard.tsx";
 import { CreateExerciseForm } from "../../../features/CreateExerciseForm";
@@ -51,8 +51,8 @@ const LandingPage = ({className}: LandingPageProps) => {
                 title={t("Сохраняйте тренировки пользователей себе")}
                 description={t("Вы можете отслеживатья тренировки, созданные другими пользователями")}
             >
-                <ProgramCard/>
-                <SubscribeProgram/>
+                <ProgramCard className={cls.programCard}/>
+                <SubscribeProgram className={cls.subscribeProgram}/>
             </LandingSection>
 
             <LandingSection
@@ -68,9 +68,9 @@ const LandingPage = ({className}: LandingPageProps) => {
                 title="Самые популярные тренировки пользователей"
             >
                 <div className={cls.trainingProgramCardsWrapper}>
-                    <LandingTrainingProgramCard/>
-                    <LandingTrainingProgramCard/>
-                    <LandingTrainingProgramCard/>
+                    <LandingProgramCard/>
+                    <LandingProgramCard/>
+                    <LandingProgramCard/>
                 </div>
             </LandingSection>
             <Footer/>

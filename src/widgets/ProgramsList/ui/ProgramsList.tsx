@@ -1,6 +1,6 @@
 import cls from "./ProgramsList.module.scss"
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
-import { ProgramCard } from "../../../entities/TrainingProgram";
+import { ProgramCard } from "../../../entities/Program";
 
 
 interface ProgramsListProps {

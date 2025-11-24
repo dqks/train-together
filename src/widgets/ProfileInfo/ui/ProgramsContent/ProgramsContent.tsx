@@ -1,6 +1,6 @@
 import cls from "./ProgramsContent.module.scss"
 import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
-import { ProgramCard } from "../../../../entities/TrainingProgram";
+import { ProgramCard } from "../../../../entities/Program";
 import { Input } from "../../../../shared/ui/Input/Input.tsx";
 import { useTranslation } from "react-i18next";
 import { Select } from "../../../../shared/ui/Select/Select.tsx";

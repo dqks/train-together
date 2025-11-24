@@ -1,5 +1,5 @@
 import { classNames } from "../../../../shared/lib/classNames/classNames";
-import cls from "./LandingTrainingProgramCard.module.scss"
+import cls from "./LandingProgramCard.module.scss"
 import picture from "../../../../shared/assets/images/picture.png"
 
 interface LandingTrainingProgramCardProps {
@@ -9,7 +9,7 @@ interface LandingTrainingProgramCardProps {
     userName?: string;
 }
 
-export const LandingTrainingProgramCard = ({
+export const LandingProgramCard = ({
     className
 } : LandingTrainingProgramCardProps) => {
     return (
