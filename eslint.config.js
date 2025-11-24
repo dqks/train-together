@@ -56,7 +56,7 @@ export default defineConfig([
             'no-shadow': 'off',
             'import/extensions': 'off',
             'import/no-extraneous-dependencies': 'off',
-            'max-len': ['error', { ignoreComments: true }],
+            'max-len': ['error', { ignoreComments: true, code: 100}],
         }
     }
 ])

@@ -77,5 +77,6 @@ export const enTranslation = {
         "По имени": "Name",
         "Рейтингу": "Rating",
         "Дате обновления": "Last updated",
+        "Фильтры": "Filters",
     }
 }

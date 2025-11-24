@@ -2,7 +2,7 @@ import cls from "./ExercisesPage.module.scss"
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
 import { ExerciseCardList } from "../../../widgets/ExerciseCardList/index.ts";
 import { FilterExercises } from
-    "../../../widgets/FIlterExercises/ui/FilterExercises.tsx";
+    "../../../widgets/FIlterExercises/ui/FIlterExercises/FilterExercises.tsx";
 import { useTranslation } from "react-i18next";
 import { usePageTitle } from "../../../shared/lib/usePageTItle/usePageTitle.ts";
 
