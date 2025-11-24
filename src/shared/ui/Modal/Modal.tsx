@@ -39,13 +39,14 @@ export const Modal = ({
                 isOpen &&
                 <div ref={componentRef}
                     className={cls.Modal}
-                >
+                >   
                     <div
                         className={classNames(cls.content, 
                             {}, 
                             [contentClassName])
                         }
                     >
+                        <i onClick={onOutsideClick} className={cls.closeIcon}>&times;</i>
                         {children}
                     </div>
                 </div>

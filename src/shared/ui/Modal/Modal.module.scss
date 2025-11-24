@@ -11,7 +11,17 @@
     z-index: 1000;
 }
 
+.closeIcon {
+    padding: 10px 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    font-size: 36px;
+}
+
 .content {
+    position: relative; /* Делает позиционирование абсолютным относительно этого блока */
     background-color: white;
     padding: 50px;
     border-radius: 5px;

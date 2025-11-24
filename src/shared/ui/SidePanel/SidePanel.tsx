@@ -45,6 +45,7 @@ export const SidePanel = ({
                             [contentClassName])
                         }
                     >
+                        <i onClick={onOutsideClick} className={cls.closeIcon}>&times;</i>
                         {children}
                     </div>
                 </div>
