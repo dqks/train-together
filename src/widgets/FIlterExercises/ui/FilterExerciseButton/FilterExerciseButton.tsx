@@ -2,7 +2,7 @@ import { useState } from "react";
 // import { classNames } from "../../../../shared/lib/classNames/classNames";
 import cls from "./FilterExerciseButton.module.scss"
 import { FilterButton } from "../../../../features/FIlterButton";
-import { SidePanelContent } from "../SidePanelContent/SidePanelContent";
+import { SidePanelFilterContent } from "../SidePanelFilterContent/SidePanelFilterContent";
 
 interface FilterExerciseButtonProps {
     // className?: string;
@@ -20,7 +20,7 @@ export const FilterExerciseButton = ({} : FilterExerciseButtonProps) => {
                 isOpen={isOpen}
                 onOutsideClick={clickHandler}
                 contentClassName={cls.sidePanelContent}
-                sidePageChildren={<SidePanelContent />}
+                sidePageChildren={<SidePanelFilterContent />}
             />
     )
 }

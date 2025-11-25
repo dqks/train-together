@@ -1,8 +1,8 @@
-.sidePanel {
-    width: 40%;
+.SidePanelAddContent {
+    width: 100%;
+    display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 30px;
+    gap: 15px;
 }
 
 .sidePanelTitle {

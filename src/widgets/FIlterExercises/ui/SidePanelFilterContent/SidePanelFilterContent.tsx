@@ -3,11 +3,11 @@ import { EquipmentFilterList } from "../../../../features/EquipmentFIterList/Equ
 import { MuscleFilterList } from "../../../../features/MuscleFIlterList/MuscleFilterList.tsx";
 import { useTranslation } from "react-i18next";
 
-interface SidePanelContentProps {
+interface SidePanelFilterContentProps {
     className?: string;
 }
 
-export const SidePanelContent = ({} : SidePanelContentProps) => {
+export const SidePanelFilterContent = ({} : SidePanelFilterContentProps) => {
     const { t } = useTranslation();
     return (
         <>
