@@ -2,6 +2,8 @@ import cls from "./ProgramDay.module.scss"
 import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
 import { ExerciseInProgram } from "../../../Exercise";
 import ArrowUp from "../../../../shared/assets/icons/arrow-up.svg?react"
+import ArrowDown from "../../../../shared/assets/icons/arrow-down.svg?react"
+import { useState } from "react";
 
 export enum Days {
     MONDAY = "ПН",
@@ -18,20 +20,40 @@ interface ProgramDayProps {
     day?: Days;
 }
 
-export const ProgramDay = ({className} : ProgramDayProps) => {
+export const ProgramDay = ({
+    className,
+    day
+} : ProgramDayProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openHandler = () => {
+        setIsOpen(prev => !prev)
+    }
+
     return (
-        <div className={classNames(cls.ProgramDay, {}, [className])}>
+        <div 
+            onClick={openHandler}
+            className={classNames(cls.ProgramDay, {[cls.closed]: isOpen}, [className])}
+        >
             <div className={cls.dayWrapper}>
                 ПН
             </div>
-            <div className={cls.exercisesWrapper}>
-                <ExerciseInProgram className={cls.exercise}/>
-                <ExerciseInProgram />
-                <ExerciseInProgram />
-                <ExerciseInProgram />
-            </div>
+            {
+                isOpen && 
+                <div className={cls.exercisesWrapper}>
+                {/* <ExerciseInProgram className={cls.exercise}/> */}
+                    <ExerciseInProgram />
+                    <ExerciseInProgram />
+                    <ExerciseInProgram />
+                    <ExerciseInProgram />
+                </div>
+            }
             <div>
-                <ArrowUp/>
+                {
+                isOpen 
+                    ? <ArrowUp/>
+                    : <ArrowDown className={cls.arrowDown}/>
+                }
             </div>
         </div>
     )
