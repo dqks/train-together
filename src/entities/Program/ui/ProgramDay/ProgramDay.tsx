@@ -30,29 +30,39 @@ export const ProgramDay = ({
         setIsOpen(prev => !prev)
     }
 
+    const handleChildClick = (event: any) => {
+        event.stopPropagation(); // Prevent the click from bubbling up to the parent
+        console.log('Child clicked!');
+    };
+
     return (
         <div 
             onClick={openHandler}
-            className={classNames(cls.ProgramDay, {[cls.closed]: isOpen}, [className])}
+            className={classNames(cls.ProgramDay, {[cls.closed]: !isOpen}, [className])}
         >
-            <div className={cls.dayWrapper}>
+            <div 
+                onClick={handleChildClick} 
+                className={cls.dayWrapper}
+            >
                 ПН
             </div>
             {
                 isOpen && 
-                <div className={cls.exercisesWrapper}>
-                {/* <ExerciseInProgram className={cls.exercise}/> */}
+                <div 
+                    onClick={handleChildClick} 
+                    className={cls.exercisesWrapper}
+                >
                     <ExerciseInProgram />
                     <ExerciseInProgram />
                     <ExerciseInProgram />
                     <ExerciseInProgram />
                 </div>
             }
-            <div>
+            <div className={cls.arrowWrapper}>
                 {
                 isOpen 
-                    ? <ArrowUp/>
-                    : <ArrowDown className={cls.arrowDown}/>
+                    ? <ArrowUp />
+                    : <ArrowDown />
                 }
             </div>
         </div>
