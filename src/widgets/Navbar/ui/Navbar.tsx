@@ -23,7 +23,7 @@ export const Navbar = ({className}: NavbarProps) => {
                 <AppLink deleteUnderLine={true} to={AuthRoutePath.programs}>
                     {t("Программы пользователей")}
                 </AppLink>
-                <AppLink deleteUnderLine={true} to={AuthRoutePath.myPrograms}>
+                <AppLink deleteUnderLine={true} to={AuthRoutePath.my_programs}>
                     {t("Ваши программы")}</AppLink>
                 <AppLink deleteUnderLine={true} to={""}>
                     {t("Выйти")}

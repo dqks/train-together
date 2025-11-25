@@ -1,8 +1,8 @@
 import cls from "./FilterExercises.module.scss"
-import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
-import { FindExercise } from "../../../../features/FindExercise/ui/FindExercise.tsx"
-import { AddExercise } from "../../../../features/AddExercise/index.ts";
-import { FilterExerciseButton } from "../FilterExerciseButton/FilterExerciseButton.tsx";
+import { classNames } from "../../../../shared/lib/classNames/classNames";
+import { FindExercise } from "../../../../features/FindExercise/ui/FindExercise"
+import { FilterExerciseButton } from "../FilterExerciseButton/FilterExerciseButton";
+import { AddExercise } from "../AddExercise/AddExercise";
 
 interface FilterExercisesProps {
     className?: string;

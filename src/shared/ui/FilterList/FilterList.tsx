@@ -1,8 +1,8 @@
-import { classNames } from "../../../../shared/lib/classNames/classNames";
-import ChevronRight from "../../../../shared/assets/icons/chevron-right.svg?react"
+import { classNames } from "../../lib/classNames/classNames";
+import ChevronRight from "../../../shared/assets/icons/chevron-right.svg?react"
 import cls from "./FilterList.module.scss"
 import { useState } from "react";
-import { Input } from "../../../../shared/ui/Input/Input";
+import { Input } from "../Input/Input";
 
 type ListItem = {
     id: number;
@@ -12,18 +12,18 @@ type ListItem = {
 interface FilterListProps {
     className?: string;
     title: string;
-    muscles: ListItem[];
+    items: ListItem[];
 }
 
 export const FilterList = ({
     className,
     title,
-    muscles
+    items
 } : FilterListProps) => {
-    const [showMuscles, setShowMuscles] = useState(false);
+    const [showItems, setShowItems] = useState(false);
 
     const showHander = () => {
-        setShowMuscles(prev => !prev)
+        setShowItems(prev => !prev)
     }
 
     return (
@@ -36,9 +36,9 @@ export const FilterList = ({
                 <p>{title}</p>
             </div>
             {
-                showMuscles && 
+                showItems && 
                 <div>
-                    {muscles.map(el => {
+                    {items.map(el => {
                         return (
                             <div key={el.id} className={cls.inputWrapper}>
                                 <Input name={el.id.toString()} id={el.id.toString()} type="checkbox"/>
