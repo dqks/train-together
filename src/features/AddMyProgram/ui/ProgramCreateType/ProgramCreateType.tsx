@@ -11,10 +11,10 @@ export const ProgramCreateType = ({className} : ProgramCreateTypeProps) => {
     const { t } = useTranslation();
     return (
         <div className={classNames(cls.ProgramCreateType, {}, [className])}>
-                <h1>Как вы хотите создать программу?</h1>
+                <h1>{t("Как вы хотите создать программу?")}</h1>
                 <div className={cls.buttonWrapper}>
-                    <Button>{t("Автоматически")}</Button>
-                    <Button>{t("Самостоятельно")}</Button>
+                    <Button type="button">{t("Автоматически")}</Button>
+                    <Button type="button">{t("Самостоятельно")}</Button>
                 </div>
         </div>
     )

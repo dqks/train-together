@@ -30,10 +30,10 @@ export const ProgramsContent = ({className} : ProgramsContentProps) => {
                 </Select>
             </form>
             <div className={cls.programsWrapper}>
-                <ProgramCard className={cls.program} />
-                <ProgramCard className={cls.program}/>
-                <ProgramCard className={cls.program}/>
-                <ProgramCard className={cls.program}/>
+                <ProgramCard deleteCreator={true} className={cls.program} />
+                <ProgramCard deleteCreator={true} className={cls.program}/>
+                <ProgramCard deleteCreator={true} className={cls.program}/>
+                <ProgramCard deleteCreator={true} className={cls.program}/>
             </div>
         </div>
     )

@@ -39,10 +39,10 @@ export const UserInfo = ({className} : UserInfoProps) => {
                             />
                         </div>
                         <div className={cls.buttonWrapper}>
-                            <Button onClick={editHandler}>
+                            <Button type="button" onClick={editHandler}>
                                 {t('Сохранить')}
                             </Button>
-                            <Button onClick={editHandler}>
+                            <Button type="button" onClick={editHandler}>
                                 {t('Отменить')}
                             </Button>
                         </div>
@@ -51,6 +51,7 @@ export const UserInfo = ({className} : UserInfoProps) => {
                         <h2 className={cls.nick}>Username</h2>
                         <p>Bio</p>
                         <Button
+                            type="button"
                             onClick={editHandler}
                             className={cls.editButton}
                         >
