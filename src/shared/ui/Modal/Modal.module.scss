@@ -18,6 +18,10 @@
     right: 0;
     cursor: pointer;
     font-size: 36px;
+
+    &:hover {
+        color: red;
+    }
 }
 
 .content {

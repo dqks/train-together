@@ -4,6 +4,7 @@ import { usePageTitle } from "../../../shared/lib/usePageTItle/usePageTitle.ts";
 import { useTranslation } from "react-i18next";
 import { ProgramCard, ProgramDay } from "../../../entities/Program";
 import { SubscribeProgram } from "../../../features/SubscribeProgram";
+import { Days } from "../../../entities/Program/ui/ProgramDay/ProgramDay.tsx";
 
 interface ProgramDetailsPageProps {
     className?: string;
@@ -15,9 +16,11 @@ const ProgramDetailsPage = ({className} : ProgramDetailsPageProps) => {
 
     return (
         <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
-            <ProgramCard />
+            <ProgramCard className={cls.programCard}/>
             <SubscribeProgram />
-            <ProgramDay className={cls.programDay}/>
+            <ProgramDay day={Days.MONDAY} className={cls.programDay}/>
+            <ProgramDay day={Days.WEDNESDAY} className={cls.programDay}/>
+            <ProgramDay day={Days.FRIDAY} className={cls.programDay}/>
         </div>
     )
 }

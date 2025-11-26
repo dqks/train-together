@@ -78,5 +78,13 @@ export const enTranslation = {
         "Рейтингу": "Rating",
         "Дате обновления": "Last updated",
         "Фильтры": "Filters",
+        "ПН": "MON",
+        "ВТ": "TUE",
+        "СР": "WED",
+        "ЧТ": "THU",
+        "ПТ": "FRI",
+        "СБ": "SAT",
+        "ВС": "SUN",
+
     }
 }

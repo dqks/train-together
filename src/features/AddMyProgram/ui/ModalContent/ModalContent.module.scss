@@ -1,0 +1,23 @@
+.ModalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.inputWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.textarea{
+    width: 100%;
+}
+
+.privacyWrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

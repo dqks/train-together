@@ -5,6 +5,7 @@ import { Button } from "../../../../shared/ui/Button/Button.tsx";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { Input } from "../../../../shared/ui/Input/Input.tsx";
+import { Textarea } from "../../../../shared/ui/Textarea/Textarea.tsx";
 
 interface UserInfoProps {
     className?: string;
@@ -30,7 +31,12 @@ export const UserInfo = ({className} : UserInfoProps) => {
                         </div>
                         <div className={cls.inputWrapper}>
                             <label htmlFor="bio">Bio</label>
-                            <textarea className={cls.bioTextarea} placeholder="Add a bio" name="bio" id="bio"/>
+                            <Textarea 
+                                className={cls.bioTextarea} 
+                                placeholder="Add a bio" 
+                                name="bio" 
+                                id="bio"
+                            />
                         </div>
                         <div className={cls.buttonWrapper}>
                             <Button onClick={editHandler}>

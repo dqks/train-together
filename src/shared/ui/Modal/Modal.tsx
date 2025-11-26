@@ -46,7 +46,9 @@ export const Modal = ({
                             [contentClassName])
                         }
                     >
-                        <i onClick={onOutsideClick} className={cls.closeIcon}>&times;</i>
+                        <i onClick={onOutsideClick} className={cls.closeIcon}>
+                            &times;
+                        </i>
                         {children}
                     </div>
                 </div>
