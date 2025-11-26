@@ -1,20 +1,17 @@
 import { classNames } from "../../lib/classNames/classNames";
 import cls from "./Modal.module.scss"
-import { type CSSProperties, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 type ModalProps = {
     children: React.ReactNode
-    wrapperStyle?: CSSProperties
     onOutsideClick?: () => void;
     isOpen: boolean;
-    contentClassName?: string;
 }
 
 export const Modal = ({
     children,
     onOutsideClick,
     isOpen,
-    contentClassName
 }: ModalProps) => {
     const componentRef = useRef<HTMLDivElement>(null);
 
@@ -37,14 +34,16 @@ export const Modal = ({
         <>
             {
                 isOpen &&
-                <div ref={componentRef}
+                <div 
+                    ref={componentRef}
                     className={cls.Modal}
                 >   
                     <div
-                        className={classNames(cls.content, 
-                            {}, 
-                            [contentClassName])
-                        }
+                    // Может быть, мне нужно удалить этот класс, и
+                    // Стилизовать контейнер children
+                    // Скорее всего
+                    // ПОКА ЧТО СДЕЛАНО ТАК КАК НАПИСАНО ВЫШЕ
+                        className={cls.content}
                     >
                         <i onClick={onOutsideClick} className={cls.closeIcon}>
                             &times;

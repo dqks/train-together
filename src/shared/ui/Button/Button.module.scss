@@ -5,19 +5,20 @@
   background: var(--secondary-color);
   border-radius: 8px;
   border: none;
-  padding: 10px 15px
-}
+  padding: 10px 15px;
 
-.Button:hover {
-  transition: .1s;
-  background: var(--primary-higlight-color);
-  color: var(--primary-text-color);
-}
+  &:hover {
+    transition: .1s;
+    background: var(--primary-higlight-color);
+    color: var(--primary-text-color);
+  }
 
-.Button:active {
-  transition: .1s;
-  color: var(--secondary-text-color);
-  background: var(--secondary-color)
+  &:active {
+    transition: .1s;
+    color: var(--secondary-text-color);
+    background: var(--secondary-color)
+  }
+
 }
 
 .outline {

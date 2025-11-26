@@ -1,0 +1,12 @@
+.ProgramCreateType {
+    display: flex;
+    padding: 100px;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.buttonWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

@@ -2,6 +2,7 @@
 import { EquipmentFilterList } from "../../../../features/EquipmentFIterList/EquipmentFilterList.tsx";
 import { MuscleFilterList } from "../../../../features/MuscleFIlterList/MuscleFilterList.tsx";
 import { useTranslation } from "react-i18next";
+import { Button } from "../../../../shared/ui/Button/Button.tsx";
 
 interface SidePanelFilterContentProps {
     className?: string;
@@ -16,6 +17,7 @@ export const SidePanelFilterContent = ({} : SidePanelFilterContentProps) => {
             <MuscleFilterList />                  
             <p>{t("Оборудование")}:</p>
             <EquipmentFilterList />
+            <Button>{t("Применить фильтры")}</Button>
     </>
     )
 }

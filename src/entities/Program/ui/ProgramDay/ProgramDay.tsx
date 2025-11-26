@@ -3,7 +3,7 @@ import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
 import { ExerciseInProgram } from "../../../Exercise";
 import ArrowUp from "../../../../shared/assets/icons/arrow-up.svg?react"
 import ArrowDown from "../../../../shared/assets/icons/arrow-down.svg?react"
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export enum Days {
@@ -27,18 +27,28 @@ export const ProgramDay = ({
 } : ProgramDayProps) => {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
-
+    const divRef = useRef<HTMLDivElement>(null);
     const openHandler = () => {
         setIsOpen(prev => !prev)
     }
 
+    useEffect(() => {
+        if (isOpen) {
+            divRef.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',   
+                inline: 'center'  
+            });
+        }
+    }, [isOpen])    
+
     const handleChildClick = (event: any) => {
-        event.stopPropagation(); // Prevent the click from bubbling up to the parent
-        console.log('Child clicked!');
+        event.stopPropagation();
     };
 
     return (
-        <div 
+        <div
+            ref={divRef} 
             onClick={openHandler}
             className={classNames(cls.ProgramDay, {[cls.closed]: !isOpen}, [className])}
         >
