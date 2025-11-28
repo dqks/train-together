@@ -95,6 +95,7 @@ export const enTranslation = {
         "Увеличить вертикальный прыжок":"Increase vertical jump",
         "Улучшить атлетизм":"Improve athleticism",
         "На сколько дней создавать программу": "How many days the program should have",  
-        "Как вы хотите создать программу?": "How do you want to create a program?",        
+        "Как вы хотите создать программу?": "How do you want to create a program?",
+        "Программа":"Program",         
     }
 }

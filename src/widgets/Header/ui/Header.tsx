@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { LangSwitcher }
     from "../../../features/LangSwitcher";
 import { RegistrationButton } from "../../../features/RegistrationButton/index.ts";
+import { AuthRoutePath } from "../../../shared/config/routeConfig/authRouteConfig.tsx";
 
 interface NavbarProps {
     className?: string;
@@ -19,8 +20,8 @@ export const Header = ({className}: NavbarProps) => {
         <div className={classNames(cls.Header, {}, [className])}>
             <div className={cls.item}>
                 <LangSwitcher />
-                <AppLink to={""}>{t("Упражнения")}</AppLink>
-                <AppLink to={""}>{t("Пользовательские тренировки")}</AppLink>
+                <AppLink to={AuthRoutePath.exercises}>{t("Упражнения")}</AppLink>
+                <AppLink to={AuthRoutePath.programs}>{t("Пользовательские тренировки")}</AppLink>
             </div>
             <div className={cls.item}>
                 <AppLink to={PublicAppRoutes.LOGIN}>{t("Войти")}</AppLink>
