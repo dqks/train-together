@@ -22,12 +22,10 @@ export const publicRouteConfig: Record<PublicAppRoutes, RouteProps> = {
     [PublicAppRoutes.LANDING]: {
         path: PublicRoutePath.landing,
         element: <MainPage/>
-
     },
     [PublicAppRoutes.REGISTRATION]: {
         path: PublicRoutePath.registration,
         element: <RegisterPage/>
-
     },
     [PublicAppRoutes.LOGIN]: {
         path: PublicRoutePath.login,

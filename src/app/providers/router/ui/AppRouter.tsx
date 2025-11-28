@@ -10,8 +10,11 @@ import { PageLoader } from "../../../../shared/ui/PageLoader/PageLoader.tsx";
 export const AppRouter = () => {
     return (
         <Routes>
-            {Object.values(publicRouteConfig).map(({element, path}) => (
+            {Object
+                .values(publicRouteConfig)
+                .map(({element, path}) => (
                 <Route
+                    path={path}
                     key={path}
                     element={
                         <Suspense
@@ -20,15 +23,12 @@ export const AppRouter = () => {
                             {element}
                         </Suspense>
                     }
-                    path={path}
                 />
             ))}
 
             <Route
                 path="/app"
-                element={
-                    <AppLayout/>
-                }
+                element={<AppLayout/>}
             >
                 {
                     Object
