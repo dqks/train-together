@@ -1,3 +1,7 @@
+.ExercisePage {
+    position: relative;
+}
+
 .imgWrapper {
     text-align: center;
 }
@@ -17,4 +21,17 @@
     // align-items: center;
     // justify-content: space-between;
     // align-content: space-between;
+}
+
+.closeIcon {
+    padding: 10px 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    font-size: 36px;
+
+    &:hover {
+        color: red;
+    }
 }

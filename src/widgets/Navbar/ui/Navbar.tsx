@@ -16,7 +16,7 @@ interface NavbarProps {
 export const Navbar = ({className}: NavbarProps) => {
     const { t } = useTranslation()
 
-    const [isAuth, setIsAuth] = useState(false);
+    const [isAuth, setIsAuth] = useState(true);
 
     return (
         <div className={classNames(cls.Navbar, {}, [className])}>
