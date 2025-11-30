@@ -1,9 +1,14 @@
 .ExercisePage {
     position: relative;
+    width: 80%
+
 }
 
 .imgWrapper {
-    text-align: center;
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .exerciseImage {

@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
 import { usePageTitle } from "../../../../shared/lib/usePageTItle/usePageTitle.ts";
-import picture from "../../../../shared/assets/images/picture.png";
 import cls from "./ExerciseDetailsPage.module.scss"
 import { ExerciseInfo } from "../ExerciseInfo/ExerciseInfo.tsx";
 import { ExerciseNote } from "../ExerciseNote/ExerciseNote.tsx";
 import type { AppContextType } from "../../../../app/layout/AppLayout/ui/AppLayout.tsx";
 import { useOutletContext } from "react-router";
 import { AuthRoutePath } from "../../../../shared/config/routeConfig/authRouteConfig.tsx";
+import Picture from "../../../../shared/assets/icons/picture.svg?react"
 import { useEffect } from "react";
 
 interface ExercisePageProps {
@@ -25,12 +25,12 @@ const ExerciseDetailsPage = ({className} : ExercisePageProps) => {
         return () => {
             context.setBackButton("")
         }
-    }, [context.setBackButton])
+    }, [context])
 
     return (
         <div className={classNames(cls.ExercisePage, {}, [className])}>            
             <div className={cls.imgWrapper}>
-                <img className={cls.exerciseImage} alt="Exercise image" src={picture} />
+                <Picture />
             </div>
             <div className={cls.informationWrapper}>
                 <ExerciseInfo title={t("Техника выполнения")}>
@@ -54,9 +54,7 @@ const ExerciseDetailsPage = ({className} : ExercisePageProps) => {
                     </ol>
                 </ExerciseInfo>
             </div>
-            <div>
-                <ExerciseNote />
-            </div>
+            <ExerciseNote />
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import { classNames } from "../../../../shared/lib/classNames/classNames";
 import cls from "./LandingProgramCard.module.scss"
-import picture from "../../../../shared/assets/images/picture.png"
+import Picture from "../../../../shared/assets/icons/picture.svg?react"
 
 interface LandingTrainingProgramCardProps {
     className?: string;
@@ -16,7 +16,7 @@ export const LandingProgramCard = ({
         <div className={classNames(cls.LandingTrainingProgramCardProps,
             {},
             [className])}>
-            <img className={cls.picture} src={picture} alt="Картинка" />
+            <Picture />
             <p className={cls.title}>Название тренировки</p>
             <p className={cls.userName}>Username</p>
         </div>

@@ -1,6 +1,6 @@
 import cls from "./ExerciseCard.module.scss"
 import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
-import picture from "../../../../shared/assets/images/picture.png"
+import Picture from "../../../../shared/assets/icons/picture.svg?react"
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { AuthRoutePath } from "../../../../shared/config/routeConfig/authRouteConfig.tsx";
@@ -24,7 +24,7 @@ export const ExerciseCard = ({className} : ExerciseCardProps) => {
     return (
         <div onClick={clickHandler} className={classNames(cls.ExerciseCard, {}, [className])}>
             <div className={cls.pictureWrapper}>
-                <img className={cls.picture} src={picture} alt=""/>
+                <Picture height={250} />
             </div>
             <h2 className={cls.title}>{t("Жим лежа в Смите")}</h2>
             <p>{t("Грудь")}, {t("Трицепс")}, {t("Передняя дельта")}</p>

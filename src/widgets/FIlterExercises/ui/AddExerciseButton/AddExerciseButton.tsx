@@ -1,4 +1,4 @@
-import { AddButtonSide } from "../../../../features/AddButtonSide/index.ts"
+import { AddButtonSide } from "../../../../features/AddButtonSide"
 import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
 import { SidePanelAddContent } from "../SidePanelAddContent/SidePanelAddContent.tsx";
 import cls from "./AddExerciseButton.module.scss"

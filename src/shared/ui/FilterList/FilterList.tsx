@@ -41,7 +41,11 @@ export const FilterList = ({
                     {items.map(el => {
                         return (
                             <div key={el.id} className={cls.inputWrapper}>
-                                <Input name={el.id.toString()} id={el.id.toString()} type="checkbox"/>
+                                <Input
+                                    name={el.id.toString()}
+                                    id={el.id.toString()}
+                                    type="checkbox"
+                                />
                                 <label htmlFor={el.id.toString()}>{el.name}</label>
                             </div>
                         )

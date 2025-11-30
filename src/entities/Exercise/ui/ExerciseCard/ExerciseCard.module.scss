@@ -14,7 +14,9 @@
 }
 
 .pictureWrapper {
-  background: #e0dede;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .picture {

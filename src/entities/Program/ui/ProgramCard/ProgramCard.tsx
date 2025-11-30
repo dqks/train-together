@@ -1,7 +1,7 @@
 import cls from "./ProgramCard.module.scss"
 import { classNames } from "../../../../shared/lib/classNames/classNames";
-import picture from "../../../../shared/assets/images/picture.png"
 import { useNavigate } from "react-router";
+import Picture from "../../../../shared/assets/icons/picture.svg?react"
 import { AuthRoutePath } from "../../../../shared/config/routeConfig/authRouteConfig";
 
 interface ProgramCardProps {
@@ -26,9 +26,7 @@ export const ProgramCard = ({className, deleteCreator = false, showRating} : Pro
             onClick={clickHandler}
             className={classNames(cls.ProgramCard, {}, [className])}
         >
-            <div className={cls.pictureWrapper}>
-                <img className={cls.picture} src={picture} alt="Picture"/>
-            </div>
+            <Picture className={cls.picture} />
             <div className={cls.infoWrapper}>
                 {
                     showRating 
