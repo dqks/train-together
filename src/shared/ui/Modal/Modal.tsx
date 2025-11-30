@@ -4,14 +4,16 @@ import { useEffect, useRef } from "react";
 
 type ModalProps = {
     children: React.ReactNode
-    onOutsideClick?: () => void;
+    onOutsideClick: () => void;
     isOpen: boolean;
+    wrapperClassName?: string;
 }
 
 export const Modal = ({
     children,
     onOutsideClick,
     isOpen,
+    wrapperClassName
 }: ModalProps) => {
     const componentRef = useRef<HTMLDivElement>(null);
 
@@ -39,11 +41,9 @@ export const Modal = ({
                     className={cls.Modal}
                 >   
                     <div
-                    // Может быть, мне нужно удалить этот класс, и
-                    // Стилизовать контейнер children
-                    // Скорее всего
-                    // ПОКА ЧТО СДЕЛАНО ТАК КАК НАПИСАНО ВЫШЕ
-                        className={cls.content}
+                        // Вернул класс для стилизации обертки модалки
+                        // Но стилизовывать children нужно все равно
+                        className={classNames(cls.content, {} , [wrapperClassName])}
                     >
                         <i onClick={onOutsideClick} className={cls.closeIcon}>
                             &times;

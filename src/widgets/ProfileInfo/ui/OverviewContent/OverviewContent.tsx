@@ -12,13 +12,13 @@ export const OverviewContent = ({className} : OverviewContentProps) => {
 
     return (
         <div className={classNames(cls.OverviewContent, {}, [className])}>
-                <h1 className={cls.programTitle}>{t("Закрепленные программы")}</h1>
-                <div className={cls.programsWrapper}>
-                    <ProgramCard className={cls.program} />
-                    <ProgramCard className={cls.program}/>
-                    <ProgramCard className={cls.program}/>
-                    <ProgramCard className={cls.program}/>
-                </div>
+            <h1 className={cls.programTitle}>{t("Закрепленные программы")}</h1>
+            <div className={cls.programsWrapper}>
+                <ProgramCard className={cls.program} />
+                <ProgramCard className={cls.program}/>
+                <ProgramCard className={cls.program}/>
+                <ProgramCard className={cls.program}/>
+            </div>
         </div>
     )
 }

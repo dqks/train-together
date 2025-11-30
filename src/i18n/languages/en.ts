@@ -89,13 +89,18 @@ export const enTranslation = {
         "Автоматически": "Automatically",
         "Самостоятельно": "By myself",
         "Какой цели вы хотите достигнуть с помощью программы?"
-            : "Which purpose do you wish to achieve with this program?",
+        : "Which purpose do you wish to achieve with this program?",
         "Набрать мышечную массу":"Gain muscle mass",
         "Увеличить силовые показатели":"Increase strength",
         "Увеличить вертикальный прыжок":"Increase vertical jump",
         "Улучшить атлетизм":"Improve athleticism",
         "На сколько дней создавать программу": "How many days the program should have",  
         "Как вы хотите создать программу?": "How do you want to create a program?",
-        "Программа":"Program",         
+        "Программа":"Program",
+        "Создание программы": "Program creation",
+        "Описание": "Description",
+        "Кто сможет просматривать": "Who can watch",
+        "Все пользователи": "All users",
+        "Только я": "Only me",
     }
 }

@@ -1,8 +1,10 @@
 .ProgramCreateType {
-    display: flex;
     padding: 100px;
-    flex-direction: column;
-    gap: 50px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .buttonWrapper {

@@ -8,8 +8,8 @@ const ModalProvider = () => {
     const [modal, setModal] = useState<Modal>(defaultModal);
 
     const defaultProps = useMemo(() => ({
-        modal: modal,
-        setModal: setModal
+        modal,
+        setModal
     }), [modal])
 
     return (

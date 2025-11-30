@@ -3,7 +3,6 @@ import { Button } from "../../../shared/ui/Button/Button";
 import { classNames } from "../../../shared/lib/classNames/classNames.ts";
 import { useState } from "react";
 import { Modal } from "../../../shared/ui/Modal/Modal";
-import { ModalContent } from "./ModalContent/ModalContent.tsx";
 import ModalProvider from "../provider/ModalProvider.tsx";
 
 interface AddMyProgramProps {
@@ -24,6 +23,7 @@ export const AddMyProgram = ({className} : AddMyProgramProps) => {
             <Modal
                 isOpen={isOpen}
                 onOutsideClick={openHandler}
+                wrapperClassName={cls.modal}
             >
                 <ModalProvider />
             </Modal>
