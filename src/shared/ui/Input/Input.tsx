@@ -1,6 +1,6 @@
-import cls from "./Input.module.scss"
-import type { HTMLProps, ReactNode } from "react";
-import { classNames } from "../../lib/classNames/classNames.ts";
+import type { HTMLProps, ReactNode } from 'react';
+import cls from './Input.module.scss';
+import { classNames } from '../../lib/classNames/classNames.ts';
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
     className?: string;
@@ -14,11 +14,11 @@ export const Input = (props : InputProps) => {
     const {
         className,
         ...otherProps
-    } = props
+    } = props;
     return (
         <input
             className={classNames(cls.Input, {}, [className])}
             {...otherProps}
         />
-    )
-}
+    );
+};

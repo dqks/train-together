@@ -1,3 +1,3 @@
-import { RegistrationButton } from "./ui/RegistrationButton";
+import { RegistrationButton } from './ui/RegistrationButton';
 
-export { RegistrationButton }
+export { RegistrationButton };

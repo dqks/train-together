@@ -1,3 +1,3 @@
-import { RegisterForm } from "./ui/RegisterForm.tsx";
+import { RegisterForm } from './ui/RegisterForm.tsx';
 
 export { RegisterForm };

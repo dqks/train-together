@@ -1,3 +1,3 @@
-import { ProfileTabs } from "./ui/ProfileTabs.tsx";
+import { ProfileTabs } from './ui/ProfileTabs.tsx';
 
 export { ProfileTabs };

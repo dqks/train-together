@@ -1,3 +1,3 @@
-import { Navbar } from "./ui/Navbar.tsx"
+import { Navbar } from './ui/Navbar.tsx';
 
-export { Navbar }
+export { Navbar };

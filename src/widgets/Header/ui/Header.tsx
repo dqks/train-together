@@ -1,32 +1,32 @@
-import cls from "./Header.module.scss"
-import { AppLink } from "../../../shared/ui/AppLink/AppLink.tsx";
-import { classNames } from "../../../shared/lib/classNames/classNames.ts";
+import { useTranslation } from 'react-i18next';
+import cls from './Header.module.scss';
+import { AppLink } from '../../../shared/ui/AppLink/AppLink.tsx';
+import { classNames } from '../../../shared/lib/classNames/classNames.ts';
 import { PublicAppRoutes }
-    from "../../../shared/config/routeConfig/publicRouteConfig.tsx";
-import { useTranslation } from "react-i18next";
+    from '../../../shared/config/routeConfig/publicRouteConfig.tsx';
 import { LangSwitcher }
-    from "../../../features/LangSwitcher";
-import { RegistrationButton } from "../../../features/RegistrationButton/index.ts";
-import { AuthRoutePath } from "../../../shared/config/routeConfig/authRouteConfig.tsx";
+    from '../../../features/LangSwitcher';
+import { RegistrationButton } from '../../../features/RegistrationButton/index.ts';
+import { AuthRoutePath } from '../../../shared/config/routeConfig/authRouteConfig.tsx';
 
 interface NavbarProps {
     className?: string;
 }
 
-export const Header = ({className}: NavbarProps) => {
-    const { t } = useTranslation()
+export const Header = ({ className }: NavbarProps) => {
+    const { t } = useTranslation();
 
     return (
         <div className={classNames(cls.Header, {}, [className])}>
             <div className={cls.item}>
                 <LangSwitcher />
-                <AppLink to={AuthRoutePath.exercises}>{t("Упражнения")}</AppLink>
-                <AppLink to={AuthRoutePath.programs}>{t("Пользовательские тренировки")}</AppLink>
+                <AppLink to={AuthRoutePath.exercises}>{t('Упражнения')}</AppLink>
+                <AppLink to={AuthRoutePath.programs}>{t('Пользовательские тренировки')}</AppLink>
             </div>
             <div className={cls.item}>
-                <AppLink to={PublicAppRoutes.LOGIN}>{t("Войти")}</AppLink>
+                <AppLink to={PublicAppRoutes.LOGIN}>{t('Войти')}</AppLink>
                 <RegistrationButton />
             </div>
         </div>
-    )
-}
+    );
+};

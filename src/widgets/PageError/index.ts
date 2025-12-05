@@ -1,3 +1,3 @@
-import { PageError } from "./ui/PageError.tsx";
+import { PageError } from './ui/PageError.tsx';
 
-export { PageError }
+export { PageError };

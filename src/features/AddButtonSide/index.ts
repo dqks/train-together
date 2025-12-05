@@ -1,3 +1,3 @@
-import { AddButtonSide } from "./ui/AddButtonSide.tsx"
+import { AddButtonSide } from './ui/AddButtonSide.tsx';
 
-export { AddButtonSide }
+export { AddButtonSide };

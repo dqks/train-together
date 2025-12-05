@@ -1,3 +1,3 @@
-import { SearchMyProgram } from "./ui/SearchMyProgram";
+import { SearchMyProgram } from './ui/SearchMyProgram';
 
 export { SearchMyProgram };

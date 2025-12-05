@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { type ErrorInfo, type ReactNode, Suspense } from 'react';
-import { PageError } from "../../../../widgets/PageError";
-import "../../../../shared/ui/Button/Button.module.scss"
+import { PageError } from '../../../../widgets/PageError';
+import '../../../../shared/ui/Button/Button.module.scss';
 
 interface ErrorBoundaryProps {
     children: ReactNode;

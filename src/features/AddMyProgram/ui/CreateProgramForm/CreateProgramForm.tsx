@@ -1,26 +1,26 @@
-import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
-import cls from "./CreateProgramForm.module.scss"
-import { Button } from "../../../../shared/ui/Button/Button";
-import { Input } from "../../../../shared/ui/Input/Input";
-import { Textarea } from "../../../../shared/ui/Textarea/Textarea";
-import { Select } from "../../../../shared/ui/Select/Select";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
+import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
+import cls from './CreateProgramForm.module.scss';
+import { Button } from '../../../../shared/ui/Button/Button';
+import { Input } from '../../../../shared/ui/Input/Input';
+import { Textarea } from '../../../../shared/ui/Textarea/Textarea';
+import { Select } from '../../../../shared/ui/Select/Select';
 
 interface CreateProgramFormProps {
     className?: string;
 }
 
-export const CreateProgramForm = ({className}: CreateProgramFormProps) => {
+export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const { t } = useTranslation();
     return (
         <form className={classNames(cls.CreateProgramForm, {}, [className])}>
-            <h1>{t("Создание программы")}</h1>
+            <h1>{t('Создание программы')}</h1>
             <div className={cls.inputWrapper}>
-                <label htmlFor="name">{t("Название")}</label>
-                <Input type="text" name="name" id="name"/>
+                <label htmlFor="name">{t('Название')}</label>
+                <Input type="text" name="name" id="name" />
             </div>
             <div className={cls.inputWrapper}>
-                <label htmlFor="description">{t("Описание")}</label>
+                <label htmlFor="description">{t('Описание')}</label>
                 <Textarea
                     className={cls.textarea}
                     id="description"
@@ -29,15 +29,15 @@ export const CreateProgramForm = ({className}: CreateProgramFormProps) => {
             </div>
             <div className={cls.privacyWrapper}>
                 <label htmlFor="privacy">
-                    {t("Кто сможет просматривать")}
+                    {t('Кто сможет просматривать')}
                 </label>
                 <span>❓</span>
                 <Select name="privacy" id="privacy">
-                    <option value="allUsers">{t("Все пользователи")}</option>
-                    <option value="onlyMe">{t("Только я")}</option>
+                    <option value="allUsers">{t('Все пользователи')}</option>
+                    <option value="onlyMe">{t('Только я')}</option>
                 </Select>
             </div>
-            <Button type="button">{t("Создать")}</Button>
+            <Button type="button">{t('Создать')}</Button>
         </form>
-    )
-}
+    );
+};

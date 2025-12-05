@@ -1,3 +1,3 @@
-import { AddMyProgram } from "./ui/AddMyProgram";
+import { AddMyProgram } from './ui/AddMyProgram';
 
-export { AddMyProgram }
+export { AddMyProgram };

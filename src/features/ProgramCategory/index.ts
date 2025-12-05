@@ -1,3 +1,3 @@
-import { ProgramCategory } from "./ui/ProgramCategory";
+import { ProgramCategory } from './ui/ProgramCategory';
 
-export { ProgramCategory }
+export { ProgramCategory };

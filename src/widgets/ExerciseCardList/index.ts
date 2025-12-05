@@ -1,3 +1,3 @@
-import { ExerciseCardList } from "./ui/ExerciseCardList.tsx"
+import { ExerciseCardList } from './ui/ExerciseCardList.tsx';
 
-export { ExerciseCardList }
+export { ExerciseCardList };

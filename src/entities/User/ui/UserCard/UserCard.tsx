@@ -1,10 +1,10 @@
-import { classNames } from "../../../../shared/lib/classNames/classNames";
-import cls from "./UserCard.module.scss"
-import userPicture from "../../../../shared/assets/images/userPicture.jpg"
+import { useNavigate } from 'react-router';
+import { classNames } from '../../../../shared/lib/classNames/classNames';
+import cls from './UserCard.module.scss';
+import userPicture from '../../../../shared/assets/images/userPicture.jpg';
 // import { AppLink } from "../../../../shared/ui/AppLink/AppLink"; TODO
 import { AuthRoutePath }
-    from "../../../../shared/config/routeConfig/authRouteConfig";
-import { useNavigate } from "react-router";
+    from '../../../../shared/config/routeConfig/authRouteConfig';
 
 interface UserCardProps {
     className?: string;
@@ -12,20 +12,20 @@ interface UserCardProps {
     image?: string;
 }
 
-export const UserCard = ({className} : UserCardProps) => {
+export const UserCard = ({ className } : UserCardProps) => {
     const navigate = useNavigate();
 
     const clickHandler = () => {
-        navigate(AuthRoutePath.my_profile + "?tab=overview");
-    }
+        navigate(`${AuthRoutePath.my_profile}?tab=overview`);
+    };
 
     return (
-        <div 
-            onClick={clickHandler} 
+        <div
+            onClick={clickHandler}
             className={classNames(cls.UserCard, {}, [className])}
         >
             <img className={cls.picture} src={userPicture} alt="Картинка пользователя" />
             <p className={cls.userName}>Username</p>
         </div>
-    )
-}
+    );
+};

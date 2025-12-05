@@ -1,3 +1,3 @@
-import { NotFoundPage } from "./ui/NotFoundPage.tsx"
+import { NotFoundPage } from './ui/NotFoundPage.tsx';
 
-export { NotFoundPage }
+export { NotFoundPage };

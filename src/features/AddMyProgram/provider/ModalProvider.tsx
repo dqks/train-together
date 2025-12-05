@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
-import { ModalContext, Modal } from "./lib/ModalContext";
-import { ModalContent } from "../ui/ModalContent/ModalContent";
+import { useMemo, useState } from 'react';
+import { ModalContext, Modal } from './lib/ModalContext';
+import { ModalContent } from '../ui/ModalContent/ModalContent';
 
 const defaultModal = Modal.CREATE_TYPE;
 
@@ -9,8 +9,8 @@ const ModalProvider = () => {
 
     const defaultProps = useMemo(() => ({
         modal,
-        setModal
-    }), [modal])
+        setModal,
+    }), [modal]);
 
     return (
         <ModalContext.Provider value={defaultProps}>

@@ -1,3 +1,3 @@
-import { ProfileInfo } from "./ui/ProfleInfo/ProfileInfo.tsx";
+import { ProfileInfo } from './ui/ProfleInfo/ProfileInfo.tsx';
 
 export { ProfileInfo };

@@ -1,3 +1,3 @@
-import {RegisterPageAsync} from "./ui/RegisterPage/RegisterPage.async.tsx";
+import { RegisterPageAsync } from './ui/RegisterPage/RegisterPage.async.tsx';
 
-export {RegisterPageAsync as RegisterPage}
+export { RegisterPageAsync as RegisterPage };

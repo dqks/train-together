@@ -8,10 +8,10 @@
 // export const SearchInput = ({className} : SearchInputProps) => {
 //     return (
 //         <div className={classNames(cls.SearchInput, {}, [className])}>
-//             <input 
-//                 type="search" 
-//                 className={cls.input} 
-//                 placeholder="Введите запрос..." 
+//             <input
+//                 type="search"
+//                 className={cls.input}
+//                 placeholder="Введите запрос..."
 //         />
 //         </div>
 //     )

@@ -1,5 +1,5 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
-export const LoginPageAsync = lazy(() => new Promise(resolve => setTimeout(
+export const LoginPageAsync = lazy(() => new Promise((resolve) => setTimeout(
     // @ts-ignore
-    resolve(import("./LoginPage")), 5000)));
+    resolve(import('./LoginPage')), 5000)));

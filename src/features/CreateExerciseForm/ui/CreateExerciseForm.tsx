@@ -1,10 +1,10 @@
-import cls from "./CreateExerciseForm.module.scss"
-import { classNames } from "../../../shared/lib/classNames/classNames.ts";
-import { Input } from "../../../shared/ui/Input/Input";
-import { Button } from "../../../shared/ui/Button/Button.tsx";
-import { Chip } from "../../../shared/ui/Chip/Chip.tsx";
-import { Select } from "../../../shared/ui/Select/Select.tsx";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
+import cls from './CreateExerciseForm.module.scss';
+import { classNames } from '../../../shared/lib/classNames/classNames.ts';
+import { Input } from '../../../shared/ui/Input/Input';
+import { Button } from '../../../shared/ui/Button/Button.tsx';
+import { Chip } from '../../../shared/ui/Chip/Chip.tsx';
+import { Select } from '../../../shared/ui/Select/Select.tsx';
 
 interface CreateExerciseFormProps {
     className?: string;
@@ -20,31 +20,31 @@ export const CreateExerciseForm = ({
             className={classNames(cls.CreateExerciseForm, {}, [className])}
         >
             <div className={cls.inputWrapper}>
-                <label htmlFor="exerciseName">{t("Название")}</label>
-                <Input id="name" type="text" name="exerciseName"/>
+                <label htmlFor="exerciseName">{t('Название')}</label>
+                <Input id="name" type="text" name="exerciseName" />
             </div>
             <Select>
-                <option value="none">{t("Оборудование")}</option>
+                <option value="none">{t('Оборудование')}</option>
             </Select>
 
             <div className={cls.chipWrapper}>
-                <Chip text="Гантели"/>
-                <Chip text="Гантели"/>
-                <Chip text="Гантели"/>
-                <Chip text="Гантели"/>
-                <Chip text="Гантели"/>
+                <Chip text="Гантели" />
+                <Chip text="Гантели" />
+                <Chip text="Гантели" />
+                <Chip text="Гантели" />
+                <Chip text="Гантели" />
             </div>
 
             <Select>
-                <option value="none">{t("Мышечная группа")}</option>
+                <option value="none">{t('Мышечная группа')}</option>
             </Select>
 
             <div className={cls.chipWrapper}>
-                <Chip text="Бицепс"/>
+                <Chip text="Бицепс" />
             </div>
 
-            <Button>{t("Опробовать")}</Button>
-                
+            <Button>{t('Опробовать')}</Button>
+
         </form>
-    )
-}
+    );
+};

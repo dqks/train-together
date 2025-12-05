@@ -1,3 +1,3 @@
-import { FilterExercises } from "./ui/FIlterExercises/FilterExercises";
+import { FilterExercises } from './ui/FIlterExercises/FilterExercises';
 
-export { FilterExercises }
+export { FilterExercises };

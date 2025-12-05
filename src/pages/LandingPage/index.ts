@@ -1,3 +1,3 @@
-import { LandingPageAsync } from "./ui/LandingPage.async.tsx"
+import { LandingPageAsync } from './ui/LandingPage.async.tsx';
 
-export { LandingPageAsync as MainPage }
+export { LandingPageAsync as MainPage };

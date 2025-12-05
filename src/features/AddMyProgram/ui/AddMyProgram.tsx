@@ -1,20 +1,20 @@
-import cls from "./AddMyProgram.module.scss"
-import { Button } from "../../../shared/ui/Button/Button";
-import { classNames } from "../../../shared/lib/classNames/classNames.ts";
-import { useState } from "react";
-import { Modal } from "../../../shared/ui/Modal/Modal";
-import ModalProvider from "../provider/ModalProvider.tsx";
+import { useState } from 'react';
+import cls from './AddMyProgram.module.scss';
+import { Button } from '../../../shared/ui/Button/Button';
+import { classNames } from '../../../shared/lib/classNames/classNames.ts';
+import { Modal } from '../../../shared/ui/Modal/Modal';
+import ModalProvider from '../provider/ModalProvider.tsx';
 
 interface AddMyProgramProps {
     className?: string;
 }
 
-export const AddMyProgram = ({className} : AddMyProgramProps) => {
-    const [isOpen, setIsOpen] = useState(false)
+export const AddMyProgram = ({ className } : AddMyProgramProps) => {
+    const [isOpen, setIsOpen] = useState(false);
 
     const openHandler = () => {
-        setIsOpen(prev => !prev)
-    }
+        setIsOpen((prev) => !prev);
+    };
 
     return (
         <div className={classNames(cls.AddMyProgram, {}, [className])}>
@@ -28,5 +28,5 @@ export const AddMyProgram = ({className} : AddMyProgramProps) => {
                 <ModalProvider />
             </Modal>
         </div>
-    )
-}
+    );
+};

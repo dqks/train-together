@@ -1,8 +1,8 @@
-import { classNames } from "../../lib/classNames/classNames";
-import ChevronRight from "../../../shared/assets/icons/chevron-right.svg?react"
-import cls from "./FilterList.module.scss"
-import { useState } from "react";
-import { Input } from "../Input/Input";
+import { useState } from 'react';
+import { classNames } from '../../lib/classNames/classNames';
+import ChevronRight from '../../../shared/assets/icons/chevron-right.svg?react';
+import cls from './FilterList.module.scss';
+import { Input } from '../Input/Input';
 
 type ListItem = {
     id: number;
@@ -18,28 +18,28 @@ interface FilterListProps {
 export const FilterList = ({
     className,
     title,
-    items
+    items,
 } : FilterListProps) => {
     const [showItems, setShowItems] = useState(false);
 
     const showHander = () => {
-        setShowItems(prev => !prev)
-    }
+        setShowItems((prev) => !prev);
+    };
 
     return (
         <div className={classNames(cls.MuscleList, {}, [className])}>
             <div onClick={showHander} className={cls.titleWrapper}>
-                <ChevronRight 
-                    width={20} 
+                <ChevronRight
+                    width={20}
                     height={15}
                 />
                 <p>{title}</p>
             </div>
             {
-                showItems && 
-                <div>
-                    {items.map(el => {
-                        return (
+                showItems
+                && (
+                    <div>
+                        {items.map((el) => (
                             <div key={el.id} className={cls.inputWrapper}>
                                 <Input
                                     name={el.id.toString()}
@@ -48,10 +48,10 @@ export const FilterList = ({
                                 />
                                 <label htmlFor={el.id.toString()}>{el.name}</label>
                             </div>
-                        )
-                    })}
-                </div>
+                        ))}
+                    </div>
+                )
             }
         </div>
-    )
-}
+    );
+};

@@ -1,19 +1,19 @@
-import cls from "./ProgramDay.module.scss"
-import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
-import { ExerciseInProgram } from "../../../Exercise";
-import ArrowUp from "../../../../shared/assets/icons/arrow-up.svg?react"
-import ArrowDown from "../../../../shared/assets/icons/arrow-down.svg?react"
-import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import cls from './ProgramDay.module.scss';
+import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
+import { ExerciseInProgram } from '../../../Exercise';
+import ArrowUp from '../../../../shared/assets/icons/arrow-up.svg?react';
+import ArrowDown from '../../../../shared/assets/icons/arrow-down.svg?react';
 
 export enum Days {
-    MONDAY = "ПН",
-    TUESDAY = "ВТ",
-    WEDNESDAY = "СР",
-    THURSDAY = "ЧТ",
-    FRIDAY = "ПТ",
-    SUNDAY = "СБ",
-    SATURDAY = "ВС",
+    MONDAY = 'ПН',
+    TUESDAY = 'ВТ',
+    WEDNESDAY = 'СР',
+    THURSDAY = 'ЧТ',
+    FRIDAY = 'ПТ',
+    SUNDAY = 'СБ',
+    SATURDAY = 'ВС',
 }
 
 interface ProgramDayProps {
@@ -23,24 +23,24 @@ interface ProgramDayProps {
 
 export const ProgramDay = ({
     className,
-    day
+    day,
 } : ProgramDayProps) => {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const divRef = useRef<HTMLDivElement>(null);
     const openHandler = () => {
-        setIsOpen(prev => !prev)
-    }
+        setIsOpen((prev) => !prev);
+    };
 
     useEffect(() => {
         if (isOpen) {
             divRef.current?.scrollIntoView({
                 behavior: 'smooth',
-                block: 'start',   
-                inline: 'center'  
+                block: 'start',
+                inline: 'center',
             });
         }
-    }, [isOpen])    
+    }, [isOpen]);
 
     const handleChildClick = (event: any) => {
         event.stopPropagation();
@@ -48,35 +48,37 @@ export const ProgramDay = ({
 
     return (
         <div
-            ref={divRef} 
+            ref={divRef}
             onClick={openHandler}
-            className={classNames(cls.ProgramDay, {[cls.closed]: !isOpen}, [className])}
+            className={classNames(cls.ProgramDay, { [cls.closed]: !isOpen }, [className])}
         >
-            <div 
-                onClick={handleChildClick} 
+            <div
+                onClick={handleChildClick}
                 className={cls.dayWrapper}
             >
                 {t(day as string)}
             </div>
             {
-                isOpen && 
-                <div 
-                    onClick={handleChildClick} 
-                    className={cls.exercisesWrapper}
-                >
-                    <ExerciseInProgram />
-                    <ExerciseInProgram />
-                    <ExerciseInProgram />
-                    <ExerciseInProgram />
-                </div>
+                isOpen
+                && (
+                    <div
+                        onClick={handleChildClick}
+                        className={cls.exercisesWrapper}
+                    >
+                        <ExerciseInProgram />
+                        <ExerciseInProgram />
+                        <ExerciseInProgram />
+                        <ExerciseInProgram />
+                    </div>
+                )
             }
             <div className={cls.arrowWrapper}>
                 {
-                isOpen 
-                    ? <ArrowUp />
-                    : <ArrowDown />
+                    isOpen
+                        ? <ArrowUp />
+                        : <ArrowDown />
                 }
             </div>
         </div>
-    )
-}
+    );
+};

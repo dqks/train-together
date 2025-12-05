@@ -1,3 +1,3 @@
-import { SubscribeProgram } from "./ui/SubscribeProgram"
+import { SubscribeProgram } from './ui/SubscribeProgram';
 
-export { SubscribeProgram }
+export { SubscribeProgram };

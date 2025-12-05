@@ -1,5 +1,5 @@
-import { classNames } from "../../../../shared/lib/classNames/classNames.ts";
-import cls from "./ExerciseInfo.module.scss"
+import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
+import cls from './ExerciseInfo.module.scss';
 
 interface ExerciseInfoProps {
     title?: string;
@@ -8,16 +8,14 @@ interface ExerciseInfoProps {
 }
 
 export const ExerciseInfo = ({
-    className, 
-    title, 
-    children
-} : ExerciseInfoProps) => {
-    return (
-        <div className={classNames(cls.ExerciseInfo, {}, [className])}>
-            <h3 className={cls.title}>{title}</h3>
-            <div>
-                {children}
-            </div>
+    className,
+    title,
+    children,
+} : ExerciseInfoProps) => (
+    <div className={classNames(cls.ExerciseInfo, {}, [className])}>
+        <h3 className={cls.title}>{title}</h3>
+        <div>
+            {children}
         </div>
-    )
-}
+    </div>
+);

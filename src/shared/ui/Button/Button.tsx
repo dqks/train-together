@@ -1,17 +1,17 @@
-import cls from "./Button.module.scss"
-import type { ButtonHTMLAttributes } from "react";
-import { classNames } from "../../lib/classNames/classNames.ts";
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import cls from './Button.module.scss';
+import { classNames } from '../../lib/classNames/classNames.ts';
 
 export enum ThemeButton {
-    CLEAR = "clear",
+    CLEAR = 'clear',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
-    children: React.ReactNode;
+    children: ReactNode;
     theme?: ThemeButton;
     isOutlined?: boolean
-    type: "submit" | "reset" | "button" | undefined;
+    type: 'button' | 'submit' | 'reset' | undefined
 }
 
 export const Button = (props : ButtonProps) => {
@@ -20,20 +20,21 @@ export const Button = (props : ButtonProps) => {
         children,
         theme,
         isOutlined = false,
-        type,
+        type = 'button',
         ...otherProps
-    } = props
+    } = props;
 
     return (
         <button
-            className={classNames(cls.Button,
-                {[cls.outline] : isOutlined},
-                [className, theme && cls[theme]])
-            }
+            className={classNames(
+                cls.Button,
+                { [cls.outline]: isOutlined },
+                [className, theme && cls[theme]],
+            )}
             type={type}
             {...otherProps}
         >
             {children}
         </button>
-    )
-}
+    );
+};

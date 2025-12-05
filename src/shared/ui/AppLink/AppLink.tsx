@@ -1,7 +1,7 @@
-import cls from "./AppLink.module.scss"
-import { Link, type LinkProps } from "react-router";
-import type { ReactNode } from "react";
-import { classNames } from "../../lib/classNames/classNames.ts";
+import { Link, type LinkProps } from 'react-router';
+import type { ReactNode } from 'react';
+import cls from './AppLink.module.scss';
+import { classNames } from '../../lib/classNames/classNames.ts';
 
 export enum AppLinkTheme {
     PRIMARY = 'primary',
@@ -9,8 +9,8 @@ export enum AppLinkTheme {
 }
 
 export enum LinkColor {
-    BLACK = "black",
-    WHITE = "white",
+    BLACK = 'black',
+    WHITE = 'white',
 }
 
 interface AppLinkProps extends LinkProps {
@@ -32,14 +32,16 @@ export const AppLink = (props: AppLinkProps) => {
         ...other
     } = props;
     return (
-        <Link to={to}
-            className={classNames(cls.AppLink,
-                {[cls.underLined]: deleteUnderLine},
-                [className, cls[theme], cls[linkColor]])
-            }
+        <Link
+            to={to}
+            className={classNames(
+                cls.AppLink,
+                { [cls.underLined]: deleteUnderLine },
+                [className, cls[theme], cls[linkColor]],
+            )}
             {...other}
         >
             {children}
         </Link>
-    )
-}
+    );
+};

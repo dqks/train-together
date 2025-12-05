@@ -1,3 +1,3 @@
-import { EquipmentCard } from "./ui/EquipmentCard/EquipmentCard";
+import { EquipmentCard } from './ui/EquipmentCard/EquipmentCard';
 
-export { EquipmentCard }
+export { EquipmentCard };

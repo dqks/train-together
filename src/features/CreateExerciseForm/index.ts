@@ -1,3 +1,3 @@
-import { CreateExerciseForm } from "./ui/CreateExerciseForm"
+import { CreateExerciseForm } from './ui/CreateExerciseForm';
 
-export { CreateExerciseForm }
+export { CreateExerciseForm };

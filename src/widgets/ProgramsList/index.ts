@@ -1,3 +1,3 @@
-import { ProgramsList } from "./ui/ProgramsList";
+import { ProgramsList } from './ui/ProgramsList';
 
-export { ProgramsList }
+export { ProgramsList };

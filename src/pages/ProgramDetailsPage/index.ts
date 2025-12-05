@@ -1,3 +1,3 @@
-import {ProgramDetailsPageAsync} from "./ui/ProgramDetailsPage.async.tsx"
+import { ProgramDetailsPageAsync } from './ui/ProgramDetailsPage.async.tsx';
 
-export {ProgramDetailsPageAsync as ProgramDetailsPage}
+export { ProgramDetailsPageAsync as ProgramDetailsPage };

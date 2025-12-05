@@ -1,8 +1,8 @@
-import cls from "./AddButtonSide.module.scss"
-import { classNames } from "../../../shared/lib/classNames/classNames.ts";
-import { Button } from "../../../shared/ui/Button/Button.tsx";
-import { useState } from "react";
-import { SidePanel } from "../../../shared/ui/SidePanel/SidePanel.tsx";
+import { useState } from 'react';
+import cls from './AddButtonSide.module.scss';
+import { classNames } from '../../../shared/lib/classNames/classNames.ts';
+import { Button } from '../../../shared/ui/Button/Button.tsx';
+import { SidePanel } from '../../../shared/ui/SidePanel/SidePanel.tsx';
 
 interface AddButtonSideProps {
     className?: string;
@@ -11,15 +11,15 @@ interface AddButtonSideProps {
 }
 
 export const AddButtonSide = ({
-    className, 
+    className,
     sidePageChildren,
-    contentClassName
+    contentClassName,
 }: AddButtonSideProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const sidePanelHandler = () => {
-        setIsOpen(prev => !prev)
-    }
+        setIsOpen((prev) => !prev);
+    };
 
     return (
         <div className={classNames(cls.AddExercise, {}, [className])}>
@@ -34,5 +34,5 @@ export const AddButtonSide = ({
                 }
             </SidePanel>
         </div>
-    )
-}
+    );
+};

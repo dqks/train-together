@@ -1,3 +1,3 @@
-import { SearchProgram } from "./ui/SearchProgram";
+import { SearchProgram } from './ui/SearchProgram';
 
-export { SearchProgram }
+export { SearchProgram };
