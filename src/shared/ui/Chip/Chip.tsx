@@ -25,6 +25,7 @@ export const Chip = ({ className, text }: ChipProps) => {
                 )
             }
             onClick={onToggle}
+            data-testid="chip"
         >
             <span className={cls.spanText}>
                 {text}

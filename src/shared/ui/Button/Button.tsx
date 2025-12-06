@@ -6,12 +6,14 @@ export enum ThemeButton {
     CLEAR = 'clear',
 }
 
+type ButtonType = 'button' | 'submit' | 'reset' | undefined
+
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     children: ReactNode;
     theme?: ThemeButton;
     isOutlined?: boolean
-    type: 'button' | 'submit' | 'reset' | undefined
+    type: ButtonType
 }
 
 export const Button = (props : ButtonProps) => {

@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import cls from './SidePanel.module.scss';
 import { classNames } from '../../lib/classNames/classNames.ts';
+import { useOutsideClick } from '../../lib/useOutsideClick/useOutsideClick.tsx';
 
 interface SidePanelProps {
     contentClassName?: string;
@@ -15,20 +16,7 @@ export const SidePanel = ({
     children,
     onOutsideClick,
 } : SidePanelProps) => {
-    const componentRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const clickHandler = (event: MouseEvent) => {
-            if (componentRef.current
-                    && componentRef.current === event.target) {
-                onOutsideClick();
-            }
-        };
-        document.addEventListener('click', clickHandler);
-        return () => {
-            document.removeEventListener('click', clickHandler);
-        };
-    }, [onOutsideClick]);
+    const { componentRef } = useOutsideClick(onOutsideClick);
 
     return isOpen
                 && (

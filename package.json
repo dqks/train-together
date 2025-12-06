@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint:ts": "eslint \"**/*.{tsx, ts}\"",
     "lint:ts:fix": "eslint \"**/*.{tsx, ts}\" --fix",
+    "test:unit": "vitest --config ./config/vitest/vitest.setup.ts",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -20,6 +21,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^24.6.0",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
@@ -33,10 +36,12 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
+    "jsdom": "^27.2.0",
     "sass-embedded": "^1.93.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.1.7",
-    "vite-plugin-svgr": "^4.5.0"
+    "vite-plugin-svgr": "^4.5.0",
+    "vitest": "^4.0.15"
   }
 }
