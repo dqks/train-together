@@ -1,15 +1,37 @@
+@import "@styles/mixins/_adaptive";
+
 .RegisterPage {
-  display: flex;
-}
+    display: flex;
 
+    @include sm {
+        flex-direction: column;
+    }
 
+    @include md {
+        flex-direction: column;
+    }
 
-
-.rightSide {
-  width: 50vw;
+    @include lg {
+        flex-direction: column;
+    }
 }
 
 .form {
-  margin: 0 auto;
-  justify-content: center;
+    margin: 0 auto;
+    justify-content: center;
+
+    @include sm {
+        width: 100vw;
+        margin: 50px auto;
+    }
+
+    @include md {
+        width: 100vw;
+        margin: 50px auto;
+    }
+
+    @include lg {
+        width: 100vw;
+        margin: 50px auto;
+    }
 }

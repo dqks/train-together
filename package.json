@@ -8,6 +8,8 @@
     "build": "tsc -b && vite build",
     "lint:ts": "eslint \"**/*.{tsx, ts}\"",
     "lint:ts:fix": "eslint \"**/*.{tsx, ts}\" --fix",
+    "lint:scss": "npx stylelint \"**/*.scss\"",
+    "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
     "test:unit": "vitest --config ./config/vitest/vitest.setup.ts",
     "preview": "vite preview"
   },
@@ -38,6 +40,8 @@
     "globals": "^16.4.0",
     "jsdom": "^27.2.0",
     "sass-embedded": "^1.93.2",
+    "stylelint": "^14.5.3",
+    "stylelint-config-standard-scss": "^3.0.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.1.7",

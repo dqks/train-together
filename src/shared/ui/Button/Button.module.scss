@@ -1,26 +1,25 @@
 .Button {
-  cursor: pointer;
-  font-family: var(--font-family-main), serif;
-  color: var(--secondary-text-color);
-  background: var(--secondary-color);
-  border-radius: 8px;
-  border: none;
-  padding: 10px 15px;
-
-  &:hover {
-    transition: .1s;
-    background: var(--primary-higlight-color);
-    color: var(--primary-text-color);
-  }
-
-  &:active {
-    transition: .1s;
+    cursor: pointer;
+    font-family: var(--font-family-main), serif;
     color: var(--secondary-text-color);
-    background: var(--secondary-color)
-  }
+    background: var(--secondary-color);
+    border-radius: 8px;
+    border: none;
+    padding: 10px 15px;
 
+    &:hover {
+        transition: 0.1s;
+        background: var(--primary-higlight-color);
+        color: var(--primary-text-color);
+    }
+
+    &:active {
+        transition: 0.1s;
+        color: var(--secondary-text-color);
+        background: var(--secondary-color);
+    }
 }
 
 .outline {
-  border: 1px solid black;
+    border: 1px solid black;
 }

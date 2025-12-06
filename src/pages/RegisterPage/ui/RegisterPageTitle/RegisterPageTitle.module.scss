@@ -1,13 +1,30 @@
+@import "@styles/mixins/_adaptive";
+
 .RegisterPageTitle {
-  width: 50vw;
-  height: 100vh;
-  background: var(--primary-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 50vw;
+    height: 100vh;
+    background: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include sm {
+        height: 10vh;
+        width: 100%;
+    }
+
+    @include md {
+        height: 10vh;
+        width: 100%;
+    }
+
+    @include lg {
+        height: 10vh;
+        width: 100%;
+    }
 }
 
 .registrationTitle {
-  color: var(--secondary-text-color);
-  font-size: var(--font-size-giant);
+    color: var(--secondary-text-color);
+    font-size: var(--font-size-giant);
 }

@@ -1,44 +1,44 @@
 .ProgramCard {
-  // max-width: 1000px;
-  // width: 100%;
-  border: var(--border-style);
-  border-radius: var(--border-radius);
-  padding: 20px;
-  display: flex;
-  gap: 20px;
+    // max-width: 1000px;
+    // width: 100%;
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    display: flex;
+    gap: 20px;
 }
 
 .ProgramCard:hover {
-  transition: .1s;
-  background: #D7FFC8;
+    transition: 0.1s;
+    background: #d7ffc8;
 }
 
 .picture {
-  width: 200px;
-  height: auto;
+    width: 200px;
+    height: auto;
 }
 
 .infoWrapper {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .titleWrapper {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .hr {
-  border-top: 1px solid black;
+    border-top: 1px solid black;
 }
 
 .deleteCreator {
-  display: none;
+    display: none;
 }
 
 .selected {
-  transition: .1s;
-  background: #D7FFC8;
+    transition: 0.1s;
+    background: #d7ffc8;
 }

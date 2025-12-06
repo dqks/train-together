@@ -1,22 +1,22 @@
 .AppLink {
-  font-family: var(--font-family-main), serif;
+    font-family: var(--font-family-main), serif;
 }
 
 .AppLink:hover {
-  transition: .2s;
-  color: var(--primary-higlight-color);
+    transition: 0.2s;
+    color: var(--primary-higlight-color);
 }
 
 .black {
-  color: var(--primary-text-color);
+    color: var(--primary-text-color);
 }
 
 .white {
-  color: var(--secondary-text-color);
+    color: var(--secondary-text-color);
 }
 
 .underLined {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 //.primary {
