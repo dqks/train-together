@@ -21,7 +21,7 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
     };
 
     return (
-        <div className={classNames(cls.RegisterForm, {}, [className])}>
+        <form className={classNames(cls.RegisterForm, {}, [className])}>
             <p className={cls.accountExists}>
                 {t('Уже есть аккаунт? ')}
                 <AppLink className={cls.login} to={PublicRoutePath.login}>{t('Войдите')}</AppLink>
@@ -32,7 +32,7 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
             </div>
             <div className={cls.inputWrapper}>
                 <label htmlFor="password">{t('Пароль')}</label>
-                <Input id="password]" name="password" type="password" />
+                <Input id="password" name="password" type="password" />
                 <p className={cls.inputDescription}>
                     {t('Пароль должен состоять минимум из 15 символов ИЛИ '
                         + 'хотябы из 8 символов, включающих число '
@@ -40,14 +40,14 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
                 </p>
             </div>
             <div className={cls.inputWrapper}>
-                <label htmlFor="">{t('Никнейм')}</label>
-                <Input id="email" name="email" type="text" />
+                <label htmlFor="nickname">{t('Никнейм')}</label>
+                <Input id="nickname" name="nickname" type="text" />
                 <p className={cls.inputDescription}>
                     {t('Никнейм может только состоять'
                         + ' из алфавитных символов и цифр')}
                 </p>
             </div>
             <Button onClick={createHandler} type="submit">{t('Создать аккаунт')}</Button>
-        </div>
+        </form>
     );
 };

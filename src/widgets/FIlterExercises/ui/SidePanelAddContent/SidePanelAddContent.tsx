@@ -5,16 +5,17 @@ import cls from './SidePanelAddContent.module.scss';
 import { EquipmentFilterList }
     from '../../../../features/EquipmentFIterList/EquipmentFilterList.tsx';
 import { MuscleFilterList } from '../../../../features/MuscleFIlterList/MuscleFilterList.tsx';
+import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
 
-// interface SidePanelAddContentProps {
-//     // className?: string;
-// }
+interface SidePanelAddContentProps {
+    className?: string;
+}
 
-export const SidePanelAddContent = () => {
+export const SidePanelAddContent = ({ className }: SidePanelAddContentProps) => {
     const { t } = useTranslation();
 
     return (
-        <form className={cls.SidePanelAddContent}>
+        <form className={classNames(cls.SidePanelAddContent, {}, [className])}>
             <h2 className={cls.sidePanelTitle}>{t('Создание упражнения')}</h2>
             <div className={cls.inputWrapper}>
                 <label htmlFor="exerciseName">{t('Название')}</label>

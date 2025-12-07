@@ -10,8 +10,8 @@ interface AddExerciseButtonProps {
 export const AddExerciseButton = ({ className } : AddExerciseButtonProps) => (
     <div className={classNames(cls.AddExerciseButton, {}, [className])}>
         <AddButtonSide
-            contentClassName={cls.sidePanel}
-            sidePageChildren={<SidePanelAddContent />}
+            contentClassName={cls.sidePanelContent}
+            sidePageChildren={<SidePanelAddContent className={cls.sidePanelWrapper} />}
         />
     </div>
 );

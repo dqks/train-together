@@ -1,7 +1,6 @@
 .requirementCardWrapper {
     display: grid;
     margin: 0 auto;
-
     // justify-content: center;
     // align-items: center;
     grid-template-columns: 1fr 1fr;
@@ -10,7 +9,7 @@
 }
 
 .createExerciseForm {
-    margin: 20px;
+    width: 50%;
     border: var(--border-style);
     border-radius: var(--border-radius);
     padding: 50px;

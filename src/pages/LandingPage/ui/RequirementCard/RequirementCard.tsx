@@ -1,6 +1,6 @@
 import cls from './RequirementCard.module.scss';
-import { classNames } from '../../lib/classNames/classNames.ts';
-import Hexagon from '../../assets/icons/hexagon.svg?react';
+import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
+import Hexagon from '../../../../shared/assets/icons/hexagon.svg?react';
 
 interface RequirementCardProps {
     className?: string;

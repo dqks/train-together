@@ -42,10 +42,13 @@ export const FilterList = ({
                         {items.map((el) => (
                             <div key={el.id} className={cls.inputWrapper}>
                                 <Input
-                                    name={el.id.toString()}
+                                    className={cls.checkbox}
                                     id={el.id.toString()}
+                                    name={el.id.toString()}
                                     type="checkbox"
+                                    value={el.id.toString()}
                                 />
+                                <span className={cls.checkboxIndicator} />
                                 <label htmlFor={el.id.toString()}>{el.name}</label>
                             </div>
                         ))}

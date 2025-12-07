@@ -27,4 +27,12 @@
 .registrationTitle {
     color: var(--secondary-text-color);
     font-size: var(--font-size-giant);
+
+    @include md {
+        font-size: var(--font-size-lg);
+    }
+
+    @include sm {
+        font-size: var(--font-size-m);
+    }
 }
