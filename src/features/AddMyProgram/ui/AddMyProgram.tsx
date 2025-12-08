@@ -1,24 +1,20 @@
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import cls from './AddMyProgram.module.scss';
 import { Button } from '../../../shared/ui/Button/Button';
-import { classNames } from '../../../shared/lib/classNames/classNames.ts';
 import { Modal } from '../../../shared/ui/Modal/Modal';
 import ModalProvider from '../provider/ModalProvider.tsx';
+import { TooltipElement } from '../../../shared/ui/TooltipElement/TooltipElement.tsx';
+import { useModal } from '../../../shared/lib/useModal/useModal.tsx';
 
-interface AddMyProgramProps {
-    className?: string;
-}
-
-export const AddMyProgram = ({ className } : AddMyProgramProps) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const openHandler = () => {
-        setIsOpen((prev) => !prev);
-    };
+export const AddMyProgram = () => {
+    const { t } = useTranslation();
+    const [isOpen, openHandler] = useModal();
 
     return (
-        <div className={classNames(cls.AddMyProgram, {}, [className])}>
-            <Button type="button" onClick={openHandler}>+</Button>
+        <>
+            <TooltipElement tooltipText={t('Добавить программу')}>
+                <Button type="button" onClick={openHandler}>+</Button>
+            </TooltipElement>
 
             <Modal
                 isOpen={isOpen}
@@ -27,6 +23,6 @@ export const AddMyProgram = ({ className } : AddMyProgramProps) => {
             >
                 <ModalProvider />
             </Modal>
-        </div>
+        </>
     );
 };

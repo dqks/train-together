@@ -1,26 +1,22 @@
-// import { classNames } from "../../../../shared/lib/classNames/classNames";
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import cls from './FilterExerciseButton.module.scss';
 import { FilterButton } from '../../../../features/FIlterButton';
 import { SidePanelFilterContent } from '../SidePanelFilterContent/SidePanelFilterContent';
-//
-// interface FilterExerciseButtonProps {
-//     // className?: string;
-// }
+import { TooltipElement } from '../../../../shared/ui/TooltipElement/TooltipElement.tsx';
+import { useModal } from '../../../../shared/lib/useModal/useModal.tsx';
 
 export const FilterExerciseButton = () => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const clickHandler = () => {
-        setIsOpen((prev) => !prev);
-    };
+    const { t } = useTranslation();
+    const [isOpen, openHandler] = useModal();
 
     return (
-        <FilterButton
-            isOpen={isOpen}
-            onOutsideClick={clickHandler}
-            contentClassName={cls.sidePanelContent}
-            sidePageChildren={<SidePanelFilterContent />}
-        />
+        <TooltipElement tooltipText={t('Добавить фильтры')}>
+            <FilterButton
+                isOpen={isOpen}
+                onOutsideClick={openHandler}
+                contentClassName={cls.sidePanelContent}
+                sidePageChildren={<SidePanelFilterContent />}
+            />
+        </TooltipElement>
     );
 };

@@ -1,17 +1,18 @@
+import { useTranslation } from 'react-i18next';
 import { AddButtonSide } from '../../../../features/AddButtonSide';
-import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
 import { SidePanelAddContent } from '../SidePanelAddContent/SidePanelAddContent.tsx';
 import cls from './AddExerciseButton.module.scss';
+import { TooltipElement } from '../../../../shared/ui/TooltipElement/TooltipElement.tsx';
 
-interface AddExerciseButtonProps {
-    className?: string;
-}
+export const AddExerciseButton = () => {
+    const { t } = useTranslation();
+    return (
+        <TooltipElement tooltipText={t('Добавить упражнение')}>
+            <AddButtonSide
+                contentClassName={cls.sidePanelContent}
+                sidePageChildren={<SidePanelAddContent className={cls.sidePanelWrapper} />}
+            />
+        </TooltipElement>
 
-export const AddExerciseButton = ({ className } : AddExerciseButtonProps) => (
-    <div className={classNames(cls.AddExerciseButton, {}, [className])}>
-        <AddButtonSide
-            contentClassName={cls.sidePanelContent}
-            sidePageChildren={<SidePanelAddContent className={cls.sidePanelWrapper} />}
-        />
-    </div>
-);
+    );
+};

@@ -8,7 +8,7 @@ export const enTranslation = {
         'Создавайте и делитесь своими программами тренировок': 'Create and share your training programs',
         'Зарегистрируйтесь, чтобы использовать полный функционал': 'Sign up to get full functionality',
         'Создавайте тренировки под свои требования': 'Create programs for your requirements',
-        'Вы можете создать автоматически создать тренировки для:': 'You can automatically create programs for:',
+        'Вы можете автоматически создать тренировки для:': 'You can automatically create programs for:',
         'Набор мышечной массы': 'Gaining muscle mass',
         'Созданная тренировка идеально подойдет для гипертрофии мышц, а следовательно набора мышечной массы  и увеличения объемов':
             'Created training programs suits for muscle hypertrophy and therefore for gaining muscle mass and increasing size',
@@ -106,5 +106,10 @@ export const enTranslation = {
         'Специализированные программы направлена на развитие взрывной силы ног и плиометрических способностей для максимального высотного результата': 'Specialised programs made for increasing leg explosive strength and plyometric abilities for maximal vertical jump',
         'Для улучшения атлетизма': 'Developing athleticism',
         'Универсальные программы, которые развивают общую физическую подготовку, координацию и функциональные качества, необходимые для любого спорта': 'Universal programs that develop general physic, coordination and functional qualities needed for any sport',
+        'Свернуть боковую панель': 'Collapse the side panel',
+        'Добавить упражнение': 'Add exercise',
+        'Добавить фильтры': 'Add filters',
+        'Добавить программу': 'Add program',
+
     },
 };

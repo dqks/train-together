@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import type { ReactNode } from 'react';
 import cls from './AddButtonSide.module.scss';
 import { classNames } from '../../../shared/lib/classNames/classNames.ts';
 import { Button } from '../../../shared/ui/Button/Button.tsx';
 import { SidePanel } from '../../../shared/ui/SidePanel/SidePanel.tsx';
+import { useModal } from '../../../shared/lib/useModal/useModal.tsx';
 
 interface AddButtonSideProps {
     className?: string;
-    sidePageChildren: React.ReactNode;
+    sidePageChildren: ReactNode;
     contentClassName?: string;
 }
 
@@ -15,21 +16,17 @@ export const AddButtonSide = ({
     sidePageChildren,
     contentClassName,
 }: AddButtonSideProps) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const sidePanelHandler = () => {
-        setIsOpen((prev) => !prev);
-    };
+    const [isOpen, openHandler] = useModal();
 
     return (
         <div className={classNames(cls.AddExercise, {}, [className])}>
-            <Button type="button" onClick={sidePanelHandler}>
+            <Button type="button" onClick={openHandler}>
                 +
             </Button>
             <SidePanel
                 contentClassName={contentClassName}
                 isOpen={isOpen}
-                onOutsideClick={sidePanelHandler}
+                onOutsideClick={openHandler}
             >
                 {
                     sidePageChildren

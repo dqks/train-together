@@ -35,7 +35,7 @@ const LandingPage = ({ className }: LandingPageProps) => {
 
             <LandingSection
                 title={t('Создавайте тренировки под свои требования')}
-                description={t('Вы можете создать автоматически создать тренировки для:')}
+                description={t('Вы можете автоматически создать тренировки для:')}
             >
                 <div className={cls.requirementCardWrapper}>
                     <RequirementCard

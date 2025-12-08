@@ -13,6 +13,10 @@
     align-items: center;
 }
 
+.backButton {
+    z-index: 0;
+}
+
 .title {
     font-weight: 400;
     font-size: var(--font-size-lg);

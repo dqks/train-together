@@ -27,7 +27,7 @@ export const AppLayout = ({ className }: AppLayoutProps) => {
         <div className={classNames(cls.AppLayout, {}, [className])}>
             <Navbar />
             <div className={cls.contentWrapper}>
-                {backButton && <BackButton path={backButton} />}
+                {backButton && <BackButton path={backButton} className={cls.backButton} />}
                 <h1 className={cls.title}>{title}</h1>
                 <Outlet context={appContext} />
             </div>
