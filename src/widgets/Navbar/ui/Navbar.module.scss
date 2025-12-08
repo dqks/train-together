@@ -7,14 +7,19 @@
     background: var(--primary-color);
 }
 
+.collapsed {
+    visibility: hidden;
+}
+
+.collapseButtonWrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .content {
     position: sticky;
     top: 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-
-.userCard {
-    margin: 20px 0;
 }

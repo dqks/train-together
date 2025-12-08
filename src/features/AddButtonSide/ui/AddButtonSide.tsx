@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import cls from './AddButtonSide.module.scss';
 import { classNames } from '../../../shared/lib/classNames/classNames.ts';
 import { Button } from '../../../shared/ui/Button/Button.tsx';
@@ -23,7 +23,9 @@ export const AddButtonSide = ({
 
     return (
         <div className={classNames(cls.AddExercise, {}, [className])}>
-            <Button onClick={sidePanelHandler}>+</Button>
+            <Button type="button" onClick={sidePanelHandler}>
+                +
+            </Button>
             <SidePanel
                 contentClassName={contentClassName}
                 isOpen={isOpen}

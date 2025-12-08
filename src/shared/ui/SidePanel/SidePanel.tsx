@@ -16,7 +16,7 @@ export const SidePanel = ({
     children,
     onOutsideClick,
 } : SidePanelProps) => {
-    const { componentRef } = useOutsideClick(onOutsideClick);
+    const { componentRef } = useOutsideClick(onOutsideClick, isOpen);
 
     return isOpen
                 && (

@@ -16,7 +16,7 @@ export const Modal = ({
     isOpen,
     wrapperClassName,
 }: ModalProps) => {
-    const { componentRef } = useOutsideClick(onOutsideClick);
+    const { componentRef } = useOutsideClick(onOutsideClick, isOpen);
 
     return isOpen
     && (
