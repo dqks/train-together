@@ -1,0 +1,14 @@
+.CollapsedNavbar {
+    max-height: 35px;
+    max-width: var(--navbar-width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.navIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

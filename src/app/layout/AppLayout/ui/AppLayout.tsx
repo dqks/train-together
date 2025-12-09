@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router';
 import { useState } from 'react';
 import cls from './AppLayout.module.scss';
-import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
-import { Navbar } from '../../../../widgets/Navbar';
-import { BackButton } from '../../../../features/BackButton';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
+import { Navbar } from '@/widgets/Navbar';
+import { BackButton } from '@/features/BackButton';
 
 interface AppLayoutProps {
     className?: string;

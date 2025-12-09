@@ -1,13 +1,10 @@
-.buttonWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.sidebarIcon {
+.NavIconItem {
     width: 35px;
     height: 35px;
     padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
         background: #76db54;

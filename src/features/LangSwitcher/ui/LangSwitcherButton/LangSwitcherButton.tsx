@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { Button } from '../../../shared/ui/Button/Button.tsx';
-import { classNames } from '../../../shared/lib/classNames/classNames.ts';
+import { Button } from '@/shared/ui/Button/Button.tsx';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 
 interface LangSwitherProps {
     className?: string;
@@ -8,7 +8,7 @@ interface LangSwitherProps {
 
 export const LOCAL_STORAGE_LANG_KEY = 'language';
 
-export const LangSwitcher = ({ className }: LangSwitherProps) => {
+export const LangSwitcherButton = ({ className }: LangSwitherProps) => {
     const { t, i18n } = useTranslation();
 
     const toggleLanguage = () => {
@@ -19,6 +19,7 @@ export const LangSwitcher = ({ className }: LangSwitherProps) => {
 
     return (
         <Button
+            type="button"
             className={classNames('', {}, [className])}
             onClick={toggleLanguage}
         >

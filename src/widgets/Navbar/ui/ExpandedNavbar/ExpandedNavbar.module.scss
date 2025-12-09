@@ -1,0 +1,12 @@
+.ExpandedNavbar {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.collapseButtonWrapper {
+    display: flex;
+    justify-content: flex-end;
+}

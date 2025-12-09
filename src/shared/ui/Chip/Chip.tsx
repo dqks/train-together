@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import cls from './Chip.module.scss';
 import { classNames } from '../../lib/classNames/classNames.ts';
-import Cross from '../../../shared/assets/icons/cross.svg?react';
+import Cross from '../../assets/icons/cross.svg?react';
 
 interface ChipProps {
     className?: string;

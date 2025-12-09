@@ -107,6 +107,7 @@ export const enTranslation = {
         'Для улучшения атлетизма': 'Developing athleticism',
         'Универсальные программы, которые развивают общую физическую подготовку, координацию и функциональные качества, необходимые для любого спорта': 'Universal programs that develop general physic, coordination and functional qualities needed for any sport',
         'Свернуть боковую панель': 'Collapse the side panel',
+        'Развернуть боковую панель': 'Expand the side panel',
         'Добавить упражнение': 'Add exercise',
         'Добавить фильтры': 'Add filters',
         'Добавить программу': 'Add program',

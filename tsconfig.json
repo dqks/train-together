@@ -10,14 +10,5 @@
   ],
   "compilerOptions": {
     "moduleResolution": "node",
-    "baseUrl": "./",
-    // Important for path resolution
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-      // Add paths for other aliases if defined in vite.config.js
-      // "components/*": ["./src/components/*"],
-    }
   }
 }

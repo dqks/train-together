@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { classNames } from '../../lib/classNames/classNames';
-import ChevronRight from '../../../shared/assets/icons/chevron-right.svg?react';
+import ChevronRight from '../../assets/icons/chevron-right.svg?react';
 import cls from './FilterList.module.scss';
 import { Input } from '../Input/Input';
 

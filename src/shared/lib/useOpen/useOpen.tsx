@@ -5,7 +5,7 @@ type UseModalReturnType = [
     openHandler: () => void
 ]
 
-export const useModal = (): UseModalReturnType => {
+export const useOpen = (): UseModalReturnType => {
     const [isOpen, setIsOpen] = useState(false);
 
     const openHandler = () => {

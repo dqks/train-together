@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import cls from './Header.module.scss';
-import { AppLink } from '../../../shared/ui/AppLink/AppLink.tsx';
-import { classNames } from '../../../shared/lib/classNames/classNames.ts';
+import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { PublicAppRoutes }
-    from '../../../shared/config/routeConfig/publicRouteConfig.tsx';
-import { LangSwitcher }
-    from '../../../features/LangSwitcher';
-import { RegistrationButton } from '../../../features/RegistrationButton/index.ts';
-import { AuthRoutePath } from '../../../shared/config/routeConfig/authRouteConfig.tsx';
+    from '@/shared/config/routeConfig/publicRouteConfig.tsx';
+import { LangSwitcherButton }
+    from '@/features/LangSwitcher';
+import { RegistrationButton } from '@/features/RegistrationButton';
+import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 
 interface NavbarProps {
     className?: string;
@@ -19,7 +19,7 @@ export const Header = ({ className }: NavbarProps) => {
     return (
         <div className={classNames(cls.Header, {}, [className])}>
             <div className={cls.item}>
-                <LangSwitcher />
+                <LangSwitcherButton />
                 <AppLink to={AuthRoutePath.exercises}>{t('Упражнения')}</AppLink>
                 <AppLink to={AuthRoutePath.programs}>{t('Пользовательские тренировки')}</AppLink>
             </div>

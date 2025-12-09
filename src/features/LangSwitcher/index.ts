@@ -1,3 +1,7 @@
-import { LangSwitcher, LOCAL_STORAGE_LANG_KEY } from './ui/LangSwitcher.tsx';
+import {
+    LangSwitcherButton,
+    LOCAL_STORAGE_LANG_KEY,
+} from './ui/LangSwitcherButton/LangSwitcherButton.tsx';
+import { LangSwitcherIcon } from './ui/LangSwitcherIcon/LangSwitcherIcon.tsx';
 
-export { LangSwitcher, LOCAL_STORAGE_LANG_KEY };
+export { LangSwitcherButton, LOCAL_STORAGE_LANG_KEY, LangSwitcherIcon };

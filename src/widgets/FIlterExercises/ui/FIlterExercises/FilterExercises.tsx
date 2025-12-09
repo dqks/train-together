@@ -1,6 +1,6 @@
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
+import { FindExercise } from '@/features/FindExercise/ui/FindExercise.tsx';
 import cls from './FilterExercises.module.scss';
-import { classNames } from '../../../../shared/lib/classNames/classNames';
-import { FindExercise } from '../../../../features/FindExercise/ui/FindExercise';
 import { FilterExerciseButton } from '../FilterExerciseButton/FilterExerciseButton';
 import { AddExerciseButton } from '../AddExerciseButton/AddExerciseButton';
 

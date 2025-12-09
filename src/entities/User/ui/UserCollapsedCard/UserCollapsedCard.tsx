@@ -1,18 +1,14 @@
 import { useNavigate } from 'react-router';
-import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import cls from './UserCard.module.scss';
 import userPicture from '@/shared/assets/images/userPicture.jpg';
-import {
-    AuthRoutePath,
-} from '@/shared/config/routeConfig/authRouteConfig.tsx';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import cls from './UserCollapsedCard.module.scss';
+import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 
-interface UserCardProps {
+interface UserCollapsedCardProps {
     className?: string;
-    // name?: string;
-    // image?: string;
 }
 
-export const UserCard = ({ className } : UserCardProps) => {
+export const UserCollapsedCard = ({ className } : UserCollapsedCardProps) => {
     const navigate = useNavigate();
 
     const clickHandler = () => {
@@ -22,10 +18,9 @@ export const UserCard = ({ className } : UserCardProps) => {
     return (
         <div
             onClick={clickHandler}
-            className={classNames(cls.UserCard, {}, [className])}
+            className={classNames(cls.UserCollapsedCard, {}, [className])}
         >
             <img className={cls.picture} src={userPicture} alt="Картинка пользователя" />
-            <p className={cls.userName}>Username</p>
         </div>
     );
 };

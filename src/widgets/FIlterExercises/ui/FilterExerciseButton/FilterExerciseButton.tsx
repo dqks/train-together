@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import cls from './FilterExerciseButton.module.scss';
-import { FilterButton } from '../../../../features/FIlterButton';
+import { FilterButton } from '@/features/FIlterButton';
 import { SidePanelFilterContent } from '../SidePanelFilterContent/SidePanelFilterContent';
-import { TooltipElement } from '../../../../shared/ui/TooltipElement/TooltipElement.tsx';
-import { useModal } from '../../../../shared/lib/useModal/useModal.tsx';
+import { TooltipElement } from '@/shared/ui/TooltipElement/TooltipElement.tsx';
+import { useOpen } from '@/shared/lib/useOpen/useOpen.tsx';
 
 export const FilterExerciseButton = () => {
     const { t } = useTranslation();
-    const [isOpen, openHandler] = useModal();
+    const [isOpen, openHandler] = useOpen();
 
     return (
         <TooltipElement tooltipText={t('Добавить фильтры')}>

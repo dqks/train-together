@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import cls from './AddMyProgram.module.scss';
-import { Button } from '../../../shared/ui/Button/Button';
-import { Modal } from '../../../shared/ui/Modal/Modal';
+import { Button } from '@/shared/ui/Button/Button.tsx';
+import { Modal } from '@/shared/ui/Modal/Modal.tsx';
 import ModalProvider from '../provider/ModalProvider.tsx';
-import { TooltipElement } from '../../../shared/ui/TooltipElement/TooltipElement.tsx';
-import { useModal } from '../../../shared/lib/useModal/useModal.tsx';
+import { TooltipElement } from '@/shared/ui/TooltipElement/TooltipElement.tsx';
+import { useOpen } from '@/shared/lib/useOpen/useOpen.tsx';
 
 export const AddMyProgram = () => {
     const { t } = useTranslation();
-    const [isOpen, openHandler] = useModal();
+    const [isOpen, openHandler] = useOpen();
 
     return (
         <>
