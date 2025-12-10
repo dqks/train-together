@@ -28,19 +28,19 @@ export const CollapsedNavbar = ({
         </div>
         <UserCollapsedCard />
         <NavIconItem
-            icon={<Barbell stroke="white" width={35} strokeWidth={2} />}
+            icon={<Barbell stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
             to={AuthRoutePath.exercises}
         />
         <NavIconItem
-            icon={<Programs stroke="white" width={35} strokeWidth={2} />}
+            icon={<Programs stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
             to={AuthRoutePath.programs}
         />
         <NavIconItem
-            icon={<MyPrograms stroke="white" width={35} strokeWidth={2} />}
+            icon={<MyPrograms stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
             to={AuthRoutePath.my_programs}
         />
         <NavIconItem
-            icon={<Logout stroke="white" width={35} strokeWidth={2} />}
+            icon={<Logout stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
             to="/"
         />
         <LangSwitcherIcon />

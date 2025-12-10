@@ -10,31 +10,37 @@ interface NavbarProps {
 
 export const LOCAL_STORAGE_COLLAPSED_KEY = 'isCollapsed';
 
-export const Navbar = ({ className } : NavbarProps) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+const isCollapsedStorage = localStorage.getItem(LOCAL_STORAGE_COLLAPSED_KEY) as string;
 
-    const openHandler = () => {
+export const Navbar = ({ className } : NavbarProps) => {
+    const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+        if (localStorage.getItem(LOCAL_STORAGE_COLLAPSED_KEY) !== null) {
+            return JSON.parse(isCollapsedStorage);
+        }
+        return false;
+    });
+
+    const collapseHandler = () => {
         setIsCollapsed((prev) => !prev);
     };
-
-    useEffect(() => {
-        if (localStorage.getItem(LOCAL_STORAGE_COLLAPSED_KEY) !== null) {
-            setIsCollapsed(
-                JSON.parse(localStorage.getItem(LOCAL_STORAGE_COLLAPSED_KEY) as string),
-            );
-        }
-    }, []);
 
     useEffect(() => {
         localStorage.setItem(LOCAL_STORAGE_COLLAPSED_KEY, isCollapsed.toString());
     }, [isCollapsed]);
 
     return (
-        <div className={classNames(cls.Navbar, { [cls.collapsed]: isCollapsed }, [className])}>
+        <div className={classNames(
+            cls.Navbar,
+            {
+                [cls.collapsed]: isCollapsed,
+            },
+            [className],
+        )}
+        >
             {
                 isCollapsed
-                    ? (<CollapsedNavbar openHandler={openHandler} />)
-                    : (<ExpandedNavbar openHandler={openHandler} />)
+                    ? (<CollapsedNavbar openHandler={collapseHandler} />)
+                    : (<ExpandedNavbar openHandler={collapseHandler} />)
             }
         </div>
     );

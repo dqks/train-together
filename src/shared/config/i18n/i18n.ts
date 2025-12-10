@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { LOCAL_STORAGE_LANG_KEY } from '../../../features/LangSwitcher';
+import { LOCAL_STORAGE_LANG_KEY } from '@/features/LangSwitcher';
 import { enTranslation } from './languages/en.ts';
 import { ruTranslation } from './languages/ru.ts';
 
