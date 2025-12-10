@@ -4,8 +4,10 @@
     width: 100%;
     padding: 10px;
     background: var(--primary-color);
+    transition: 0.2s max-width;
 }
 
 .collapsed {
-    width: 60px;
+    max-width: 60px;
+    transition: 0.2s max-width;
 }

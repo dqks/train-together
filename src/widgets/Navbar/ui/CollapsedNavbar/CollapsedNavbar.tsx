@@ -37,7 +37,7 @@ export const CollapsedNavbar = ({
         />
         <NavIconItem
             icon={<MyPrograms stroke="white" width={35} strokeWidth={2} />}
-            to={AuthRoutePath.programs}
+            to={AuthRoutePath.my_programs}
         />
         <NavIconItem
             icon={<Logout stroke="white" width={35} strokeWidth={2} />}

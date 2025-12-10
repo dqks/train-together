@@ -15,7 +15,7 @@ interface ExpandedNavbarNavbarProps {
 }
 
 export const ExpandedNavbar = ({ className, openHandler } : ExpandedNavbarNavbarProps) => {
-    const [isAuth, setIsAuth] = useState(true);
+    const [isAuth] = useState(true);
     const { t } = useTranslation();
 
     return (
