@@ -2,15 +2,15 @@
 import { useTranslation } from 'react-i18next';
 import {
     EquipmentFilterList,
-} from '../../../../features/EquipmentFIterList/EquipmentFilterList.tsx';
-import { MuscleFilterList } from '../../../../features/MuscleFIlterList/MuscleFilterList.tsx';
-import { Button } from '../../../../shared/ui/Button/Button.tsx';
+} from '@/features/EquipmentFIterList/EquipmentFilterList.tsx';
+import { MuscleFilterList } from '@/features/MuscleFIlterList/MuscleFilterList.tsx';
+import { Button } from '@/shared/ui/Button/Button.tsx';
 
 // interface SidePanelFilterContentProps {
 //     className?: string;
 // }
 
-export const SidePanelFilterContent = () => {
+const SidePanelFilterContent = () => {
     const { t } = useTranslation();
     return (
         <>
@@ -29,3 +29,5 @@ export const SidePanelFilterContent = () => {
         </>
     );
 };
+
+export default SidePanelFilterContent;

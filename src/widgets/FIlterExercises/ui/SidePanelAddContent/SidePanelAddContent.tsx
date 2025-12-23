@@ -1,17 +1,17 @@
 import { useTranslation } from 'react-i18next';
-import { Input } from '../../../../shared/ui/Input/Input.tsx';
-import { Button } from '../../../../shared/ui/Button/Button.tsx';
+import { Input } from '@/shared/ui/Input/Input.tsx';
+import { Button } from '@/shared/ui/Button/Button.tsx';
 import cls from './SidePanelAddContent.module.scss';
 import { EquipmentFilterList }
-    from '../../../../features/EquipmentFIterList/EquipmentFilterList.tsx';
-import { MuscleFilterList } from '../../../../features/MuscleFIlterList/MuscleFilterList.tsx';
-import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
+    from '@/features/EquipmentFIterList/EquipmentFilterList.tsx';
+import { MuscleFilterList } from '@/features/MuscleFIlterList/MuscleFilterList.tsx';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 
 interface SidePanelAddContentProps {
     className?: string;
 }
 
-export const SidePanelAddContent = ({ className }: SidePanelAddContentProps) => {
+const SidePanelAddContent = ({ className }: SidePanelAddContentProps) => {
     const { t } = useTranslation();
 
     return (
@@ -39,3 +39,5 @@ export const SidePanelAddContent = ({ className }: SidePanelAddContentProps) => 
         </form>
     );
 };
+
+export default SidePanelAddContent;

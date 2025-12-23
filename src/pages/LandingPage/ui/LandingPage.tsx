@@ -2,21 +2,14 @@
 import { useTranslation } from 'react-i18next';
 import cls from './LandingPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import {
-    ProgramCard,
-    LandingProgramCard,
-} from '@/entities/Program';
+import { LandingProgramCard, ProgramCard } from '@/entities/Program';
 import { Footer } from '@/shared/ui/Footer/Footer.tsx';
 import { Header } from '@/widgets/Header';
-import {
-    LandingSection,
-} from '@/shared/ui/LandingSection/LandingSection.tsx';
+import { LandingSection } from '@/shared/ui/LandingSection/LandingSection.tsx';
 import { EmailForm } from '@/features/EmailForm/ui/EmailForm.tsx';
-import {
-    RequirementCard,
-} from './RequirementCard/RequirementCard.tsx';
+import { RequirementCard } from './RequirementCard/RequirementCard.tsx';
 import { SubscribeProgram } from '@/features/SubscribeProgram';
-import { CreateExerciseForm } from '../../../widgets/FIlterExercises';
+import { CreateExerciseForm } from '@/features/CreateExerciseForm';
 
 // Типизация интерфейса для компонента
 interface LandingPageProps {

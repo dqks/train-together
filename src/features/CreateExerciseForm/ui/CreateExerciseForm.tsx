@@ -8,11 +8,12 @@ import { Select } from '../../../shared/ui/Select/Select.tsx';
 
 interface CreateExerciseFormProps {
     className?: string;
-    submitButtonText: string;
+    submitButtonText?: string;
 }
 
 export const CreateExerciseForm = ({
     className,
+    submitButtonText,
 }: CreateExerciseFormProps) => {
     const { t } = useTranslation();
     return (
