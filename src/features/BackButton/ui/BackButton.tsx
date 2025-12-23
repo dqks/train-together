@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import ArrowLeft from '../../../shared/assets/icons/arrow-left.svg?react';
-import { classNames } from '../../../shared/lib/classNames/classNames';
-import { Button } from '../../../shared/ui/Button/Button';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
+import { Button } from '@/shared/ui/Button/Button.tsx';
 import cls from './BackButton.module.scss';
 
 interface BackButtonProps {

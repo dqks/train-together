@@ -1,31 +1,36 @@
+// Импорт всех необходимых модулей и компонентом
 import { useTranslation } from 'react-i18next';
 import cls from './LandingPage.module.scss';
-import { classNames } from '../../../shared/lib/classNames/classNames.ts';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import {
     ProgramCard,
     LandingProgramCard,
-} from '../../../entities/Program';
-import { Footer } from '../../../shared/ui/Footer/Footer.tsx';
-import { Header } from '../../../widgets/Header';
+} from '@/entities/Program';
+import { Footer } from '@/shared/ui/Footer/Footer.tsx';
+import { Header } from '@/widgets/Header';
 import {
     LandingSection,
-} from '../../../shared/ui/LandingSection/LandingSection.tsx';
-import { EmailForm } from '../../../features/EmailForm/ui/EmailForm.tsx';
+} from '@/shared/ui/LandingSection/LandingSection.tsx';
+import { EmailForm } from '@/features/EmailForm/ui/EmailForm.tsx';
 import {
     RequirementCard,
 } from './RequirementCard/RequirementCard.tsx';
-import { SubscribeProgram } from '../../../features/SubscribeProgram';
+import { SubscribeProgram } from '@/features/SubscribeProgram';
 import { CreateExerciseForm } from '../../../widgets/FIlterExercises';
 
+// Типизация интерфейса для компонента
 interface LandingPageProps {
     className?: string;
 }
 
 const LandingPage = ({ className }: LandingPageProps) => {
+    // Объявление функции для переводов
     const { t } = useTranslation();
     return (
         <div className={classNames(cls.MainPage, {}, [className])}>
+            {/* Вывод компонента для хедера */}
             <Header />
+            {/* Вывод блока с регистрацией */}
             <LandingSection
                 title={t('Создавайте и делитесь своими программами тренировок')}
                 description={t('Зарегистрируйтесь, чтобы использовать полный функционал')}
@@ -33,6 +38,7 @@ const LandingPage = ({ className }: LandingPageProps) => {
                 <EmailForm />
             </LandingSection>
 
+            {/* Вывод блока с перечислением тренировок */}
             <LandingSection
                 title={t('Создавайте тренировки под свои требования')}
                 description={t('Вы можете автоматически создать тренировки для:')}
@@ -45,19 +51,32 @@ const LandingPage = ({ className }: LandingPageProps) => {
                     />
                     <RequirementCard
                         title={t('Увеличение силовых показателей')}
-                        description={t('Программы сконцентрированы на развитии максимальной силы за счёт работы с предельными весамии и прогрессии нагрузок в базовых упражнениях')}
+                        description={
+                            t('Программы сконцентрированы на развитии максимальной силы за счёт '
+                                + 'работы с предельными весамии и прогрессии'
+                                + ' нагрузок в базовых упражнениях')
+                        }
                     />
                     <RequirementCard
                         title={t('Увеличение вертикального прыжка')}
-                        description={t('Специализированные программы направлена на развитие взрывной силы ног и плиометрических способностей для максимального высотного результата')}
+                        description={
+                            t('Специализированные программы направлена на развитие взрывной'
+                                + ' силы ног и плиометрических способностей'
+                                + ' для максимального высотного результата')
+                        }
                     />
                     <RequirementCard
                         title={t('Для улучшения атлетизма')}
-                        description={t('Универсальные программы, которые развивают общую физическую подготовку, координацию и функциональные качества, необходимые для любого спорта')}
+                        description={
+                            t('Универсальные программы, которые развивают общую физическую'
+                                + ' подготовку, координацию и функциональные '
+                                + 'качества, необходимые для любого спорта')
+                        }
                     />
                 </div>
             </LandingSection>
 
+            {/* Вывод блока с демонстрацией функционала сохранения тренировок */}
             <LandingSection
                 title={t('Сохраняйте тренировки пользователей себе')}
                 description={t(
@@ -77,6 +96,7 @@ const LandingPage = ({ className }: LandingPageProps) => {
                 <CreateExerciseForm className={cls.createExerciseForm} />
             </LandingSection>
 
+            {/* Вывод блока с популярными тренировками пользователей */}
             <LandingSection
                 title={t('Самые популярные тренировки пользователей')}
             >
@@ -86,6 +106,8 @@ const LandingPage = ({ className }: LandingPageProps) => {
                     <LandingProgramCard />
                 </div>
             </LandingSection>
+
+            {/* Вывод футера страницы */}
             <Footer />
         </div>
     );
