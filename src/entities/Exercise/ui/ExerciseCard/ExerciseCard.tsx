@@ -8,11 +8,17 @@ import { AuthRoutePath } from '../../../../shared/config/routeConfig/authRouteCo
 interface ExerciseCardProps {
     className?: string;
     pictureUrl?: string;
-    title?: string;
+    name?: string;
     description?: string;
 }
 
-export const ExerciseCard = ({ className } : ExerciseCardProps) => {
+export const ExerciseCard = (props : ExerciseCardProps) => {
+    const {
+        pictureUrl,
+        description,
+        className,
+        name = 'Жим лежа в Смите',
+    } = props;
     const { t } = useTranslation();
 
     const navigate = useNavigate();
@@ -26,7 +32,7 @@ export const ExerciseCard = ({ className } : ExerciseCardProps) => {
             <div className={cls.pictureWrapper}>
                 <Picture height={250} />
             </div>
-            <h2 className={cls.title}>{t('Жим лежа в Смите')}</h2>
+            <h2 className={cls.title}>{name}</h2>
             <p>
                 {t('Грудь')}
                 ,

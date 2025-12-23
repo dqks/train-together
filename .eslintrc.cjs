@@ -61,6 +61,7 @@ module.exports = {
         'jsx-a11y/no-static-element-interactions': 'off',
         'class-methods-use-this': 'off',
         'no-param-reassign': 'off',
+        'react/jsx-no-useless-fragment': 'off',
     },
     globals: {
         __IS_DEV__: true,

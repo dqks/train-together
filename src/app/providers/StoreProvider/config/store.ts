@@ -1,6 +1,8 @@
 import { configureStore, type ReducersMapObject } from '@reduxjs/toolkit';
 import { createReducerManager } from './reducerManager';
 import type { StateSchema } from './StateSchema';
+import { userReducer } from '@/entities/User';
+import { exerciseReducer } from '@/entities/Exercise';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -8,12 +10,15 @@ export function createReduxStore(
 ) {
     const rootReducer: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
+        user: userReducer,
+        exercise: exerciseReducer,
     };
 
     const reducerManager = createReducerManager(rootReducer);
 
     const store = configureStore<StateSchema>({
-        reducer: reducerManager.reduce,
+        // reducer: reducerManager.reduce,
+        reducer: rootReducer,
         devTools: true,
         preloadedState: initialState,
     });

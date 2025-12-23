@@ -1,8 +1,12 @@
 import type {
     AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
+import type { UserSchema } from '@/entities/User/model/types/userSchema.ts';
+import type { ExerciseSchema } from '@/entities/Exercise';
 
 export interface StateSchema {
+    user: UserSchema
+    exercise: ExerciseSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;
