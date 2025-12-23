@@ -5,6 +5,7 @@ import { Button } from '@/shared/ui/Button/Button.tsx';
 import { Modal } from '@/shared/ui/Modal/Modal.tsx';
 import { TooltipElement } from '@/shared/ui/TooltipElement/TooltipElement.tsx';
 import { useOpen } from '@/shared/lib/useOpen/useOpen.tsx';
+import { Loader } from '@/shared/ui/Loader/Loader.tsx';
 
 const ModalProvider = lazy(() => import('../provider/ModalProvider.tsx'));
 
@@ -23,7 +24,12 @@ export const AddMyProgram = () => {
                 onOutsideClick={openHandler}
                 wrapperClassName={cls.modal}
             >
-                <Suspense fallback="">
+                <Suspense fallback={(
+                    <div className={cls.loaderWrapper}>
+                        <Loader />
+                    </div>
+                )}
+                >
                     <ModalProvider />
                 </Suspense>
             </Modal>
