@@ -27,6 +27,22 @@ class TrainingProgramsController {
 
         res.json(defaultExercises.rows);
     }
+
+    async createTrainingProgram(req, res) {
+        try {
+            const { userId, name, description } = req.body;
+
+            const newProgram = await db
+                .query(
+                    'INSERT INTO training_programs (id_user, name, description, public) VALUES ($1, $2, $3, $4) RETURNING id',
+                    [userId, name, description, true],
+                );
+
+            return res.json(newProgram.rows[0]);
+        } catch (e) {
+            return res.status(500).json({ message: e.message });
+        }
+    }
 }
 
 module.exports = new TrainingProgramsController();

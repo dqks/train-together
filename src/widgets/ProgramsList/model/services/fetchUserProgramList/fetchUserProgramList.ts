@@ -3,7 +3,7 @@ import axios from 'axios';
 import type { Program } from '../../types/programSchema.ts';
 
 export const fetchUserProgramList = createAsyncThunk<Program[], number, {rejectValue: string}>(
-    'programs/fetchUserProgramList',
+    'programs/createUserProgram',
     async (userId, thunkAPI) => {
         try {
             const response = await axios

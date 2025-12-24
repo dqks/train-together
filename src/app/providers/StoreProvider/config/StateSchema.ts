@@ -8,6 +8,7 @@ import type { RegisterSchema } from '@/features/RegisterForm';
 import type { LoginSchema } from '@/features/LoginForm';
 import type { MuscleSchema } from '@/features/MuscleFIlterList';
 import type { EquipmentSchema } from '@/features/EquipmentFIterList';
+import type { CreateProgramSchema } from '@/features/AddMyProgram';
 
 export interface StateSchema {
     user: UserSchema
@@ -17,6 +18,7 @@ export interface StateSchema {
     login: LoginSchema
     muscle: MuscleSchema
     equipment: EquipmentSchema
+    createProgram: CreateProgramSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

@@ -9,6 +9,7 @@ import { Loader } from '@/shared/ui/Loader/Loader.tsx';
 import {
     fetchUserProgramList,
 } from '@/widgets/ProgramsList/model/services/fetchUserProgramList/fetchUserProgramList.ts';
+import { getUserId } from '@/entities/User/model/selectors/getUserId/getUserId.ts';
 
 interface ProgramsListProps {
     className?: string;
@@ -23,11 +24,12 @@ export const ProgramsList = (props: ProgramsListProps) => {
     const dispatch = useDispatch();
     const programList : Program[] | null = useSelector(getProgramList);
     const isLoading = useSelector(getProgramIsLoading);
+    const userId = useSelector(getUserId);
 
     useEffect(() => {
         if (isMyProgramPage) {
             // 8 = userId
-            dispatch(fetchUserProgramList(8));
+            dispatch(fetchUserProgramList(userId || 8));
         } else {
             dispatch(fetchProgramList());
         }

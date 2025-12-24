@@ -8,6 +8,7 @@ import { registerReducer } from '@/features/RegisterForm';
 import { loginReducer } from '@/features/LoginForm';
 import { muscleReducer } from '@/features/MuscleFIlterList';
 import { equipmentReducer } from '@/features/EquipmentFIterList';
+import { createProgramReducer } from '@/features/AddMyProgram';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -22,6 +23,7 @@ export function createReduxStore(
         login: loginReducer,
         muscle: muscleReducer,
         equipment: equipmentReducer,
+        createProgram: createProgramReducer,
     };
 
     const reducerManager = createReducerManager(rootReducer);
