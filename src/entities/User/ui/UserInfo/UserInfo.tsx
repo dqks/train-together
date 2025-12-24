@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
+import { useSelector } from 'react-redux';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './UserInfo.module.scss';
 import userPicture from '../../../../shared/assets/images/userPicture.jpg';
-import { Button } from '../../../../shared/ui/Button/Button.tsx';
-import { Input } from '../../../../shared/ui/Input/Input.tsx';
-import { Textarea } from '../../../../shared/ui/Textarea/Textarea.tsx';
+import { Button } from '@/shared/ui/Button/Button.tsx';
+import { Input } from '@/shared/ui/Input/Input.tsx';
+import { Textarea } from '@/shared/ui/Textarea/Textarea.tsx';
+import { getUserNickname } from '@/entities/User/model/selectors/getUserNickname/getUserNickname.ts';
 
 interface UserInfoProps {
     className?: string;
@@ -13,6 +15,7 @@ interface UserInfoProps {
 
 export const UserInfo = ({ className } : UserInfoProps) => {
     const { t } = useTranslation();
+    const nickname = useSelector(getUserNickname);
     const [editMode, setEditMode] = useState(false);
 
     const editHandler = () => {
@@ -33,6 +36,7 @@ export const UserInfo = ({ className } : UserInfoProps) => {
                                     placeholder="Nick"
                                     name="nickname"
                                     id="nickname"
+                                    value={nickname}
                                 />
                             </div>
                             <div className={cls.inputWrapper}>
@@ -56,7 +60,7 @@ export const UserInfo = ({ className } : UserInfoProps) => {
                     )
                     : (
                         <>
-                            <h2 className={cls.nick}>Username</h2>
+                            <h2 className={cls.nick}>{nickname}</h2>
                             <p>Bio</p>
                             <Button
                                 type="button"

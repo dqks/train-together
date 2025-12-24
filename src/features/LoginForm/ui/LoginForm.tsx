@@ -9,7 +9,7 @@ import { Button } from '@/shared/ui/Button/Button.tsx';
 import { AppLink, LinkColor } from '@/shared/ui/AppLink/AppLink.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { PublicRoutePath } from '@/shared/config/routeConfig/publicRouteConfig.tsx';
-import { getUserId } from '@/entities/User/model/selectors/getUserId.ts';
+import { getUserId } from '@/entities/User/model/selectors/getUserId/getUserId.ts';
 import { getLoginEmail } from '../model/selectors/getLoginEmail/getLoginEmail.ts';
 import { loginByEmail } from '../model/services/loginByEmail/loginByEmail.ts';
 import { getLoginIsLoading } from '../model/selectors/getLoginIsLoading/getLoginIsLoading.ts';

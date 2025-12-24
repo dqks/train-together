@@ -113,5 +113,6 @@ export const enTranslation = {
         'Добавить программу': 'Add program',
         От: 'By',
         'Введены некорректные данные': 'Entered data is incorrect',
+        'Картинка пользователя': 'User\'s image',
     },
 };

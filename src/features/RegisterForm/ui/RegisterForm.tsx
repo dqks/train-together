@@ -14,7 +14,7 @@ import { getRegisterPassword } from '../model/selectors/getRegisterPassword/getR
 import { getRegisterNickname } from '../model/selectors/getRegisterNickname/getRegisterNickname.ts';
 import { registerActions } from '../model/slice/registerSlice.ts';
 import { registerByEmail } from '../model/services/registerByEmail/registerByEmail.ts';
-import { getUserId } from '@/entities/User/model/selectors/getUserId.ts';
+import { getUserId } from '@/entities/User/model/selectors/getUserId/getUserId.ts';
 import { getRegisterIsLoading } from '../model/selectors/getRegisterIsLoading/getRegisterIsLoading.ts';
 import { getRegisterError } from '../model/selectors/getRegisterError/getRegisterError.ts';
 

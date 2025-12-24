@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ExpandedNavbar.module.scss';
 import { UserCard } from '@/entities/User';
@@ -8,6 +9,7 @@ import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { LangSwitcherButton } from '@/features/LangSwitcher';
 import { RegistrationButton } from '@/features/RegistrationButton';
 import { CollapseButton } from '../CollapseButton/CollapseButton';
+import { getUserNickname } from '@/entities/User/model/selectors/getUserNickname/getUserNickname.ts';
 
 interface ExpandedNavbarNavbarProps {
     className?: string;
@@ -16,6 +18,7 @@ interface ExpandedNavbarNavbarProps {
 
 export const ExpandedNavbar = ({ className, openHandler } : ExpandedNavbarNavbarProps) => {
     const [isAuth] = useState(true);
+    const userNickname = useSelector(getUserNickname);
     const { t } = useTranslation();
 
     return (
@@ -36,7 +39,7 @@ export const ExpandedNavbar = ({ className, openHandler } : ExpandedNavbarNavbar
                                     collapseHandler={openHandler}
                                 />
                             </div>
-                            <UserCard />
+                            <UserCard name={userNickname} />
                             <AppLink deleteUnderLine to={AuthRoutePath.exercises}>
                                 {t('Упражнения')}
                             </AppLink>

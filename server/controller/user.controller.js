@@ -15,7 +15,7 @@ class UserController {
             const newUser = await db
                 .query(
                     'INSERT INTO users (email, nickname, password, id_role) '
-                    + 'values ($1, $2, $3, (SELECT id FROM roles WHERE roles.name = $4)) RETURNING id',
+                    + 'values ($1, $2, $3, (SELECT id FROM roles WHERE roles.name = $4)) RETURNING id, nickname',
                     [email, nickname, password, 'Пользователь'],
                 );
 
@@ -29,14 +29,17 @@ class UserController {
         try {
             const { email, password } = req.body;
 
-            const users = await db.query('SELECT id, email, password FROM users');
+            const users = await db.query('SELECT id, email, nickname, password FROM users');
 
             const userFromBd = users.rows.find(
                 (user) => user.email === email && user.password === password,
             );
 
             if (userFromBd) {
-                return res.json({ id: userFromBd.id });
+                return res.json({
+                    id: userFromBd.id,
+                    nickname: userFromBd.nickname,
+                });
             }
 
             return res.status(403).json({ message: 'User not found' });
