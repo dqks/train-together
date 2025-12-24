@@ -3,6 +3,7 @@ import { createReducerManager } from './reducerManager';
 import type { StateSchema } from './StateSchema';
 import { userReducer } from '@/entities/User';
 import { exerciseReducer } from '@/entities/Exercise';
+import { programsReducer } from '@/widgets/ProgramsList';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -12,6 +13,7 @@ export function createReduxStore(
         ...asyncReducers,
         user: userReducer,
         exercise: exerciseReducer,
+        programs: programsReducer,
     };
 
     const reducerManager = createReducerManager(rootReducer);

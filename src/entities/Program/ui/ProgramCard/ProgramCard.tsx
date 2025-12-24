@@ -1,28 +1,35 @@
 import { useNavigate } from 'react-router';
 import cls from './ProgramCard.module.scss';
-import { classNames } from '../../../../shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
-import { AuthRoutePath } from '../../../../shared/config/routeConfig/authRouteConfig';
+import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 
 interface ProgramCardProps {
+    id: number;
     className?: string;
-    // programName?: string
-    // userName?: string;
-    // description?: string;
+    programName?: string
+    userName?: string;
+    description?: string;
     // image?: string;
     deleteCreator?: boolean;
     showRating?: boolean;
 }
 
-export const ProgramCard = ({
-    className,
-    deleteCreator = false,
-    showRating,
-} : ProgramCardProps) => {
+export const ProgramCard = (props : ProgramCardProps) => {
+    const {
+        className,
+        deleteCreator = false,
+        showRating,
+        programName,
+        userName,
+        description,
+        id,
+    } = props;
+
     const navigate = useNavigate();
 
     const clickHandler = () => {
-        navigate(`${AuthRoutePath.program_details}23`);
+        navigate(`${AuthRoutePath.program_details}${id}`);
     };
 
     return (
@@ -36,19 +43,23 @@ export const ProgramCard = ({
                     showRating
                         ? (
                             <div className={cls.titleWrapper}>
-                                <h3>Название</h3>
+                                <h3>{programName}</h3>
                                 <span>5 &#9733;</span>
                             </div>
                         )
                         : (
-                            <h3>Название</h3>
+                            <h3>{programName}</h3>
                         )
                 }
                 <hr className={cls.hr} />
-                <p className={classNames('', { [cls.deleteCreator]: deleteCreator }, [])}>
-                    От Username
+                <p
+                    className={classNames('', { [cls.deleteCreator]: deleteCreator }, [])}
+                >
+                    От
+                    {' '}
+                    {userName}
                 </p>
-                <p>Описание</p>
+                <p>{description}</p>
             </div>
         </div>
     );

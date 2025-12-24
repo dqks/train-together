@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import type { ExerciseCardInformation } from '../types/exerciseSchema.ts';
+import type { Program } from '../../types/programSchema.ts';
 
-export const fetchExerciseCards = createAsyncThunk<ExerciseCardInformation[], void, {rejectValue: string}>(
-    'exercise/fetchExerciseCards',
+export const fetchProgramList = createAsyncThunk<Program[], void, {rejectValue: string}>(
+    'programs/fetchProgramList',
     async (_, thunkAPI) => {
         try {
             const response = await axios
-                .get<ExerciseCardInformation[]>('http://localhost:8080/api/default-exercise');
+                .get<Program[]>('http://localhost:8080/api/training-programs');
 
             if (!response.data) {
                 throw new Error('Error occured');

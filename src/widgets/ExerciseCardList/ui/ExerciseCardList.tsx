@@ -17,7 +17,7 @@ export const ExerciseCardList = ({ className } : ExerciseCardListProps) => {
     const isLoading = useSelector(getExerciseIsLoading);
 
     useEffect(() => {
-        dispatch(fetchExerciseCards(null));
+        dispatch(fetchExerciseCards());
     }, [dispatch]);
 
     const cards = exerciseCards

@@ -3,10 +3,12 @@ import type {
 } from '@reduxjs/toolkit';
 import type { UserSchema } from '@/entities/User/model/types/userSchema.ts';
 import type { ExerciseSchema } from '@/entities/Exercise';
+import type { ProgramSchema } from '@/widgets/ProgramsList';
 
 export interface StateSchema {
     user: UserSchema
     exercise: ExerciseSchema
+    programs: ProgramSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;
