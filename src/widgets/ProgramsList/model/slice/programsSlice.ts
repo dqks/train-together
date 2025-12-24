@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { ProgramSchema } from '../types/programSchema.ts';
 import { fetchProgramList } from '../services/fetchProgramList/fetchProgramList.ts';
+import {
+    fetchUserProgramList,
+} from '@/widgets/ProgramsList/model/services/fetchUserProgramList/fetchUserProgramList.ts';
 
 const initialState: ProgramSchema = {
     programList: null,
@@ -24,6 +27,18 @@ export const programsSlice = createSlice({
                 state.programList = action.payload;
             })
             .addCase(fetchProgramList.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(fetchUserProgramList.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetchUserProgramList.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.programList = action.payload;
+            })
+            .addCase(fetchUserProgramList.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

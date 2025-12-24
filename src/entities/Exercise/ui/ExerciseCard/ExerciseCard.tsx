@@ -1,21 +1,21 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import cls from './ExerciseCard.module.scss';
-import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
-import { AuthRoutePath } from '../../../../shared/config/routeConfig/authRouteConfig.tsx';
+import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 
 interface ExerciseCardProps {
     className?: string;
-    pictureUrl?: string;
+    // pictureUrl?: string;
     name?: string;
-    description?: string;
+    // description?: string;
 }
 
 export const ExerciseCard = (props : ExerciseCardProps) => {
     const {
-        pictureUrl,
-        description,
+        // pictureUrl,
+        // description,
         className,
         name = 'Жим лежа в Смите',
     } = props;

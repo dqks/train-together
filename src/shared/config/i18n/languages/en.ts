@@ -111,6 +111,6 @@ export const enTranslation = {
         'Добавить упражнение': 'Add exercise',
         'Добавить фильтры': 'Add filters',
         'Добавить программу': 'Add program',
-
+        От: 'By',
     },
 };

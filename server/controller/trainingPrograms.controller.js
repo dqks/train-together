@@ -11,6 +11,22 @@ class TrainingProgramsController {
                 + 'ORDER BY t.name');
         res.json(defaultExercises.rows);
     }
+
+    async getUserTrainingPrograms(req, res) {
+        // public можно не возвращать
+        const { userId } = req.params;
+
+        const defaultExercises = await db
+            .query('SELECT t.id, t.name, t.description, u.nickname, u.id as user_id, public '
+                + 'FROM training_programs t '
+                + 'INNER JOIN users u ON t.id_user = u.id '
+                + 'WHERE u.id = $1 '
+                + 'ORDER BY t.name', [userId]);
+
+        defaultExercises.rows.map((program) => delete program.user_id);
+
+        res.json(defaultExercises.rows);
+    }
 }
 
 module.exports = new TrainingProgramsController();

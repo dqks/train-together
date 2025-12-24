@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import cls from './ProgramCard.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
@@ -7,9 +8,9 @@ import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 interface ProgramCardProps {
     id: number;
     className?: string;
-    programName?: string
+    programName: string
     userName?: string;
-    description?: string;
+    description: string | null;
     // image?: string;
     deleteCreator?: boolean;
     showRating?: boolean;
@@ -26,6 +27,7 @@ export const ProgramCard = (props : ProgramCardProps) => {
         id,
     } = props;
 
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const clickHandler = () => {
@@ -55,7 +57,7 @@ export const ProgramCard = (props : ProgramCardProps) => {
                 <p
                     className={classNames('', { [cls.deleteCreator]: deleteCreator }, [])}
                 >
-                    От
+                    {t('От')}
                     {' '}
                     {userName}
                 </p>

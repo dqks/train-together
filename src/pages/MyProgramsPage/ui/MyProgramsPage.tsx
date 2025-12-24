@@ -17,7 +17,7 @@ const MyProgramsPage = ({ className } : YourTrainingProgramsPageProps) => {
     return (
         <div className={classNames(cls.MyProgramsPage, {}, [className])}>
             <FilterMyProgram />
-            <ProgramsList />
+            <ProgramsList isMyProgramPage />
         </div>
     );
 };
