@@ -4,11 +4,15 @@ import type {
 import type { UserSchema } from '@/entities/User/model/types/userSchema.ts';
 import type { ExerciseSchema } from '@/entities/Exercise';
 import type { ProgramSchema } from '@/widgets/ProgramsList';
+import type { RegisterSchema } from '@/features/RegisterForm';
+import type { LoginSchema } from '@/features/LoginForm';
 
 export interface StateSchema {
     user: UserSchema
     exercise: ExerciseSchema
     programs: ProgramSchema
+    register: RegisterSchema
+    login: LoginSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

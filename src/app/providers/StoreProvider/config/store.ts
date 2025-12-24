@@ -4,6 +4,8 @@ import type { StateSchema } from './StateSchema';
 import { userReducer } from '@/entities/User';
 import { exerciseReducer } from '@/entities/Exercise';
 import { programsReducer } from '@/widgets/ProgramsList';
+import { registerReducer } from '@/features/RegisterForm';
+import { loginReducer } from '@/features/LoginForm';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -14,6 +16,8 @@ export function createReduxStore(
         user: userReducer,
         exercise: exerciseReducer,
         programs: programsReducer,
+        register: registerReducer,
+        login: loginReducer,
     };
 
     const reducerManager = createReducerManager(rootReducer);

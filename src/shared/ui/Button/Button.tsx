@@ -14,6 +14,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     theme?: ThemeButton;
     isOutlined?: boolean
     type: ButtonType
+    disabled?: boolean
 }
 
 export const Button = (props : ButtonProps) => {
@@ -23,17 +24,26 @@ export const Button = (props : ButtonProps) => {
         theme,
         isOutlined = false,
         type = 'button',
+        disabled = false,
         ...otherProps
     } = props;
+
+    const mods = {
+        [cls.outline]: isOutlined,
+        [cls.disabled]: disabled,
+    };
+
+    const additional = [className, theme && cls[theme]];
 
     return (
         <button
             className={classNames(
                 cls.Button,
-                { [cls.outline]: isOutlined },
-                [className, theme && cls[theme]],
+                mods,
+                additional,
             )}
             type={type}
+            disabled={disabled}
             {...otherProps}
         >
             {children}

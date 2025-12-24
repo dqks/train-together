@@ -1,12 +1,21 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useEffect } from 'react';
 import cls from './RegisterForm.module.scss';
-import { classNames } from '../../../shared/lib/classNames/classNames.ts';
-import { Input } from '../../../shared/ui/Input/Input.tsx';
-import { Button } from '../../../shared/ui/Button/Button.tsx';
-import { AppLink } from '../../../shared/ui/AppLink/AppLink.tsx';
-import { AuthRoutePath } from '../../../shared/config/routeConfig/authRouteConfig.tsx';
-import { PublicRoutePath } from '../../../shared/config/routeConfig/publicRouteConfig.tsx';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
+import { Input } from '@/shared/ui/Input/Input.tsx';
+import { Button } from '@/shared/ui/Button/Button.tsx';
+import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
+import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
+import { PublicRoutePath } from '@/shared/config/routeConfig/publicRouteConfig.tsx';
+import { getRegisterEmail } from '../model/selectors/getRegisterEmail/getRegisterEmail.ts';
+import { getRegisterPassword } from '../model/selectors/getRegisterPassword/getRegisterPassword.ts';
+import { getRegisterNickname } from '../model/selectors/getRegisterNickname/getRegisterNickname.ts';
+import { registerActions } from '@/features/RegisterForm/model/slice/registerSlice.ts';
+import { registerByEmail } from '@/features/RegisterForm/model/services/registerByEmail/registerByEmail.ts';
+import { getUserId } from '@/entities/User/model/selectors/getUserId.ts';
+import { getRegisterIsLoading } from '../model/selectors/getRegisterIsLoading/getRegisterIsLoading.ts';
 
 interface RegisterFormProps {
     className?: string;
@@ -15,24 +24,61 @@ interface RegisterFormProps {
 export const RegisterForm = ({ className } : RegisterFormProps) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const email = useSelector(getRegisterEmail);
+    const password = useSelector(getRegisterPassword);
+    const nickname = useSelector(getRegisterNickname);
+    const isLoading = useSelector(getRegisterIsLoading);
+    // TODO может быть не так
+    const userId = useSelector(getUserId);
 
-    const createHandler = () => {
-        navigate(AuthRoutePath.my_profile);
+    useEffect(() => {
+        if (userId) {
+            navigate(AuthRoutePath.exercises);
+        }
+    }, [userId, navigate]);
+
+    const onChangeNickname = useCallback((value: string) => {
+        dispatch(registerActions.setNickname(value));
+    }, [dispatch]);
+
+    const onChangePassword = useCallback((value: string) => {
+        dispatch(registerActions.setPassword(value));
+    }, [dispatch]);
+
+    const onChangeEmail = useCallback((value: string) => {
+        dispatch(registerActions.setEmail(value));
+    }, [dispatch]);
+
+    const onRegisterClick = () => {
+        dispatch(registerByEmail({ email, nickname, password }));
     };
 
     return (
-        <form className={classNames(cls.RegisterForm, {}, [className])}>
+        <div className={classNames(cls.RegisterForm, {}, [className])}>
             <p className={cls.accountExists}>
                 {t('Уже есть аккаунт? ')}
                 <AppLink className={cls.login} to={PublicRoutePath.login}>{t('Войдите')}</AppLink>
             </p>
             <div className={cls.inputWrapper}>
                 <label htmlFor="email">{t('Email')}</label>
-                <Input id="email" name="email" type="text" />
+                <Input
+                    onChange={onChangeEmail}
+                    value={email}
+                    id="email"
+                    name="email"
+                    type="text"
+                />
             </div>
             <div className={cls.inputWrapper}>
                 <label htmlFor="password">{t('Пароль')}</label>
-                <Input id="password" name="password" type="password" />
+                <Input
+                    onChange={onChangePassword}
+                    value={password}
+                    id="password"
+                    name="password"
+                    type="password"
+                />
                 <p className={cls.inputDescription}>
                     {t('Пароль должен состоять минимум из 15 символов ИЛИ '
                         + 'хотябы из 8 символов, включающих число '
@@ -41,13 +87,25 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
             </div>
             <div className={cls.inputWrapper}>
                 <label htmlFor="nickname">{t('Никнейм')}</label>
-                <Input id="nickname" name="nickname" type="text" />
+                <Input
+                    onChange={onChangeNickname}
+                    value={nickname}
+                    id="nickname"
+                    name="nickname"
+                    type="text"
+                />
                 <p className={cls.inputDescription}>
                     {t('Никнейм может только состоять'
                         + ' из алфавитных символов и цифр')}
                 </p>
             </div>
-            <Button onClick={createHandler} type="submit">{t('Создать аккаунт')}</Button>
-        </form>
+            <Button
+                disabled={isLoading}
+                onClick={onRegisterClick}
+                type="button"
+            >
+                {t('Создать аккаунт')}
+            </Button>
+        </div>
     );
 };
