@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { classNames } from '../../lib/classNames/classNames';
 import cls from './Modal.module.scss';
 import { useOutsideClick } from '../../lib/useOutsideClick/useOutsideClick.tsx';
+import { Portal } from '@/shared/ui/Portal/Portral.tsx';
 
 type ModalProps = {
     children: ReactNode
@@ -20,20 +21,22 @@ export const Modal = ({
 
     return isOpen
     && (
-        <div
-            ref={componentRef}
-            className={cls.Modal}
-        >
+        <Portal>
             <div
-                // Вернул класс для стилизации обертки модалки
-                // Но стилизовывать children нужно все равно
-                className={classNames(cls.content, {}, [wrapperClassName])}
+                ref={componentRef}
+                className={cls.Modal}
             >
-                <i onClick={onOutsideClick} className={cls.closeIcon}>
-                    &times;
-                </i>
-                {children}
+                <div
+                    // Вернул класс для стилизации обертки модалки
+                    // Но стилизовывать children нужно все равно
+                    className={classNames(cls.content, {}, [wrapperClassName])}
+                >
+                    <i onClick={onOutsideClick} className={cls.closeIcon}>
+                        &times;
+                    </i>
+                    {children}
+                </div>
             </div>
-        </div>
+        </Portal>
     );
 };

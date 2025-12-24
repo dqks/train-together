@@ -2,11 +2,17 @@
 @import "themes/light";
 @import "reset";
 
-.app {
-    font: var(--font-m);
-    font-family: var(--font-family-main), serif;
-    background: var(--bg-color);
+body {
     color: var(--primary-text-color);
+    font-family: var(--font-family-main), serif;
+}
+
+.app {
+    // font: var(--font-m);
+    // font-family: var(--font-family-main), serif;
+    background: var(--bg-color);
+
+    // color: var(--primary-text-color);
     min-height: 100vh;
 
     // display: flex;
