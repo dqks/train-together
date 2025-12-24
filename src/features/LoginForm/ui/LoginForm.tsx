@@ -14,7 +14,8 @@ import { getLoginEmail } from '../model/selectors/getLoginEmail/getLoginEmail.ts
 import { loginByEmail } from '../model/services/loginByEmail/loginByEmail.ts';
 import { getLoginIsLoading } from '../model/selectors/getLoginIsLoading/getLoginIsLoading.ts';
 import { getLoginPassword } from '../model/selectors/getLoginPassword/getLoginPassword.ts';
-import { loginActions } from '@/features/LoginForm/model/slice/loginSlice.ts';
+import { loginActions } from '../model/slice/loginSlice.ts';
+import { getLoginError } from '../model/selectors/getLoginError/getLoginError.ts';
 
 interface LoginFormProps {
     className?: string;
@@ -28,6 +29,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
     const password = useSelector(getLoginPassword);
     const isLoading = useSelector(getLoginIsLoading);
     const userId = useSelector(getUserId);
+    const error = useSelector(getLoginError);
 
     useEffect(() => {
         if (userId) {
@@ -72,11 +74,15 @@ export const LoginForm = ({ className }: LoginFormProps) => {
                 disabled={isLoading}
                 type="button"
                 onClick={onLoginClick}
-                className={cls.authButton}
             >
                 {t('Войти')}
             </Button>
             <div>
+                {error && (
+                    <p className={cls.error}>
+                        {t('Введены некорректные данные')}
+                    </p>
+                )}
                 <AppLink
                     linkColor={LinkColor.BLACK}
                     className={cls.link}

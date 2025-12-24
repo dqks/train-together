@@ -20,6 +20,10 @@
     flex-direction: column;
 }
 
+.error {
+    color: red;
+}
+
 .link {
     color: var(--primary-text-color);
     text-decoration: underline;

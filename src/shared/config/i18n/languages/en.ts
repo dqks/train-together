@@ -112,5 +112,6 @@ export const enTranslation = {
         'Добавить фильтры': 'Add filters',
         'Добавить программу': 'Add program',
         От: 'By',
+        'Введены некорректные данные': 'Entered data is incorrect',
     },
 };

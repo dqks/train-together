@@ -2,16 +2,27 @@ const db = require('../db');
 
 class UserController {
     async createUser(req, res) {
-        const { email, nickname, password } = req.body;
+        try {
+            const { email, nickname, password } = req.body;
 
-        const newUser = await db
-            .query(
-                'INSERT INTO users (email, nickname, password, id_role) '
-                + 'values ($1, $2, $3, (SELECT id FROM roles WHERE roles.name = $4)) RETURNING id',
-                [email, nickname, password, 'Пользователь'],
-            );
+            if (
+                (!email || email.length === 0)
+                || (!nickname || nickname.length === 0)
+                || (!password || password.length === 0)) {
+                return res.status(403).json({ message: 'Incorrect data' });
+            }
 
-        res.json(newUser.rows[0]);
+            const newUser = await db
+                .query(
+                    'INSERT INTO users (email, nickname, password, id_role) '
+                    + 'values ($1, $2, $3, (SELECT id FROM roles WHERE roles.name = $4)) RETURNING id',
+                    [email, nickname, password, 'Пользователь'],
+                );
+
+            return res.json(newUser.rows[0]);
+        } catch (e) {
+            return res.status(500).json({ message: e.message });
+        }
     }
 
     async login(req, res) {
