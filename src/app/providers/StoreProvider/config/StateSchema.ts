@@ -6,6 +6,8 @@ import type { ExerciseSchema } from '@/entities/Exercise';
 import type { ProgramSchema } from '@/widgets/ProgramsList';
 import type { RegisterSchema } from '@/features/RegisterForm';
 import type { LoginSchema } from '@/features/LoginForm';
+import type { MuscleSchema } from '@/features/MuscleFIlterList';
+import type { EquipmentSchema } from '@/features/EquipmentFIterList';
 
 export interface StateSchema {
     user: UserSchema
@@ -13,6 +15,8 @@ export interface StateSchema {
     programs: ProgramSchema
     register: RegisterSchema
     login: LoginSchema
+    muscle: MuscleSchema
+    equipment: EquipmentSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

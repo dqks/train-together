@@ -2,8 +2,8 @@
 import { useTranslation } from 'react-i18next';
 import {
     EquipmentFilterList,
-} from '@/features/EquipmentFIterList/EquipmentFilterList.tsx';
-import { MuscleFilterList } from '@/features/MuscleFIlterList/MuscleFilterList.tsx';
+} from '@/features/EquipmentFIterList/ui/EquipmentFilterList.tsx';
+import { MuscleFilterList } from '@/features/MuscleFIlterList/ui/MuscleFilterList.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 
 // interface SidePanelFilterContentProps {

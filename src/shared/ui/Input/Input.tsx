@@ -11,7 +11,7 @@ interface InputProps extends HTMLInputProps {
     type: string;
     name: string;
     onChange?: (value: string) => void
-    value: string | null
+    value: string
 }
 
 export const Input = (props: InputProps) => {

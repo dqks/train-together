@@ -36,7 +36,7 @@ export const UserInfo = ({ className } : UserInfoProps) => {
                                     placeholder="Nick"
                                     name="nickname"
                                     id="nickname"
-                                    value={nickname}
+                                    value={nickname || ''}
                                 />
                             </div>
                             <div className={cls.inputWrapper}>

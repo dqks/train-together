@@ -24,6 +24,11 @@ export const userSlice = createSlice({
                 state.nickname = JSON.parse(user).nickname;
             }
         },
+        logout: (state) => {
+            localStorage.removeItem(USER_LOCAL_STORAGE_KEY);
+            state.id = null;
+            state.nickname = null;
+        },
     },
 });
 

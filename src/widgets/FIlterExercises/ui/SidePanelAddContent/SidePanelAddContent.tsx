@@ -3,8 +3,8 @@ import { Input } from '@/shared/ui/Input/Input.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import cls from './SidePanelAddContent.module.scss';
 import { EquipmentFilterList }
-    from '@/features/EquipmentFIterList/EquipmentFilterList.tsx';
-import { MuscleFilterList } from '@/features/MuscleFIlterList/MuscleFilterList.tsx';
+    from '@/features/EquipmentFIterList/ui/EquipmentFilterList.tsx';
+import { MuscleFilterList } from '@/features/MuscleFIlterList/ui/MuscleFilterList.tsx';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 
 interface SidePanelAddContentProps {

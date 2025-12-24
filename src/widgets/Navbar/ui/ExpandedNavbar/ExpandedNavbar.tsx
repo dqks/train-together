@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ExpandedNavbar.module.scss';
-import { UserCard } from '@/entities/User';
+import { userActions, UserCard } from '@/entities/User';
 import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { LangSwitcherButton } from '@/features/LangSwitcher';
@@ -17,9 +17,14 @@ interface ExpandedNavbarNavbarProps {
 }
 
 export const ExpandedNavbar = ({ className, openHandler } : ExpandedNavbarNavbarProps) => {
+    const { t } = useTranslation();
     const [isAuth] = useState(true);
     const userNickname = useSelector(getUserNickname);
-    const { t } = useTranslation();
+    const dispatch = useDispatch();
+
+    const onLogoutClick = () => {
+        dispatch(userActions.logout());
+    };
 
     return (
         <div className={classNames(
@@ -49,7 +54,7 @@ export const ExpandedNavbar = ({ className, openHandler } : ExpandedNavbarNavbar
                             <AppLink deleteUnderLine to={AuthRoutePath.my_programs}>
                                 {t('Ваши программы')}
                             </AppLink>
-                            <AppLink deleteUnderLine to="/">
+                            <AppLink onClick={onLogoutClick} deleteUnderLine to="/">
                                 {t('Выйти')}
                             </AppLink>
                             <LangSwitcherButton />

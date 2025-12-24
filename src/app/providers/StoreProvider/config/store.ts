@@ -6,6 +6,8 @@ import { exerciseReducer } from '@/entities/Exercise';
 import { programsReducer } from '@/widgets/ProgramsList';
 import { registerReducer } from '@/features/RegisterForm';
 import { loginReducer } from '@/features/LoginForm';
+import { muscleReducer } from '@/features/MuscleFIlterList';
+import { equipmentReducer } from '@/features/EquipmentFIterList';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -18,6 +20,8 @@ export function createReduxStore(
         programs: programsReducer,
         register: registerReducer,
         login: loginReducer,
+        muscle: muscleReducer,
+        equipment: equipmentReducer,
     };
 
     const reducerManager = createReducerManager(rootReducer);
