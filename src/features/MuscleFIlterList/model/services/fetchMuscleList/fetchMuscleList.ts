@@ -3,7 +3,7 @@ import axios from 'axios';
 import type { Muscle } from '../../types/muscleSchema.ts';
 
 export const fetchMuscleList = createAsyncThunk<Muscle[], void, {rejectValue: string}>(
-    'muscle/fetchEquipmentList',
+    'muscle/fetchMuscleList',
     async (_, thunkAPI) => {
         try {
             const response = await axios

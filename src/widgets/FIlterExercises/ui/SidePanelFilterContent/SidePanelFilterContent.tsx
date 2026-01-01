@@ -1,9 +1,7 @@
 // import cls from "./SidePanelContent.module.scss"
 import { useTranslation } from 'react-i18next';
-import {
-    EquipmentFilterList,
-} from '@/features/EquipmentFIterList/ui/EquipmentFilterList.tsx';
-import { MuscleFilterList } from '@/features/MuscleFIlterList/ui/MuscleFilterList.tsx';
+import { EquipmentFilterList } from '@/features/EquipmentFIterList';
+import { MuscleFilterList } from '@/features/MuscleFIlterList';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 
 // interface SidePanelFilterContentProps {

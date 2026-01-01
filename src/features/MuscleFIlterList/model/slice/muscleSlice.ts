@@ -11,8 +11,7 @@ const initialState: MuscleSchema = {
 export const muscleSlice = createSlice({
     name: 'muscle',
     initialState,
-    reducers: {
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchMuscleList.pending, (state) => {

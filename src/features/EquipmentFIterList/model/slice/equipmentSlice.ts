@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { EquipmentSchema } from '../types/equipmentSchema.ts';
-import { fetchEquipmentList } from '@/features/EquipmentFIterList/model/services/fetchEquipmentList/fetchEquipmentList.ts';
+import {
+    fetchEquipmentList,
+} from '@/features/EquipmentFIterList/model/services/fetchEquipmentList/fetchEquipmentList.ts';
 
 const initialState: EquipmentSchema = {
     equipmentList: null,
@@ -11,8 +13,7 @@ const initialState: EquipmentSchema = {
 export const equipmentSlice = createSlice({
     name: 'equipment',
     initialState,
-    reducers: {
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchEquipmentList.pending, (state) => {

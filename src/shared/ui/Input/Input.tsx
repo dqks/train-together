@@ -7,11 +7,11 @@ type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onC
 interface InputProps extends HTMLInputProps {
     className?: string;
     otherProps?: ReactNode;
-    id: string;
+    id?: string;
     type: string;
-    name: string;
+    name?: string;
     onChange?: (value: string) => void
-    value: string
+    value?: string
 }
 
 export const Input = (props: InputProps) => {
@@ -29,7 +29,6 @@ export const Input = (props: InputProps) => {
     return (
         <input
             className={classNames(cls.Input, {}, [className])}
-            value={value}
             onChange={onChangeHandler}
             {...otherProps}
         />

@@ -22,13 +22,13 @@ export const FilterList = ({
 } : FilterListProps) => {
     const [showItems, setShowItems] = useState(false);
 
-    const showHander = () => {
+    const showHandler = () => {
         setShowItems((prev) => !prev);
     };
 
     return (
         <div className={classNames(cls.MuscleList, {}, [className])}>
-            <div onClick={showHander} className={cls.titleWrapper}>
+            <div onClick={showHandler} className={cls.titleWrapper}>
                 <ChevronRight
                     width={20}
                     height={15}
@@ -40,16 +40,14 @@ export const FilterList = ({
                 && (
                     <div>
                         {items.map((el) => (
-                            <div key={el.id} className={cls.inputWrapper}>
+                            <div key={el.name} className={cls.inputWrapper}>
                                 <Input
                                     className={cls.checkbox}
-                                    id={el.id.toString()}
-                                    name={el.id.toString()}
                                     type="checkbox"
-                                    value={el.id.toString()}
+                                    value={el.name.toString()}
                                 />
                                 <span className={cls.checkboxIndicator} />
-                                <label htmlFor={el.id.toString()}>{el.name}</label>
+                                <label htmlFor={el.name.toString()}>{el.name}</label>
                             </div>
                         ))}
                     </div>
