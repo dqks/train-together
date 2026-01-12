@@ -6,9 +6,9 @@ import { exerciseReducer } from '@/entities/Exercise';
 import { programsReducer } from '@/widgets/ProgramsList';
 import { registerReducer } from '@/features/RegisterForm';
 import { loginReducer } from '@/features/LoginForm';
-import { muscleReducer } from '@/features/MuscleFIlterList';
-import { equipmentReducer } from '@/features/EquipmentFIterList';
 import { createProgramReducer } from '@/features/AddMyProgram';
+import { muscleReducer } from '@/entities/Muscle';
+import { equipmentReducer } from '@/entities/Equipment';
 
 export function createReduxStore(
     initialState?: StateSchema,

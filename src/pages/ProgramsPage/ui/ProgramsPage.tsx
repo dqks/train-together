@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import cls from './ProgramsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ProgramsList } from '@/widgets/ProgramsList';
-import { FilterPrograms } from '@/widgets/FilterPrograms';
 import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
+import { FilterPrograms } from '@/features/FilterPrograms';
 
 interface ProgramsPageProps {
     className?: string;

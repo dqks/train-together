@@ -3,9 +3,10 @@ import { UserInfo } from './ui/UserInfo/UserInfo';
 import { UserCollapsedCard } from './ui/UserCollapsedCard/UserCollapsedCard';
 import { userActions, userReducer } from './model/slice/userSlice.ts';
 import type { UserSchema } from './model/types/userSchema.ts';
+import { getUserId } from './model/selectors/getUserId/getUserId.ts';
 
 export {
-    UserCard, UserInfo, UserCollapsedCard, userActions, userReducer,
+    UserCard, UserInfo, UserCollapsedCard, userActions, userReducer, getUserId,
 };
 
 export type {

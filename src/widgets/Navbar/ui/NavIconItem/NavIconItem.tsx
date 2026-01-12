@@ -9,7 +9,13 @@ interface NavIconItemProps {
     to: string
 }
 
-export const NavIconItem = ({ className, to, icon } : NavIconItemProps) => {
+export const NavIconItem = (props : NavIconItemProps) => {
+    const {
+        className,
+        to,
+        icon,
+    } = props;
+
     const navigate = useNavigate();
 
     const clickHandler = () => {

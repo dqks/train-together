@@ -6,6 +6,7 @@
   "scripts": {
     "start": "vite",
     "build": "tsc -b && vite build",
+    "build:dev:server": "cd server && npm run dev",
     "lint:ts": "eslint \"**/*.{tsx, ts}\"",
     "lint:ts:fix": "eslint \"**/*.{tsx, ts}\" --fix",
     "lint:scss": "npx stylelint \"**/*.scss\"",

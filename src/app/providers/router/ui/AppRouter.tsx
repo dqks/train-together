@@ -6,6 +6,7 @@ import { authRouteConfig }
     from '../../../../shared/config/routeConfig/authRouteConfig.tsx';
 import { AppLayout } from '../../../layout/AppLayout';
 import { PageLoader } from '../../../../shared/ui/PageLoader/PageLoader.tsx';
+import { RequireAuth } from '@/app/providers/router/ui/RequireAuth.tsx';
 
 export const AppRouter = () => (
     <Routes>
@@ -37,12 +38,14 @@ export const AppRouter = () => (
                         <Route
                             key={path}
                             element={(
-                                <Suspense
-                                    key={path}
-                                    fallback={<PageLoader />}
-                                >
-                                    {element}
-                                </Suspense>
+                                <RequireAuth>
+                                    <Suspense
+                                        key={path}
+                                        fallback={<PageLoader />}
+                                    >
+                                        {element}
+                                    </Suspense>
+                                </RequireAuth>
                             )}
                             path={path}
                         />

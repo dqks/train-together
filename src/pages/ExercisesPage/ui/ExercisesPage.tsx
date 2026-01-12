@@ -3,7 +3,7 @@ import cls from './ExercisesPage.module.scss';
 import { classNames } from '../../../shared/lib/classNames/classNames';
 import { ExerciseCardList } from '../../../widgets/ExerciseCardList';
 import { usePageTitle } from '../../../shared/lib/usePageTItle/usePageTitle';
-import { FilterExercises } from '../../../widgets/FIlterExercises';
+import { ExercisesControl } from '../../../widgets/ExercisesControl';
 
 interface ExercisesPageProps {
     className?: string;
@@ -15,7 +15,7 @@ const ExercisesPage = ({ className } : ExercisesPageProps) => {
 
     return (
         <div className={classNames(cls.ExercisesPage, {}, [className])}>
-            <FilterExercises />
+            <ExercisesControl />
             <ExerciseCardList />
         </div>
     );
