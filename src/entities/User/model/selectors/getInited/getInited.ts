@@ -1,0 +1,3 @@
+import type { StateSchema } from '@/app/providers/StoreProvider';
+
+export const getInited = (state: StateSchema) => state.user._inited;

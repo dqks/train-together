@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router';
 import { Suspense } from 'react';
 import { publicRouteConfig }
-    from '../../../../shared/config/routeConfig/publicRouteConfig.tsx';
+    from '@/shared/config/routeConfig/publicRouteConfig.tsx';
 import { authRouteConfig }
-    from '../../../../shared/config/routeConfig/authRouteConfig.tsx';
-import { AppLayout } from '../../../layout/AppLayout';
-import { PageLoader } from '../../../../shared/ui/PageLoader/PageLoader.tsx';
+    from '@/shared/config/routeConfig/authRouteConfig.tsx';
+import { AppLayout } from '@/app/layout/AppLayout';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { RequireAuth } from '@/app/providers/router/ui/RequireAuth.tsx';
 
 export const AppRouter = () => (

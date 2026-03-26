@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import cls from './ExercisesPage.module.scss';
-import { classNames } from '../../../shared/lib/classNames/classNames';
-import { ExerciseCardList } from '../../../widgets/ExerciseCardList';
-import { usePageTitle } from '../../../shared/lib/usePageTItle/usePageTitle';
-import { ExercisesControl } from '../../../widgets/ExercisesControl';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
+import { ExerciseCardList } from '@/widgets/ExerciseCardList';
+import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
+import { ExercisesControl } from '@/widgets/ExercisesControl';
 
 interface ExercisesPageProps {
     className?: string;

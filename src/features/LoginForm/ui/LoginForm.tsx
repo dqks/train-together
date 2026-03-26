@@ -31,6 +31,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
     const userId = useSelector(getUserId);
     const error = useSelector(getLoginError);
 
+    // TODO порешать
     useEffect(() => {
         if (userId) {
             navigate(AuthRoutePath.exercises);
