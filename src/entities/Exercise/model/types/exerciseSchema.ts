@@ -1,10 +1,12 @@
-export type ExerciseCardInformation = {
+export type ExerciseInformation = {
     id: number,
     name: string,
+    image: string
+    exerciseMuscles: []
 }
 
 export interface ExerciseSchema {
-    exerciseCards: ExerciseCardInformation[] | null
+    exerciseCards: ExerciseInformation[] | null
     isLoading: boolean
     error: string | undefined
 }

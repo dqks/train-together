@@ -1,21 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import type { Program } from '../../types/programSchema.ts';
+import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
 
-export const fetchProgramList = createAsyncThunk<Program[], void, {rejectValue: string}>(
+type ResponseType = {
+    data: Program[];
+}
+
+export const fetchProgramList = createAsyncThunk<Program[], void, ThunkConfig<string>>(
     'programs/fetchProgramList',
     async (_, thunkAPI) => {
+        const { extra, rejectWithValue } = thunkAPI;
         try {
-            const response = await axios
-                .get<Program[]>('http://localhost:8080/api/training-programs');
+            const response = await extra.api
+                .get<ResponseType>('/training-programs');
 
             if (!response.data) {
-                throw new Error('Error occured');
+                throw new Error('Error occurred');
             }
 
-            return response.data;
+            return response.data.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue('error');
+            return rejectWithValue('error');
         }
     },
 );

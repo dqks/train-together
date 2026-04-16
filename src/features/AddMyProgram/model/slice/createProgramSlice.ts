@@ -1,10 +1,12 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { CreateProgramSchema } from '../types/createProgramSchema.ts';
-import { createUserProgram } from '../services/fetchUserProgramList/createUserProgram.ts';
+import { createUserProgram } from '../services/createUserProgram/createUserProgram.ts';
 
 const initialState: CreateProgramSchema = {
     name: '',
     description: '',
+    publicSetting: 'all',
+    image: null,
     error: '',
     isLoading: false,
 };
@@ -18,6 +20,9 @@ export const createProgramSlice = createSlice({
         },
         setDescription: (state, action: PayloadAction<string>) => {
             state.description = action.payload;
+        },
+        setIsPublic: (state, action: PayloadAction<'all' | 'me'>) => {
+            state.publicSetting = action.payload;
         },
     },
     extraReducers: (builder) => {

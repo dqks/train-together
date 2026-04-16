@@ -1,21 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import type { Muscle } from '../../types/muscleSchema.ts';
+import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
 
-export const fetchMuscleList = createAsyncThunk<Muscle[], void, {rejectValue: string}>(
+type Response = {
+    data: Muscle[];
+}
+
+export const fetchMuscleList = createAsyncThunk<Muscle[], void, ThunkConfig<string>>(
     'muscle/fetchMuscleList',
     async (_, thunkAPI) => {
+        const { extra, rejectWithValue } = thunkAPI;
         try {
-            const response = await axios
-                .get<Muscle[]>('http://localhost:8080/api/muscles');
+            const response = await extra.api
+                .get<Response>('/muscles');
 
-            if (!response.data) {
+            if (!response.data.data) {
                 throw new Error('Error occurred');
             }
 
-            return response.data;
+            return response.data.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue('error');
+            return rejectWithValue('error');
         }
     },
 );

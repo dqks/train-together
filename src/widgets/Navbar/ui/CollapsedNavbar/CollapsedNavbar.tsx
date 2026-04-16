@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './CollapsedNavbar.module.scss';
 import { CollapseButton } from '../CollapseButton/CollapseButton';
@@ -9,51 +9,39 @@ import Barbell from '@/shared/assets/icons/barbell.svg?react';
 import { NavIconItem } from '@/widgets/Navbar/ui/NavIconItem/NavIconItem.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { LangSwitcherIcon } from '@/features/LangSwitcher';
-import { userActions, UserCollapsedCard } from '@/entities/User';
+import { UserCollapsedCard } from '@/entities/User';
+import type { NavbarProps } from '../../types/navbarProps.ts';
 
-interface CollapsedNavbarProps {
-    className?: string;
-    openHandler: () => void
-}
-
-export const CollapsedNavbar = ({
+export const CollapsedNavbar = memo(({
     className,
     openHandler,
-} : CollapsedNavbarProps) => {
-    const dispatch = useDispatch();
-
-    // @ts-ignore
-    // eslint-disable-next-line no-unused-vars
-    const onLogoutClick = () => {
-        dispatch(userActions.logout());
-    };
-
-    return (
-        <div className={classNames(cls.CollapsedNavbar, {}, [className])}>
-            <div>
-                <CollapseButton
-                    hasTooltip={false}
-                    collapseHandler={openHandler}
-                />
-            </div>
-            <UserCollapsedCard />
-            <NavIconItem
-                icon={<Barbell stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
-                to={AuthRoutePath.exercises}
+    logoutHandler,
+} : NavbarProps) => (
+    <div className={classNames(cls.CollapsedNavbar, {}, [className])}>
+        <div>
+            <CollapseButton
+                hasTooltip={false}
+                collapseHandler={openHandler}
             />
-            <NavIconItem
-                icon={<Programs stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
-                to={AuthRoutePath.programs}
-            />
-            <NavIconItem
-                icon={<MyPrograms stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
-                to={AuthRoutePath.my_programs}
-            />
-            <NavIconItem
-                icon={<Logout stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
-                to="/"
-            />
-            <LangSwitcherIcon />
         </div>
-    );
-};
+        <UserCollapsedCard />
+        <NavIconItem
+            icon={<Barbell stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
+            to={AuthRoutePath.exercises}
+        />
+        <NavIconItem
+            icon={<Programs stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
+            to={AuthRoutePath.programs}
+        />
+        <NavIconItem
+            icon={<MyPrograms stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
+            to={AuthRoutePath.my_programs}
+        />
+        <NavIconItem
+            onClick={logoutHandler}
+            icon={<Logout stroke="white" width={35} strokeWidth={2} className={cls.navIcon} />}
+            to="/"
+        />
+        <LangSwitcherIcon />
+    </div>
+));

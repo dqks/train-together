@@ -1,6 +1,5 @@
 import { configureStore, type ReducersMapObject } from '@reduxjs/toolkit';
-import { createReducerManager } from './reducerManager';
-import type { StateSchema } from './StateSchema';
+import type { StateSchema, ThunkExtraArg } from './StateSchema';
 import { userReducer } from '@/entities/User';
 import { exerciseReducer } from '@/entities/Exercise';
 import { programsReducer } from '@/widgets/ProgramsList';
@@ -9,10 +8,12 @@ import { loginReducer } from '@/features/LoginForm';
 import { createProgramReducer } from '@/features/AddMyProgram';
 import { muscleReducer } from '@/entities/Muscle';
 import { equipmentReducer } from '@/entities/Equipment';
+import { $api } from '@/shared/api/api.ts';
 
 export function createReduxStore(
     initialState?: StateSchema,
     asyncReducers?: ReducersMapObject<StateSchema>,
+    // navigate? : (to: To, options?: NavigateOptions) => void,
 ) {
     const rootReducer: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
@@ -26,17 +27,28 @@ export function createReduxStore(
         createProgram: createProgramReducer,
     };
 
-    const reducerManager = createReducerManager(rootReducer);
+    // const reducerManager = createReducerManager(rootReducer);
+
+    const extraArg: ThunkExtraArg = {
+        api: $api,
+        // navigate,
+    };
 
     const store = configureStore<StateSchema>({
         // reducer: reducerManager.reduce,
         reducer: rootReducer,
         devTools: true,
         preloadedState: initialState,
+        // @ts-ignore
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+            thunk: {
+                extraArgument: extraArg,
+            },
+        }),
     });
 
     // @ts-ignore
-    store.reducerManager = reducerManager;
+    // store.reducerManager = reducerManager;
 
     return store;
 }

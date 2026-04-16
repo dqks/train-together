@@ -18,7 +18,6 @@ export const AddMyProgram = () => {
             <TooltipElement tooltipText={t('Добавить программу')}>
                 <Button type="button" onClick={openHandler}>+</Button>
             </TooltipElement>
-
             <Modal
                 isOpen={isOpen}
                 onOutsideClick={openHandler}
@@ -30,7 +29,7 @@ export const AddMyProgram = () => {
                     </div>
                 )}
                 >
-                    <ModalProvider />
+                    <ModalProvider openHandler={openHandler} />
                 </Suspense>
             </Modal>
         </>

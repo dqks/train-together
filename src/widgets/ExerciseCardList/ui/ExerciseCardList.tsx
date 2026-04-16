@@ -5,7 +5,7 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ExerciseCard, getExerciseCards, getExerciseIsLoading } from '@/entities/Exercise';
 import { fetchExerciseCards } from '@/entities/Exercise/model/services/fetchExerciseCards.ts';
 import { Loader } from '@/shared/ui/Loader/Loader.tsx';
-import type { ExerciseCardInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
+import type { ExerciseInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
 
 interface ExerciseCardListProps {
     className?: string;
@@ -21,7 +21,9 @@ export const ExerciseCardList = ({ className } : ExerciseCardListProps) => {
     }, [dispatch]);
 
     const cards = exerciseCards
-        ?.map((card: ExerciseCardInformation) => <ExerciseCard key={card.id} name={card.name} />);
+        ?.map(
+            (card: ExerciseInformation) => <ExerciseCard key={card.id} name={card.name} muscles={card.exerciseMuscles} />,
+        );
 
     return (
         <div className={classNames(cls.ExerciseCardList, {}, [className])}>

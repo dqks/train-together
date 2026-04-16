@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { ExpandedNavbar } from './ExpandedNavbar/ExpandedNavbar.tsx';
 import { CollapsedNavbar } from './CollapsedNavbar/CollapsedNavbar.tsx';
 import cls from './Navbar.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { LOCAL_STORAGE_COLLAPSED_KEY } from '@/shared/localStorage/isCollapsedKey.ts';
-
-interface NavbarProps {
-    className?: string;
-}
+import { logout } from '@/entities/User';
 
 const getIsCollapsedStorage = () => {
     if (localStorage.getItem(LOCAL_STORAGE_COLLAPSED_KEY) !== null) {
@@ -17,12 +15,17 @@ const getIsCollapsedStorage = () => {
     return false;
 };
 
-export const Navbar = ({ className } : NavbarProps) => {
+export const Navbar = () => {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(getIsCollapsedStorage);
+    const dispatch = useDispatch();
 
-    const collapseHandler = () => {
+    const collapseHandler = useCallback(() => {
         setIsCollapsed((prev) => !prev);
-    };
+    }, []);
+
+    const onLogoutClick = useCallback(() => {
+        dispatch(logout());
+    }, [dispatch]);
 
     useEffect(() => {
         localStorage.setItem(LOCAL_STORAGE_COLLAPSED_KEY, isCollapsed.toString());
@@ -34,13 +37,13 @@ export const Navbar = ({ className } : NavbarProps) => {
             {
                 [cls.collapsed]: isCollapsed,
             },
-            [className],
+            [],
         )}
         >
             {
                 isCollapsed
-                    ? (<CollapsedNavbar openHandler={collapseHandler} />)
-                    : (<ExpandedNavbar openHandler={collapseHandler} />)
+                    ? (<CollapsedNavbar openHandler={collapseHandler} logoutHandler={onLogoutClick} />)
+                    : (<ExpandedNavbar openHandler={collapseHandler} logoutHandler={onLogoutClick} />)
             }
         </div>
     );

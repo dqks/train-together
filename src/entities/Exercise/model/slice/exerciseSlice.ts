@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { ExerciseCardInformation, ExerciseSchema } from '../types/exerciseSchema.ts';
+import type { ExerciseInformation, ExerciseSchema } from '../types/exerciseSchema.ts';
 import { fetchExerciseCards } from '@/entities/Exercise/model/services/fetchExerciseCards.ts';
 
 const initialState: ExerciseSchema = {
@@ -12,7 +12,7 @@ export const exerciseSlice = createSlice({
     name: 'exercise',
     initialState,
     reducers: {
-        setExerciseCards: (state, action: PayloadAction<ExerciseCardInformation[]>) => {
+        setExerciseCards: (state, action: PayloadAction<ExerciseInformation[]>) => {
             state.exerciseCards = action.payload;
         },
     },

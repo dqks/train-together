@@ -1,18 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { Program } from '../../types/programSchema.ts';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
 
-type ResponseType = {
-    data: Program[];
-}
+type Response = any
 
-export const fetchUserProgramList = createAsyncThunk<Program[], void, ThunkConfig<string>>(
-    'programs/createUserProgram',
+export const me = createAsyncThunk<Response, void, ThunkConfig<string>>(
+    'user/me',
     async (_, thunkAPI) => {
-        const { extra, rejectWithValue } = thunkAPI;
+        const { extra } = thunkAPI;
         try {
             const response = await extra.api
-                .get<ResponseType>('/training-programs/my');
+                .get<Response>('/auth/me');
 
             if (!response.data) {
                 throw new Error('Error occurred');
@@ -20,7 +17,7 @@ export const fetchUserProgramList = createAsyncThunk<Program[], void, ThunkConfi
 
             return response.data.data;
         } catch (e) {
-            return rejectWithValue('error');
+            return thunkAPI.rejectWithValue('error');
         }
     },
 );

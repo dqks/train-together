@@ -1,6 +1,7 @@
 import type {
     AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
+import type { AxiosInstance } from 'axios';
 import type { UserSchema } from '@/entities/User/model/types/userSchema.ts';
 import type { ExerciseSchema } from '@/entities/Exercise';
 import type { ProgramSchema } from '@/widgets/ProgramsList';
@@ -32,4 +33,15 @@ export interface ReducerManager {
 
 export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
     reducerManager: ReducerManager
+}
+
+export interface ThunkExtraArg {
+    api: AxiosInstance,
+    // navigate?: (to: To, options?: NavigateOptions) => void,
+}
+
+export interface ThunkConfig<T> {
+    rejectValue: T
+    extra: ThunkExtraArg
+    state: StateSchema
 }

@@ -56,6 +56,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
             <div className={cls.inputWrapper}>
                 <label htmlFor="email">{t('Email')}</label>
                 <Input
+                    value={email}
                     onChange={onChangeEmail}
                     id="email"
                     name="email"
@@ -65,6 +66,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
             <div className={cls.inputWrapper}>
                 <label htmlFor="password">{t('Пароль')}</label>
                 <Input
+                    value={password}
                     onChange={onChangePassword}
                     id="password"
                     name="password"

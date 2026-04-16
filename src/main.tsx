@@ -7,13 +7,13 @@ import { StoreProvider } from '@/app/providers/StoreProvider';
 import './shared/config/i18n/i18n.ts';
 
 createRoot(document.getElementById('root')!).render(
-    <StoreProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+        <StoreProvider>
             <ErrorBoundary>
                 <ThemeProvider>
                     <App />
                 </ThemeProvider>
             </ErrorBoundary>
-        </BrowserRouter>
-    </StoreProvider>,
+        </StoreProvider>
+    </BrowserRouter>,
 );

@@ -10,6 +10,7 @@ export enum Modal {
 export interface ModalContextProps {
     modal?: Modal;
     setModal?: (modal: Modal) => void;
+    openHandler?: () => void;
 }
 
 export const ModalContext = createContext<ModalContextProps>({});

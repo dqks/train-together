@@ -4,7 +4,7 @@ export const enTranslation = {
         'Пользовательские тренировки': 'User programs',
         Войти: 'Log in',
         Зарегистрироваться: 'Sign up',
-        Русский: 'Russian',
+        Русский: 'RU',
         'Создавайте и делитесь своими программами тренировок': 'Create and share your training programs',
         'Зарегистрируйтесь, чтобы использовать полный функционал': 'Sign up to get full functionality',
         'Создавайте тренировки под свои требования': 'Create programs for your requirements',

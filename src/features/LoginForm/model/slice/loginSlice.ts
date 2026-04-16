@@ -3,8 +3,8 @@ import type { LoginSchema } from '../types/loginSchema.ts';
 import { loginByEmail } from '@/features/LoginForm/model/services/loginByEmail/loginByEmail.ts';
 
 const initialState: LoginSchema = {
-    email: '',
-    password: '',
+    email: 'max@max.ru',
+    password: '123456',
     error: undefined,
     isLoading: false,
 };

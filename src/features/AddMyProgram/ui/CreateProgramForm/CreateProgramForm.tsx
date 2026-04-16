@@ -1,19 +1,20 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback } from 'react';
-import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
+import { useCallback, useContext } from 'react';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './CreateProgramForm.module.scss';
-import { Button } from '../../../../shared/ui/Button/Button';
-import { Input } from '../../../../shared/ui/Input/Input';
-import { Textarea } from '../../../../shared/ui/Textarea/Textarea';
-import { Select } from '../../../../shared/ui/Select/Select';
-import { getProgramName } from '@/features/AddMyProgram/model/selectors/getProgramName/getProgramName.ts';
+import { Button } from '@/shared/ui/Button/Button.tsx';
+import { Input } from '@/shared/ui/Input/Input.tsx';
+import { Textarea } from '@/shared/ui/Textarea/Textarea.tsx';
+import { Select } from '@/shared/ui/Select/Select.tsx';
+import { getProgramName } from '../../model/selectors/getProgramName/getProgramName.ts';
+import { getProgramDescription } from '../../model/selectors/getProgramDescription/getProgramDescription.ts';
+import { createUserProgram } from '../../model/services/createUserProgram/createUserProgram.ts';
+import { createProgramActions } from '../../model/slice/createProgramSlice.ts';
 import {
-    getProgramDescription,
-} from '@/features/AddMyProgram/model/selectors/getProgramDescription/getProgramDescription.ts';
-import { createUserProgram } from '@/features/AddMyProgram/model/services/fetchUserProgramList/createUserProgram.ts';
-import { createProgramActions } from '@/features/AddMyProgram/model/slice/createProgramSlice.ts';
-import { getUserId } from '@/entities/User/model/selectors/getUserId/getUserId.ts';
+    getProgramPublicSetting,
+} from '../../model/selectors/getProgramPublicSetting/getProgramPublicSetting.ts';
+import { ModalContext } from '@/features/AddMyProgram/provider/lib/ModalContext.tsx';
 
 interface CreateProgramFormProps {
     className?: string;
@@ -24,11 +25,8 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const dispatch = useDispatch();
     const name = useSelector(getProgramName);
     const description = useSelector(getProgramDescription);
-    let userId = useSelector(getUserId);
-
-    if (!userId) {
-        userId = 8;
-    }
+    const publicSetting = useSelector(getProgramPublicSetting);
+    const { openHandler } = useContext(ModalContext);
 
     const onChangeName = useCallback((value: string) => {
         dispatch(createProgramActions.setName(value));
@@ -38,8 +36,14 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
         dispatch(createProgramActions.setDescription(value));
     }, [dispatch]);
 
+    const onChangePrivacy = useCallback((value: string) => {
+        dispatch(createProgramActions.setIsPublic(value as 'all' | 'me'));
+    }, [dispatch]);
+
     const onCreateClick = () => {
-        dispatch(createUserProgram({ userId, name, description }));
+        dispatch(createUserProgram({
+            name, description, publicSetting, openHandler,
+        }));
     };
 
     return (
@@ -64,9 +68,9 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
                     {t('Кто сможет просматривать')}
                 </label>
                 <span>❓</span>
-                <Select name="privacy" id="privacy">
-                    <option value="allUsers">{t('Все пользователи')}</option>
-                    <option value="onlyMe">{t('Только я')}</option>
+                <Select value={publicSetting} onChange={onChangePrivacy} name="privacy" id="privacy">
+                    <option value="all">{t('Все пользователи')}</option>
+                    <option value="me">{t('Только я')}</option>
                 </Select>
             </div>
             <Button onClick={onCreateClick} type="button">{t('Создать')}</Button>

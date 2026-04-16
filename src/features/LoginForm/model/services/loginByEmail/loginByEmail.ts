@@ -1,38 +1,52 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { userActions } from '@/entities/User';
 import { USER_LOCAL_STORAGE_KEY } from '@/shared/localStorage/userKey.ts';
+import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
 
 type LoginData = {
     email: string
     password: string
 }
 
-type ResponseType = {
+type Return = {
     id: number
     nickname: string
+    email: string
 }
 
-export const loginByEmail = createAsyncThunk<ResponseType, LoginData, {rejectValue: string}>(
+type Response = {
+    data: Return
+}
+
+export const loginByEmail = createAsyncThunk<Return, LoginData, ThunkConfig<string>>(
     'login/loginByEmail',
     async (loginData, thunkAPI) => {
+        const { extra, dispatch, rejectWithValue } = thunkAPI;
         try {
-            const response = await axios
-                .post<ResponseType>('http://localhost:8080/api/user/login', {
-                    ...loginData,
-                });
+            const response = await extra.api
+                .post<Response>(
+                    '/auth/login',
+                    loginData,
+                );
 
-            if (!response.data) {
+            const { data } = response.data;
+
+            if (!data) {
                 throw new Error('Error occurred');
             }
 
-            thunkAPI.dispatch(userActions.setId(response.data.id));
-            thunkAPI.dispatch(userActions.setNickname(response.data.nickname));
-            localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(response.data));
+            dispatch(userActions.setId(data.id));
+            dispatch(userActions.setNickname(data.nickname));
 
-            return response.data;
+            localStorage.setItem(
+                USER_LOCAL_STORAGE_KEY,
+                JSON.stringify({ nickname: data.nickname, email: data.email }),
+            );
+
+            return response.data.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue('error');
+            console.log(e);
+            return rejectWithValue('error');
         }
     },
 );

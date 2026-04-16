@@ -1,6 +1,7 @@
 export type Muscle = {
     id: number;
     name: string;
+    nameEng?: string;
 }
 
 export interface MuscleSchema {
