@@ -25,6 +25,7 @@ export const Select = (props: SelectProps) => {
 
     return (
         <select
+            {...props}
             onChange={onChangeHandler}
             value={value}
             className={classNames(cls.Select, {}, [className])}

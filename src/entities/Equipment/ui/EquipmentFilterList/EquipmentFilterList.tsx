@@ -10,7 +10,9 @@ export const EquipmentFilterList = () => {
     const dispatch = useDispatch();
     const equipmentList = useSelector(getEquipmentList);
     useEffect(() => {
-        dispatch(fetchEquipmentList());
+        if (!equipmentList) {
+            dispatch(fetchEquipmentList());
+        }
     }, [dispatch]);
 
     return (

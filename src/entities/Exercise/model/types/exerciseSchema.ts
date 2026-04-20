@@ -1,8 +1,10 @@
+import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
+
 export type ExerciseInformation = {
     id: number,
     name: string,
     image: string
-    exerciseMuscles: []
+    muscles: Muscle[]
 }
 
 export interface ExerciseSchema {

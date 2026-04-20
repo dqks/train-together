@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useOutletContext } from 'react-router';
+import { useOutletContext, useParams } from 'react-router';
 import { useEffect } from 'react';
 import cls from './ProgramDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
@@ -16,6 +16,7 @@ interface ProgramDetailsPageProps {
 
 const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
     const { t } = useTranslation();
+    // const params = useParams();
     usePageTitle('Программа', t);
     const context : AppContextType = useOutletContext();
 
@@ -29,6 +30,7 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
 
     return (
         <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
+            {/* <DeleteProgramButton programId={params.id} /> */}
             <ProgramCard className={cls.programCard} />
             <SubscribeProgram />
             <ProgramDay day={Days.MONDAY} className={cls.programDay} />

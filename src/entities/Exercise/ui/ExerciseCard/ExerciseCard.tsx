@@ -8,10 +8,13 @@ import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
 
 interface ExerciseCardProps {
     className?: string;
+    exerciseId: number;
     // pictureUrl?: string;
     name: string;
     muscles: Muscle[]
 }
+
+// Получать, пользовательское ли упражнение или нет будем из запроса API /exercises/:id
 
 export const ExerciseCard = (props : ExerciseCardProps) => {
     const {
@@ -19,12 +22,13 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
         muscles,
         className,
         name,
+        exerciseId,
     } = props;
 
     const navigate = useNavigate();
 
     const clickHandler = () => {
-        navigate(`${AuthRoutePath.exercise_details}32`);
+        navigate(`${AuthRoutePath.exercise_details}${exerciseId}`);
     };
 
     let musclesMap: (string | undefined)[] = [];

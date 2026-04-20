@@ -14,7 +14,9 @@ export const MuscleFilterList = () => {
     const dispatch = useDispatch();
     const muscleList = useSelector(getMuscleList);
     useEffect(() => {
-        dispatch(fetchMuscleList());
+        if (!muscleList) {
+            dispatch(fetchMuscleList());
+        }
     }, [dispatch]);
 
     return (

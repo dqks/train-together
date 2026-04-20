@@ -10,6 +10,9 @@ import type { LoginSchema } from '@/features/LoginForm';
 import type { CreateProgramSchema } from '@/features/AddMyProgram';
 import type { MuscleSchema } from '@/entities/Muscle';
 import type { EquipmentSchema } from '@/entities/Equipment';
+import type { AddExerciseSchema } from '@/features/AddExercise/model/types/addExerciseSchema.ts';
+import type { ExerciseTypeSchema } from '@/entities/ExerciseType';
+import type { ExerciseProgressionSchema } from '@/entities/ExerciseProgression';
 
 export interface StateSchema {
     user: UserSchema
@@ -20,6 +23,9 @@ export interface StateSchema {
     muscle: MuscleSchema
     equipment: EquipmentSchema
     createProgram: CreateProgramSchema
+    addExercise: AddExerciseSchema
+    exerciseType: ExerciseTypeSchema
+    exerciseProgression: ExerciseProgressionSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

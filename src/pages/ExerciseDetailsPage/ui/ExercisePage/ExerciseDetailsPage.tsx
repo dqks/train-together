@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useOutletContext } from 'react-router';
+import { useNavigate, useOutletContext, useParams } from 'react-router';
 import { useEffect } from 'react';
 import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
 import { usePageTitle } from '../../../../shared/lib/usePageTItle/usePageTitle.ts';
@@ -9,6 +9,7 @@ import { ExerciseNote } from '../ExerciseNote/ExerciseNote.tsx';
 import type { AppContextType } from '../../../../app/layout/AppLayout/ui/AppLayout.tsx';
 import { AuthRoutePath } from '../../../../shared/config/routeConfig/authRouteConfig.tsx';
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
+import { DeleteExerciseButton } from '@/features/DeleteExercise';
 
 interface ExercisePageProps {
     className?: string;
@@ -17,6 +18,7 @@ interface ExercisePageProps {
 const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
     const { t } = useTranslation();
     const context : AppContextType = useOutletContext();
+    const params = useParams();
 
     usePageTitle('Жим лежа', t);
 
@@ -29,6 +31,7 @@ const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
 
     return (
         <div className={classNames(cls.ExercisePage, {}, [className])}>
+            {/* <DeleteExerciseButton exerciseId={params.id} /> */}
             <div className={cls.imgWrapper}>
                 <Picture />
             </div>

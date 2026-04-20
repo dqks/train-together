@@ -1,3 +1,3 @@
-import { ExercisesControl } from '@/widgets/ExercisesControl/ui/ExercisesControl/ExercisesControl.tsx';
+import { ExercisesControl } from '@/widgets/ExercisesControl/ui/ExercisesControl.tsx';
 
 export { ExercisesControl };

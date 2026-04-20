@@ -1,7 +1,7 @@
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './ExercisesControl.module.scss';
-import { FilterExerciseButton } from '../FilterExerciseButton/FilterExerciseButton';
-import { AddExerciseButton } from '../AddExerciseButton/AddExerciseButton';
+import { FilterExerciseButton } from './FilterExerciseButton/FilterExerciseButton.tsx';
+import { AddExerciseButton } from '@/features/AddExercise';
 import { Input } from '@/shared/ui/Input/Input.tsx';
 
 interface FilterExercisesProps {

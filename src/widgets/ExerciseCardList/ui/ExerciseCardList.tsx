@@ -22,7 +22,14 @@ export const ExerciseCardList = ({ className } : ExerciseCardListProps) => {
 
     const cards = exerciseCards
         ?.map(
-            (card: ExerciseInformation) => <ExerciseCard key={card.id} name={card.name} muscles={card.exerciseMuscles} />,
+            (card: ExerciseInformation) => (
+                <ExerciseCard
+                    key={card.id}
+                    name={card.name}
+                    muscles={card.muscles}
+                    exerciseId={card.id}
+                />
+            ),
         );
 
     return (
