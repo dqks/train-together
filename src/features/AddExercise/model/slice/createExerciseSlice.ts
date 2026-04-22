@@ -27,13 +27,11 @@ export const createExerciseSlice = createSlice({
             .addCase(createUserExercise.pending, (state) => {
                 state.error = undefined;
                 state.isLoading = true;
-            });
-        builder
+            })
             .addCase(createUserExercise.fulfilled, (state) => {
                 state.error = undefined;
                 state.isLoading = false;
-            });
-        builder
+            })
             .addCase(createUserExercise.rejected, (state) => {
                 state.error = 'Error occurred';
                 state.isLoading = false;

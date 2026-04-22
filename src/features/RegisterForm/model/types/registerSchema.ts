@@ -1,7 +1,9 @@
+export type errorKeys = 'email' | 'password' | 'nickname'
+
 export interface RegisterSchema {
     email: string;
     password: string;
     nickname: string;
-    error: string | undefined;
+    errors: Record<errorKeys, string[]>| undefined;
     isLoading: boolean;
 }

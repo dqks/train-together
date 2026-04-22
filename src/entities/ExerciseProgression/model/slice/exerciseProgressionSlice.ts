@@ -22,18 +22,19 @@ export const exerciseProgressionSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchProgressionTypes.pending, (state) => {
-            state.error = '';
-            state.isLoading = true;
-        });
-        builder.addCase(fetchProgressionTypes.fulfilled, (state, action) => {
-            state.exerciseProgressions = action.payload;
-            state.isLoading = false;
-        });
-        builder.addCase(fetchProgressionTypes.rejected, (state) => {
-            state.error = 'Something went wrong';
-            state.isLoading = false;
-        });
+        builder
+            .addCase(fetchProgressionTypes.pending, (state) => {
+                state.error = '';
+                state.isLoading = true;
+            })
+            .addCase(fetchProgressionTypes.fulfilled, (state, action) => {
+                state.exerciseProgressions = action.payload;
+                state.isLoading = false;
+            })
+            .addCase(fetchProgressionTypes.rejected, (state) => {
+                state.error = 'Something went wrong';
+                state.isLoading = false;
+            });
     },
 });
 

@@ -15,6 +15,7 @@ interface AppLayoutProps {
 export type AppContextType = {
     setTitle: (title: string) => void
     setBackButton: (path: string) => void
+    setShowTitle: (show: boolean) => void
 }
 
 export const AppLayout = ({ className }: AppLayoutProps) => {
@@ -24,9 +25,12 @@ export const AppLayout = ({ className }: AppLayoutProps) => {
     // Создание состояния для пути кнопки "Назад" на странице
     const [backButton, setBackButton] = useState<string>('');
 
+    const [showTitle, setShowTitle] = useState(true);
+
     const appContext : AppContextType = {
         setTitle,
         setBackButton,
+        setShowTitle,
     };
 
     // Вывод разметки шаблона
@@ -35,7 +39,8 @@ export const AppLayout = ({ className }: AppLayoutProps) => {
             <Navbar />
             <div className={cls.contentWrapper}>
                 {backButton && <BackButton path={backButton} className={cls.backButton} />}
-                <h1 className={cls.title}>{title}</h1>
+                {showTitle && <h1 className={cls.title}>{title}</h1>}
+
                 {/* Передача функций для установки названия и кнопки "Назад " */}
                 {/* Вместо Outlet подставляется контент страницы */}
                 <Outlet context={appContext} />

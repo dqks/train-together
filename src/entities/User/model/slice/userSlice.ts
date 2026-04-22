@@ -39,7 +39,7 @@ export const userSlice = createSlice({
             state.nickname = action.payload.nickname;
             state.email = action.payload.email;
             state._inited = true;
-            localStorage.setItem(USER_LOCAL_STORAGE_KEY, action.payload.id);
+            // localStorage.setItem(USER_LOCAL_STORAGE_KEY, action.payload.id);
         });
         builder.addCase(me.rejected, (state) => {
             state._inited = true;

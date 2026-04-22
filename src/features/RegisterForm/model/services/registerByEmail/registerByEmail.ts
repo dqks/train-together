@@ -1,39 +1,51 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { userActions } from '@/entities/User';
-import { USER_LOCAL_STORAGE_KEY } from '@/shared/localStorage/userKey.ts';
+import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
+import { registerActions } from '@/features/RegisterForm/model/slice/registerSlice.ts';
+import type { errorKeys } from '@/features/RegisterForm/model/types/registerSchema.ts';
 
 type RegisterData = {
     email: string
     password: string
     nickname: string
+    navigateToLogin: () => void
 }
 
-type ResponseType = {
+type ResponseData = {
     id: number
     nickname: string
 }
 
-export const registerByEmail = createAsyncThunk<ResponseType, RegisterData, {rejectValue: string}>(
-    'register/registerByEmail',
-    async (registerData, thunkAPI) => {
-        try {
-            const response = await axios
-                .post<ResponseType>('http://localhost:8080/api/user', {
-                    ...registerData,
-                });
+type ResponseType = {
+    data: ResponseData
+    resultCode: number
+    messages: Record<string, string[]>
+}
 
-            if (!response.data) {
-                throw new Error('Error occured');
+export const registerByEmail = createAsyncThunk<
+    ResponseType,
+    RegisterData,
+    ThunkConfig<Record<errorKeys, string[]> | undefined>>(
+        'register/registerByEmail',
+        async (registerData, thunkAPI) => {
+            const { dispatch, extra, rejectWithValue } = thunkAPI;
+            try {
+                const response = await extra.api
+                    .post<ResponseType>('/auth/registration', {
+                        email: registerData.email,
+                        password: registerData.password,
+                        nickname: registerData.nickname,
+                    });
+
+                if (!response.data.data) {
+                    dispatch(registerActions.setErrors(response.data.messages));
+                    throw new Error('Error occurred');
+                }
+
+                registerData.navigateToLogin();
+
+                return response.data;
+            } catch (err: any) {
+                return rejectWithValue(err?.response.data.messages);
             }
-
-            thunkAPI.dispatch(userActions.setId(response.data.id));
-            thunkAPI.dispatch(userActions.setNickname(response.data.nickname));
-            localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(response.data));
-
-            return response.data;
-        } catch (e) {
-            return thunkAPI.rejectWithValue('error');
-        }
-    },
-);
+        },
+    );

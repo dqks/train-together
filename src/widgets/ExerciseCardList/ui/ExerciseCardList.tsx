@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import cls from './ExerciseCardList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ExerciseCard, getExerciseCards, getExerciseIsLoading } from '@/entities/Exercise';
-import { fetchExerciseCards } from '@/entities/Exercise/model/services/fetchExerciseCards.ts';
+import { fetchExerciseCards } from '@/entities/Exercise/model/services/fetchExerciseCards/fetchExerciseCards.ts';
 import { Loader } from '@/shared/ui/Loader/Loader.tsx';
 import type { ExerciseInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
 

@@ -1,22 +1,21 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router';
 import cls from './RegisterForm.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { Input } from '@/shared/ui/Input/Input.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
-import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { PublicRoutePath } from '@/shared/config/routeConfig/publicRouteConfig.tsx';
 import { getRegisterEmail } from '../model/selectors/getRegisterEmail/getRegisterEmail.ts';
 import { getRegisterPassword } from '../model/selectors/getRegisterPassword/getRegisterPassword.ts';
 import { getRegisterNickname } from '../model/selectors/getRegisterNickname/getRegisterNickname.ts';
 import { registerActions } from '../model/slice/registerSlice.ts';
 import { registerByEmail } from '../model/services/registerByEmail/registerByEmail.ts';
-import { getUserId } from '@/entities/User/model/selectors/getUserId/getUserId.ts';
 import { getRegisterIsLoading } from '../model/selectors/getRegisterIsLoading/getRegisterIsLoading.ts';
 import { getRegisterError } from '../model/selectors/getRegisterError/getRegisterError.ts';
+import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 
 interface RegisterFormProps {
     className?: string;
@@ -30,15 +29,11 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
     const password = useSelector(getRegisterPassword);
     const nickname = useSelector(getRegisterNickname);
     const isLoading = useSelector(getRegisterIsLoading);
-    const error = useSelector(getRegisterError);
-    // TODO может быть не так
-    const userId = useSelector(getUserId);
+    const errors = useSelector(getRegisterError);
 
-    useEffect(() => {
-        if (userId) {
-            navigate(AuthRoutePath.exercises);
-        }
-    }, [userId, navigate]);
+    const navigateToLogin = () => {
+        navigate(PublicRoutePath.login);
+    };
 
     const onChangeNickname = useCallback((value: string) => {
         dispatch(registerActions.setNickname(value));
@@ -53,7 +48,9 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
     }, [dispatch]);
 
     const onRegisterClick = () => {
-        dispatch(registerByEmail({ email, nickname, password }));
+        dispatch(registerByEmail({
+            email, nickname, password, navigateToLogin,
+        }));
     };
 
     return (
@@ -62,11 +59,7 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
                 {t('Уже есть аккаунт? ')}
                 <AppLink className={cls.login} to={PublicRoutePath.login}>{t('Войдите')}</AppLink>
             </p>
-            {error && (
-                <p className={cls.error}>
-                    {t('Введены некорректные данные')}
-                </p>
-            )}
+
             <div className={cls.inputWrapper}>
                 <label htmlFor="email">{t('Email')}</label>
                 <Input
@@ -76,6 +69,7 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
                     name="email"
                     type="text"
                 />
+                <ErrorMessage messages={errors?.email} />
             </div>
             <div className={cls.inputWrapper}>
                 <label htmlFor="password">{t('Пароль')}</label>
@@ -91,6 +85,7 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
                         + 'хотябы из 8 символов, включающих число '
                         + 'и строчные буквы')}
                 </p>
+                <ErrorMessage messages={errors?.password} />
             </div>
             <div className={cls.inputWrapper}>
                 <label htmlFor="nickname">{t('Никнейм')}</label>
@@ -105,6 +100,7 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
                     {t('Никнейм может только состоять'
                         + ' из алфавитных символов и цифр')}
                 </p>
+                <ErrorMessage messages={errors?.nickname} />
             </div>
             <Button
                 disabled={isLoading}

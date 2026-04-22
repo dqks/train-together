@@ -6,6 +6,10 @@ import { getExerciseCards } from './model/selectors/getExerciseCards/getExercise
 import {
     getExerciseIsLoading,
 } from './model/selectors/getExerciseIsLoading/getExerciseIsLoading.ts';
+import {
+    getExerciseDetails,
+} from './model/selectors/getExerciseDetails/getExerciseDetails.ts';
+import { fetchExerciseDetails } from './model/services/fetchExerciseDetails/fetchExerciseDetails.ts';
 
 export {
     ExerciseCard,
@@ -14,6 +18,8 @@ export {
     exerciseActions,
     getExerciseCards,
     getExerciseIsLoading,
+    fetchExerciseDetails,
+    getExerciseDetails,
 };
 
 export type {

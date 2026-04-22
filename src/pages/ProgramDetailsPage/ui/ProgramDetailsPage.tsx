@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useOutletContext, useParams } from 'react-router';
+import { useOutletContext } from 'react-router';
 import { useEffect } from 'react';
 import cls from './ProgramDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';

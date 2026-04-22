@@ -1,9 +1,11 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { ExerciseInformation, ExerciseSchema } from '../types/exerciseSchema.ts';
-import { fetchExerciseCards } from '@/entities/Exercise/model/services/fetchExerciseCards.ts';
+import { fetchExerciseCards } from '../services/fetchExerciseCards/fetchExerciseCards.ts';
+import { fetchExerciseDetails } from '../services/fetchExerciseDetails/fetchExerciseDetails.ts';
 
 const initialState: ExerciseSchema = {
     exerciseCards: null,
+    exerciseDetails: null,
     error: '',
     isLoading: false,
 };
@@ -27,6 +29,19 @@ export const exerciseSlice = createSlice({
                 state.exerciseCards = action.payload;
             })
             .addCase(fetchExerciseCards.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            });
+        builder
+            .addCase(fetchExerciseDetails.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetchExerciseDetails.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.exerciseDetails = action.payload;
+            })
+            .addCase(fetchExerciseDetails.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

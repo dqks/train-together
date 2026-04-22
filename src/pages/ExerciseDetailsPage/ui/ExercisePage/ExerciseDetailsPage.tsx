@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useOutletContext, useParams } from 'react-router';
+import { useOutletContext, useParams } from 'react-router';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
 import { usePageTitle } from '../../../../shared/lib/usePageTItle/usePageTitle.ts';
 import cls from './ExerciseDetailsPage.module.scss';
@@ -9,7 +10,10 @@ import { ExerciseNote } from '../ExerciseNote/ExerciseNote.tsx';
 import type { AppContextType } from '../../../../app/layout/AppLayout/ui/AppLayout.tsx';
 import { AuthRoutePath } from '../../../../shared/config/routeConfig/authRouteConfig.tsx';
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
-import { DeleteExerciseButton } from '@/features/DeleteExercise';
+import { fetchExerciseDetails, getExerciseDetails, getExerciseIsLoading } from '@/entities/Exercise';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
+
+// import { DeleteExerciseButton } from '@/features/DeleteExercise';
 
 interface ExercisePageProps {
     className?: string;
@@ -19,8 +23,11 @@ const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
     const { t } = useTranslation();
     const context : AppContextType = useOutletContext();
     const params = useParams();
+    const dispatch = useDispatch();
+    const exerciseDetails = useSelector(getExerciseDetails);
+    const isLoading = useSelector(getExerciseIsLoading);
 
-    usePageTitle('Жим лежа', t);
+    usePageTitle('', t, false);
 
     useEffect(() => {
         context.setBackButton(AuthRoutePath.exercises);
@@ -29,10 +36,19 @@ const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
         };
     }, [context]);
 
+    useEffect(() => {
+        dispatch(fetchExerciseDetails(Number(params.id)));
+    }, [dispatch]);
+
+    if (isLoading) {
+        return <PageLoader />;
+    }
+
     return (
         <div className={classNames(cls.ExercisePage, {}, [className])}>
             {/* <DeleteExerciseButton exerciseId={params.id} /> */}
-            <div className={cls.imgWrapper}>
+            <div className={cls.mainInfoWrapper}>
+                <h1 className={cls.exerciseName}>{exerciseDetails?.name}</h1>
                 <Picture />
             </div>
             <div className={cls.informationWrapper}>

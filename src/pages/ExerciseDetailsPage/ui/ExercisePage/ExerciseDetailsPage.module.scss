@@ -3,11 +3,19 @@
     width: 80%;
 }
 
-.imgWrapper {
+.mainInfoWrapper {
     margin: 30px 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.exerciseName {
+    font-weight: 400;
+    font-size: var(--font-size-lg);
+    text-align: center;
 }
 
 .exerciseImage {

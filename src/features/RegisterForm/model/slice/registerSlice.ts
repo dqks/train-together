@@ -1,12 +1,12 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { RegisterSchema } from '../types/registerSchema.ts';
+import type { errorKeys, RegisterSchema } from '../types/registerSchema.ts';
 import { registerByEmail } from '@/features/RegisterForm/model/services/registerByEmail/registerByEmail.ts';
 
 const initialState: RegisterSchema = {
     email: '',
     password: '',
     nickname: '',
-    error: undefined,
+    errors: undefined,
     isLoading: false,
 };
 
@@ -23,11 +23,14 @@ export const registerSlice = createSlice({
         setNickname: (state, action: PayloadAction<string>) => {
             state.nickname = action.payload;
         },
+        setErrors: (state, action: PayloadAction<Record<errorKeys, string[]>>) => {
+            state.errors = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(registerByEmail.pending, (state) => {
-                state.error = undefined;
+                state.errors = undefined;
                 state.isLoading = true;
             })
             .addCase(registerByEmail.fulfilled, (state) => {
@@ -35,7 +38,7 @@ export const registerSlice = createSlice({
             })
             .addCase(registerByEmail.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.payload;
+                state.errors = action.payload;
             });
     },
 });
