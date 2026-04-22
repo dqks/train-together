@@ -7,5 +7,20 @@
 
 .error {
     color: red;
+}
+
+.tinySize {
     font-size: var(--font-size-tiny);
+}
+
+.smallSize {
+    font-size: var(--font-size-sm);
+}
+
+.largeSize {
+    font-size: var(--font-size-lg);
+}
+
+.giantSize {
+    font-size: var(--font-size-giant);
 }

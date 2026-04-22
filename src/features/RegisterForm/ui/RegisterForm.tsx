@@ -48,6 +48,39 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
     }, [dispatch]);
 
     const onRegisterClick = () => {
+        let hasErrors = false;
+
+        const errors = {
+            email: [''],
+            password: [''],
+            nickname: [''],
+        };
+
+        if (!email.trim()) {
+            errors.email.push('Обязательное поле');
+            hasErrors = true;
+        }
+
+        if (!password.trim()) {
+            errors.password.push('Обязательное поле');
+            hasErrors = true;
+        }
+
+        if (!nickname.trim()) {
+            errors.nickname.push('Обязательное поле');
+            hasErrors = true;
+        }
+
+        if (password.length < 6) {
+            errors.password.push('Длина должна быть минимум 6 символов');
+            hasErrors = true;
+        }
+
+        if (hasErrors) {
+            dispatch(registerActions.setErrors(errors));
+            return;
+        }
+
         dispatch(registerByEmail({
             email, nickname, password, navigateToLogin,
         }));
@@ -81,9 +114,7 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
                     type="password"
                 />
                 <p className={cls.inputDescription}>
-                    {t('Пароль должен состоять минимум из 15 символов ИЛИ '
-                        + 'хотябы из 8 символов, включающих число '
-                        + 'и строчные буквы')}
+                    {t('Пароль должен состоять минимум из 6 символов')}
                 </p>
                 <ErrorMessage messages={errors?.password} />
             </div>

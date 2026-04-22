@@ -49,8 +49,7 @@ export const enTranslation = {
         'Страница не найдена': 'Page not found',
         Никнейм: 'Nickname',
         'Создать аккаунт': 'Create an account',
-        'Пароль должен состоять минимум из 15 символов ИЛИ хотябы из 8 символов, включающих число и строчные буквы': 'Password should be at least 15 characters OR at least'
-            + '8 characters including a number and a lowercase letter.',
+        'Пароль должен состоять минимум из 6 символов': 'Password should be at least 6 characters',
         'Никнейм может только состоять из алфавитных символов и цифр':
             'Username may only contain alphanumeric characters',
         Регистрация: 'Registration',

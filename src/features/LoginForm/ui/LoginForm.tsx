@@ -16,6 +16,7 @@ import { getLoginIsLoading } from '../model/selectors/getLoginIsLoading/getLogin
 import { getLoginPassword } from '../model/selectors/getLoginPassword/getLoginPassword.ts';
 import { loginActions } from '../model/slice/loginSlice.ts';
 import { getLoginError } from '../model/selectors/getLoginError/getLoginError.ts';
+import { ErrorMessage, TextSize } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 
 interface LoginFormProps {
     className?: string;
@@ -31,7 +32,6 @@ export const LoginForm = ({ className }: LoginFormProps) => {
     const userId = useSelector(getUserId);
     const error = useSelector(getLoginError);
 
-    // TODO порешать
     useEffect(() => {
         if (userId) {
             navigate(AuthRoutePath.exercises);
@@ -47,7 +47,11 @@ export const LoginForm = ({ className }: LoginFormProps) => {
     }, [dispatch]);
 
     const onLoginClick = () => {
-        dispatch(loginByEmail({ email, password }));
+        if (email.trim() && password.trim()) {
+            dispatch(loginByEmail({ email, password }));
+        } else {
+            dispatch(loginActions.setError({ status: 'Все поля должны быть заполнены' }));
+        }
     };
 
     return (
@@ -62,6 +66,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
                     name="email"
                     type="text"
                 />
+                <ErrorMessage messages={error?.email} />
             </div>
             <div className={cls.inputWrapper}>
                 <label htmlFor="password">{t('Пароль')}</label>
@@ -81,11 +86,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
                 {t('Войти')}
             </Button>
             <div>
-                {error && (
-                    <p className={cls.error}>
-                        {t('Введены некорректные данные')}
-                    </p>
-                )}
+                <ErrorMessage messages={error?.status} textSize={TextSize.SMALL} />
                 <AppLink
                     linkColor={LinkColor.BLACK}
                     className={cls.link}

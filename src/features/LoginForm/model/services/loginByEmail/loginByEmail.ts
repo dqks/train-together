@@ -18,7 +18,7 @@ type Response = {
     data: Return
 }
 
-export const loginByEmail = createAsyncThunk<Return, LoginData, ThunkConfig<string>>(
+export const loginByEmail = createAsyncThunk<Return, LoginData, ThunkConfig<Record<string, string>>>(
     'login/loginByEmail',
     async (loginData, thunkAPI) => {
         const { extra, dispatch, rejectWithValue } = thunkAPI;
@@ -44,9 +44,8 @@ export const loginByEmail = createAsyncThunk<Return, LoginData, ThunkConfig<stri
             );
 
             return response.data.data;
-        } catch (e) {
-            console.log(e);
-            return rejectWithValue('error');
+        } catch (err :any) {
+            return rejectWithValue(err.response.data.messages);
         }
     },
 );
