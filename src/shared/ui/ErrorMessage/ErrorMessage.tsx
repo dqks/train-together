@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ErrorMessage.module.scss';
 
@@ -16,6 +17,7 @@ interface ErrorMessageProps {
 
 export const ErrorMessage = (props : ErrorMessageProps) => {
     const { messages, className, textSize = TextSize.TINY } = props;
+    const { t } = useTranslation();
     return (
         messages
         && (
@@ -27,12 +29,12 @@ export const ErrorMessage = (props : ErrorMessageProps) => {
                                 key={message}
                                 className={classNames(cls.error, {}, [className, cls[textSize]])}
                             >
-                                {message}
+                                {t(message)}
                             </p>
                         ))
                         : (
                             <p className={classNames(cls.error, {}, [className, cls[textSize]])}>
-                                {messages}
+                                {t(messages)}
                             </p>
                         )
                 }

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
 import {
-    fetchUserProgramList,
-} from '@/widgets/ProgramsList/model/services/fetchUserProgramList/fetchUserProgramList.ts';
+    fetchUserPrograms,
+} from '@/entities/Program/model/services/fetchUserPrograms/fetchUserPrograms.ts';
 
 type Return = {
     success: boolean
@@ -47,7 +47,7 @@ export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<s
                 programData.openHandler();
             }
 
-            dispatch(fetchUserProgramList());
+            dispatch(fetchUserPrograms());
 
             return response.data.data;
         } catch (e) {

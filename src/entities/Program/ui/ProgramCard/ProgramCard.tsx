@@ -6,14 +6,15 @@ import Picture from '../../../../shared/assets/icons/picture.svg?react';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 
 interface ProgramCardProps {
-    id: number;
+    id: number | undefined;
     className?: string;
-    programName: string
+    programName: string | undefined
     userName?: string;
-    description: string | null;
+    description: string | undefined;
     // image?: string;
     deleteCreator?: boolean;
     showRating?: boolean;
+    // hasClickHandler?: boolean;
 }
 
 export const ProgramCard = (props : ProgramCardProps) => {
@@ -25,6 +26,7 @@ export const ProgramCard = (props : ProgramCardProps) => {
         userName,
         description,
         id,
+        // hasClickHandler = true,
     } = props;
 
     const { t } = useTranslation();

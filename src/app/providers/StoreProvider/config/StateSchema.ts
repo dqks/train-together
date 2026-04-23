@@ -4,7 +4,6 @@ import type {
 import type { AxiosInstance } from 'axios';
 import type { UserSchema } from '@/entities/User/model/types/userSchema.ts';
 import type { ExerciseSchema } from '@/entities/Exercise';
-import type { ProgramSchema } from '@/widgets/ProgramsList';
 import type { RegisterSchema } from '@/features/RegisterForm';
 import type { LoginSchema } from '@/features/LoginForm';
 import type { CreateProgramSchema } from '@/features/AddMyProgram';
@@ -13,11 +12,12 @@ import type { EquipmentSchema } from '@/entities/Equipment';
 import type { AddExerciseSchema } from '@/features/AddExercise/model/types/addExerciseSchema.ts';
 import type { ExerciseTypeSchema } from '@/entities/ExerciseType';
 import type { ExerciseProgressionSchema } from '@/entities/ExerciseProgression';
+import type { ProgramSchema } from '@/entities/Program';
 
 export interface StateSchema {
     user: UserSchema
     exercise: ExerciseSchema
-    programs: ProgramSchema
+    program: ProgramSchema
     register: RegisterSchema
     login: LoginSchema
     muscle: MuscleSchema

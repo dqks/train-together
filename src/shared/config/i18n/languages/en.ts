@@ -113,5 +113,12 @@ export const enTranslation = {
         От: 'By',
         'Введены некорректные данные': 'Entered data is incorrect',
         'Картинка пользователя': 'User\'s image',
+        'Обязательное поле': 'Field is required',
+        'Длина должна быть минимум 6 символов': 'Should be at lest 6 symbols',
+        'Все поля должны быть заполнены': 'All fields are required',
+        'Почта должна быть верного формата': 'Email should be valid',
+        'Отпишитесь, чтобы убрать программу из списка подписок': 'Unsubscribe, to remove program from subscribed list',
+        '- Отписаться': '- Unsubscribe',
+        'Удалить программу': 'Delete program',
     },
 };

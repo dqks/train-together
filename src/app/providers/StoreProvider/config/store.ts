@@ -2,7 +2,6 @@ import { configureStore, type ReducersMapObject } from '@reduxjs/toolkit';
 import type { StateSchema, ThunkExtraArg } from './StateSchema';
 import { userReducer } from '@/entities/User';
 import { exerciseReducer } from '@/entities/Exercise';
-import { programsReducer } from '@/widgets/ProgramsList';
 import { registerReducer } from '@/features/RegisterForm';
 import { loginReducer } from '@/features/LoginForm';
 import { createProgramReducer } from '@/features/AddMyProgram';
@@ -12,6 +11,7 @@ import { $api } from '@/shared/api/api.ts';
 import { addExerciseReducer } from '@/features/AddExercise';
 import { exerciseTypeReducer } from '@/entities/ExerciseType';
 import { exerciseProgressionReducer } from '@/entities/ExerciseProgression';
+import { programsReducer } from '@/entities/Program';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -22,7 +22,7 @@ export function createReduxStore(
         ...asyncReducers,
         user: userReducer,
         exercise: exerciseReducer,
-        programs: programsReducer,
+        program: programsReducer,
         register: registerReducer,
         login: loginReducer,
         muscle: muscleReducer,

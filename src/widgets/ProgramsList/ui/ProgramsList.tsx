@@ -1,36 +1,24 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { type ReactNode, useEffect } from 'react';
+import { type ReactNode } from 'react';
 import cls from './ProgramsList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ProgramCard } from '@/entities/Program';
-import { fetchProgramList, getProgramIsLoading, getProgramList } from '@/widgets/ProgramsList';
-import type { Program } from '@/widgets/ProgramsList/model/types/programSchema.ts';
+import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
 import { Loader } from '@/shared/ui/Loader/Loader.tsx';
-import {
-    fetchUserProgramList,
-} from '@/widgets/ProgramsList/model/services/fetchUserProgramList/fetchUserProgramList.ts';
 
 interface ProgramsListProps {
     className?: string;
     isMyProgramPage: boolean;
+    isLoading: boolean;
+    programList: Program[] | null;
 }
 
 export const ProgramsList = (props: ProgramsListProps) => {
     const {
         className,
         isMyProgramPage,
+        isLoading,
+        programList,
     } = props;
-    const dispatch = useDispatch();
-    const programList : Program[] | null = useSelector(getProgramList);
-    const isLoading = useSelector(getProgramIsLoading);
-
-    useEffect(() => {
-        if (isMyProgramPage) {
-            dispatch(fetchUserProgramList());
-        } else {
-            dispatch(fetchProgramList());
-        }
-    }, [dispatch]);
 
     let programCards: ReactNode[] | undefined;
 
@@ -53,7 +41,7 @@ export const ProgramsList = (props: ProgramsListProps) => {
                 description={program.description}
                 key={program.id}
                 id={program.id}
-                userName={program.nickname}
+                userName={program.user.nickname}
             />
         ));
     }

@@ -1,16 +1,16 @@
 import { ProgramsList } from './ui/ProgramsList';
-import type { ProgramSchema } from './model/types/programSchema.ts';
-import { programsReducer, programsActions } from './model/slice/programsSlice.ts';
-import { fetchProgramList } from './model/services/fetchProgramList/fetchProgramList.ts';
-import { getProgramList } from './model/selectors/getProgramList/getProgramList.ts';
-import { getProgramIsLoading } from './model/selectors/getProgramIsLoading/getProgramIsLoading.ts';
+import type { ProgramSchema } from '@/entities/Program/model/types/programSchema.ts';
+import { programsReducer, programsActions } from '@/entities/Program/model/slice/programsSlice.ts';
+import { fetchPublicPrograms } from '@/entities/Program/model/services/fetchPublicPrograms/fetchPublicPrograms.ts';
+import { getPublicPrograms } from '@/entities/Program/model/selectors/getProgramList/getPublicPrograms.ts';
+import { getProgramIsLoading } from '@/entities/Program/model/selectors/getProgramIsLoading/getProgramIsLoading.ts';
 
 export {
     ProgramsList,
     programsReducer,
     programsActions,
-    fetchProgramList,
-    getProgramList,
+    fetchPublicPrograms,
+    getPublicPrograms,
     getProgramIsLoading,
 };
 export type { ProgramSchema };
