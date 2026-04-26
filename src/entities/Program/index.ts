@@ -8,6 +8,7 @@ export { ProgramDay } from './ui/ProgramDay/ProgramDay';
 export { getProgramDetails } from './model/selectors/getProgramDetails/getProgramDetails.ts';
 export { getPublicPrograms } from './model/selectors/getProgramList/getPublicPrograms.ts';
 export { getProgramIsLoading } from './model/selectors/getProgramIsLoading/getProgramIsLoading.ts';
+export { getFavouritePrograms } from './model/selectors/getFavouritePrograms/getFavouritePrograms.ts';
 
 // Redux
 export { programsReducer, programsActions } from './model/slice/programsSlice.ts';

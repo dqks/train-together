@@ -19,7 +19,8 @@ export type ExerciseDetails = {
 
 export interface ExerciseSchema {
     exerciseCards: ExerciseInformation[] | null
-    exerciseDetails: ExerciseDetails | null
+    exerciseDetails: ExerciseDetails | null,
+    myExercises: ExerciseInformation[] | null,
     isLoading: boolean
     error: string | undefined
 }

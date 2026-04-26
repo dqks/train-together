@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { CreateProgramSchema } from '../types/createProgramSchema.ts';
+import type { createProgramErrors, CreateProgramSchema } from '../types/createProgramSchema.ts';
 import { createUserProgram } from '../services/createUserProgram/createUserProgram.ts';
 
 const initialState: CreateProgramSchema = {
@@ -7,7 +7,7 @@ const initialState: CreateProgramSchema = {
     description: '',
     publicSetting: 'all',
     image: null,
-    error: '',
+    errors: undefined,
     isLoading: false,
 };
 
@@ -24,11 +24,14 @@ export const createProgramSlice = createSlice({
         setIsPublic: (state, action: PayloadAction<'all' | 'me'>) => {
             state.publicSetting = action.payload;
         },
+        setErrors: (state, action: PayloadAction<createProgramErrors>) => {
+            state.errors = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(createUserProgram.pending, (state) => {
-                state.error = undefined;
+                state.errors = undefined;
                 state.isLoading = true;
             })
             .addCase(createUserProgram.fulfilled, (state) => {
@@ -36,7 +39,7 @@ export const createProgramSlice = createSlice({
             })
             .addCase(createUserProgram.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.payload;
+                state.errors = action.payload;
             });
     },
 });

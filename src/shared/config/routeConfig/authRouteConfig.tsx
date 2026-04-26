@@ -5,6 +5,8 @@ import { ExercisesPage } from '../../../pages/ExercisesPage';
 import { ProfilePage } from '../../../pages/ProfilePage';
 import { ExerciseDetailsPage } from '../../../pages/ExerciseDetailsPage';
 import { ProgramDetailsPage } from '../../../pages/ProgramDetailsPage';
+import { MyExercisesPage } from '@/pages/MyExercisesPage';
+import { FavouriteProgramsPage } from '@/pages/FavouriteProgramsPage';
 
 export enum AuthAppRoutes {
     MY_PROFILE = 'my_profile',
@@ -13,7 +15,9 @@ export enum AuthAppRoutes {
     EXERCISE_DETAILS = 'exercise_details',
     PROGRAMS = 'programs',
     PROGRAM_DETAILS = 'program_details',
-    YOUR_PROGRAMS = 'my_programs',
+    MY_PROGRAMS = 'my_programs',
+    MY_EXERCISES = 'my_exercises',
+    FAVOURITE_PROGRAMS = 'favourite_programs',
 }
 
 export const AuthRoutePath: Record<AuthAppRoutes, string> = {
@@ -23,7 +27,9 @@ export const AuthRoutePath: Record<AuthAppRoutes, string> = {
     [AuthAppRoutes.EXERCISE_DETAILS]: '/app/exercises/', // + id
     [AuthAppRoutes.PROGRAMS]: '/app/programs',
     [AuthAppRoutes.PROGRAM_DETAILS]: '/app/programs/', // + id
-    [AuthAppRoutes.YOUR_PROGRAMS]: '/app/my-programs',
+    [AuthAppRoutes.MY_PROGRAMS]: '/app/my-programs',
+    [AuthAppRoutes.MY_EXERCISES]: '/app/my-exercises',
+    [AuthAppRoutes.FAVOURITE_PROGRAMS]: '/app/favourite-programs',
 };
 
 export const authRouteConfig: Record<AuthAppRoutes, RouteProps> = {
@@ -51,8 +57,16 @@ export const authRouteConfig: Record<AuthAppRoutes, RouteProps> = {
         path: `${AuthRoutePath.exercise_details}:id`,
         element: <ExerciseDetailsPage />,
     },
-    [AuthAppRoutes.YOUR_PROGRAMS]: {
+    [AuthAppRoutes.MY_PROGRAMS]: {
         path: AuthRoutePath.my_programs,
         element: <MyProgramsPage />,
+    },
+    [AuthAppRoutes.MY_EXERCISES]: {
+        path: AuthRoutePath.my_exercises,
+        element: <MyExercisesPage />,
+    },
+    [AuthAppRoutes.FAVOURITE_PROGRAMS]: {
+        path: AuthRoutePath.favourite_programs,
+        element: <FavouriteProgramsPage />,
     },
 };

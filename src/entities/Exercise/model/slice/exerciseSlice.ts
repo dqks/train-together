@@ -2,10 +2,12 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { ExerciseInformation, ExerciseSchema } from '../types/exerciseSchema.ts';
 import { fetchExerciseCards } from '../services/fetchExerciseCards/fetchExerciseCards.ts';
 import { fetchExerciseDetails } from '../services/fetchExerciseDetails/fetchExerciseDetails.ts';
+import { fetchMyExercises } from '@/entities/Exercise/model/services/fecthMyExercises/fecthMyExercises.ts';
 
 const initialState: ExerciseSchema = {
     exerciseCards: null,
     exerciseDetails: null,
+    myExercises: null,
     error: '',
     isLoading: false,
 };
@@ -31,8 +33,7 @@ export const exerciseSlice = createSlice({
             .addCase(fetchExerciseCards.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
-            });
-        builder
+            })
             .addCase(fetchExerciseDetails.pending, (state) => {
                 state.error = undefined;
                 state.isLoading = true;
@@ -42,6 +43,18 @@ export const exerciseSlice = createSlice({
                 state.exerciseDetails = action.payload;
             })
             .addCase(fetchExerciseDetails.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(fetchMyExercises.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetchMyExercises.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.myExercises = action.payload;
+            })
+            .addCase(fetchMyExercises.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

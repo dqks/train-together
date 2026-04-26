@@ -27,6 +27,7 @@ export interface ProgramSchema {
     publicPrograms: ProgramCard[] | null
     userPrograms: ProgramCard[] | null
     programDetails: ProgramDetails | null
+    favouritePrograms: ProgramCard[] | null
     error: string | undefined
     isLoading: boolean
 }

@@ -3,11 +3,15 @@ import type { ProgramDetails, ProgramSchema } from '../types/programSchema.ts';
 import { fetchPublicPrograms } from '../services/fetchPublicPrograms/fetchPublicPrograms.ts';
 import { fetchUserPrograms } from '../services/fetchUserPrograms/fetchUserPrograms.ts';
 import { fetchProgramDetails } from '../services/fetchProgramDetails/fetchProgramDetails.ts';
+import {
+    fetchFavouritePrograms,
+} from '@/entities/Program/model/services/fetchFavouritePrograms/fetchFavouritePrograms.ts';
 
 const initialState: ProgramSchema = {
     publicPrograms: null,
     userPrograms: null,
     programDetails: null,
+    favouritePrograms: null,
     error: '',
     isLoading: false,
 };
@@ -62,6 +66,18 @@ export const programsSlice = createSlice({
             .addCase(fetchProgramDetails.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.programDetails = action.payload;
+            })
+            .addCase(fetchFavouritePrograms.pending, (state, action) => {
+                state.isLoading = true;
+                state.error = action.payload;
+            })
+            .addCase(fetchFavouritePrograms.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(fetchFavouritePrograms.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.favouritePrograms = action.payload;
             });
     },
 });

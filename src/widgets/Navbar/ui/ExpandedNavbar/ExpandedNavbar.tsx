@@ -41,8 +41,14 @@ export const ExpandedNavbar = memo(({
             <AppLink deleteUnderLine to={AuthRoutePath.programs}>
                 {t('Программы пользователей')}
             </AppLink>
+            <AppLink deleteUnderLine to={AuthRoutePath.favourite_programs}>
+                {t('Избранные программы')}
+            </AppLink>
             <AppLink deleteUnderLine to={AuthRoutePath.my_programs}>
                 {t('Ваши программы')}
+            </AppLink>
+            <AppLink deleteUnderLine to={AuthRoutePath.my_exercises}>
+                {t('Ваши упражнения')}
             </AppLink>
             <AppLink onClick={logoutHandler} deleteUnderLine to="/">
                 {t('Выйти')}

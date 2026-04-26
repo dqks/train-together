@@ -1,6 +1,8 @@
+export type loginErrors = Partial<Record<string, string>> | undefined
+
 export interface LoginSchema {
     email: string;
     password: string;
-    error: Record<string, string> | undefined,
+    error: loginErrors,
     isLoading: boolean,
 }

@@ -3,6 +3,7 @@ import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSche
 import {
     fetchUserPrograms,
 } from '@/entities/Program/model/services/fetchUserPrograms/fetchUserPrograms.ts';
+import type { createProgramErrors } from '../../types/createProgramSchema.ts';
 
 type Return = {
     success: boolean
@@ -19,13 +20,13 @@ type ArgType = {
     openHandler?: () => void
 }
 
-export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<string>>(
+export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<createProgramErrors>>(
     'createPrograms/createUserProgram',
     async (
         programData,
         thunkAPI,
     ) => {
-        const { extra, dispatch } = thunkAPI;
+        const { extra, dispatch, rejectWithValue } = thunkAPI;
         try {
             const data = {
                 name: programData.name,
@@ -50,8 +51,8 @@ export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<s
             dispatch(fetchUserPrograms());
 
             return response.data.data;
-        } catch (e) {
-            return thunkAPI.rejectWithValue('error');
+        } catch (err : any) {
+            return rejectWithValue(err?.response.data.messages);
         }
     },
 );
