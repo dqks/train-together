@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useOutletContext, useParams } from 'react-router';
+import { useLocation, useOutletContext, useParams } from 'react-router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
@@ -12,6 +12,12 @@ import { AuthRoutePath } from '../../../../shared/config/routeConfig/authRouteCo
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
 import { fetchExerciseDetails, getExerciseDetails, getExerciseIsLoading } from '@/entities/Exercise';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
+import { getUserId } from '@/entities/User';
+import { DeleteExerciseButton } from '@/features/DeleteExercise';
+import {
+    getExerciseErrors,
+} from '@/entities/Exercise/model/selectors/getExerciseErrors/getExerciseErrors.ts';
+import { NotFound } from '@/shared/ui/NotFound/NotFound.tsx';
 
 // import { DeleteExerciseButton } from '@/features/DeleteExercise';
 
@@ -24,13 +30,23 @@ const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
     const context : AppContextType = useOutletContext();
     const params = useParams();
     const dispatch = useDispatch();
+
     const exerciseDetails = useSelector(getExerciseDetails);
     const isLoading = useSelector(getExerciseIsLoading);
+    const userId = useSelector(getUserId);
+    const errors = useSelector(getExerciseErrors);
+    const isOwner = userId === exerciseDetails?.userId;
+
+    const location = useLocation();
 
     usePageTitle('', t, false);
 
     useEffect(() => {
-        context.setBackButton(AuthRoutePath.exercises);
+        if (location.state?.from) {
+            context.setBackButton(location.state?.from);
+        } else {
+            context.setBackButton(AuthRoutePath.exercises);
+        }
         return () => {
             context.setBackButton('');
         };
@@ -44,9 +60,21 @@ const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
         return <PageLoader />;
     }
 
+    if (errors) {
+        return <NotFound message={errors.status[0]} />;
+    }
+
     return (
         <div className={classNames(cls.ExercisePage, {}, [className])}>
-            {/* <DeleteExerciseButton exerciseId={params.id} /> */}
+            {
+                isOwner
+                && (
+                    <DeleteExerciseButton
+                        redirectRoute={location.state?.from || AuthRoutePath.my_exercises}
+                        exerciseId={Number(params.id)}
+                    />
+                )
+            }
             <div className={cls.mainInfoWrapper}>
                 <h1 className={cls.exerciseName}>{exerciseDetails?.name}</h1>
                 <Picture />

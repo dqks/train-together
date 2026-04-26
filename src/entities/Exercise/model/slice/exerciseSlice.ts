@@ -8,7 +8,7 @@ const initialState: ExerciseSchema = {
     exerciseCards: null,
     exerciseDetails: null,
     myExercises: null,
-    error: '',
+    error: undefined,
     isLoading: false,
 };
 

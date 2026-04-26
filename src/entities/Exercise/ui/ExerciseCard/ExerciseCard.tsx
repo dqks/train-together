@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import i18n from 'i18next';
 import cls from './ExerciseCard.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
@@ -26,9 +26,10 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
     } = props;
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const clickHandler = () => {
-        navigate(`${AuthRoutePath.exercise_details}${exerciseId}`);
+        navigate(`${AuthRoutePath.exercise_details}${exerciseId}`, { state: { from: location.state?.from } });
     };
 
     let musclesMap: (string | undefined)[] = [];

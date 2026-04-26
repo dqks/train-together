@@ -1,20 +1,27 @@
 import { useTranslation } from 'react-i18next';
-import { useOutletContext, useParams } from 'react-router';
+import { useLocation, useOutletContext, useParams } from 'react-router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from './ProgramDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
 import {
-    fetchProgramDetails, getProgramDetails, getProgramIsLoading, ProgramCard, ProgramDay, programsActions,
+    fetchProgramDetails,
+    getProgramDetails,
+    getProgramIsLoading,
+    ProgramCard,
+    ProgramDay,
+    programsActions,
 } from '@/entities/Program';
 import { SubscribeProgram } from '@/features/SubscribeProgram';
 import { Days } from '@/entities/Program/ui/ProgramDay/ProgramDay.tsx';
 import type { AppContextType } from '@/app/layout/AppLayout/ui/AppLayout.tsx';
-import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { getUserId } from '@/entities/User';
 import { DeleteProgramButton } from '@/features/DeleteProgram';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
+import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
+import { getProgramErrors } from '@/entities/Program/model/selectors/getProgramErrors/getProgramErrors.ts';
+import { NotFound } from '@/shared/ui/NotFound/NotFound.tsx';
 
 interface ProgramDetailsPageProps {
     className?: string;
@@ -26,16 +33,22 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
     const userId = useSelector(getUserId);
     const programDetails = useSelector(getProgramDetails);
     const isLoading = useSelector(getProgramIsLoading);
+    const errors = useSelector(getProgramErrors);
+    const isOwner = userId === programDetails?.user.id;
 
     const params = useParams();
     const dispatch = useDispatch();
+    const location = useLocation();
 
     usePageTitle('Программа', t);
     const context : AppContextType = useOutletContext();
 
     useEffect(() => {
-        context.setBackButton(AuthRoutePath.programs); // TODO исправить что с программа -> программы, моя программа -> мои программы
-        // TODO передавать через state в to
+        if (location.state?.from) {
+            context.setBackButton(location.state.from);
+        } else {
+            context.setBackButton(AuthRoutePath.programs);
+        }
         return () => {
             context.setBackButton('');
         };
@@ -52,12 +65,19 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
         return <PageLoader />;
     }
 
+    if (errors) {
+        return (
+            <NotFound message="Программа не найдена" />
+        );
+    }
+
     return (
         <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
             {
-                (userId === programDetails?.user.id)
+                isOwner
                 && (
                     <DeleteProgramButton
+                        redirectTo={location.state.from || AuthRoutePath.my_programs}
                         programId={Number(params.id)}
                     />
                 )

@@ -23,11 +23,13 @@ export type ProgramDetails = {
     }
 }
 
+export type ProgramError = Record<string, string[]>
+
 export interface ProgramSchema {
     publicPrograms: ProgramCard[] | null
     userPrograms: ProgramCard[] | null
     programDetails: ProgramDetails | null
     favouritePrograms: ProgramCard[] | null
-    error: string | undefined
+    error: ProgramError | undefined
     isLoading: boolean
 }

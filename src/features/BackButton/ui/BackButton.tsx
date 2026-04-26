@@ -16,7 +16,7 @@ export const BackButton = ({
     const navigate = useNavigate();
 
     const clickHandler = () => {
-        navigate(path);
+        navigate(path, { state: { from: path } });
     };
 
     return (

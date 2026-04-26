@@ -6,7 +6,9 @@ type ResponseType = {
     data: ProgramCard[]
 }
 
-export const fetchFavouritePrograms = createAsyncThunk<ProgramCard[], void, ThunkConfig<string>>(
+type ErrorType = Record<string, string[]>
+
+export const fetchFavouritePrograms = createAsyncThunk<ProgramCard[], void, ThunkConfig<ErrorType>>(
     'program/fetchFavouritePrograms',
     async (_, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
@@ -20,8 +22,8 @@ export const fetchFavouritePrograms = createAsyncThunk<ProgramCard[], void, Thun
             }
 
             return response.data.data;
-        } catch (e) {
-            return rejectWithValue('error');
+        } catch (e: any) {
+            return rejectWithValue(e.data.messages);
         }
     },
 );

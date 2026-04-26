@@ -2,12 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { Suspense } from 'react';
 import cls from './AddExerciseButton.module.scss';
 import { TooltipElement } from '@/shared/ui/TooltipElement/TooltipElement.tsx';
-import {
-    SidePanelAddContentAsync,
-} from '@/features/AddExercise/ui/SidePanelAddContent/SidePanelAddContent.async.tsx';
-import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
-import { SidePanelTriggerButton } from '@/shared/ui/SidePanelTriggerButton/SidePanelTriggerButton.tsx';
+import { SidePanelAddContentAsync } from '../SidePanelAddContent/SidePanelAddContent.async.tsx';
 import { useOpen } from '@/shared/lib/useOpen/useOpen.tsx';
+import { Button } from '@/shared/ui/Button/Button.tsx';
+import { Modal } from '@/shared/ui/Modal/Modal.tsx';
+import { Loader } from '@/shared/ui/Loader/Loader.tsx';
 
 export const AddExerciseButton = () => {
     const { t } = useTranslation();
@@ -15,21 +14,27 @@ export const AddExerciseButton = () => {
     const [isOpen, openHandler] = useOpen();
 
     return (
-        <TooltipElement tooltipText={t('Добавить упражнение')}>
-            <SidePanelTriggerButton
+        <>
+            <TooltipElement tooltipText={t('Добавить программу')}>
+                <Button type="button" onClick={openHandler}>+</Button>
+            </TooltipElement>
+            <Modal
                 isOpen={isOpen}
-                openHandler={openHandler}
-                buttonChildren="+"
-                contentClassName={cls.sidePanelContent}
-                sidePageChildren={(
-                    <Suspense fallback={<PageLoader />}>
-                        <SidePanelAddContentAsync
-                            closeHandler={openHandler}
-                            className={cls.sidePanelWrapper}
-                        />
-                    </Suspense>
+                onOutsideClick={openHandler}
+                wrapperClassName={cls.modal}
+            >
+                <Suspense fallback={(
+                    <div className={cls.loaderWrapper}>
+                        <Loader />
+                    </div>
                 )}
-            />
-        </TooltipElement>
+                >
+                    <SidePanelAddContentAsync
+                        closeHandler={openHandler}
+                        className={cls.sidePanelWrapper}
+                    />
+                </Suspense>
+            </Modal>
+        </>
     );
 };

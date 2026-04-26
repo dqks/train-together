@@ -11,7 +11,7 @@ interface ExercisesPageProps {
 
 const MyExercisesPage = ({ className } : ExercisesPageProps) => {
     const { t } = useTranslation();
-    usePageTitle('Мои упражнения', t);
+    usePageTitle('Ваши упражнения', t);
 
     return (
         <div className={classNames(cls.ExercisesPage, {}, [className])}>

@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
-import type { ProgramDetails } from '@/entities/Program/model/types/programSchema.ts';
+import type { ProgramDetails, ProgramError } from '@/entities/Program/model/types/programSchema.ts';
 
 type ResponseType = {
     data: ProgramDetails
 }
 
-export const fetchProgramDetails = createAsyncThunk<ProgramDetails, number, ThunkConfig<string>>(
+export const fetchProgramDetails = createAsyncThunk<ProgramDetails, number, ThunkConfig<ProgramError>>(
     'program/fetchProgramDetails',
     async (id, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
@@ -20,8 +20,8 @@ export const fetchProgramDetails = createAsyncThunk<ProgramDetails, number, Thun
             }
 
             return response.data.data;
-        } catch (e) {
-            return rejectWithValue('error');
+        } catch (e : any) {
+            return rejectWithValue(e.response.data.messages);
         }
     },
 );

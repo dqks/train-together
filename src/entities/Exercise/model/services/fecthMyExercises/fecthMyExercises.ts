@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
-import type { ExerciseInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
+import type { ExerciseError, ExerciseInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
 
 type ResponseType = {
     data: ExerciseInformation[]
 }
 
-export const fetchMyExercises = createAsyncThunk<ExerciseInformation[], void, ThunkConfig<string>>(
+export const fetchMyExercises = createAsyncThunk<ExerciseInformation[], void, ThunkConfig<ExerciseError>>(
     'exercise/fetchMyExercises',
     async (_, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
@@ -20,8 +20,8 @@ export const fetchMyExercises = createAsyncThunk<ExerciseInformation[], void, Th
             }
 
             return response.data.data;
-        } catch (e) {
-            return rejectWithValue('error');
+        } catch (e: any) {
+            return rejectWithValue(e.response.data.messages);
         }
     },
 );

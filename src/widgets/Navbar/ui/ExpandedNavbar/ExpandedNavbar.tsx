@@ -18,7 +18,6 @@ export const ExpandedNavbar = memo(({
 } : NavbarProps) => {
     const { t } = useTranslation();
     const userNickname = useSelector(getUserNickname);
-
     return (
         <div className={classNames(
             cls.ExpandedNavbar,
@@ -35,19 +34,39 @@ export const ExpandedNavbar = memo(({
                 />
             </div>
             <UserCard name={userNickname} />
-            <AppLink deleteUnderLine to={AuthRoutePath.exercises}>
+            <AppLink
+                deleteUnderLine
+                to={AuthRoutePath.exercises}
+                state={{ from: AuthRoutePath.exercises }}
+            >
                 {t('Упражнения')}
             </AppLink>
-            <AppLink deleteUnderLine to={AuthRoutePath.programs}>
+            <AppLink
+                deleteUnderLine
+                to={AuthRoutePath.programs}
+                state={{ from: AuthRoutePath.programs }}
+            >
                 {t('Программы пользователей')}
             </AppLink>
-            <AppLink deleteUnderLine to={AuthRoutePath.favourite_programs}>
+            <AppLink
+                deleteUnderLine
+                to={AuthRoutePath.favourite_programs}
+                state={{ from: AuthRoutePath.favourite_programs }}
+            >
                 {t('Избранные программы')}
             </AppLink>
-            <AppLink deleteUnderLine to={AuthRoutePath.my_programs}>
+            <AppLink
+                deleteUnderLine
+                to={AuthRoutePath.my_programs}
+                state={{ from: AuthRoutePath.my_programs }}
+            >
                 {t('Ваши программы')}
             </AppLink>
-            <AppLink deleteUnderLine to={AuthRoutePath.my_exercises}>
+            <AppLink
+                deleteUnderLine
+                to={AuthRoutePath.my_exercises}
+                state={{ from: AuthRoutePath.my_exercises }}
+            >
                 {t('Ваши упражнения')}
             </AppLink>
             <AppLink onClick={logoutHandler} deleteUnderLine to="/">

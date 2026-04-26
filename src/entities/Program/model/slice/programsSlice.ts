@@ -12,7 +12,7 @@ const initialState: ProgramSchema = {
     userPrograms: null,
     programDetails: null,
     favouritePrograms: null,
-    error: '',
+    error: undefined,
     isLoading: false,
 };
 

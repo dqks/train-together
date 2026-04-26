@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import cls from './ProgramCard.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
@@ -31,9 +31,11 @@ export const ProgramCard = (props : ProgramCardProps) => {
 
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const location = useLocation();
+    // console.log(location.state);
 
     const clickHandler = () => {
-        navigate(`${AuthRoutePath.program_details}${id}`);
+        navigate(`${AuthRoutePath.program_details}${id}`, { state: { from: location.state?.from } });
     };
 
     return (

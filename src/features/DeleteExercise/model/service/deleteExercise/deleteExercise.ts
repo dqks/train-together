@@ -1,9 +1,8 @@
-import { $api } from '@/shared/api/api.ts';
+import { $api, type ResponseType } from '@/shared/api/api.ts';
+
+type DeleteExercise = ResponseType<{success: boolean}, string>
 
 export const deleteExercise = async (id: number) => {
-    try {
-        return await $api.delete(`/exercises/${id}`);
-    } catch (e) {
-        return e;
-    }
+    const response = await $api.delete<DeleteExercise>(`/exercises/${id}`);
+    return response.data;
 };
