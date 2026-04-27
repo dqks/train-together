@@ -120,5 +120,10 @@ export const enTranslation = {
         'Отпишитесь, чтобы убрать программу из списка подписок': 'Unsubscribe, to remove program from subscribed list',
         '- Отписаться': '- Unsubscribe',
         'Удалить программу': 'Delete program',
+        'Упсс...': 'Opss...',
+        'У вас нет упражнений': 'You don\'t have exercises',
+        'Ваши упражнения': 'Your exercises',
+        'У вас нет программ': 'You don\'t have programs',
+        'Избранные программы': 'Favourite programs',
     },
 };

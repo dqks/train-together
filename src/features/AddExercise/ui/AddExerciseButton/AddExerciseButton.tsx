@@ -15,7 +15,7 @@ export const AddExerciseButton = () => {
 
     return (
         <>
-            <TooltipElement tooltipText={t('Добавить программу')}>
+            <TooltipElement tooltipText={t('Добавить упражнение')}>
                 <Button type="button" onClick={openHandler}>+</Button>
             </TooltipElement>
             <Modal

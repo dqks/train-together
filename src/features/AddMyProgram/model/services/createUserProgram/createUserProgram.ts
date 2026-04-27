@@ -17,7 +17,7 @@ type ArgType = {
     name: string
     description: string
     publicSetting: 'all' | 'me',
-    openHandler?: () => void
+    closeModal?: () => void
 }
 
 export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<createProgramErrors>>(
@@ -34,6 +34,8 @@ export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<c
                 isPublic: programData.publicSetting === 'all',
             };
 
+            console.log((programData.publicSetting === 'all'));
+
             const response = await extra.api
                 .post<Response>(
                     '/training-programs',
@@ -44,8 +46,8 @@ export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<c
                 throw new Error('Error occurred');
             }
 
-            if (programData.openHandler) {
-                programData.openHandler();
+            if (programData.closeModal) {
+                programData.closeModal();
             }
 
             dispatch(fetchUserPrograms());

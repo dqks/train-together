@@ -17,7 +17,7 @@ import { DeleteExerciseButton } from '@/features/DeleteExercise';
 import {
     getExerciseErrors,
 } from '@/entities/Exercise/model/selectors/getExerciseErrors/getExerciseErrors.ts';
-import { NotFound } from '@/shared/ui/NotFound/NotFound.tsx';
+import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
 
 // import { DeleteExerciseButton } from '@/features/DeleteExercise';
 
@@ -61,7 +61,7 @@ const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
     }
 
     if (errors) {
-        return <NotFound message={errors.status[0]} />;
+        return <CenterText text={errors.status[0]} />;
     }
 
     return (

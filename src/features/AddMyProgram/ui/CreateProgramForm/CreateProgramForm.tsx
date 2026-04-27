@@ -85,7 +85,7 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
         }
 
         dispatch(createUserProgram({
-            name, description, publicSetting, openHandler,
+            name, description, publicSetting, closeModal: openHandler,
         }));
     };
 

@@ -21,7 +21,7 @@ import { DeleteProgramButton } from '@/features/DeleteProgram';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { getProgramErrors } from '@/entities/Program/model/selectors/getProgramErrors/getProgramErrors.ts';
-import { NotFound } from '@/shared/ui/NotFound/NotFound.tsx';
+import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
 
 interface ProgramDetailsPageProps {
     className?: string;
@@ -67,7 +67,7 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
 
     if (errors) {
         return (
-            <NotFound message="Программа не найдена" />
+            <CenterText text="Программа не найдена" />
         );
     }
 
