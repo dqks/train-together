@@ -9,6 +9,7 @@ import {
 import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
 import { FilterPrograms } from '@/features/FilterPrograms';
 import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 
 interface ProgramsPageProps {
     className?: string;
@@ -26,13 +27,22 @@ const ProgramsPage = ({ className } : ProgramsPageProps) => {
         dispatch(fetchPublicPrograms());
     }, [dispatch]);
 
+    if (isLoading) {
+        return <PageLoader />;
+    }
+
     return (
         <div className={classNames(cls.ProgramsPage, {}, [className])}>
-            <ProgramsList
-                programList={programList}
-                isLoading={isLoading}
-                isMyProgramPage={false}
-            />
+            {
+                isLoading
+                    ? <PageLoader />
+                    : (
+                        <ProgramsList
+                            programList={programList}
+                            isMyProgramPage={false}
+                        />
+                    )
+            }
             <FilterPrograms />
         </div>
     );

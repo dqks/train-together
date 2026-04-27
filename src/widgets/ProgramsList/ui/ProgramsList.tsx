@@ -4,13 +4,11 @@ import cls from './ProgramsList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ProgramCard } from '@/entities/Program';
 import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
-import { Loader } from '@/shared/ui/Loader/Loader.tsx';
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
 
 interface ProgramsListProps {
     className?: string;
     isMyProgramPage: boolean;
-    isLoading: boolean;
     programList: Program[] | null;
 }
 
@@ -18,7 +16,6 @@ export const ProgramsList = (props: ProgramsListProps) => {
     const {
         className,
         isMyProgramPage,
-        isLoading,
         programList,
     } = props;
     const { t } = useTranslation();
@@ -56,11 +53,7 @@ export const ProgramsList = (props: ProgramsListProps) => {
 
     return (
         <div className={classNames(cls.ProgramsList, {}, [className])}>
-            {
-                isLoading
-                    ? <Loader />
-                    : <>{programCards}</>
-            }
+            {programCards}
         </div>
     );
 };

@@ -5,11 +5,12 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
+import { serverUrl } from '@/shared/const/serverUrl.ts';
 
 interface ExerciseCardProps {
     className?: string;
     exerciseId: number;
-    // pictureUrl?: string;
+    imageUrl: string;
     name: string;
     muscles: Muscle[]
 }
@@ -23,6 +24,7 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
         className,
         name,
         exerciseId,
+        imageUrl,
     } = props;
 
     const navigate = useNavigate();
@@ -43,7 +45,17 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
     return (
         <div onClick={clickHandler} className={classNames(cls.ExerciseCard, {}, [className])}>
             <div className={cls.pictureWrapper}>
-                <Picture height={250} />
+                {
+                    imageUrl
+                        ? (
+                            <img
+                                className={cls.picture}
+                                src={serverUrl + imageUrl}
+                                alt="Изображение программы"
+                            />
+                        )
+                        : <Picture className={cls.picture} />
+                }
             </div>
             <h2 className={cls.title}>{name}</h2>
             <p>

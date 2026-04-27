@@ -36,6 +36,7 @@ export const MyExerciseCardList = ({ className } : ExerciseCardListProps) => {
                     name={card.name}
                     muscles={card.muscles}
                     exerciseId={card.id}
+                    imageUrl={card.image}
                 />
             ),
         );

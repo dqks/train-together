@@ -9,9 +9,8 @@ export type ExerciseInformation = {
 
 export type ExerciseDetails = {
     id: number | undefined,
-    imageUrl: string,
+    image: string,
     name: string,
-    image: string
     // muscles: Muscle[]
     // equipments: Equipment[]
     userId: number | null

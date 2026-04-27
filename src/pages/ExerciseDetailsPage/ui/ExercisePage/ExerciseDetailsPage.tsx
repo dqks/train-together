@@ -18,6 +18,7 @@ import {
     getExerciseErrors,
 } from '@/entities/Exercise/model/selectors/getExerciseErrors/getExerciseErrors.ts';
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
+import { serverUrl } from '@/shared/const/serverUrl.ts';
 
 // import { DeleteExerciseButton } from '@/features/DeleteExercise';
 
@@ -77,7 +78,12 @@ const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
             }
             <div className={cls.mainInfoWrapper}>
                 <h1 className={cls.exerciseName}>{exerciseDetails?.name}</h1>
-                <Picture />
+                {
+                    exerciseDetails?.image
+                        ? <img className={cls.exerciseImage} src={serverUrl + exerciseDetails.image} alt="Изображение упражнения" />
+                        : <Picture className={cls.exerciseImage} />
+                }
+
             </div>
             <div className={cls.informationWrapper}>
                 <ExerciseInfo title={t('Техника выполнения')}>
