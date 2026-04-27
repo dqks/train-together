@@ -47,11 +47,25 @@ export const LoginForm = ({ className }: LoginFormProps) => {
     }, [dispatch]);
 
     const onLoginClick = () => {
-        if (email.trim() && password.trim()) {
-            dispatch(loginByEmail({ email, password }));
-        } else {
-            dispatch(loginActions.setError({ status: 'Все поля должны быть заполнены' }));
+        let hasErrors = false;
+        const errors = { email: [''], status: [''] };
+
+        if (!email.trim() || !password.trim()) {
+            errors.status.push('Все поля должны быть заполнены');
+            hasErrors = true;
         }
+
+        if (!email.includes('@') || !email.includes('.')) {
+            errors.email.push('Почта должна быть валидной');
+            hasErrors = true;
+        }
+
+        if (hasErrors) {
+            dispatch(loginActions.setError(errors));
+            return;
+        }
+
+        dispatch(loginByEmail({ email, password }));
     };
 
     return (

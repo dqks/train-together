@@ -2,7 +2,7 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import { LOCAL_STORAGE_LANGUAGE_KEY } from '@/shared/localStorage/languageKey.ts';
+import { LOCAL_STORAGE_LANGUAGE_KEY } from '@/shared/const/languageKey.ts';
 
 // Типизация интерфейса для компонента
 interface LangSwitcherProps {

@@ -4,7 +4,7 @@ import { ExpandedNavbar } from './ExpandedNavbar/ExpandedNavbar.tsx';
 import { CollapsedNavbar } from './CollapsedNavbar/CollapsedNavbar.tsx';
 import cls from './Navbar.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import { LOCAL_STORAGE_COLLAPSED_KEY } from '@/shared/localStorage/isCollapsedKey.ts';
+import { LOCAL_STORAGE_COLLAPSED_KEY } from '@/shared/const/isCollapsedKey.ts';
 import { logout } from '@/entities/User';
 
 const getIsCollapsedStorage = () => {

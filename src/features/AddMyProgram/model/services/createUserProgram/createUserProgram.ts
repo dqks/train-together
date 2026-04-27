@@ -16,7 +16,8 @@ type Response = {
 type ArgType = {
     name: string
     description: string
-    publicSetting: 'all' | 'me',
+    publicSetting: 'true' | 'false',
+    image: File | undefined
     closeModal?: () => void
 }
 
@@ -28,18 +29,16 @@ export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<c
     ) => {
         const { extra, dispatch, rejectWithValue } = thunkAPI;
         try {
-            const data = {
-                name: programData.name,
-                description: programData.description,
-                isPublic: programData.publicSetting === 'all',
-            };
-
-            console.log((programData.publicSetting === 'all'));
+            const fd = new FormData();
+            fd.append('name', programData.name);
+            fd.append('description', programData.description);
+            fd.append('isPublic', programData.publicSetting);
+            fd.append('image', programData.image || '');
 
             const response = await extra.api
                 .post<Response>(
                     '/training-programs',
-                    data,
+                    fd,
                 );
 
             if (!response.data.data.success) {

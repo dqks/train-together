@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import Language from '@/shared/assets/icons/world.svg?react';
 import cls from './LangSwitcherIcon.module.scss';
-import { LOCAL_STORAGE_LANGUAGE_KEY } from '@/shared/localStorage/languageKey.ts';
+import { LOCAL_STORAGE_LANGUAGE_KEY } from '@/shared/const/languageKey.ts';
 
 export const LangSwitcherIcon = () => {
     const { i18n } = useTranslation();

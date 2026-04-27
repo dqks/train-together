@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import cls from './ProgramDay.module.scss';
-import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
-import { ExerciseInProgram } from '../../../Exercise';
-import ArrowUp from '../../../../shared/assets/icons/arrow-up.svg?react';
-import ArrowDown from '../../../../shared/assets/icons/arrow-down.svg?react';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
+import ArrowUp from '@/shared/assets/icons/arrow-up.svg?react';
+import ArrowDown from '@/shared/assets/icons/arrow-down.svg?react';
+import { ExerciseInProgram } from '@/entities/Exercise';
 
 export enum Days {
     MONDAY = 'ПН',

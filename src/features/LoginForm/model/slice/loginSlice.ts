@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { LoginSchema } from '../types/loginSchema.ts';
+import type { loginErrors, LoginSchema } from '../types/loginSchema.ts';
 import { loginByEmail } from '@/features/LoginForm/model/services/loginByEmail/loginByEmail.ts';
 
 const initialState: LoginSchema = {
@@ -19,7 +19,7 @@ export const loginSlice = createSlice({
         setPassword: (state, action: PayloadAction<string>) => {
             state.password = action.payload;
         },
-        setError: (state, action: PayloadAction<Record<string, string>>) => {
+        setError: (state, action: PayloadAction<loginErrors>) => {
             state.error = action.payload;
         },
     },

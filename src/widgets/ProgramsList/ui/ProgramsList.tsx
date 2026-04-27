@@ -36,6 +36,7 @@ export const ProgramsList = (props: ProgramsListProps) => {
                 description={program.description}
                 key={program.id}
                 id={program.id}
+                imageUrl={program.imageUrl}
                 deleteCreator
             />
         ));
@@ -47,6 +48,7 @@ export const ProgramsList = (props: ProgramsListProps) => {
                 description={program.description}
                 key={program.id}
                 id={program.id}
+                imageUrl={program.imageUrl}
                 userName={program.user.nickname}
             />
         ));

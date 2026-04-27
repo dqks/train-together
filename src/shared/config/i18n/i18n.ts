@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { enTranslation } from './languages/en.ts';
 import { ruTranslation } from './languages/ru.ts';
-import { LOCAL_STORAGE_LANGUAGE_KEY } from '@/shared/localStorage/languageKey.ts';
+import { LOCAL_STORAGE_LANGUAGE_KEY } from '@/shared/const/languageKey.ts';
 
 const resources = {
     en: {

@@ -5,8 +5,7 @@ import { createUserProgram } from '../services/createUserProgram/createUserProgr
 const initialState: CreateProgramSchema = {
     name: '',
     description: '',
-    publicSetting: 'all',
-    image: null,
+    publicSetting: 'true',
     errors: undefined,
     isLoading: false,
 };
@@ -21,7 +20,7 @@ export const createProgramSlice = createSlice({
         setDescription: (state, action: PayloadAction<string>) => {
             state.description = action.payload;
         },
-        setIsPublic: (state, action: PayloadAction<'all' | 'me'>) => {
+        setIsPublic: (state, action: PayloadAction<'true' | 'false'>) => {
             state.publicSetting = action.payload;
         },
         setErrors: (state, action: PayloadAction<createProgramErrors>) => {

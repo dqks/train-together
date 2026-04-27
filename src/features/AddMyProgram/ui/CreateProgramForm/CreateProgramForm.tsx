@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback, useContext } from 'react';
+import {
+    type ChangeEvent, useCallback, useContext, useState,
+} from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './CreateProgramForm.module.scss';
 import { Button } from '@/shared/ui/Button/Button.tsx';
@@ -23,6 +25,9 @@ interface CreateProgramFormProps {
     className?: string;
 }
 
+// 3 MB
+const fileSizeLimit = 3 * 1024 * 1024;
+
 export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -32,6 +37,7 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const publicSetting = useSelector(getProgramPublicSetting);
     const isLoading = useSelector(getProgramIsLoading);
     const errors = useSelector(getProgramErrors);
+    const [image, setImage] = useState<File | undefined>(undefined);
 
     const { openHandler } = useContext(ModalContext);
 
@@ -44,8 +50,19 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     }, [dispatch]);
 
     const onChangePrivacy = useCallback((value: string) => {
-        dispatch(createProgramActions.setIsPublic(value as 'all' | 'me'));
+        dispatch(createProgramActions.setIsPublic(value as 'true' | 'false'));
     }, [dispatch]);
+
+    const onChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event?.target?.files) {
+            if (event.target.files[0].size > fileSizeLimit) {
+                dispatch(createProgramActions.setErrors({ image: ['Максимум 3 мегабайта'] }));
+            } else {
+                setImage(event?.target?.files[0]);
+            }
+            // dispatch(createProgramActions.setImage(event?.target?.files[0]));
+        }
+    };
 
     const onCreateClick = () => {
         const errors = {
@@ -85,7 +102,7 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
         }
 
         dispatch(createUserProgram({
-            name, description, publicSetting, closeModal: openHandler,
+            name, description, publicSetting, closeModal: openHandler, image,
         }));
     };
 
@@ -114,9 +131,18 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
                 </label>
                 <span>❓</span>
                 <Select value={publicSetting} onChange={onChangePrivacy} name="privacy" id="privacy">
-                    <option value="all">{t('Все пользователи')}</option>
-                    <option value="me">{t('Только я')}</option>
+                    <option value="true">{t('Все пользователи')}</option>
+                    <option value="false">{t('Только я')}</option>
                 </Select>
+            </div>
+            <div className={cls.inputWrapper}>
+                <input
+                    className={cls.fileInput}
+                    onChange={onChangeImage}
+                    type="file"
+                    id="image"
+                    name="image"
+                />
             </div>
             <Button
                 disabled={isLoading}

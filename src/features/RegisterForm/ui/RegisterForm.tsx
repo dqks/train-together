@@ -76,6 +76,11 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
             hasErrors = true;
         }
 
+        if (!email.includes('@') || !email.includes('.')) {
+            errors.email.push('Почта должна быть валидной');
+            hasErrors = true;
+        }
+
         if (hasErrors) {
             dispatch(registerActions.setErrors(errors));
             return;

@@ -1,12 +1,11 @@
-export type errorKeys = 'name' | 'description'
+export type errorKeys = 'name' | 'description' | 'image'
 
-export type createProgramErrors = Record<errorKeys, string[]> | undefined
+export type createProgramErrors = Partial<Record<errorKeys, string[]>> | undefined
 
 export interface CreateProgramSchema {
     name: string;
     description: string;
-    publicSetting: 'all' | 'me';
-    image: string | null
+    publicSetting: 'true' | 'false';
     errors: createProgramErrors
     isLoading: boolean
 }

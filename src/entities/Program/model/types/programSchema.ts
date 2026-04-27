@@ -3,7 +3,7 @@ export type ProgramCard = {
     name: string
     description: string | undefined
     createdAt: Date
-    imageUrl: string | null
+    imageUrl: string | undefined
     user: {
         id: number
         nickname: string
@@ -14,7 +14,7 @@ export type ProgramDetails = {
     id: number
     name: string
     description: string | undefined
-    imageUrl: string | null
+    imageUrl: string | undefined
     createdAt: Date
     isFollowed: boolean
     user: {

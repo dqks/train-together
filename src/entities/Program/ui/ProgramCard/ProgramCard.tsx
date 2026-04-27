@@ -4,6 +4,7 @@ import cls from './ProgramCard.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
+import { serverUrl } from '@/shared/const/serverUrl.ts';
 
 interface ProgramCardProps {
     id: number | undefined;
@@ -11,7 +12,7 @@ interface ProgramCardProps {
     programName: string | undefined
     userName?: string;
     description: string | undefined;
-    // image?: string;
+    imageUrl: string | undefined;
     deleteCreator?: boolean;
     showRating?: boolean;
     // hasClickHandler?: boolean;
@@ -26,13 +27,12 @@ export const ProgramCard = (props : ProgramCardProps) => {
         userName,
         description,
         id,
+        imageUrl,
         // hasClickHandler = true,
     } = props;
-
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
-    // console.log(location.state);
 
     const clickHandler = () => {
         navigate(`${AuthRoutePath.program_details}${id}`, { state: { from: location.state?.from } });
@@ -43,7 +43,11 @@ export const ProgramCard = (props : ProgramCardProps) => {
             onClick={clickHandler}
             className={classNames(cls.ProgramCard, {}, [className])}
         >
-            <Picture className={cls.picture} />
+            {
+                imageUrl
+                    ? <img className={cls.picture} src={serverUrl + imageUrl} alt="Изображение программы" />
+                    : <Picture className={cls.picture} />
+            }
             <div className={cls.infoWrapper}>
                 {
                     showRating

@@ -83,6 +83,7 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
                 )
             }
             <ProgramCard
+                imageUrl={programDetails?.imageUrl}
                 userName={programDetails?.user.nickname}
                 id={programDetails?.id}
                 programName={programDetails?.name}

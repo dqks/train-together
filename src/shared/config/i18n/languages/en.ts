@@ -125,5 +125,9 @@ export const enTranslation = {
         'Ваши упражнения': 'Your exercises',
         'У вас нет программ': 'You don\'t have programs',
         'Избранные программы': 'Favourite programs',
+        'Почта должна быть валидной': 'Email should be valid',
+        'Программа не найдена': 'Program is not found',
+        'Упражнение не найдено': 'Exercise is not found',
+
     },
 };
