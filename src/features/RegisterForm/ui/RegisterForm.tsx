@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback } from 'react';
+import { type ChangeEvent, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import cls from './RegisterForm.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
@@ -16,6 +16,7 @@ import { registerByEmail } from '../model/services/registerByEmail/registerByEma
 import { getRegisterIsLoading } from '../model/selectors/getRegisterIsLoading/getRegisterIsLoading.ts';
 import { getRegisterError } from '../model/selectors/getRegisterError/getRegisterError.ts';
 import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
+import { getRegisterConsent } from '../model/selectors/getRegisterConsent/getRegisterConsent.ts';
 
 interface RegisterFormProps {
     className?: string;
@@ -30,6 +31,7 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
     const nickname = useSelector(getRegisterNickname);
     const isLoading = useSelector(getRegisterIsLoading);
     const errors = useSelector(getRegisterError);
+    const consent = useSelector(getRegisterConsent);
 
     const navigateToLogin = () => {
         navigate(PublicRoutePath.login);
@@ -47,6 +49,10 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
         dispatch(registerActions.setEmail(value));
     }, [dispatch]);
 
+    const onChangeConsent = useCallback((value: ChangeEvent<HTMLInputElement>) => {
+        dispatch(registerActions.setConsent(value.currentTarget.checked));
+    }, [dispatch]);
+
     const onRegisterClick = () => {
         let hasErrors = false;
 
@@ -54,6 +60,7 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
             email: [''],
             password: [''],
             nickname: [''],
+            consent: [''],
         };
 
         if (!email.trim()) {
@@ -78,6 +85,11 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
 
         if (!email.includes('@') || !email.includes('.')) {
             errors.email.push('Почта должна быть валидной');
+            hasErrors = true;
+        }
+
+        if (!consent) {
+            errors.consent.push('Согласие обязательно');
             hasErrors = true;
         }
 
@@ -137,6 +149,20 @@ export const RegisterForm = ({ className } : RegisterFormProps) => {
                         + ' из алфавитных символов и цифр')}
                 </p>
                 <ErrorMessage messages={errors?.nickname} />
+            </div>
+            <div className={cls.inputWrapper}>
+                {/* TODO: вынести в компонент Checkbox */}
+                <div className={cls.checkboxWrapper}>
+                    <input
+                        onChange={onChangeConsent}
+                        checked={consent}
+                        type="checkbox"
+                        id="consent"
+                        name="consent"
+                    />
+                    <label htmlFor="consent">{t('Согласие на обработку персональных данных')}</label>
+                </div>
+                <ErrorMessage messages={errors?.consent} />
             </div>
             <Button
                 disabled={isLoading}

@@ -128,6 +128,8 @@ export const enTranslation = {
         'Почта должна быть валидной': 'Email should be valid',
         'Программа не найдена': 'Program is not found',
         'Упражнение не найдено': 'Exercise is not found',
+        'Согласие на обработку персональных данных': 'Consent to the processing of personal data',
+        'Согласие обязательно': 'Consent is required',
 
     },
 };

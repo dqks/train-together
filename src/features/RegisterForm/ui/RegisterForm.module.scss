@@ -24,6 +24,13 @@
     flex-direction: column;
 }
 
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
 .inputDescription {
     font-size: var(--font-size-tiny);
     line-height: 16px;

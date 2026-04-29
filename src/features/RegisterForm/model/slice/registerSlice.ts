@@ -6,6 +6,7 @@ const initialState: RegisterSchema = {
     email: '',
     password: '',
     nickname: '',
+    consent: false,
     errors: undefined,
     isLoading: false,
 };
@@ -25,6 +26,9 @@ export const registerSlice = createSlice({
         },
         setErrors: (state, action: PayloadAction<errorsObject>) => {
             state.errors = action.payload;
+        },
+        setConsent: (state, action: PayloadAction<boolean>) => {
+            state.consent = action.payload;
         },
     },
     extraReducers: (builder) => {
