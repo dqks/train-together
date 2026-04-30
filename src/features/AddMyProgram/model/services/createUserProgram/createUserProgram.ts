@@ -19,6 +19,8 @@ type ArgType = {
     publicSetting: 'true' | 'false',
     image: File | undefined
     closeModal?: () => void
+    diffId: string
+    goalId: string
 }
 
 export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<createProgramErrors>>(
@@ -34,6 +36,8 @@ export const createUserProgram = createAsyncThunk<Return, ArgType, ThunkConfig<c
             fd.append('description', programData.description);
             fd.append('isPublic', programData.publicSetting);
             fd.append('image', programData.image || '');
+            fd.append('goalId', programData.goalId || '');
+            fd.append('diffId', programData.diffId || '');
 
             const response = await extra.api
                 .post<Response>(

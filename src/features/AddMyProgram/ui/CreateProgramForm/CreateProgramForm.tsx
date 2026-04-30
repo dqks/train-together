@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    type ChangeEvent, useCallback, useContext, useState,
+    type ChangeEvent, useCallback, useContext, useEffect, useState,
 } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './CreateProgramForm.module.scss';
@@ -13,13 +13,16 @@ import { getProgramName } from '../../model/selectors/getProgramName/getProgramN
 import { getProgramDescription } from '../../model/selectors/getProgramDescription/getProgramDescription.ts';
 import { createUserProgram } from '../../model/services/createUserProgram/createUserProgram.ts';
 import { createProgramActions } from '../../model/slice/createProgramSlice.ts';
-import {
-    getProgramPublicSetting,
-} from '../../model/selectors/getProgramPublicSetting/getProgramPublicSetting.ts';
+import { getProgramPublicSetting } from '../../model/selectors/getProgramPublicSetting/getProgramPublicSetting.ts';
 import { ModalContext } from '../../provider/lib/ModalContext.tsx';
 import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 import { getProgramIsLoading } from '../../model/selectors/getProgramIsLoading/getProgramIsLoading.ts';
 import { getProgramErrors } from '../../model/selectors/getProgramErrors/getProgramErrors.ts';
+import { fetchCreateInfo } from '../../model/services/fetchCreateInfo/fetchCreateInfo.ts';
+import { getProgramDiff } from '../../model/selectors/getProgramDiff/getProgramDiff.ts';
+import { getProgramGoals } from '../../model/selectors/getProgramGoals/getProgramGoals.ts';
+import { getSelectedDiff } from '../../model/selectors/getSelectedDiff/getSelectedDiff.ts';
+import { getSelectedGoal } from '../../model/selectors/getSelectedGoal/getSelectedGoal.ts';
 
 interface CreateProgramFormProps {
     className?: string;
@@ -37,9 +40,24 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const publicSetting = useSelector(getProgramPublicSetting);
     const isLoading = useSelector(getProgramIsLoading);
     const errors = useSelector(getProgramErrors);
+    const goals = useSelector(getProgramGoals);
+    const difficulties = useSelector(getProgramDiff);
+    const selectedDiff = useSelector(getSelectedDiff);
+    const selectedGoal = useSelector(getSelectedGoal);
     const [image, setImage] = useState<File | undefined>(undefined);
 
     const { openHandler } = useContext(ModalContext);
+
+    useEffect(() => {
+        if (!goals && !difficulties) {
+            dispatch(fetchCreateInfo());
+        }
+    }, [dispatch]);
+
+    const goalOptions = goals
+        ?.map((goal) => (<option key={goal.id} value={goal.id}>{goal.name}</option>));
+    const diffOptions = difficulties
+        ?.map((diff) => (<option key={diff.id} value={diff.id}>{diff.name}</option>));
 
     const onChangeName = useCallback((value: string) => {
         dispatch(createProgramActions.setName(value));
@@ -53,6 +71,14 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
         dispatch(createProgramActions.setIsPublic(value as 'true' | 'false'));
     }, [dispatch]);
 
+    const onChangeGoal = useCallback((value: string) => {
+        dispatch(createProgramActions.setSelectedGoal(value));
+    }, [dispatch]);
+
+    const onChangeDifficulty = useCallback((value: string) => {
+        dispatch(createProgramActions.setSelectedDifficulty(value));
+    }, [dispatch]);
+
     const onChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
         if (event?.target?.files) {
             if (event.target.files[0].size > fileSizeLimit) {
@@ -60,7 +86,6 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
             } else {
                 setImage(event?.target?.files[0]);
             }
-            // dispatch(createProgramActions.setImage(event?.target?.files[0]));
         }
     };
 
@@ -68,6 +93,8 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
         const errors = {
             name: [''],
             description: [''],
+            goalId: [''],
+            diffId: [''],
         };
         let hasErrors = false;
 
@@ -96,13 +123,29 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
             hasErrors = true;
         }
 
+        if (selectedGoal === 'default') {
+            errors.goalId.push('Выберите цель программы');
+            hasErrors = true;
+        }
+
+        if (selectedDiff === 'default') {
+            errors.diffId.push('Выберите сложность программы');
+            hasErrors = true;
+        }
+
         if (hasErrors) {
             dispatch(createProgramActions.setErrors(errors));
             return;
         }
 
         dispatch(createUserProgram({
-            name, description, publicSetting, closeModal: openHandler, image,
+            name,
+            description,
+            publicSetting,
+            closeModal: openHandler,
+            image,
+            diffId: selectedDiff,
+            goalId: selectedGoal,
         }));
     };
 
@@ -125,7 +168,7 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
                 />
                 <ErrorMessage messages={errors?.description} />
             </div>
-            <div className={cls.privacyWrapper}>
+            <div className={cls.selectWrapper}>
                 <label htmlFor="privacy">
                     {t('Кто сможет просматривать')}
                 </label>
@@ -134,6 +177,27 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
                     <option value="true">{t('Все пользователи')}</option>
                     <option value="false">{t('Только я')}</option>
                 </Select>
+            </div>
+            <div className={cls.selectWrapper}>
+                <label htmlFor="privacy">
+                    {t('Цель программы')}
+                </label>
+                <Select value={selectedGoal} onChange={onChangeGoal} name="goalId" id="goalId">
+                    <option value="default" disabled>{t('Выберите...')}</option>
+                    {goalOptions}
+                </Select>
+                <ErrorMessage messages={errors?.goalId} />
+
+            </div>
+            <div className={cls.selectWrapper}>
+                <label htmlFor="privacy">
+                    {t('Сложность')}
+                </label>
+                <Select value={selectedDiff} onChange={onChangeDifficulty} name="diffId" id="diffId">
+                    <option value="default" disabled>{t('Выберите...')}</option>
+                    {diffOptions}
+                </Select>
+                <ErrorMessage messages={errors?.diffId} />
             </div>
             <div className={cls.inputWrapper}>
                 <input
