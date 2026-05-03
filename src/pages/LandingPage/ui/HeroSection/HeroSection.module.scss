@@ -1,0 +1,23 @@
+/* Hero Section - extra top padding */
+//.hero {
+//    padding-top: 60px;
+//}
+.Hero {
+    padding: 120px 0;
+
+    //padding: var(--spacing-3xl) 0;
+    text-align: center;
+    background: linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg) 100%);
+}
+
+.heroTitle {
+    font-size: clamp(2rem, 5vw, var(--font-size-4xl));
+    margin-bottom: var(--spacing-md);
+}
+
+.heroSubtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-xl);
+}

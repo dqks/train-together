@@ -1,0 +1,28 @@
+// import { useTranslation } from 'react-i18next';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import cls from './Badge.module.scss';
+
+export enum BadgeType {
+    DEFAULT = '',
+    ACCENT = 'accent',
+    POPULAR = 'popular'
+}
+
+interface BadgeProps {
+    className?: string;
+    text: string
+    type: BadgeType
+}
+
+export const Badge = (props : BadgeProps) => {
+    // const { t } = useTranslation();
+    const { className, text, type } = props;
+
+    return (
+        <span
+            className={classNames(cls.badge, {}, [className, cls[type]])}
+        >
+            {text}
+        </span>
+    );
+};

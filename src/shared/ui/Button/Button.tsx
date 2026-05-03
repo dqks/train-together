@@ -3,37 +3,48 @@ import cls from './Button.module.scss';
 import { classNames } from '../../lib/classNames/classNames.ts';
 
 export enum ThemeButton {
-    CLEAR = 'clear',
+    PRIMARY = 'primary',
+    SECONDARY = 'secondary',
+    OUTLINE = 'outline',
+    GHOST = 'ghost',
 }
 
-type ButtonType = 'button' | 'submit' | 'reset' | undefined
+export enum SizeButton {
+    SMALL = 'sm',
+    MEDIUM = '',
+    LARGE = 'lg',
+}
+
+type ButtonType = 'button' | 'submit' | 'reset'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     children: ReactNode;
     theme?: ThemeButton;
-    isOutlined?: boolean
     type: ButtonType
     disabled?: boolean
+    isIcon?: boolean
+    size?: SizeButton
 }
 
 export const Button = (props : ButtonProps) => {
     const {
         className,
         children,
-        theme,
-        isOutlined = false,
+        theme = ThemeButton.PRIMARY,
         type = 'button',
         disabled = false,
+        isIcon = false,
+        size = SizeButton.MEDIUM,
         ...otherProps
     } = props;
 
     const mods = {
-        [cls.outline]: isOutlined,
         [cls.disabled]: disabled,
+        [cls.icon]: isIcon,
     };
 
-    const additional = [className, theme && cls[theme]];
+    const additional = [className, theme && cls[theme], cls[size]];
 
     return (
         <button

@@ -1,25 +1,86 @@
 .Header {
-    width: 100%;
-    height: var(--navbar-height);
-    background-color: var(--primary-color);
-    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border-light);
+    z-index: 100;
+    height: calc(var(--header-height) + 8px);
+}
+
+.headerInner {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100%;
+    max-width: var(--max-width);
+    margin: 6px auto;
+    padding: 6px var(--spacing-lg);
+
+    //padding-top: 12px;
+    //padding-bottom: 12px;
 }
 
-.item {
-    margin: 0 60px;
+.headerLogo {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.headerNav {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 60px;
+    gap: var(--spacing-lg);
 }
 
-//.links {
-//  margin-left: auto;
-//}
-//
-//.mainLink {
-//  margin-right: 15px;
-//}
+.headerNav a {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+}
+
+.headerNav a:hover,
+.headerNav a.active {
+    color: var(--color-text-primary);
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Mobile Menu Toggle */
+.menuToggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+}
+
+.menuToggle:hover {
+    background-color: var(--color-bg-secondary);
+}
+
+.menuToggle svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-text-primary);
+}
+
+@media (max-width: 768px) {
+    .menuToggle {
+        display: flex !important;
+        position: fixed;
+        top: var(--spacing-md);
+        left: var(--spacing-md);
+        z-index: 101;
+        background: var(--color-bg);
+        border: 1px solid var(--color-border-light);
+        box-shadow: var(--shadow-sm);
+    }
+}

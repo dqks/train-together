@@ -1,0 +1,61 @@
+//.RequirementCard {
+//    border: 2px solid transparent;
+//    transition: all var(--transition-base);
+//}
+//
+//.RequirementCard:hover {
+//    transform: translateY(-4px);
+//}
+//
+//.RequirementCard.active {
+//    border-color: var(--color-accent);
+//}
+
+.RequirementCard {
+    padding: var(--spacing-xl);
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all var(--transition-base);
+}
+
+.RequirementCard:hover {
+    transform: translateY(-4px);
+}
+
+.RequirementCard.active {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-light);
+}
+
+.requirementIcon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg-tertiary);
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-base);
+}
+
+.RequirementCard:hover .requirementIcon {
+    background-color: var(--color-accent-light);
+}
+
+.RequirementCard.active .requirementIcon {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.requirementIcon svg {
+    width: 32px;
+    height: 32px;
+    stroke: currentcolor;
+}
+
+.requirementTitle {
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
