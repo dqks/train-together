@@ -1,4 +1,11 @@
-.authForm {
-    height: calc(100vh - var(--footer-height));
-    margin: 0 auto;
+.LoginPage {
+    min-height: 100vh;
+    display: flex;
+
+    //align-items: center;
+    //justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg) 100%);
+
+    //padding: var(--spacing-lg);
 }

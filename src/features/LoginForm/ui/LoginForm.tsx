@@ -1,12 +1,10 @@
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect } from 'react';
 import cls from './LoginForm.module.scss';
-import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { Input } from '@/shared/ui/Input/Input.tsx';
-import { Button } from '@/shared/ui/Button/Button.tsx';
-import { AppLink, LinkColor } from '@/shared/ui/AppLink/AppLink.tsx';
+import { Button, SizeButton, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { PublicRoutePath } from '@/shared/config/routeConfig/publicRouteConfig.tsx';
 import { getUserId } from '@/entities/User/model/selectors/getUserId/getUserId.ts';
@@ -18,11 +16,7 @@ import { loginActions } from '../model/slice/loginSlice.ts';
 import { getLoginError } from '../model/selectors/getLoginError/getLoginError.ts';
 import { ErrorMessage, TextSize } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 
-interface LoginFormProps {
-    className?: string;
-}
-
-export const LoginForm = ({ className }: LoginFormProps) => {
+export const LoginForm = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -48,7 +42,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
 
     const onLoginClick = () => {
         let hasErrors = false;
-        const errors = { email: [''], status: [''] };
+        const errors = { status: [''] };
 
         if (!email.trim() || !password.trim()) {
             errors.status.push('Все поля должны быть заполнены');
@@ -56,7 +50,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
         }
 
         if (!email.includes('@') || !email.includes('.')) {
-            errors.email.push('Почта должна быть валидной');
+            errors.status.push('Почта должна быть валидной');
             hasErrors = true;
         }
 
@@ -69,54 +63,53 @@ export const LoginForm = ({ className }: LoginFormProps) => {
     };
 
     return (
-        <div className={classNames(cls.AuthForm, {}, [className])}>
-            <h1 className={cls.title}>{t('Авторизация')}</h1>
-            <div className={cls.inputWrapper}>
-                <label htmlFor="email">{t('Email')}</label>
-                <Input
-                    value={email}
-                    onChange={onChangeEmail}
-                    id="email"
-                    name="email"
-                    type="text"
-                />
-                <ErrorMessage messages={error?.email} />
-            </div>
-            <div className={cls.inputWrapper}>
-                <label htmlFor="password">{t('Пароль')}</label>
-                <Input
-                    value={password}
-                    onChange={onChangePassword}
-                    id="password"
-                    name="password"
-                    type="password"
-                />
-            </div>
-            <Button
-                disabled={isLoading}
-                type="button"
-                onClick={onLoginClick}
-            >
-                {t('Войти')}
-            </Button>
-            <div>
-                <ErrorMessage messages={error?.status} textSize={TextSize.SMALL} />
-                <AppLink
-                    linkColor={LinkColor.BLACK}
-                    className={cls.link}
-                    to=""
-                >
-                    {t('Забыли пароль?')}
-                </AppLink>
-                <p className={cls.createAccText}>
-                    {t('Нет аккаунта? ')}
-                    <AppLink
-                        linkColor={LinkColor.BLACK}
-                        className={cls.link}
-                        to={PublicRoutePath.registration}
+        <div className={cls.LoginForm}>
+            <Link to={PublicRoutePath.landing} className={cls.logo}>TrainTogether</Link>
+            <div className={cls.authCard}>
+                <h1 className={cls.authTitle}>{t('Авторизация')}</h1>
+                <p className={cls.authSubtitle}>
+                    {t('Войдите в свой аккаунт для доступа к программа')}
+                    м
+                </p>
+
+                <form className={cls.authForm}>
+                    <div className="form-group">
+                        <label htmlFor="email" className="form-label">{t('Email')}</label>
+                        <Input
+                            onChange={onChangeEmail}
+                            value={email}
+                            name="email"
+                            type="email"
+                            placeholder={t('Ваш email')}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="email" className="form-label">{t('Пароль')}</label>
+                        <Input
+                            value={password}
+                            onChange={onChangePassword}
+                            name="password"
+                            type="password"
+                            placeholder={t('Ваш пароль')}
+                        />
+                    </div>
+                    <ErrorMessage messages={error?.status} textSize={TextSize.SMALL} />
+
+                    <Button
+                        disabled={isLoading}
+                        size={SizeButton.LARGE}
+                        theme={ThemeButton.PRIMARY}
+                        type="button"
+                        onClick={onLoginClick}
                     >
-                        {t('Создайте')}
-                    </AppLink>
+                        {t('Войти')}
+                    </Button>
+
+                </form>
+
+                <p className={cls.authFooterText}>
+                    {t('Нет аккаунта? ')}
+                    <Link to={PublicRoutePath.registration}>{t('Зарегистрироваться')}</Link>
                 </p>
             </div>
         </div>

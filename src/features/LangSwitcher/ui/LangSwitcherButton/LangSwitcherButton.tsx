@@ -1,8 +1,8 @@
 // Импорты всех нужных модулей, функций и компонентов
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/shared/ui/Button/Button.tsx';
-import { classNames } from '@/shared/lib/classNames/classNames.ts';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { LOCAL_STORAGE_LANGUAGE_KEY } from '@/shared/const/languageKey.ts';
+import World from '@/shared/assets/icons/world.svg?react';
 
 // Типизация интерфейса для компонента
 interface LangSwitcherProps {
@@ -27,11 +27,13 @@ export const LangSwitcherButton = ({ className }: LangSwitcherProps) => {
     // Вывод разметки
     return (
         <Button
-            type="button"
-            className={classNames('', {}, [className])}
+            className={className}
+            theme={ThemeButton.GHOST}
+            isIcon
             onClick={toggleLanguage}
+            type="button"
         >
-            {t('Русский')}
+            <World />
         </Button>
     );
 };

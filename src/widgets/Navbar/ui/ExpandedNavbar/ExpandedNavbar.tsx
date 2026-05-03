@@ -3,21 +3,22 @@ import { useSelector } from 'react-redux';
 import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ExpandedNavbar.module.scss';
-import { UserCard } from '@/entities/User';
-import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
+import UserSvg from '@/shared/assets/icons/user.svg?react';
+import Barbell from '@/shared/assets/icons/barbell.svg?react';
+import Programs from '@/shared/assets/icons/list.svg?react';
+import MyPrograms from '@/shared/assets/icons/star.svg?react';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
-import { CollapseButton } from '../CollapseButton/CollapseButton';
-import { getUserNickname } from '@/entities/User/model/selectors/getUserNickname/getUserNickname.ts';
 import { LangSwitcherButton } from '@/features/LangSwitcher';
 import type { NavbarProps } from '../../types/navbarProps.ts';
+import { ExpandedItem } from '@/widgets/Navbar/ui/ExpandedNavbar/ExpandedItem/ExpandedItem.tsx';
 
 export const ExpandedNavbar = memo(({
     className,
-    openHandler,
-    logoutHandler,
+    // openHandler,
+    // logoutHandler,
 } : NavbarProps) => {
     const { t } = useTranslation();
-    const userNickname = useSelector(getUserNickname);
+    // const userNickname = useSelector(getUserNickname);
     return (
         <div className={classNames(
             cls.ExpandedNavbar,
@@ -25,53 +26,11 @@ export const ExpandedNavbar = memo(({
             [className],
         )}
         >
-
-            <div className={cls.collapseButtonWrapper}>
-                <CollapseButton
-                    hasTooltip
-                    tooltipText={t('Свернуть боковую панель')}
-                    collapseHandler={openHandler}
-                />
-            </div>
-            <UserCard name={userNickname} />
-            <AppLink
-                deleteUnderLine
-                to={AuthRoutePath.exercises}
-                state={{ from: AuthRoutePath.exercises }}
-            >
-                {t('Упражнения')}
-            </AppLink>
-            <AppLink
-                deleteUnderLine
-                to={AuthRoutePath.programs}
-                state={{ from: AuthRoutePath.programs }}
-            >
-                {t('Программы пользователей')}
-            </AppLink>
-            <AppLink
-                deleteUnderLine
-                to={AuthRoutePath.favourite_programs}
-                state={{ from: AuthRoutePath.favourite_programs }}
-            >
-                {t('Избранные программы')}
-            </AppLink>
-            <AppLink
-                deleteUnderLine
-                to={AuthRoutePath.my_programs}
-                state={{ from: AuthRoutePath.my_programs }}
-            >
-                {t('Ваши программы')}
-            </AppLink>
-            <AppLink
-                deleteUnderLine
-                to={AuthRoutePath.my_exercises}
-                state={{ from: AuthRoutePath.my_exercises }}
-            >
-                {t('Ваши упражнения')}
-            </AppLink>
-            <AppLink onClick={logoutHandler} deleteUnderLine to="/">
-                {t('Выйти')}
-            </AppLink>
+            <p className={cls.sidebarLogo}>TrainTogether</p>
+            <ExpandedItem to={AuthRoutePath.profile} title={t('Профиль')} icon={<UserSvg />} />
+            <ExpandedItem to={AuthRoutePath.exercises} title={t('Упражнения')} icon={<Barbell />} />
+            <ExpandedItem to={AuthRoutePath.programs} title={t('Программы пользователей')} icon={<Programs />} />
+            <ExpandedItem to={AuthRoutePath.my_programs} title={t('Ваши программы')} icon={<MyPrograms />} />
             <LangSwitcherButton />
         </div>
     );

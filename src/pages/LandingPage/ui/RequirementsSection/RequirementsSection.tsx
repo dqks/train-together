@@ -12,26 +12,26 @@ export const RequirementsSection = () => {
     return (
         <section className="section section-light">
             <Container>
-                <h2 className="section-title">Создавайте тренировки под свои требования</h2>
+                <h2 className="section-title">{t('Создавайте тренировки под свои требования')}</h2>
                 <p className="text-center text-muted mb-lg">
-                    Выберите свою цель — мы подберём упражнения и программу
+                    {t('Выберите свою цель — мы подберём упражнения и программу')}
                 </p>
                 <div className={cls.requirementsGrid}>
                     <RequirementCard
-                        title="Набор массы"
-                        description="Силовые тренировки для роста мышц"
+                        title={t('Набор массы')}
+                        description={t('Силовые тренировки для роста мышц')}
                     />
                     <RequirementCard
-                        title="Похудение"
-                        description="Кардио и жиросжигающие тренировки"
+                        title={t('Атлетизм')}
+                        description={t('Развитие всех качеств')}
                     />
                     <RequirementCard
-                        title="Выносливость"
-                        description="Длительные нагрузки для выносливости"
+                        title={t('Выносливость')}
+                        description={t('Длительные нагрузки для выносливости')}
                     />
                     <RequirementCard
-                        title="Сила"
-                        description="Максимальные веса и мощь"
+                        title={t('Сила')}
+                        description={t('Максимальные веса и мощь')}
                     />
                 </div>
             </Container>

@@ -59,18 +59,19 @@ const SidePanelAddContent = ({ className, closeHandler }: SidePanelAddContentPro
     return (
         <form className={cls.SidePanelAddContent} id="addExerciseForm">
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label className="form-label">Название</label>
+                <label htmlFor="exerciseName" className="form-label">{t('Название')}</label>
                 <Input
+                    name="exerciseName"
                     type="text"
-                    id={exerciseName}
+                    id="exerciseName"
                     value={exerciseName}
                     onChange={onChangeName}
-                    placeholder="Например: Жим гантелей"
+                    placeholder={t('Например: Жим гантелей')}
                 />
             </div>
 
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label className="form-label">Оборудование</label>
+                <label className="form-label">{t('Оборудование')}</label>
                 <div className={cls.selectorGrid} id="equipmentSelector">
                     <EquipmentCard />
                     <EquipmentCard />
@@ -92,7 +93,9 @@ const SidePanelAddContent = ({ className, closeHandler }: SidePanelAddContentPro
             </div>
 
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label className="form-label">Основная мышца</label>
+                <label className="form-label">
+                    {t('Основная мышца')}
+                </label>
                 <div className={cls.selectorGrid} id="muscleSelector">
                     <MuscleCard />
                     <MuscleCard />
@@ -110,12 +113,12 @@ const SidePanelAddContent = ({ className, closeHandler }: SidePanelAddContentPro
                     >
                         <path d="M20 6 9 17l-5-5" />
                     </svg>
-                    <span id="musclePreviewText" className={cls.selectedPreviewText}>Выбранная мышцы</span>
+                    <span id="musclePreviewText" className={cls.selectedPreviewText}>Выбранная мышца</span>
                 </div>
             </div>
 
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label className="form-label">Изображение</label>
+                <label className="form-label">{t('Изображение')}</label>
                 <div className="image-upload" id="imageUpload">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -129,13 +132,13 @@ const SidePanelAddContent = ({ className, closeHandler }: SidePanelAddContentPro
                         <polyline points="21 15 16 10 5 21" />
                     </svg>
                     <div className="image-upload-text">
-                        <span>Нажмите для загрузки</span>
+                        <span>{t('Нажмите для загрузки')}</span>
                     </div>
                     <input type="file" id="imageInput" accept="image/*" />
                 </div>
             </div>
 
-            <Button type="submit" className={cls.addButton} id="submitBtn">Добавить упражнение</Button>
+            <Button type="submit" className={cls.addButton} id="submitBtn">{t('Добавить упражнение')}</Button>
         </form>
     );
 };

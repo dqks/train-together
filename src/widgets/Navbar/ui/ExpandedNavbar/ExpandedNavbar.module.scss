@@ -1,12 +1,27 @@
+//.ExpandedNavbar {
+//    position: sticky;
+//    top: 0;
+//    display: flex;
+//    flex-direction: column;
+//    gap: 20px;
+//}
+//
+//.collapseButtonWrapper {
+//    display: flex;
+//    justify-content: flex-end;
+//}
+
 .ExpandedNavbar {
-    position: sticky;
-    top: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: var(--spacing-xs);
 }
 
-.collapseButtonWrapper {
-    display: flex;
-    justify-content: flex-end;
+.sidebarLogo {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-xl);
+    padding: 0 var(--spacing-md);
 }

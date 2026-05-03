@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ExpandedNavbar } from './ExpandedNavbar/ExpandedNavbar.tsx';
-import { CollapsedNavbar } from './CollapsedNavbar/CollapsedNavbar.tsx';
 import cls from './Navbar.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { LOCAL_STORAGE_COLLAPSED_KEY } from '@/shared/const/isCollapsedKey.ts';
@@ -35,16 +34,17 @@ export const Navbar = () => {
         <div className={classNames(
             cls.Navbar,
             {
-                [cls.collapsed]: isCollapsed,
+                // [cls.collapsed]: isCollapsed,
             },
             [],
         )}
         >
-            {
-                isCollapsed
-                    ? (<CollapsedNavbar openHandler={collapseHandler} logoutHandler={onLogoutClick} />)
-                    : (<ExpandedNavbar openHandler={collapseHandler} logoutHandler={onLogoutClick} />)
-            }
+            <ExpandedNavbar openHandler={collapseHandler} logoutHandler={onLogoutClick} />
+            {/* { */}
+            {/*    isCollapsed */}
+            {/*        ? (<CollapsedNavbar openHandler={collapseHandler} logoutHandler={onLogoutClick} />) */}
+            {/*        : (<ExpandedNavbar openHandler={collapseHandler} logoutHandler={onLogoutClick} />) */}
+            {/* } */}
         </div>
     );
 };

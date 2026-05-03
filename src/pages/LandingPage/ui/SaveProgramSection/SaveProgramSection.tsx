@@ -13,10 +13,9 @@ export const SaveProgramSection = () => {
     return (
         <section className={classNames(cls.SaveProgramSection, {}, ['section'])}>
             <Container>
-                <h2 className="section-title">Сохраняйте тренировки пользователей</h2>
+                <h2 className="section-title">{t('Сохраняйте тренировки пользователей')}</h2>
                 <p className="text-center text-muted mb-lg">
-                    Подписывайтесь на авторов и сохраняйте понравившиеся
-                    программы
+                    {t('Подписывайтесь на авторов и сохраняйте понравившиеся программы')}
                 </p>
                 <ProgramCard
                     id={1}

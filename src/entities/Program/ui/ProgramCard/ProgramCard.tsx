@@ -120,8 +120,11 @@ export const ProgramCard = (props : ProgramCardProps) => {
                         12 упражнений
                     </span>
                 </div>
-                <Button type="button">
-                    Подписаться
+                <Button
+                    className={cls.subscribeButton}
+                    type="button"
+                >
+                    {t('Подписаться')}
                 </Button>
                 {/* <button className="btn btn-primary subscribe-btn"> */}
                 {/*    <svg */}

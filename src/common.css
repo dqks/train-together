@@ -45,60 +45,12 @@
    Sidebar (Desktop App)
    ============================================ */
 
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: var(--sidebar-width);
-  background-color: var(--color-bg);
-  border-right: 1px solid var(--color-border-light);
-  padding: var(--spacing-lg);
-  overflow-y: auto;
-}
 
-.sidebar-logo {
-  display: block;
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  color: var(--color-accent);
-  margin-bottom: var(--spacing-xl);
-  padding: 0 var(--spacing-md);
-}
 
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
 
-.sidebar-nav a {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
-}
 
-.sidebar-nav a:hover {
-  background-color: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-}
 
-.sidebar-nav a.active {
-  background-color: var(--color-accent-light);
-  color: var(--color-accent-hover);
-}
 
-.sidebar-nav svg {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
-}
 
 /* ============================================
    Main Content Area

@@ -1,15 +1,12 @@
 import cls from './RequirementCard.module.scss';
 import { classNames } from '../../../../../shared/lib/classNames/classNames.ts';
-import Hexagon from '../../../../../shared/assets/icons/hexagon.svg?react';
 
 interface RequirementCardProps {
-    className?: string;
     title: string
     description: string
 }
 
 export const RequirementCard = ({
-    className,
     title,
     description,
 }: RequirementCardProps) => (
@@ -27,7 +24,7 @@ export const RequirementCard = ({
                 />
             </svg>
         </div>
-        <h4 className={cls.requirementTitle}>Набор массы</h4>
-        <p className="text-small text-muted">Силовые тренировки для роста мышц</p>
+        <h4 className={cls.requirementTitle}>{title}</h4>
+        <p className="text-small text-muted">{description}</p>
     </div>
 );

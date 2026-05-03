@@ -8,8 +8,8 @@ interface AuthPageProps {
 }
 
 const LoginPage = ({ className }: AuthPageProps) => (
-    <div className={classNames(cls.AuthPage, {}, [className])}>
-        <LoginForm className={cls.authForm} />
+    <div className={classNames(cls.LoginPage, {}, [className])}>
+        <LoginForm />
         <Footer />
     </div>
 );
