@@ -8,6 +8,9 @@ export type ProgramCard = {
         id: number
         nickname: string
     }
+    goal: string
+    difficulty: string
+    daysAmount: number | undefined
 }
 
 export type ProgramDetails = {

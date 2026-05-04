@@ -29,7 +29,7 @@ export const UserCard = (props: UserCardProps) => {
             className={classNames(cls.UserCard, {}, [className])}
         >
             <div className={cls.avatarWrapper}>
-                <img className={cls.avatar} src={userPicture} alt={t('Картинка пользователя')} />
+                <img className={cls.avatar} src={image || userPicture} alt={t('Картинка пользователя')} />
             </div>
             <div className={cls.info}>
                 <h1 className={cls.name}>{name}</h1>

@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
 import React from 'react';
 import cls from './ExpandedItem.module.scss';
@@ -6,7 +5,7 @@ import cls from './ExpandedItem.module.scss';
 interface ExpandedItemsProps {
     title: string;
     icon: React.ReactNode;
-    to: string;
+    to: string | object;
 }
 
 export const ExpandedItem = (props : ExpandedItemsProps) => {

@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next';
-import { classNames } from '../../../shared/lib/classNames/classNames.ts';
+import { useSelector } from 'react-redux';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './ProfilePage.module.scss';
-import { UserCard } from '../../../entities/User';
+import { getUserEmail, getUserNickname, UserCard } from '@/entities/User';
 import { ProfileInfo } from '@/widgets/ProfileInfo';
 
 interface ProfilePageProps {
@@ -9,10 +9,11 @@ interface ProfilePageProps {
 }
 
 const ProfilePage = ({ className } : ProfilePageProps) => {
-    const { t } = useTranslation();
+    const nickname = useSelector(getUserNickname);
+    const email = useSelector(getUserEmail);
     return (
         <div className={classNames(cls.ProfilePage, {}, [className])}>
-            <UserCard name="Максим" email="maks@mail.com" programCount={3} subscribeCount={100} />
+            <UserCard name={nickname} email={email} programCount={3} subscribeCount={100} />
             <ProfileInfo />
         </div>
     );

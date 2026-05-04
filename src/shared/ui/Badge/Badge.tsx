@@ -10,7 +10,7 @@ export enum BadgeType {
 
 interface BadgeProps {
     className?: string;
-    text: string
+    text: string | undefined
     type: BadgeType
 }
 
@@ -22,6 +22,8 @@ export const Badge = (props : BadgeProps) => {
         <span
             className={classNames(cls.badge, {}, [className, cls[type]])}
         >
+            ⚡
+            {' '}
             {text}
         </span>
     );

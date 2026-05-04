@@ -15,7 +15,7 @@ interface LangSwitcherProps {
 export const LangSwitcherButton = ({ className }: LangSwitcherProps) => {
     // Вызов функции и получение результата для смены языка
     // И получение текущего языка приложения
-    const { t, i18n } = useTranslation();
+    const { i18n } = useTranslation();
 
     // Функция-обработчик на клик кнопки
     const toggleLanguage = () => {

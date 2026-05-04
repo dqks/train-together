@@ -3,15 +3,13 @@ import { useEffect } from 'react';
 import cls from './ExerciseCardList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ExerciseCard, getExerciseCards, getExerciseIsLoading } from '@/entities/Exercise';
-import { fetchExerciseCards } from '@/entities/Exercise/model/services/fetchExerciseCards/fetchExerciseCards.ts';
+import {
+    fetchExerciseCards,
+} from '@/entities/Exercise/model/services/fetchExerciseCards/fetchExerciseCards.ts';
 import { Loader } from '@/shared/ui/Loader/Loader.tsx';
 import type { ExerciseInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
 
-interface ExerciseCardListProps {
-    className?: string;
-}
-
-export const ExerciseCardList = ({ className } : ExerciseCardListProps) => {
+export const ExerciseCardList = () => {
     const dispatch = useDispatch();
     const exerciseCards = useSelector(getExerciseCards);
     const isLoading = useSelector(getExerciseIsLoading);
@@ -24,9 +22,11 @@ export const ExerciseCardList = ({ className } : ExerciseCardListProps) => {
         ?.map(
             (card: ExerciseInformation) => (
                 <ExerciseCard
+                    imageUrl={card.image}
                     key={card.id}
                     name={card.name}
-                    muscles={card.muscles}
+                    secondaryMuscles={card.secondaryMuscles}
+                    primaryMuscle={card.primaryMuscle}
                     exerciseId={card.id}
                 />
             ),

@@ -5,12 +5,14 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { serverUrl } from '@/shared/const/serverUrl.ts';
 import { Tag, TagType } from '@/shared/ui/Tag/Tag.tsx';
+import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
 
 interface ExerciseCardProps {
     exerciseId: number;
     imageUrl: string;
     name: string;
-    // muscles: Muscle[]
+    primaryMuscle: Muscle | undefined;
+    secondaryMuscles: Muscle[] | undefined
 }
 
 // Получать, пользовательское ли упражнение или нет будем из запроса API /exercises/:id
@@ -22,6 +24,8 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
         name,
         exerciseId,
         imageUrl,
+        primaryMuscle,
+        secondaryMuscles,
     } = props;
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -39,6 +43,8 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
     //     musclesMap = muscles.map((m: Muscle) => m.name);
     // }
 
+    const secondaryMuscleTags = secondaryMuscles?.map((m) => <Tag name={m.name} key={m.id} />);
+
     return (
         <div onClick={clickHandler} className={classNames(cls.ExerciseCard, {}, ['card'])}>
             <div className={cls.imageWrapper}>
@@ -46,7 +52,7 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
                     // imageUrl
                     //     ? (
                     <img
-                        className={cls.picture}
+                        className={cls.image}
                         src={serverUrl + imageUrl}
                         alt={t('Изображение упражнения')}
                     />
@@ -57,9 +63,8 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
             <div className="card-body">
                 <h4 className={classNames(cls.cardTitle, {}, ['card-title'])}>{name}</h4>
                 <div className={cls.muscles}>
-                    <Tag name="Грудные" type={TagType.PRIMARY} />
-                    <Tag name="Трицепс" />
-                    <Tag name="Передние дельты" />
+                    <Tag name={primaryMuscle?.name} type={TagType.PRIMARY} />
+                    {secondaryMuscleTags}
                 </div>
             </div>
         </div>

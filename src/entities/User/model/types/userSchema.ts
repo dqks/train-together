@@ -1,6 +1,6 @@
 export interface UserSchema {
-    id: number | null;
-    email: number | null;
-    nickname: string | null;
+    id: number | undefined;
+    email: string | undefined;
+    nickname: string | undefined;
     _inited: boolean;
 }

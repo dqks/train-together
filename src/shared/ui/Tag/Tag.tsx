@@ -9,7 +9,7 @@ export enum TagType {
 interface TagProps {
     className?: string;
     type?: TagType;
-    name: string;
+    name: string | undefined;
 }
 
 export const Tag = ({ className, type = TagType.DEFAULT, name } : TagProps) => (

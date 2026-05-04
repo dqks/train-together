@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import cls from './FavouriteProgramsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
-import { getProgramIsLoading, ProgramsList } from '@/widgets/ProgramsList';
+import { ProgramsList } from '@/widgets/ProgramsList';
 import {
     fetchFavouritePrograms,
 } from '@/entities/Program/model/services/fetchFavouritePrograms/fetchFavouritePrograms.ts';
@@ -18,8 +17,6 @@ const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const favouritePrograms = useSelector(getFavouritePrograms);
-    const isLoading = useSelector(getProgramIsLoading);
-    usePageTitle('Избранные программы', t);
 
     useEffect(() => {
         dispatch(fetchFavouritePrograms());
@@ -34,9 +31,7 @@ const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
                 </p>
             </div>
             <ProgramsList
-                className={cls.programList}
                 isMyProgramPage={false}
-                isLoading={isLoading}
                 programList={favouritePrograms}
             />
         </div>

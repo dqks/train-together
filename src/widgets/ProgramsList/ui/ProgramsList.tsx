@@ -19,6 +19,8 @@ export const ProgramsList = (props: ProgramsListProps) => {
     const { t } = useTranslation();
     let programCards: ReactNode[] | undefined;
 
+    console.log(programList);
+
     if (isMyProgramPage) {
         if (programList && programList?.length <= 0) {
             return (<CenterText text={t('Упсс...')} subText={t('У вас нет программ')} />);
@@ -31,8 +33,11 @@ export const ProgramsList = (props: ProgramsListProps) => {
                 description={program.description}
                 key={program.id}
                 id={program.id}
+                goal={program.goal}
                 imageUrl={program.imageUrl}
                 deleteCreator
+                difficulty={program.difficulty}
+                daysAmount={program.daysAmount}
             />
         ));
     } else {
@@ -45,6 +50,9 @@ export const ProgramsList = (props: ProgramsListProps) => {
                 id={program.id}
                 imageUrl={program.imageUrl}
                 userName={program.user.nickname}
+                goal={program.goal}
+                difficulty={program.difficulty}
+                daysAmount={program.daysAmount}
             />
         ));
     }

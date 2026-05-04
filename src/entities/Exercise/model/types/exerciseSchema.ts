@@ -4,7 +4,8 @@ export type ExerciseInformation = {
     id: number,
     name: string,
     image: string
-    muscles: Muscle[]
+    primaryMuscle: Muscle | undefined
+    secondaryMuscles: Muscle[] | undefined
 }
 
 export type ExerciseDetails = {

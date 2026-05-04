@@ -3,6 +3,11 @@
     margin: 0 auto;
 }
 
+.previewCard:hover .cardTitle {
+    color: var(--color-accent);
+    transition: var(--transition-base);
+}
+
 .subscribeButton {
     width: 100%;
     margin-top: var(--spacing-md);

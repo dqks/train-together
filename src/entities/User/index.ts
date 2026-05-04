@@ -8,6 +8,8 @@ import { getInited } from './model/selectors/getInited/getInited.ts';
 import { getUserToken } from './model/selectors/getUserToken/getUserToken.ts';
 import { me } from './model/services/me/me.ts';
 import { logout } from './model/services/logout/logout.ts';
+import { getUserEmail } from './model/selectors/getUserEmail/getUserEmail.tsx';
+import { getUserNickname } from './model/selectors/getUserNickname/getUserNickname.ts';
 
 export {
     UserCard,
@@ -20,6 +22,8 @@ export {
     getUserToken,
     me,
     logout,
+    getUserEmail,
+    getUserNickname,
 };
 
 export type {
