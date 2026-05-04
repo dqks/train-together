@@ -35,6 +35,8 @@ export const enTranslation = {
         'Личная информация': 'Personal information',
         Цель: 'Goal',
         Звезды: 'Stars',
+        'Программы пользователей': 'User programs',
+        'Изучайте и сохраняйте программы тренировок от сообщества': 'Learn and save training programs by community',
         'Изображение упражнения': 'Exercise picture',
         'Найдите упражнение по мышцам или оборудованию': 'Find exercise by muscles or equipment',
         Статистика: 'Statistics',

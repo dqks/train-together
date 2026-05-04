@@ -7,14 +7,12 @@ import type { ProgramCard as Program } from '@/entities/Program/model/types/prog
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
 
 interface ProgramsListProps {
-    className?: string;
     isMyProgramPage: boolean;
     programList: Program[] | null;
 }
 
 export const ProgramsList = (props: ProgramsListProps) => {
     const {
-        className,
         isMyProgramPage,
         programList,
     } = props;
@@ -52,7 +50,7 @@ export const ProgramsList = (props: ProgramsListProps) => {
     }
 
     return (
-        <div className={classNames(cls.ProgramsList, {}, [className])}>
+        <div className={classNames(cls.ProgramsList, {}, ['grid grid-3 mg-lg'])}>
             {programCards}
         </div>
     );

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import cls from './Chip.module.scss';
 import { classNames } from '../../lib/classNames/classNames.ts';
-import Cross from '../../assets/icons/cross.svg?react';
 
 interface ChipProps {
     className?: string;
@@ -16,7 +15,9 @@ export const Chip = ({ className, text }: ChipProps) => {
     };
 
     return (
-        <div
+        <button
+            type="button"
+            onClick={onToggle}
             className={
                 classNames(
                     cls.Chip,
@@ -24,17 +25,8 @@ export const Chip = ({ className, text }: ChipProps) => {
                     [className],
                 )
             }
-            onClick={onToggle}
-            data-testid="chip"
         >
-            <span className={cls.spanText}>
-                {text}
-                {
-                    isSelected && (
-                        <Cross width={20} height={20} />
-                    )
-                }
-            </span>
-        </div>
+            {text}
+        </button>
     );
 };

@@ -27,6 +27,12 @@ const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
 
     return (
         <div className={classNames(cls.FavouriteProgramsPage, {}, [className])}>
+            <div className="page-header">
+                <h1 className="page-title">{t('Избранные программы')}</h1>
+                <p className="page-subtitle">
+                    {t('Программы, добавленные в избранное вами')}
+                </p>
+            </div>
             <ProgramsList
                 className={cls.programList}
                 isMyProgramPage={false}
