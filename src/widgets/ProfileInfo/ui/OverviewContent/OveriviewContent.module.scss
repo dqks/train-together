@@ -1,20 +1,104 @@
-.OverviewContent {
-    margin: 50px;
+//.OverviewContent {
+//    margin: 50px;
+//}
+//
+//.programTitle {
+//    margin: 20px 0;
+//    font-weight: 400;
+//}
+//
+//.programsWrapper {
+//    display: flex;
+//    flex-wrap: wrap;
+//    gap: 5px;
+//}
+//
+//.program {
+//    flex-grow: 0;
+//    max-width: 500px;
+//    width: 100%;
+//}
+
+/* Profile Section */
+.profileSection {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
 }
 
-.programTitle {
-    margin: 20px 0;
-    font-weight: 400;
+.profileSection:last-child {
+    margin-bottom: 0;
 }
 
-.programsWrapper {
+.subtitle {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+}
+
+.profileForm {
     display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    max-width: 500px;
 }
 
-.program {
-    flex-grow: 0;
-    max-width: 500px;
-    width: 100%;
+.formRow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.creatorStats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+}
+
+.creatorStat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-lg);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    text-align: center;
+}
+
+.creatorStatValue {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.creatorStatLabel {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+    .profile-stats {
+        justify-content: center;
+    }
+
+    .creatorStats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .formRow {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-stats {
+        gap: var(--spacing-lg);
+    }
+
+    .creatorStats {
+        grid-template-columns: 1fr;
+    }
 }

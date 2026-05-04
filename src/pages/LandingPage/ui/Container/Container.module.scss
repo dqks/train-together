@@ -4,3 +4,9 @@
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
 }
+
+@media (max-width: 480px) {
+    .Container {
+        padding: 0 var(--spacing-md);
+    }
+}

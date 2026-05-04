@@ -18,9 +18,9 @@ export const Navbar = () => {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(getIsCollapsedStorage);
     const dispatch = useDispatch();
 
-    const collapseHandler = useCallback(() => {
-        setIsCollapsed((prev) => !prev);
-    }, []);
+    // const collapseHandler = useCallback(() => {
+    //     setIsCollapsed((prev) => !prev);
+    // }, []);
 
     const onLogoutClick = useCallback(() => {
         dispatch(logout());
@@ -39,7 +39,7 @@ export const Navbar = () => {
             [],
         )}
         >
-            <ExpandedNavbar openHandler={collapseHandler} logoutHandler={onLogoutClick} />
+            <ExpandedNavbar logoutHandler={onLogoutClick} />
             {/* { */}
             {/*    isCollapsed */}
             {/*        ? (<CollapsedNavbar openHandler={collapseHandler} logoutHandler={onLogoutClick} />) */}

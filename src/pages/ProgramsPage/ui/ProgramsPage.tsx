@@ -7,7 +7,6 @@ import {
     fetchPublicPrograms, getProgramIsLoading, getPublicPrograms, ProgramsList,
 } from '@/widgets/ProgramsList';
 import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
-import { FilterPrograms } from '@/features/FilterPrograms';
 import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 
@@ -43,7 +42,6 @@ const ProgramsPage = ({ className } : ProgramsPageProps) => {
                         />
                     )
             }
-            <FilterPrograms />
         </div>
     );
 };

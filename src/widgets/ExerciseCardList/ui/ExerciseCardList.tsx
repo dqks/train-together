@@ -33,7 +33,7 @@ export const ExerciseCardList = ({ className } : ExerciseCardListProps) => {
         );
 
     return (
-        <div className={classNames(cls.ExerciseCardList, {}, [className])}>
+        <div className={classNames(cls.ExerciseCardList, {}, ['grid grid-3 mt-lg'])}>
             {
                 !isLoading
                     ? (

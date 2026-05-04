@@ -8,7 +8,7 @@ import { EquipmentFilterList } from '@/entities/Equipment';
 //     className?: string;
 // }
 
-const SidePanelFilterContent = () => {
+const MuscleFilterContent = () => {
     const { t } = useTranslation();
     return (
         <>
@@ -20,4 +20,4 @@ const SidePanelFilterContent = () => {
     );
 };
 
-export default SidePanelFilterContent;
+export default MuscleFilterContent;

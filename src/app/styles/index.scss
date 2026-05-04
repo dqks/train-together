@@ -206,14 +206,6 @@ p {
     color: var(--color-text-primary);
 }
 
-.form-select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236C757D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 40px;
-}
-
 /* Image Upload */
 .image-upload {
     position: relative;
@@ -289,4 +281,30 @@ p {
     .grid-4,
     .grid-3,
     .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   Main Content Area
+   ============================================ */
+
+.page-header {
+    margin-bottom: var(--spacing-xl);
+}
+
+.page-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+}
+
+.page-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+}
+
+.page-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-xs);
 }

@@ -1,21 +1,26 @@
-// .SearchInput {
-//   position: relative; /* Для абсолютного позиционирования крестика */
-//   width: 200px; /* Ширина контейнера */
-// }
+.SearchInput {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+}
 
-// .input {
-//   width: 100%;
-//   padding: 5px 20px 5px 5px; /* Отступ для крестика */
-//   box-sizing: border-box; /* Учитывать padding в ширине */
-// }
+.SearchInput input {
+    width: 100%;
+    padding-left: 40px;
+}
 
-// /* Пример с псевдоэлементом */
-// .input::after {
-//   content: '\00D7'; /* Символ крестика */
-//   position: absolute;
-//   top: 50%;
-//   right: 10px;
-//   transform: translateY(-50%);
-//   cursor: pointer;
-//   color: red;
-// }
+.SearchInput svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    stroke: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+    .SearchInput {
+        min-width: 100%;
+    }
+}

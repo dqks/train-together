@@ -98,7 +98,8 @@ export const ProgramCard = (props : ProgramCardProps) => {
                     </div>
                 </div>
                 <h4 className="card-title">Программа «Сила и мощь»</h4>
-                <p className="card-subtitle">Автор: Алексей Петров</p>
+                {!deleteCreator && <p className="card-subtitle">Автор: Алексей Петров</p>}
+
                 <p className="card-text">
                     Комплексная программа для развития силы и увеличения мышечной массы. Включает
                     базовые упражнения со штангой и гантелями.

@@ -1,15 +1,27 @@
+import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './ExercisesControl.module.scss';
-import { FilterExerciseButton } from './FilterExerciseButton/FilterExerciseButton.tsx';
-import { Input } from '@/shared/ui/Input/Input.tsx';
+import { SearchInput } from '@/shared/ui/SearchInput/SearchInput.tsx';
+import { EquipmentFilter, MuscleFilter } from '@/features/FilterExercises';
 
-interface FilterExercisesProps {
-    className?: string;
-}
+export const ExercisesControl = () => {
+    const { t } = useTranslation();
 
-export const ExercisesControl = ({ className }: FilterExercisesProps) => (
-    <div className={classNames(cls.FilterExercises, {}, [className])}>
-        <Input id="exerciseName" type="search" name="exerciseName" />
-        <FilterExerciseButton />
-    </div>
-);
+    return (
+        <div>
+            <div className={classNames(cls.ExercisesControl, {}, [])}>
+                <SearchInput placeholder={t('Поиск по названию...')} />
+                <MuscleFilter />
+                <EquipmentFilter />
+            </div>
+            <span className={cls.filteredAmount}>
+                Показано:
+                {' '}
+                <strong>4</strong>
+                {' '}
+                упражнений
+            </span>
+        </div>
+
+    );
+};

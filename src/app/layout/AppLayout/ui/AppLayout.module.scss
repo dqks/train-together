@@ -1,28 +1,46 @@
-.AppLayout {
-    //display: grid;
-    //grid-template-columns: 240px 1fr;
-    display: flex;
-    flex: 1 1 0;
-    align-items: stretch;
+//.AppLayout {
+//    //display: grid;
+//    //grid-template-columns: 240px 1fr;
+//    display: flex;
+//    flex: 1 1 0;
+//    align-items: stretch;
+//}
+
+//.contentWrapper {
+//    position: relative;
+//    max-width: 1570px;
+//    width: 100%;
+//    margin: 30px auto;
+//    padding: 0 25px;
+//    display: flex;
+//    flex-direction: column;
+//    align-items: center;
+//}
+//
+
+//
+//.title {
+//    font-weight: 400;
+//    font-size: var(--font-size-lg);
+//    text-align: center;
+//}
+
+.mainContent {
+    min-height: 100vh;
 }
 
-.contentWrapper {
-    position: relative;
-    max-width: 1570px;
-    width: 100%;
-    margin: 30px auto;
-    padding: 0 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.mainWithSidebar {
+    margin-left: var(--sidebar-width);
+    padding: var(--spacing-xl);
 }
 
 .backButton {
     z-index: 0;
 }
 
-.title {
-    font-weight: 400;
-    font-size: var(--font-size-lg);
-    text-align: center;
+@media (max-width: 768px) {
+    .mainWithSidebar {
+        margin-left: 0;
+        padding-top: calc(var(--spacing-xl) + 48px);
+    }
 }

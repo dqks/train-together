@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Button } from '@/shared/ui/Button/Button.tsx';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { SidePanel } from '@/shared/ui/SidePanel/SidePanel.tsx';
 
 interface SidePanelTriggerButtonProps {
@@ -9,6 +9,7 @@ interface SidePanelTriggerButtonProps {
     isOpen: boolean;
     openHandler: () => void;
     contentClassName?: string;
+    themeButton?: ThemeButton
 }
 
 export const SidePanelTriggerButton = (props : SidePanelTriggerButtonProps) => {
@@ -19,11 +20,12 @@ export const SidePanelTriggerButton = (props : SidePanelTriggerButtonProps) => {
         contentClassName,
         openHandler,
         isOpen,
+        themeButton,
     } = props;
 
     return (
         <div className={className}>
-            <Button type="button" onClick={openHandler}>
+            <Button theme={themeButton} type="button" onClick={openHandler}>
                 { buttonChildren }
             </Button>
             <SidePanel

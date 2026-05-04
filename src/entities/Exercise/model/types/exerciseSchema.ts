@@ -12,7 +12,7 @@ export type ExerciseDetails = {
     image: string,
     name: string,
     // muscles: Muscle[]
-    // equipments: Equipment[]
+    // equipments: EquipmentFilter[]
     userId: number | null
 }
 

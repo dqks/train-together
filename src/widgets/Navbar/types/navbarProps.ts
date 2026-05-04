@@ -1,5 +1,5 @@
 export interface NavbarProps {
     className?: string;
-    openHandler: () => void
+    // openHandler: () => void
     logoutHandler: () => void
 }

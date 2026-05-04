@@ -7,8 +7,8 @@ type HTMLSelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, 'value' | '
 interface SelectProps extends HTMLSelectProps {
     className?: string;
     children: ReactNode
-    onChange: (value: string) => void;
-    value: string
+    onChange?: (value: string) => void;
+    value?: string
 }
 
 export const Select = (props: SelectProps) => {

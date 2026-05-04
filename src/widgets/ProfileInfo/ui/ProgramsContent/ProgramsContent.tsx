@@ -1,40 +1,34 @@
-import { useTranslation } from 'react-i18next';
-import cls from './ProgramsContent.module.scss';
-import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
-import { ProgramCard } from '../../../../entities/Program';
-import { Input } from '../../../../shared/ui/Input/Input.tsx';
-import { Select } from '../../../../shared/ui/Select/Select.tsx';
+import { ProgramCard } from '@/entities/Program';
 
-interface ProgramsContentProps {
-    className?: string;
-}
-
-export const ProgramsContent = ({ className } : ProgramsContentProps) => {
-    const { t } = useTranslation();
-
-    return (
-        <div className={classNames(cls.ProgramsContent, {}, [className])}>
-            <form className={cls.form}>
-                <Input
-                    id="programName"
-                    name="programName"
-                    type="text"
-                    className={cls.programInput}
-                    placeholder={t('Найти программу')}
-                />
-                <Select>
-                    <option value="none" disabled selected>{t('Сортировать')}</option>
-                    <option value="name">{t('По имени')}</option>
-                    <option value="date">{t('Дате обновления')}</option>
-                    <option value="rating">{t('Рейтингу')}</option>
-                </Select>
-            </form>
-            <div className={cls.programsWrapper}>
-                <ProgramCard deleteCreator className={cls.program} />
-                <ProgramCard deleteCreator className={cls.program} />
-                <ProgramCard deleteCreator className={cls.program} />
-                <ProgramCard deleteCreator className={cls.program} />
-            </div>
-        </div>
-    );
-};
+export const ProgramsContent = () => (
+    <div className="grid grid-3">
+        <ProgramCard
+            deleteCreator
+            id={1}
+            programName="Силовая"
+            description="Описание программы"
+            imageUrl="test"
+        />
+        <ProgramCard
+            id={1}
+            deleteCreator
+            programName="Силовая"
+            description="Описание программы"
+            imageUrl="test"
+        />
+        <ProgramCard
+            deleteCreator
+            id={1}
+            programName="Силовая"
+            description="Описание программы"
+            imageUrl="test"
+        />
+        <ProgramCard
+            deleteCreator
+            id={1}
+            programName="Силовая"
+            description="Описание программы"
+            imageUrl="test"
+        />
+    </div>
+);

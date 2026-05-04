@@ -1,32 +1,24 @@
 .ExerciseCard {
-    border: var(--border-style);
-    border-radius: var(--border-radius);
-    width: 338px;
-    min-height: 426px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    &:hover {
-        background: var(--secondary-higlight-color);
-    }
+    cursor: pointer;
 }
 
-.pictureWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.ExerciseCard:hover .cardTitle {
+    color: var(--color-accent);
+    transition: var(--transition-base);
 }
 
-.picture {
+.imageWrapper {
     height: 250px;
-
-    //margin: 0 auto;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-muted);
 }
 
-.title {
-    font-weight: normal;
-    line-height: var(--font-line-l);
+.muscles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
 }
