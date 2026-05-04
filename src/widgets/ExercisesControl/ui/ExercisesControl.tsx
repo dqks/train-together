@@ -15,11 +15,11 @@ export const ExercisesControl = () => {
                 <EquipmentFilter />
             </div>
             <span className={cls.filteredAmount}>
-                Показано:
+                {t('Показано: ')}
                 {' '}
                 <strong>4</strong>
                 {' '}
-                упражнений
+                {t('упражнений')}
             </span>
         </div>
 

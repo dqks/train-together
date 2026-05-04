@@ -10,6 +10,12 @@
     display: flex;
     gap: var(--spacing-sm);
     flex-wrap: wrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    .filter-chips {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: var(--spacing-sm);
+    }
 }

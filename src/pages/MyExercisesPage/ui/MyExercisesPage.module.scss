@@ -1,3 +1,14 @@
-.addExerciseWrapper {
-    margin: 30px 0;
+.pageHeaderContent {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+    .pageHeaderContent {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }

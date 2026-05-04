@@ -26,11 +26,11 @@ export const ProgramsControl = ({ className } : ProgramsControlProps) => {
                 </div>
             </div>
             <span>
-                Показано:
+                {t('Показано: ')}
                 {' '}
                 <strong>6</strong>
                 {' '}
-                программ
+                {t('программ')}
             </span>
         </div>
     );

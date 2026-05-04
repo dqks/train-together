@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Suspense } from 'react';
 import cls from './AddExerciseButton.module.scss';
-import { TooltipElement } from '@/shared/ui/TooltipElement/TooltipElement.tsx';
 import { SidePanelAddContentAsync } from '../SidePanelAddContent/SidePanelAddContent.async.tsx';
 import { useOpen } from '@/shared/lib/useOpen/useOpen.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
@@ -15,9 +14,7 @@ export const AddExerciseButton = () => {
 
     return (
         <>
-            <TooltipElement tooltipText={t('Добавить упражнение')}>
-                <Button type="button" onClick={openHandler}>+</Button>
-            </TooltipElement>
+            <Button type="button" onClick={openHandler}>{t('+ Создать упражнение')}</Button>
             <Modal
                 isOpen={isOpen}
                 onOutsideClick={openHandler}

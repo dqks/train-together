@@ -1,6 +1,5 @@
 import cls from './MyProgramsControl.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import { AddMyProgram } from '@/features/AddMyProgram';
 import { SearchMyPrograms } from '@/features/SearchMyPrograms/ui/SearchMyPrograms.tsx';
 
 interface MyProgramsControlProps {
@@ -10,6 +9,5 @@ interface MyProgramsControlProps {
 export const MyProgramsControl = ({ className } : MyProgramsControlProps) => (
     <div className={classNames(cls.FilterMyProgram, {}, [className])}>
         <SearchMyPrograms />
-        <AddMyProgram />
     </div>
 );
