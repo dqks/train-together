@@ -8,7 +8,6 @@ import {
 } from '@/widgets/ProgramsList';
 import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
 import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
-import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { ProgramsControl } from '@/widgets/ProgramsControl/ui/ProgramsControl/ProgramsControl.tsx';
 
 interface ProgramsPageProps {
@@ -27,31 +26,20 @@ const ProgramsPage = ({ className } : ProgramsPageProps) => {
         dispatch(fetchPublicPrograms());
     }, [dispatch]);
 
-    if (isLoading) {
-        return <PageLoader />;
-    }
-
     return (
         <div className={classNames(cls.ProgramsPage, {}, [className])}>
-            {
-                isLoading
-                    ? <PageLoader />
-                    : (
-                        <>
-                            <div className="page-header">
-                                <h1 className="page-title">{t('Программы пользователей')}</h1>
-                                <p className="page-subtitle">
-                                    {t('Изучайте и сохраняйте программы тренировок от сообщества')}
-                                </p>
-                            </div>
-                            <ProgramsControl />
-                            <ProgramsList
-                                programList={programList}
-                                isMyProgramPage={false}
-                            />
-                        </>
-                    )
-            }
+            <div className="page-header">
+                <h1 className="page-title">{t('Программы пользователей')}</h1>
+                <p className="page-subtitle">
+                    {t('Изучайте и сохраняйте программы тренировок от сообщества')}
+                </p>
+            </div>
+            <ProgramsControl />
+            <ProgramsList
+                isLoading={isLoading}
+                programList={programList}
+                isMyProgramPage={false}
+            />
         </div>
     );
 };

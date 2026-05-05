@@ -1,0 +1,28 @@
+.selectorGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.formGroup {
+    margin-bottom: var(--spacing-xl);
+}
+
+.hint {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin-top: calc(-1 * var(--spacing-xs));
+    margin-bottom: var(--spacing-sm);
+}
+
+@media (max-width: 768px) {
+    .selectorGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .selectorGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

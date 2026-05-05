@@ -2,12 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import cls from './ExerciseCardList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import { ExerciseCard, getExerciseCards, getExerciseIsLoading } from '@/entities/Exercise';
 import {
-    fetchExerciseCards,
-} from '@/entities/Exercise/model/services/fetchExerciseCards/fetchExerciseCards.ts';
-import { Loader } from '@/shared/ui/Loader/Loader.tsx';
+    ExerciseCard, getExerciseCards, getExerciseIsLoading, fetchExerciseCards,
+} from '@/entities/Exercise';
 import type { ExerciseInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 
 export const ExerciseCardList = () => {
     const dispatch = useDispatch();
@@ -32,17 +31,13 @@ export const ExerciseCardList = () => {
             ),
         );
 
+    if (isLoading) {
+        return <PageLoader />;
+    }
+
     return (
         <div className={classNames(cls.ExerciseCardList, {}, ['grid grid-3 mt-lg'])}>
-            {
-                !isLoading
-                    ? (
-                        <>
-                            {cards}
-                        </>
-                    )
-                    : (<Loader />)
-            }
+            {cards}
         </div>
     );
 };

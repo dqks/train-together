@@ -59,3 +59,14 @@
 .input:checked + .label .span {
     color: var(--color-accent);
 }
+
+@media (max-width: 480px) {
+    .EquipmentCard label {
+        padding: var(--spacing-sm);
+    }
+
+    .EquipmentCard svg {
+        width: 24px;
+        height: 24px;
+    }
+}

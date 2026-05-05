@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import cls from './MyProgramsPage.module.scss';
 import { ProgramsList } from '@/widgets/ProgramsList';
 import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
-import { fetchUserPrograms } from '@/entities/Program';
+import { fetchUserPrograms, getProgramIsLoading } from '@/entities/Program';
 import { getUserPrograms } from '@/entities/Program/model/selectors/getUserPrograms/getUserPrograms.ts';
 import { SearchInput } from '@/shared/ui/SearchInput/SearchInput.tsx';
 import { AddMyProgram } from '@/features/AddMyProgram';
@@ -13,6 +13,7 @@ const MyProgramsPage = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const programList : Program[] | null = useSelector(getUserPrograms);
+    const isLoading = useSelector(getProgramIsLoading);
 
     useEffect(() => {
         dispatch(fetchUserPrograms());
@@ -31,6 +32,7 @@ const MyProgramsPage = () => {
             </div>
             <SearchInput placeholder={t('Поиск по названию...')} />
             <ProgramsList
+                isLoading={isLoading}
                 programList={programList}
                 isMyProgramPage
             />

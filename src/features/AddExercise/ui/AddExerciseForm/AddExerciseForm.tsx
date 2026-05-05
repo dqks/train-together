@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Input } from '@/shared/ui/Input/Input.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
-import cls from './SidePanelAddContent.module.scss';
-import { EquipmentFilterList }
-    from '@/entities/Equipment/ui/EquipmentFilterList/EquipmentFilterList.tsx';
-import { MuscleFilterList } from '@/entities/Muscle/ui/MuscleFilterList/MuscleFilterList.tsx';
+import cls from './AddExerciseForm.module.scss';
+import { EquipmentCardList }
+    from '@/entities/Equipment/ui/EquipmentCardList/EquipmentCardList.tsx';
+import { PrimaryMuscleCardList } from '@/entities/Muscle/ui/PrimaryMuscleCardList/PrimaryMuscleCardList.tsx';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { getExerciseName } from '../../model/selectors/getExerciseName/getExerciseName.ts';
 import { addExerciseActions } from '../../model/slice/createExerciseSlice.ts';
@@ -14,15 +14,16 @@ import { createUserExercise } from '../../model/services/createExercise/createUs
 import { fetchProgressionTypes, getExerciseProgressionTypes } from '@/entities/ExerciseProgression';
 import { Select } from '@/shared/ui/Select/Select.tsx';
 import { getProgressionType } from '../../model/selectors/getProgressionType/getProgressionType.ts';
-import { MuscleCard } from '@/entities/Muscle/ui/MuscleCard/MuscleCard.tsx';
+import { PrimaryMuscleCard } from '@/entities/Muscle/ui/PrimaryMuscleCard/PrimaryMuscleCard.tsx';
 import { EquipmentCard } from '@/entities/Equipment';
+import Image from '@/shared/assets/icons/image.svg?react';
 
-interface SidePanelAddContentProps {
+interface AddExerciseFormProps {
     className?: string;
     closeHandler?: () => void
 }
 
-const SidePanelAddContent = ({ className, closeHandler }: SidePanelAddContentProps) => {
+const AddExerciseForm = ({ className, closeHandler }: AddExerciseFormProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const exerciseName = useSelector(getExerciseName);
@@ -57,7 +58,7 @@ const SidePanelAddContent = ({ className, closeHandler }: SidePanelAddContentPro
     const progressionOptions = exerciseProgressionTypes?.map((t) => <option value={t.id}>{t.name}</option>);
 
     return (
-        <form className={cls.SidePanelAddContent} id="addExerciseForm">
+        <form className={cls.AddExerciseFormProps} id="addExerciseForm">
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
                 <label htmlFor="exerciseName" className="form-label">{t('Название')}</label>
                 <Input
@@ -97,10 +98,10 @@ const SidePanelAddContent = ({ className, closeHandler }: SidePanelAddContentPro
                     {t('Основная мышца')}
                 </label>
                 <div className={cls.selectorGrid} id="muscleSelector">
-                    <MuscleCard />
-                    <MuscleCard />
-                    <MuscleCard />
-                    <MuscleCard />
+                    <PrimaryMuscleCard />
+                    <PrimaryMuscleCard />
+                    <PrimaryMuscleCard />
+                    <PrimaryMuscleCard />
                 </div>
                 <div className={cls.selectedPreview} id="musclePreview">
                     <svg
@@ -120,17 +121,7 @@ const SidePanelAddContent = ({ className, closeHandler }: SidePanelAddContentPro
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
                 <label className="form-label">{t('Изображение')}</label>
                 <div className="image-upload" id="imageUpload">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                    >
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                        <circle cx="8.5" cy="8.5" r="1.5" />
-                        <polyline points="21 15 16 10 5 21" />
-                    </svg>
+                    <Image />
                     <div className="image-upload-text">
                         <span>{t('Нажмите для загрузки')}</span>
                     </div>
@@ -143,4 +134,4 @@ const SidePanelAddContent = ({ className, closeHandler }: SidePanelAddContentPro
     );
 };
 
-export default SidePanelAddContent;
+export default AddExerciseForm;

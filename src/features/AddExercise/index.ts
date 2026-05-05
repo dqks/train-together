@@ -1,6 +1,6 @@
-import SidePanelAddContent from '@/features/AddExercise/ui/SidePanelAddContent/SidePanelAddContent.tsx';
+import AddExerciseForm from '@/features/AddExercise/ui/AddExerciseForm/AddExerciseForm.tsx';
 
-export { SidePanelAddContent as ModalAddContent };
+export { AddExerciseForm as ModalAddContent };
 
 export { AddExerciseButton } from './ui/AddExerciseButton/AddExerciseButton.tsx';
 export { addExerciseReducer } from './model/slice/createExerciseSlice.ts';

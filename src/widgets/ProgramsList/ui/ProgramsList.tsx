@@ -5,21 +5,26 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ProgramCard } from '@/entities/Program';
 import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 
 interface ProgramsListProps {
     isMyProgramPage: boolean;
     programList: Program[] | null;
+    isLoading: boolean;
 }
 
 export const ProgramsList = (props: ProgramsListProps) => {
     const {
         isMyProgramPage,
         programList,
+        isLoading,
     } = props;
     const { t } = useTranslation();
     let programCards: ReactNode[] | undefined;
 
-    console.log(programList);
+    if (isLoading) {
+        return <PageLoader />;
+    }
 
     if (isMyProgramPage) {
         if (programList && programList?.length <= 0) {

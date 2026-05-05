@@ -4,8 +4,19 @@ export type Muscle = {
     nameEng?: string;
 }
 
+export type SecondaryMuscle = Muscle & {
+    checkBoxValue: string
+}
+
 export interface MuscleSchema {
-    muscleList: Muscle[] | null;
+    primaryMuscleList: Muscle[] | null;
+    secondaryMuscleList: SecondaryMuscle[] | null;
     error: string | undefined
     isLoading: boolean
+}
+
+export interface MuscleCardProps {
+    className?: string;
+    name?: string | undefined
+    // id: number | undefined
 }

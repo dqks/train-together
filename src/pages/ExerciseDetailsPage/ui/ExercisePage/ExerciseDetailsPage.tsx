@@ -1,35 +1,20 @@
-import { useTranslation } from 'react-i18next';
-import { useLocation, useOutletContext, useParams } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { classNames } from '../../../../shared/lib/classNames/classNames.ts';
-import { usePageTitle } from '../../../../shared/lib/usePageTItle/usePageTitle.ts';
-import cls from './ExerciseDetailsPage.module.scss';
-import { ExerciseInfo } from '../ExerciseInfo/ExerciseInfo.tsx';
-import { ExerciseNote } from '../ExerciseNote/ExerciseNote.tsx';
-import type { AppContextType } from '../../../../app/layout/AppLayout/ui/AppLayout.tsx';
-import { AuthRoutePath } from '../../../../shared/config/routeConfig/authRouteConfig.tsx';
-import Picture from '../../../../shared/assets/icons/picture.svg?react';
-import { fetchExerciseDetails, getExerciseDetails, getExerciseIsLoading } from '@/entities/Exercise';
+import { useParams } from 'react-router';
+import {
+    fetchExerciseDetails,
+    getExerciseDetails,
+    getExerciseErrors,
+    getExerciseIsLoading,
+} from '@/entities/Exercise';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { getUserId } from '@/entities/User';
-import { DeleteExerciseButton } from '@/features/DeleteExercise';
-import {
-    getExerciseErrors,
-} from '@/entities/Exercise/model/selectors/getExerciseErrors/getExerciseErrors.ts';
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
-import { serverUrl } from '@/shared/const/serverUrl.ts';
 
-// import { DeleteExerciseButton } from '@/features/DeleteExercise';
+import { DisplayMode } from '@/pages/ExerciseDetailsPage/ui/DisplayMode/DisplayMode.tsx';
+import { EditMode } from '@/pages/ExerciseDetailsPage/ui/EditMode/EditMode.tsx';
 
-interface ExercisePageProps {
-    className?: string;
-}
-
-const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
-    const { t } = useTranslation();
-    const context : AppContextType = useOutletContext();
-    const params = useParams();
+const ExerciseDetailsPage = () => {
     const dispatch = useDispatch();
 
     const exerciseDetails = useSelector(getExerciseDetails);
@@ -37,21 +22,17 @@ const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
     const userId = useSelector(getUserId);
     const errors = useSelector(getExerciseErrors);
     const isOwner = userId === exerciseDetails?.userId;
+    const params = useParams();
 
-    const location = useLocation();
+    const [isEditMode, setIsEditMode] = useState(false);
 
-    usePageTitle('', t, false);
+    const setEditMode = () => {
+        setIsEditMode(true);
+    };
 
-    useEffect(() => {
-        if (location.state?.from) {
-            context.setBackButton(location.state?.from);
-        } else {
-            context.setBackButton(AuthRoutePath.exercises);
-        }
-        return () => {
-            context.setBackButton('');
-        };
-    }, [context]);
+    const setDisplayMode = () => {
+        setIsEditMode(false);
+    };
 
     useEffect(() => {
         dispatch(fetchExerciseDetails(Number(params.id)));
@@ -66,49 +47,18 @@ const ExerciseDetailsPage = ({ className } : ExercisePageProps) => {
     }
 
     return (
-        <div className={classNames(cls.ExercisePage, {}, [className])}>
-            {
-                isOwner
-                && (
-                    <DeleteExerciseButton
-                        redirectRoute={location.state?.from || AuthRoutePath.my_exercises}
-                        exerciseId={Number(params.id)}
-                    />
-                )
-            }
-            <div className={cls.mainInfoWrapper}>
-                <h1 className={cls.exerciseName}>{exerciseDetails?.name}</h1>
-                {
-                    exerciseDetails?.image
-                        ? <img className={cls.exerciseImage} src={serverUrl + exerciseDetails.image} alt="Изображение упражнения" />
-                        : <Picture className={cls.exerciseImage} />
-                }
-
-            </div>
-            <div className={cls.informationWrapper}>
-                <ExerciseInfo title={t('Техника выполнения')}>
-                    <ol>
-                        <li>Первый пункт</li>
-                        <li>Второй пункт</li>
-                        <li>Третий пункт</li>
-                    </ol>
-                </ExerciseInfo>
-                <ExerciseInfo title={t('Мышцы')}>
-                    <p>Грудь, трицепс, передняя дельта</p>
-                </ExerciseInfo>
-                <ExerciseInfo title={t('Оборудование')}>
-                    <p>Штанга, горизонтальная скамья</p>
-                </ExerciseInfo>
-                <ExerciseInfo title={t('Советы')}>
-                    <ol>
-                        <li>Первый пункт</li>
-                        <li>Второй пункт</li>
-                        <li>Третий пункт</li>
-                    </ol>
-                </ExerciseInfo>
-            </div>
-            <ExerciseNote />
-        </div>
+        !isEditMode
+            ? (
+                <DisplayMode
+                    isOwner={isOwner}
+                    setEditMode={setEditMode}
+                    exerciseDetails={exerciseDetails}
+                    params={params}
+                />
+            )
+            : (
+                <EditMode setDisplayMode={setDisplayMode} />
+            )
     );
 };
 

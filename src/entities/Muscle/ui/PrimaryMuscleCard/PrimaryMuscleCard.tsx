@@ -1,18 +1,12 @@
-import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import cls from './EquipmentCard.module.scss';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import cls from '../MuscleCard/MuscleCard.module.scss';
+import type { MuscleCardProps } from '../../model/types/muscleSchema.ts';
 
-interface EquipmentCardProps {
-    className?: string;
-    name?: string | undefined
-    // id: number | undefined
-    // img?: string;
-}
-
-export const EquipmentCard = ({ className, name } : EquipmentCardProps) => (
-    <div className={classNames(cls.EquipmentCard, {}, [className])}>
+export const PrimaryMuscleCard = ({ className, name } : MuscleCardProps) => (
+    <div className={classNames(cls.MuscleCard, {}, [className])}>
         <input
             type="radio"
-            name="equipmentInline"
+            name="muscleInline"
             value={name}
             id={name}
             className={cls.input}

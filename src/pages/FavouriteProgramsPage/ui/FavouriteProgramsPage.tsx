@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 import cls from './FavouriteProgramsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ProgramsList } from '@/widgets/ProgramsList';
+import { getProgramIsLoading, getFavouritePrograms } from '@/entities/Program';
 import {
     fetchFavouritePrograms,
 } from '@/entities/Program/model/services/fetchFavouritePrograms/fetchFavouritePrograms.ts';
-import { getFavouritePrograms } from '@/entities/Program';
 
 interface FavouriteProgramsPageProps {
     className?: string;
@@ -17,6 +17,7 @@ const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const favouritePrograms = useSelector(getFavouritePrograms);
+    const isLoading = useSelector(getProgramIsLoading);
 
     useEffect(() => {
         dispatch(fetchFavouritePrograms());
@@ -31,6 +32,7 @@ const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
                 </p>
             </div>
             <ProgramsList
+                isLoading={isLoading}
                 isMyProgramPage={false}
                 programList={favouritePrograms}
             />

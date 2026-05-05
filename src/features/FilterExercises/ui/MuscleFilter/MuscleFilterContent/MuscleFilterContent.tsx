@@ -1,8 +1,8 @@
 // import cls from "./SidePanelContent.module.scss"
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui/Button/Button.tsx';
-import { MuscleFilterList } from '@/entities/Muscle';
-import { EquipmentFilterList } from '@/entities/Equipment';
+import { PrimaryMuscleCardList } from '@/entities/Muscle';
+import { EquipmentCardList } from '@/entities/Equipment';
 
 // interface SidePanelFilterContentProps {
 //     className?: string;
@@ -13,8 +13,8 @@ const MuscleFilterContent = () => {
     return (
         <>
             <h1>{t('Фильтры')}</h1>
-            <MuscleFilterList />
-            <EquipmentFilterList />
+            <PrimaryMuscleCardList />
+            <EquipmentCardList />
             <Button type="button">{t('Применить фильтры')}</Button>
         </>
     );
