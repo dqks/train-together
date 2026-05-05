@@ -1,15 +1,428 @@
-.ProgramDetailsPage {
-    max-width: 1570px;
+//
+.hero {
+    position: relative;
+    height: 320px;
+    margin: calc(var(--spacing-xl) * -1);
+    margin-bottom: var(--spacing-xl);
+    overflow: hidden;
+}
+
+.heroImage {
+    position: absolute;
+    inset: 0;
+}
+
+.image {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.heroImageOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgb(0 0 0 / 30%) 0%, rgb(0 0 0 / 70%) 100%);
+}
+
+.heroContent {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    padding: var(--spacing-xl);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: flex-end;
+    color: white;
 }
 
-.programCard {
-    margin-top: 50px;
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: rgb(255 255 255 / 80%);
+    margin-bottom: var(--spacing-lg);
+    transition: color var(--transition-fast);
 }
 
-.programDay {
+.backLink:hover {
+    color: white;
+}
+
+.backLinkSvg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2;
+}
+
+.programTitle {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    color: white;
+}
+
+.programAuthor {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.authorAvatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgb(255 255 255 / 30%);
+}
+
+.authorAvatar img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.authorInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.authorName {
+    font-weight: 600;
+    font-size: var(--font-size-base);
+}
+
+.authorMeta {
+    font-size: var(--font-size-sm);
+    color: rgb(255 255 255 / 70%);
+}
+
+//
+
+.programContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+//
+
+.statsBar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.statItem {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+}
+
+.statItem svg {
+    stroke: var(--color-accent);
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.statContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.statValue {
+    font-weight: 600;
+    font-size: var(--font-size-base);
+}
+
+.statLabel {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+//
+
+.programContentGrid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+.programMain {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.trainingDays {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.trainingDayCard {
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.dayHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-bg-tertiary);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.dayExercises {
+    padding: var(--spacing-md) var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.dayBadge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.dayNumber {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+.dayName {
+    font-weight: 600;
+}
+
+.exerciseRow {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.exerciseNumber {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-tertiary);
+    border-radius: 50%;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+}
+
+.exerciseDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.exerciseMuscleTag {
+    font-size: var(--font-size-xs);
+    padding: 4px 10px;
+    background: var(--color-accent-light);
+    color: var(--color-accent-hover);
+    border-radius: var(--radius-full);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.exerciseName {
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+}
+
+.exerciseSets {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+// sidebar
+
+.programSidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    position: sticky;
+    top: var(--spacing-xl);
+}
+
+.subscribeCard {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.subscribeHeader {
+    margin-bottom: var(--spacing-lg);
+}
+
+.ratingDisplay {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.yellowStar {
+    fill: #ffc107;
+    stroke: #ffc107;
+}
+
+.ratingValue {
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+}
+
+.subscribeNote {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.subscribeButton {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.authorCard {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.authorCardTitle {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.authorCardContent {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.authorCardAvatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.authorCardInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.authorCardName {
+    font-weight: 600;
+}
+
+.authorCardStats {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.buttonBlock {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.tipsCard {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.tipsTitle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.tipsTitleSvg {
+    stroke: var(--color-accent);
+}
+
+.tipsList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.tipsList li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+.tipsList li::before {
+    content: "•";
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+//
+
+.programSection {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+}
+
+.sectionTitle {
+    text-align: center;
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.programDescription {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
 }
