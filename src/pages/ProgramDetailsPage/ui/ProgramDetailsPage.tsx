@@ -22,7 +22,7 @@ interface ProgramDetailsPageProps {
 }
 
 const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const userId = useSelector(getUserId);
     const programDetails = useSelector(getProgramDetails);
@@ -50,22 +50,51 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
         );
     }
 
+    let formattedDate;
+
+    if (programDetails?.createdAt) {
+        const date = new Date(programDetails?.createdAt);
+        if (i18n.language === 'en') {
+            formattedDate = date?.toLocaleDateString('en-EN', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+            });
+        } else {
+            formattedDate = date?.toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+            });
+        }
+    }
+
     return (
         <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
-            <Hero />
+            <Hero
+                programName={programDetails?.name}
+                authorName={programDetails?.user.nickname}
+                imageUrl={programDetails?.imageUrl}
+                formattedDate={formattedDate}
+            />
             <div className={cls.programContainer}>
-                <StatsBar />
+                <StatsBar daysCount={programDetails?.days.length} />
                 <div className={cls.programContentGrid}>
                     <div className={cls.programMain}>
-                        <Description />
+                        <Description description={programDetails?.description} />
                         <section className={cls.programSection}>
                             <h2 className={cls.sectionTitle}>
-                                Программа тренировок
+                                {t('Программа тренировок')}
                             </h2>
                             <Days />
                         </section>
                     </div>
-                    <Sidebar isSubscribed={programDetails?.isFollowed} params={params} />
+                    <Sidebar
+                        programsCount={programDetails?.user.programsCount}
+                        authorName={programDetails?.user.nickname}
+                        isSubscribed={programDetails?.isFollowed}
+                        params={params}
+                    />
                 </div>
             </div>
         </div>

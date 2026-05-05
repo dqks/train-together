@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './StatsBar.module.scss';
 import Lightning from '@/shared/assets/icons/lightning.svg?react';
 import Count from '@/shared/assets/icons/count.svg?react';
@@ -7,13 +6,14 @@ import Clock from '@/shared/assets/icons/clock.svg?react';
 import Ping from '@/shared/assets/icons/ping.svg?react';
 
 interface StatsBarProps {
-    className?: string;
+    daysCount: number | undefined;
 }
 
-export const StatsBar = ({ className } : StatsBarProps) => {
+export const StatsBar = (props : StatsBarProps) => {
     const { t } = useTranslation();
+    const { daysCount } = props;
     return (
-        <div className={classNames(cls.StatsBar, {}, [className])}>
+        <div className={cls.StatsBar}>
             <div className={cls.statItem}>
                 <Lightning />
                 <div className={cls.statContent}>
@@ -34,7 +34,7 @@ export const StatsBar = ({ className } : StatsBarProps) => {
                 <Clock />
                 <div className={cls.statContent}>
                     <span className={cls.statValue}>
-                        3
+                        {daysCount}
                         {t(' дня / нед')}
                     </span>
                     <span className={cls.statLabel}>{t('Частота')}</span>

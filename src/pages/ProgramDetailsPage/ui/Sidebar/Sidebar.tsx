@@ -10,12 +10,16 @@ import { SubscribeProgram } from '@/features/SubscribeProgram';
 interface SidebarProps {
     className?: string;
     params: Params<string>
+    authorName: string | undefined;
     isSubscribed: boolean | undefined
+    programsCount: number | undefined
 }
 
 export const Sidebar = (props : SidebarProps) => {
     const { t } = useTranslation();
-    const { className, params, isSubscribed } = props;
+    const {
+        className, params, isSubscribed, authorName, programsCount,
+    } = props;
     return (
         <aside className={classNames(cls.Sidebar, {}, [className])}>
             <div className={cls.subscribeCard}>
@@ -40,8 +44,12 @@ export const Sidebar = (props : SidebarProps) => {
                         />
                     </div>
                     <div className={cls.authorCardInfo}>
-                        <span className={cls.authorCardName}>Алексей Петров</span>
-                        <span className={cls.authorCardStats}>12 программ</span>
+                        <span className={cls.authorCardName}>{authorName}</span>
+                        <span className={cls.authorCardStats}>
+                            {programsCount}
+                            {' '}
+                            программ
+                        </span>
                     </div>
                 </div>
                 <Button theme={ThemeButton.OUTLINE} className={cls.buttonBlock} type="button">
