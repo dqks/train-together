@@ -6,6 +6,7 @@ import cls from './SubscribeProgram.module.scss';
 import { subscribeProgram } from '../model/services/subscribeProgram/subscribeProgram.ts';
 import { unsubscribeProgram } from '../model/services/unsubscribeProgram/unsubscribeProgram.ts';
 import { programsActions } from '@/entities/Program';
+import Phone from '@/shared/assets/icons/phone.svg?react';
 
 interface SubscribeProgramProps {
     className?: string;
@@ -37,38 +38,28 @@ export const SubscribeProgram = (props: SubscribeProgramProps) => {
     };
 
     return (
-        <div
-            className={classNames(cls.SubscribeProgram, {}, [className])}
-        >
-            {isSubscribed
-                ? (
-                    <>
-                        <div className={cls.titleWrapper}>
-                            <h2>
-                                {t('Подпишитесь, чтобы программа'
-                                    + ' отображалась в ваших подписках')}
-                            </h2>
-                        </div>
-                        <Button
-                            className={cls.unsubscribeButton}
-                            onClick={unsubscribeHandler}
-                            type="button"
-                        >
-                            {t('- Отписаться')}
-                        </Button>
-                    </>
-                )
-                : (
-                    <>
-                        <div className={cls.titleWrapper}>
-                            <h2>
-                                {t('Подпишитесь, чтобы программа'
-                                    + ' отображалась в ваших подписках')}
-                            </h2>
-                        </div>
-                        <Button onClick={subscribeHandler} type="button">{t('+ Подписаться')}</Button>
-                    </>
-                )}
-        </div>
+        isSubscribed
+            ? (
+                <>
+                    <Button
+                        className={classNames(cls.subscribeButton, {}, [cls.unsubscribeButton])}
+                        type="button"
+                        onClick={unsubscribeHandler}
+                    >
+                        <Phone className={cls.icon} />
+                        Отписаться от программы
+                    </Button>
+                </>
+            )
+            : (
+                <Button
+                    className={cls.subscribeButton}
+                    onClick={subscribeHandler}
+                    type="button"
+                >
+                    <Phone className={cls.icon} />
+                    Подписаться на программу
+                </Button>
+            )
     );
 };

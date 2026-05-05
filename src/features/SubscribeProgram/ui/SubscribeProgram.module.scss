@@ -1,17 +1,27 @@
-.SubscribeProgram {
-    border: var(--border-style);
-    border-radius: var(--border-radius);
-    padding: 20px 30px;
+.subscribeButton {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-base);
     display: flex;
-    justify-content: space-between;
     align-items: center;
-}
-
-.titleWrapper {
-    max-width: 560px;
-    text-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
 }
 
 .unsubscribeButton {
-    background: red;
+    background: var(--color-danger);
+}
+
+.unsubscribeButton:hover {
+    opacity: 0.7;
+    background: var(--color-danger);
+}
+
+.icon {
+    width: 15px;
+    height: 20px;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2;
 }
