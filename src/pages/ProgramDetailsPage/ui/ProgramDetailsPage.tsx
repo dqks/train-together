@@ -62,26 +62,6 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
                             <h2 className={cls.sectionTitle}>
                                 Программа тренировок
                             </h2>
-                            {/* <div className={cls.trainingDays}> */}
-                            {/*    <div className={cls.trainingDayCard}> */}
-                            {/*        <div className={cls.dayHeader}> */}
-                            {/*            <div className={cls.dayBadge}> */}
-                            {/*                <span className={cls.dayNumber}>1</span> */}
-                            {/*                <span className={cls.dayName}>Понедельник</span> */}
-                            {/*            </div> */}
-                            {/*        </div> */}
-                            {/*        <div className={cls.dayExercises}> */}
-                            {/*            <div className={cls.exerciseRow}> */}
-                            {/*                <div className={cls.exerciseNumber}>1</div> */}
-                            {/*                <div className={cls.exerciseDetails}> */}
-                            {/*                    <span className={cls.exerciseName}>Жим лежа</span> */}
-                            {/*                    <span className={cls.exerciseSets}>4 х 10</span> */}
-                            {/*                </div> */}
-                            {/*                <div className={cls.exerciseMuscleTag}>Грудные</div> */}
-                            {/*            </div> */}
-                            {/*        </div> */}
-                            {/*    </div> */}
-                            {/* </div> */}
                             <Days />
                         </section>
                     </div>

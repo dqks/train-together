@@ -25,3 +25,10 @@
     stroke: currentcolor;
     stroke-width: 2;
 }
+
+@media (max-width: 400px) {
+    .subscribeButton {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+}

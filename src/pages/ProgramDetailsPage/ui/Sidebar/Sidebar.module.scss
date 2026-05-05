@@ -126,3 +126,46 @@
     color: var(--color-accent);
     font-weight: bold;
 }
+
+@media (max-width: 1024px) {
+    .Sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .subscribeCard {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .Sidebar {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 400px) {
+    .Sidebar {
+        gap: var(--spacing-md);
+    }
+
+    .authorCardName {
+        font-size: var(--font-size-sm);
+    }
+
+    .tipsTitle {
+        font-size: var(--font-size-sm);
+    }
+
+    .subscribeCard,
+    .authorCard,
+    .tipsCard {
+        padding: var(--spacing-sm);
+        overflow: hidden;
+    }
+
+    .ratingValue {
+        font-size: var(--font-size-base);
+    }
+}

@@ -166,6 +166,8 @@ export const enTranslation = {
         'На сколько дней создавать программу': 'How many days the program should have',
         'Как вы хотите создать программу?': 'How do you want to create a program?',
         Программа: 'Program',
+        'Отписаться от программы': 'Unfollow program',
+        'Подписаться на программу': 'Follow program',
         'Создание программы': 'Program creation',
         Описание: 'Description',
         'Кто сможет просматривать': 'Who can watch',

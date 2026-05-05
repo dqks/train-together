@@ -9,13 +9,12 @@ import { programsActions } from '@/entities/Program';
 import Phone from '@/shared/assets/icons/phone.svg?react';
 
 interface SubscribeProgramProps {
-    className?: string;
     isSubscribed: boolean | undefined;
     programId: number | undefined
 }
 
 export const SubscribeProgram = (props: SubscribeProgramProps) => {
-    const { className, programId, isSubscribed } = props;
+    const { programId, isSubscribed } = props;
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
@@ -47,7 +46,7 @@ export const SubscribeProgram = (props: SubscribeProgramProps) => {
                         onClick={unsubscribeHandler}
                     >
                         <Phone className={cls.icon} />
-                        Отписаться от программы
+                        {t('Отписаться от программы')}
                     </Button>
                 </>
             )
@@ -58,7 +57,7 @@ export const SubscribeProgram = (props: SubscribeProgramProps) => {
                     type="button"
                 >
                     <Phone className={cls.icon} />
-                    Подписаться на программу
+                    {t('Подписаться на программу')}
                 </Button>
             )
     );
