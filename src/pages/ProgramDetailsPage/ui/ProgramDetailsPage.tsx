@@ -69,16 +69,28 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
         }
     }
 
+    let exerciseCount = 0;
+
+    if (programDetails?.days) {
+        exerciseCount = programDetails.days.reduce((acc, day) => acc + day.exercises.length, 0);
+    }
+
     return (
         <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
             <Hero
+                authorImage={programDetails?.user.avatarUrl}
                 programName={programDetails?.name}
                 authorName={programDetails?.user.nickname}
                 imageUrl={programDetails?.imageUrl}
                 formattedDate={formattedDate}
             />
             <div className={cls.programContainer}>
-                <StatsBar daysCount={programDetails?.days.length} />
+                <StatsBar
+                    daysCount={programDetails?.days.length}
+                    exerciseCount={exerciseCount}
+                    difficulty={programDetails?.difficulty}
+                    goal={programDetails?.goal}
+                />
                 <div className={cls.programContentGrid}>
                     <div className={cls.programMain}>
                         <Description description={programDetails?.description} />
@@ -86,10 +98,13 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
                             <h2 className={cls.sectionTitle}>
                                 {t('Программа тренировок')}
                             </h2>
-                            <Days />
+                            <Days days={programDetails?.days} />
                         </section>
                     </div>
                     <Sidebar
+                        authorImage={programDetails?.user.avatarUrl}
+                        authorId={programDetails?.user.id}
+                        followsCount={programDetails?.followsCount}
                         programsCount={programDetails?.user.programsCount}
                         authorName={programDetails?.user.nickname}
                         isSubscribed={programDetails?.isFollowed}

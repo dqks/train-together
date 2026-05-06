@@ -5,6 +5,7 @@ import cls from './Hero.module.scss';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import BackArrow from '@/shared/assets/icons/backArrow.svg?react';
 import { serverUrl } from '@/shared/const/serverUrl.ts';
+import userPicture from '@/shared/assets/images/userPicture.jpg';
 
 interface HeroProps {
     className?: string;
@@ -12,6 +13,7 @@ interface HeroProps {
     authorName: string | undefined;
     imageUrl: string | undefined;
     formattedDate: string | undefined;
+    authorImage: string | undefined
 }
 
 export const Hero = (props : HeroProps) => {
@@ -22,6 +24,8 @@ export const Hero = (props : HeroProps) => {
         authorName,
         imageUrl,
         formattedDate,
+        authorImage,
+
     } = props;
     return (
         <div className={classNames(cls.Hero, {}, [className])}>
@@ -42,7 +46,7 @@ export const Hero = (props : HeroProps) => {
                 <div className={cls.programAuthor}>
                     <div className={cls.authorAvatar}>
                         <img
-                            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&amp;h=400&amp;fit=crop"
+                            src={authorImage ? serverUrl + authorImage : userPicture}
                             alt="Аватарка пользователя"
                         />
                     </div>

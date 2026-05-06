@@ -1,11 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import type { Params } from 'react-router';
+import { Link, type Params } from 'react-router';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Sidebar.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import YellowStar from '@/shared/assets/icons/yellowStar.svg?react';
 import Circle from '@/shared/assets/icons/circle.svg?react';
 import { SubscribeProgram } from '@/features/SubscribeProgram';
+import { getProgramsWord } from '../../lib/getProgramsWord/getProgramsWord';
+import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
+import userPicture from '@/shared/assets/images/userPicture.jpg';
+import { serverUrl } from '@/shared/const/serverUrl.ts';
 
 interface SidebarProps {
     className?: string;
@@ -13,20 +17,33 @@ interface SidebarProps {
     authorName: string | undefined;
     isSubscribed: boolean | undefined
     programsCount: number | undefined
+    followsCount: number | undefined
+    authorId: number | undefined
+    authorImage: string | undefined
 }
 
 export const Sidebar = (props : SidebarProps) => {
     const { t } = useTranslation();
     const {
-        className, params, isSubscribed, authorName, programsCount,
+        className,
+        params,
+        isSubscribed,
+        authorName,
+        programsCount,
+        followsCount,
+        authorId,
+        authorImage,
     } = props;
+
+    const programCountText = getProgramsWord(programsCount);
+
     return (
         <aside className={classNames(cls.Sidebar, {}, [className])}>
             <div className={cls.subscribeCard}>
                 <div className={cls.subscribeHeader}>
                     <div className={cls.ratingDisplay}>
                         <YellowStar className={cls.yellowStar} />
-                        <span className={cls.ratingValue}>48</span>
+                        <span className={cls.ratingValue}>{followsCount}</span>
                     </div>
                 </div>
                 <SubscribeProgram isSubscribed={isSubscribed} programId={Number(params.id)} />
@@ -39,8 +56,8 @@ export const Sidebar = (props : SidebarProps) => {
                 <div className={cls.authorCardContent}>
                     <div className={cls.authorCardAvatar}>
                         <img
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&amp;h=80&amp;fit=crop&amp;crop=face"
-                            alt="Алексей Петров"
+                            src={authorImage ? serverUrl + authorImage : userPicture}
+                            alt={authorName}
                         />
                     </div>
                     <div className={cls.authorCardInfo}>
@@ -48,12 +65,18 @@ export const Sidebar = (props : SidebarProps) => {
                         <span className={cls.authorCardStats}>
                             {programsCount}
                             {' '}
-                            программ
+                            {t(programCountText)}
                         </span>
                     </div>
                 </div>
                 <Button theme={ThemeButton.OUTLINE} className={cls.buttonBlock} type="button">
-                    {t('Перейти в профиль')}
+                    <Link to={{
+                        pathname: AuthRoutePath.profile + authorId,
+                        search: 'tab=overview',
+                    }}
+                    >
+                        {t('Перейти в профиль')}
+                    </Link>
                 </Button>
             </div>
             <div className={cls.tipsCard}>

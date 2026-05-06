@@ -18,3 +18,6 @@ export type { ProgramSchema } from './model/types/programSchema.ts';
 export { fetchPublicPrograms } from './model/services/fetchPublicPrograms/fetchPublicPrograms.ts';
 export { fetchUserPrograms } from './model/services/fetchUserPrograms/fetchUserPrograms.ts';
 export { fetchProgramDetails } from './model/services/fetchProgramDetails/fetchProgramDetails.ts';
+
+// Types
+export type { Day } from './model/types/programSchema.ts';
