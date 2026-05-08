@@ -5,7 +5,11 @@ import { Input } from '@/shared/ui/Input/Input.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { Select } from '@/shared/ui/Select/Select.tsx';
 
-export const OverviewContent = () => {
+interface OverviewContentProps {
+    programCount: number | undefined
+}
+
+export const OverviewContent = ({ programCount }: OverviewContentProps) => {
     const { t } = useTranslation();
 
     return (
@@ -14,7 +18,7 @@ export const OverviewContent = () => {
                 <h3 className={cls.subtitle}>{t('Статистика')}</h3>
                 <div className={cls.creatorStats}>
                     <div className={cls.creatorStat}>
-                        <span className={cls.creatorStatValue}>3</span>
+                        <span className={cls.creatorStatValue}>{programCount}</span>
                         <span className={cls.creatorStatLabel}>{t('Программ')}</span>
                     </div>
                     <div className={cls.creatorStat}>

@@ -17,9 +17,9 @@ const MyExercisesPage = ({ className } : ExercisesPageProps) => {
         <div className={classNames(cls.ExercisesPage, {}, [className])}>
             <div className={cls.pageHeaderContent}>
                 <div>
-                    <h1 className="page-title">{t('Ваши программы')}</h1>
+                    <h1 className="page-title">{t('Ваши упражнения')}</h1>
                     <p className="page-subtitle">
-                        {t('Создавайте и управляйте своими программами тренировок')}
+                        {t('Создавайте и управляйте своими упражнениями')}
                     </p>
                 </div>
                 <AddExerciseButton />

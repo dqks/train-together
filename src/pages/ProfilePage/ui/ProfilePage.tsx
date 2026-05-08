@@ -1,20 +1,33 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useParams } from 'react-router';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './ProfilePage.module.scss';
-import { getUserEmail, getUserNickname, UserCard } from '@/entities/User';
+import { fetchProfileInfo, getProfileInfo, UserCard } from '@/entities/User';
 import { ProfileInfo } from '@/widgets/ProfileInfo';
 
 interface ProfilePageProps {
     className?: string;
 }
 
-const ProfilePage = ({ className } : ProfilePageProps) => {
-    const nickname = useSelector(getUserNickname);
-    const email = useSelector(getUserEmail);
+const ProfilePage = ({ className }: ProfilePageProps) => {
+    const profileInfo = useSelector(getProfileInfo);
+    const dispatch = useDispatch();
+    const params = useParams();
+
+    useEffect(() => {
+        dispatch(fetchProfileInfo(Number(params.id)));
+    }, [dispatch]);
+
     return (
         <div className={classNames(cls.ProfilePage, {}, [className])}>
-            <UserCard name={nickname} email={email} programCount={3} subscribeCount={100} />
-            <ProfileInfo />
+            <UserCard
+                name={profileInfo?.nickname}
+                email={profileInfo?.email}
+                programCount={profileInfo?.programCount}
+                subscribeCount={100}
+            />
+            <ProfileInfo programCount={profileInfo?.programCount} />
         </div>
     );
 };

@@ -69,7 +69,6 @@ export const LoginForm = () => {
                 <h1 className={cls.authTitle}>{t('Авторизация')}</h1>
                 <p className={cls.authSubtitle}>
                     {t('Войдите в свой аккаунт для доступа к программа')}
-                    м
                 </p>
 
                 <form className={cls.authForm}>

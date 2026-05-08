@@ -10,6 +10,8 @@ import { me } from './model/services/me/me.ts';
 import { logout } from './model/services/logout/logout.ts';
 import { getUserEmail } from './model/selectors/getUserEmail/getUserEmail.tsx';
 import { getUserNickname } from './model/selectors/getUserNickname/getUserNickname.ts';
+import { fetchProfileInfo } from './model/services/fetchProfileInfo/fetchProfileInfo.ts';
+import { getProfileInfo } from './model/selectors/getProfileInfo/getProfileInfo.ts';
 
 export {
     UserCard,
@@ -24,6 +26,8 @@ export {
     logout,
     getUserEmail,
     getUserNickname,
+    fetchProfileInfo,
+    getProfileInfo,
 };
 
 export type {

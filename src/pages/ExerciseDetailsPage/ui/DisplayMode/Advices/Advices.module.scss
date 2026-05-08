@@ -1,0 +1,33 @@
+.exerciseSection {
+    margin-bottom: var(--spacing-xl);
+}
+
+.sectionTitle {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-primary);
+}
+
+.tipsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tipItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+.tickIcon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    stroke: var(--color-accent);
+}

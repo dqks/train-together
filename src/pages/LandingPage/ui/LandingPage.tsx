@@ -14,12 +14,19 @@ interface LandingPageProps {
 
 const LandingPage = ({ className }: LandingPageProps) => (
     <div className={classNames(cls.MainPage, {}, [className])}>
+        {/* Компонент хедера */}
         <Header />
+        {/* Компонент хиро секции */}
         <HeroSection />
+        {/* Компонент секции требований для программы */}
         <RequirementsSection />
+        {/* Компонент секции с сохранением программы */}
         <SaveProgramSection />
+        {/* Компонент секции с созданием упражнения */}
         <CustomExerciseSection />
+        {/* Компонент секции с популярными программами */}
         <PopularProgramsSection />
+        {/* Компонент футера */}
         <Footer />
     </div>
 );

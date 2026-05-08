@@ -14,6 +14,7 @@ interface ProgramsListProps {
 }
 
 export const ProgramsList = (props: ProgramsListProps) => {
+    // Записываем пропсы в переменную
     const {
         isMyProgramPage,
         programList,
@@ -22,10 +23,14 @@ export const ProgramsList = (props: ProgramsListProps) => {
     const { t } = useTranslation();
     let programCards: ReactNode[] | undefined;
 
+    // Если карточки грузятся
+    // показываем лоадер
     if (isLoading) {
         return <PageLoader />;
     }
 
+    // Если показываем список на
+    // странице "Мои упражнения"
     if (isMyProgramPage) {
         if (programList && programList?.length <= 0) {
             return (<CenterText text={t('Упсс...')} subText={t('У вас нет программ')} />);
@@ -62,6 +67,7 @@ export const ProgramsList = (props: ProgramsListProps) => {
         ));
     }
 
+    // Возвращаем разметку
     return (
         <div className={classNames(cls.ProgramsList, {}, ['grid grid-3 mg-lg'])}>
             {programCards}

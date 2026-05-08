@@ -102,9 +102,9 @@ export const RegisterForm = () => {
         <div className={cls.LoginForm}>
             <Link to={PublicRoutePath.landing} className={cls.logo}>TrainTogether</Link>
             <div className={cls.authCard}>
-                <h1 className={cls.authTitle}>{t('Авторизация')}</h1>
+                <h1 className={cls.authTitle}>{t('Регистрация')}</h1>
                 <p className={cls.authSubtitle}>
-                    {t('Войдите в свой аккаунт для доступа к программа')}
+                    {t('Зарегистрируйтесь для доступа к программа')}
                 </p>
                 <form className={cls.authForm}>
                     <div className="form-group">

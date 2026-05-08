@@ -7,11 +7,13 @@ import { serverUrl } from '@/shared/const/serverUrl.ts';
 import { Badge } from '@/shared/ui/Badge/Badge.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { DeleteExerciseButton } from '@/features/DeleteExercise';
-import Tick from '@/shared/assets/icons/tick.svg?react';
 import LeftArrow from '@/shared/assets/icons/leftArrow.svg?react';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
 import type { ExerciseDetails } from '@/entities/Exercise';
+import { Advices } from './Advices/Advices';
+import { Technique } from './Technique/Technique.tsx';
+import { ActiveMuscles } from './ActiveMuscles/ActiveMuscles';
 
 interface DisplayModeProps {
     className?: string;
@@ -22,7 +24,7 @@ interface DisplayModeProps {
 }
 
 export const DisplayMode = (props : DisplayModeProps) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const {
         className,
@@ -57,94 +59,37 @@ export const DisplayMode = (props : DisplayModeProps) => {
                     }
                 </div>
                 <div className={cls.exerciseHeader}>
-                    <h1 className={cls.exerciseTitle}>{exerciseDetails?.name}</h1>
+                    <h1 className={cls.exerciseTitle}>
+                        {/* {i18n.language === 'en' ? exerciseDetails?.nameEng :  exerciseDetails?.name} */}
+                        {exerciseDetails?.name}
+                    </h1>
                     <div className={cls.meta}>
-                        <Badge className={cls.exerciseBadge} text="Средняя" />
-                        <Badge className={cls.exerciseBadge} text="Штанга" />
+                        <Badge
+                            className={cls.exerciseBadge}
+                            text={
+                                i18n.language === 'en'
+                                    ? exerciseDetails?.equipment?.nameEng
+                                    : exerciseDetails?.equipment?.name
+                            }
+                        />
                     </div>
                 </div>
                 <div className={cls.exerciseSection}>
-                    <h2 className={cls.sectionTitle}>Описание</h2>
+                    <h2 className={cls.sectionTitle}>{t('Описание')}</h2>
                     <p className={cls.exerciseDescription}>
-                        <strong className={cls.strong}>Жим лёжа</strong>
+                        <strong className={cls.strong}>{exerciseDetails?.name}</strong>
                         {' '}
-                        — базовое упражнение для развития грудных мышц, передних дельт и трицепсов. Одно из трёх главных
-                        движений в пауэрлифтинге.
+                        -
+                        {' '}
+                        {exerciseDetails?.description}
                     </p>
                 </div>
-                <div className={cls.exerciseSection}>
-                    <h2 className={cls.sectionTitle}>Техника выполнения</h2>
-                    <div className={cls.stepsList}>
-                        <div className={cls.stepItem}>
-                            <span className={cls.stepNumber}>1</span>
-                            <p className={cls.stepText}>
-                                Позиция. Лягте на скамью, ноги на полу. Спина слегка прогнута, ягодицы и лопатки
-                                касаются
-                                скамьи.
-                            </p>
-                        </div>
-                    </div>
-                    <div className={cls.stepItem}>
-                        <span className={cls.stepNumber}>1</span>
-                        <p className={cls.stepText}>
-                            Позиция. Лягте на скамью, ноги на полу. Спина слегка прогнута, ягодицы и лопатки касаются
-                            скамьи.
-                        </p>
-                    </div>
-                    <div className={cls.stepItem}>
-                        <span className={cls.stepNumber}>1</span>
-                        <p className={cls.stepText}>
-                            Позиция. Лягте на скамью, ноги на полу. Спина слегка прогнута, ягодицы и лопатки касаются
-                            скамьи.
-                        </p>
-                    </div>
-                    <div className={cls.stepItem}>
-                        <span className={cls.stepNumber}>1</span>
-                        <p className={cls.stepText}>
-                            Позиция. Лягте на скамью, ноги на полу. Спина слегка прогнута, ягодицы и лопатки касаются
-                            скамьи.
-                        </p>
-                    </div>
-                </div>
-                <div className={cls.exerciseSection}>
-                    <h2 className={cls.sectionTitle}>Советы</h2>
-                    <div className={cls.tipsList}>
-                        <div className={cls.tipItem}>
-                            <Tick className={cls.tickIcon} />
-                            <p>Используйте страховку при работе с большим весом</p>
-                        </div>
-                        <div className={cls.tipItem}>
-                            <Tick className={cls.tickIcon} />
-                            <p>Используйте страховку при работе с большим весом</p>
-                        </div>
-                        <div className={cls.tipItem}>
-                            <Tick className={cls.tickIcon} />
-                            <p>Используйте страховку при работе с большим весом</p>
-                        </div>
-                        <div className={cls.tipItem}>
-                            <Tick className={cls.tickIcon} />
-                            <p>Используйте страховку при работе с большим весом</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={cls.exerciseSection}>
-                    <h2 className={cls.sectionTitle}>Задействованные мышцы</h2>
-                    <div className={cls.muscleList}>
-                        <div className={cls.muscleItem}>
-                            Мышца
-                        </div>
-                        <div className={cls.muscleItem}>
-                            Мышца
-                        </div>
-                        <div className={cls.muscleItem}>
-                            Мышца
-                        </div>
-                        <div className={cls.muscleItem}>
-                            Мышца
-                        </div>
-                    </div>
-                </div>
+                <Technique technique={exerciseDetails?.technique} />
+                <Advices advices={exerciseDetails?.advice} />
+                <ActiveMuscles
+                    primaryMuscle={exerciseDetails?.primaryMuscle}
+                    secondaryMuscles={exerciseDetails?.secondaryMuscles}
+                />
                 {
                     isOwner && (
                         <div className={cls.exerciseSection}>

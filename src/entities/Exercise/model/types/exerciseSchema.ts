@@ -1,4 +1,5 @@
 import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
+import type { Equipment } from '@/entities/Equipment/model/types/equipmentSchema.ts';
 
 export type ExerciseInformation = {
     id: number,
@@ -8,19 +9,28 @@ export type ExerciseInformation = {
     secondaryMuscles: Muscle[] | undefined
 }
 
+export type ListItem = {
+   text: string,
+   order: number
+}
+
 export type ExerciseDetails = {
     id: number | undefined,
     image: string,
     name: string,
-    // muscles: Muscle[]
-    // equipments: EquipmentFilter[]
+    advice: ListItem[]
+    technique: ListItem[]
+    description: string
     userId: number | null
+    equipment: Equipment
+    primaryMuscle: Muscle
+    secondaryMuscles: Muscle[]
 }
 
 export type ExerciseError = Record<string, string[]>
 
 export interface ExerciseSchema {
-    exerciseCards: ExerciseInformation[] | null
+    exerciseCards: ExerciseInformation[] | undefined
     exerciseDetails: ExerciseDetails | null,
     myExercises: ExerciseInformation[] | null,
     isLoading: boolean

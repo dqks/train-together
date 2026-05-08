@@ -1,22 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import cls from './ExerciseCardList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import {
-    ExerciseCard, getExerciseCards, getExerciseIsLoading, fetchExerciseCards,
-} from '@/entities/Exercise';
+import { ExerciseCard } from '@/entities/Exercise';
 import type { ExerciseInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 
-export const ExerciseCardList = () => {
-    const dispatch = useDispatch();
-    const exerciseCards = useSelector(getExerciseCards);
-    const isLoading = useSelector(getExerciseIsLoading);
+interface ExerciseCardListProps {
+    exerciseCards: ExerciseInformation[] | undefined;
+    isLoading: boolean;
+}
 
-    useEffect(() => {
-        dispatch(fetchExerciseCards());
-    }, [dispatch]);
+export const ExerciseCardList = (props: ExerciseCardListProps) => {
+    const { isLoading, exerciseCards } = props;
 
+    // Создание карточек
     const cards = exerciseCards
         ?.map(
             (card: ExerciseInformation) => (
@@ -31,10 +27,13 @@ export const ExerciseCardList = () => {
             ),
         );
 
+    // Если идет загрузка
+    // то показываем лоадер
     if (isLoading) {
         return <PageLoader />;
     }
 
+    // Возвращаем разметку
     return (
         <div className={classNames(cls.ExerciseCardList, {}, ['grid grid-3 mt-lg'])}>
             {cards}

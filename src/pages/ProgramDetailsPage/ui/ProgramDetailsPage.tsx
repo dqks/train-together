@@ -69,11 +69,7 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
         }
     }
 
-    let exerciseCount = 0;
-
-    if (programDetails?.days) {
-        exerciseCount = programDetails.days.reduce((acc, day) => acc + day.exercises.length, 0);
-    }
+    const exerciseCount = programDetails?.days.reduce((acc, day) => acc + day.exercises.length, 0);
 
     return (
         <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>

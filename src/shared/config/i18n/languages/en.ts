@@ -70,7 +70,7 @@ export const enTranslation = {
         'Развитие всех качеств': 'For developing all qualities ',
         'Длительные нагрузки для выносливости': 'Long loads for endurance',
         'Максимальные веса и мощь': 'Maximal weights and power',
-        'Самые популярные тренировки пользователей': 'The most popular training programs',
+        'Самые популярные тренировки': 'The most popular training programs',
         'Сохраняйте тренировки пользователей': 'Save user programs',
         'Подписывайтесь на авторов и сохраняйте понравившиеся программы':
             'Subscribe authors and save programs you love',
@@ -209,6 +209,11 @@ export const enTranslation = {
         'Упражнение не найдено': 'Exercise is not found',
         'Согласие на обработку персональных данных': 'Consent to the processing of personal data',
         'Согласие обязательно': 'Consent is required',
-
+        'Создавайте и управляйте своими упражнениями': 'Create and manage your exercises',
+        'Лучшие программы по версии нашего сообщества': 'The best programs by our community',
+        'Зарегистрируйтесь для доступа к программа': 'Sign up to access the programs',
+        'Задействованные мышцы': 'Active muscles',
+        'По оборудованию': 'By equipment',
+        'По мышцам': 'By muscles',
     },
 };

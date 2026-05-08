@@ -4,7 +4,11 @@ import cls from './ExercisesControl.module.scss';
 import { SearchInput } from '@/shared/ui/SearchInput/SearchInput.tsx';
 import { EquipmentFilter, MuscleFilter } from '@/features/FilterExercises';
 
-export const ExercisesControl = () => {
+interface ExercisesControlProps {
+    exerciseCount: number | undefined;
+}
+
+export const ExercisesControl = ({ exerciseCount } : ExercisesControlProps) => {
     const { t } = useTranslation();
 
     return (
@@ -17,7 +21,7 @@ export const ExercisesControl = () => {
             <span className={cls.filteredAmount}>
                 {t('Показано: ')}
                 {' '}
-                <strong>4</strong>
+                <strong>{exerciseCount || 0}</strong>
                 {' '}
                 {t('упражнений')}
             </span>
