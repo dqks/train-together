@@ -3,20 +3,27 @@ import { classNames } from '../../lib/classNames/classNames';
 import cls from './Modal.module.scss';
 import { useOutsideClick } from '../../lib/useOutsideClick/useOutsideClick.tsx';
 import { Portal } from '@/shared/ui/Portal/Portral.tsx';
+import Cross from '@/shared/assets/icons/cross.svg?react';
 
 type ModalProps = {
     children: ReactNode
     onOutsideClick: () => void;
     isOpen: boolean;
     wrapperClassName?: string;
+    modalTitle: string;
+    footerContent?: ReactNode;
 }
 
-export const Modal = ({
-    children,
-    onOutsideClick,
-    isOpen,
-    wrapperClassName,
-}: ModalProps) => {
+export const Modal = (props: ModalProps) => {
+    const {
+        children,
+        onOutsideClick,
+        isOpen,
+        wrapperClassName,
+        modalTitle,
+        footerContent,
+    } = props;
+
     const { componentRef } = useOutsideClick(onOutsideClick, isOpen);
 
     return isOpen
@@ -24,17 +31,31 @@ export const Modal = ({
         <Portal>
             <div
                 ref={componentRef}
-                className={cls.Modal}
+                className={cls.modalOverlay}
             >
                 <div
-                    // Вернул класс для стилизации обертки модалки
-                    // Но стилизовывать children нужно все равно
-                    className={classNames(cls.content, {}, [wrapperClassName])}
+                    className={classNames(cls.modal, {}, [wrapperClassName, cls.modalLg])}
                 >
-                    <i onClick={onOutsideClick} className={cls.closeIcon}>
-                        &times;
-                    </i>
-                    {children}
+                    <div className={cls.modalHeader}>
+                        <h3 className={cls.modalTitle}>{modalTitle}</h3>
+                        <button
+                            onClick={onOutsideClick}
+                            type="button"
+                            className={cls.modalClose}
+                        >
+                            <Cross />
+                        </button>
+                    </div>
+                    <div className={cls.modalBody}>
+                        {children}
+                    </div>
+                    {
+                        footerContent && (
+                            <div className={cls.modalFooter}>
+                                {footerContent}
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </Portal>

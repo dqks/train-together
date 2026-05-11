@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Suspense } from 'react';
-import cls from './AddExerciseButton.module.scss';
 import { AddExerciseFormAsync } from '@/features/AddExercise/ui/AddExerciseForm/AddExerciseForm.async.tsx';
 import { useOpen } from '@/shared/lib/useOpen/useOpen.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { Modal } from '@/shared/ui/Modal/Modal.tsx';
-import { Loader } from '@/shared/ui/Loader/Loader.tsx';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 
 export const AddExerciseButton = () => {
     const { t } = useTranslation();
@@ -18,17 +17,14 @@ export const AddExerciseButton = () => {
             <Modal
                 isOpen={isOpen}
                 onOutsideClick={openHandler}
-                wrapperClassName={cls.modal}
+                modalTitle={t('Создать программу тренировок')}
             >
                 <Suspense fallback={(
-                    <div className={cls.loaderWrapper}>
-                        <Loader />
-                    </div>
+                    <PageLoader />
                 )}
                 >
                     <AddExerciseFormAsync
                         closeHandler={openHandler}
-                        className={cls.sidePanelWrapper}
                     />
                 </Suspense>
             </Modal>

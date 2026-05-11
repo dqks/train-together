@@ -27,7 +27,7 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
         primaryMuscle,
         secondaryMuscles,
     } = props;
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -35,8 +35,6 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
         navigate(`${AuthRoutePath.exercise_details}${exerciseId}`, { state: { from: location.state?.from } });
     };
 
-    // let musclesMap: (string | undefined)[] = [];
-    //
     // if (i18n.language === 'en') {
     //     musclesMap = muscles.map((m: Muscle) => m.nameEng);
     // } else if (i18n.language === 'ru') {
@@ -48,17 +46,11 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
     return (
         <div onClick={clickHandler} className={classNames(cls.ExerciseCard, {}, ['card'])}>
             <div className={cls.imageWrapper}>
-                {
-                    // imageUrl
-                    //     ? (
-                    <img
-                        className={cls.image}
-                        src={serverUrl + imageUrl}
-                        alt={t('Изображение упражнения')}
-                    />
-                    // )
-                    // : <Picture className={cls.picture} />
-                }
+                <img
+                    className={cls.image}
+                    src={serverUrl + imageUrl}
+                    alt={t('Изображение упражнения')}
+                />
             </div>
             <div className="card-body">
                 <h4 className={classNames(cls.cardTitle, {}, ['card-title'])}>{name}</h4>

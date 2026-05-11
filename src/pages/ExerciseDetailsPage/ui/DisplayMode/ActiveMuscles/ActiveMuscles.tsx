@@ -11,8 +11,8 @@ interface ActiveMusclesProps {
 export const ActiveMuscles = ({ secondaryMuscles, primaryMuscle } : ActiveMusclesProps) => {
     const { t, i18n } = useTranslation();
 
-    const secondaryMuscleList = secondaryMuscles?.map((muscle) => (
-        <div className={cls.muscleItem}>
+    const secondaryMuscleList = secondaryMuscles?.map((muscle, index) => (
+        <div className={cls.muscleItem} key={index}>
             {i18n.language === 'en' ? muscle.nameEng : muscle.name}
         </div>
     ));

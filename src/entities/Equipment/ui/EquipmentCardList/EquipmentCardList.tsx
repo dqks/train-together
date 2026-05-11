@@ -4,7 +4,13 @@ import { fetchEquipmentList } from '../../model/services/fetchEquipmentList/fetc
 import { getEquipmentList } from '../../model/selectors/getEquipmentList/getEquipmentList.ts';
 import { EquipmentCard } from '../EquipmentCard/EquipmentCard.tsx';
 
-export const EquipmentCardList = () => {
+interface EquipmentCardListProps {
+    onChange: (value: string) => void
+}
+
+export const EquipmentCardList = (props: EquipmentCardListProps) => {
+    const { onChange } = props;
+
     const dispatch = useDispatch();
     const equipmentList = useSelector(getEquipmentList);
     useEffect(() => {
@@ -15,6 +21,8 @@ export const EquipmentCardList = () => {
 
     return equipmentList?.map((eq) => (
         <EquipmentCard
+            id={eq.id}
+            onChange={onChange}
             key={eq.id}
             name={eq.name}
         />

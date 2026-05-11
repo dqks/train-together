@@ -9,6 +9,8 @@ interface TechniqueProps {
 export const Technique = ({ technique } : TechniqueProps) => {
     const { t } = useTranslation();
 
+    if (!technique) return null;
+
     const techniqueList = technique?.map((item, index) => (
         <div className={cls.stepItem} key={index}>
             <span className={cls.stepNumber}>{item.order}</span>

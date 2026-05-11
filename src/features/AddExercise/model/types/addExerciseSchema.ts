@@ -1,11 +1,16 @@
-import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
-import type { Equipment } from '@/entities/Equipment/model/types/equipmentSchema.ts';
+type errorKeys = 'name' |
+    'selectedProgressionType' |
+    'selectedPrimaryMuscleId' |
+    'selectedEquipmentId' |
+    'status'
+
+export type errorObject = Partial<Record<errorKeys, string[]>>
 
 export interface AddExerciseSchema {
     exerciseName: string
     progressionType: string
-    muscles?: Muscle[]
-    equipments?: Equipment[]
+    primaryMuscleId: number | undefined
+    equipmentId: number | undefined
     isLoading: boolean
-    error: string | undefined
+    error: errorObject | undefined
 }

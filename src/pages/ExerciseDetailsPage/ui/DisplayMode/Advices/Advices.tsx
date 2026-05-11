@@ -10,6 +10,8 @@ interface AdvicesProps {
 export const Advices = ({ advices } : AdvicesProps) => {
     const { t } = useTranslation();
 
+    if (!advices) return null;
+
     const advicesList = advices?.map((advice, index) => (
         <div className={cls.tipItem} key={index}>
             <Tick className={cls.tickIcon} />

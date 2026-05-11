@@ -18,8 +18,8 @@ export type ExerciseDetails = {
     id: number | undefined,
     image: string,
     name: string,
-    advice: ListItem[]
-    technique: ListItem[]
+    advice: ListItem[] | undefined
+    technique: ListItem[] | undefined
     description: string
     userId: number | null
     equipment: Equipment

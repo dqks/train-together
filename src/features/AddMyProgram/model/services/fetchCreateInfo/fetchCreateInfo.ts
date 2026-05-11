@@ -25,7 +25,7 @@ export const fetchCreateInfo = createAsyncThunk<CreateInfo, void, ThunkConfig<cr
 
             return response.data.data;
         } catch (err : any) {
-            return rejectWithValue({ name: ['4343'] });
+            return rejectWithValue({ name: ['Ошибка загрузки данных'] });
         }
     },
 );

@@ -215,5 +215,6 @@ export const enTranslation = {
         'Задействованные мышцы': 'Active muscles',
         'По оборудованию': 'By equipment',
         'По мышцам': 'By muscles',
+        'Создать программу тренировок': 'Create training program',
     },
 };

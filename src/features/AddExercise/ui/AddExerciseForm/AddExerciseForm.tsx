@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import {
+    type ChangeEvent, type MouseEvent, useEffect, useState,
+} from 'react';
 import { Input } from '@/shared/ui/Input/Input.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import cls from './AddExerciseForm.module.scss';
-import { EquipmentCardList }
-    from '@/entities/Equipment/ui/EquipmentCardList/EquipmentCardList.tsx';
+import { EquipmentCardList } from '@/entities/Equipment/ui/EquipmentCardList/EquipmentCardList.tsx';
 import { PrimaryMuscleCardList } from '@/entities/Muscle/ui/PrimaryMuscleCardList/PrimaryMuscleCardList.tsx';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { getExerciseName } from '../../model/selectors/getExerciseName/getExerciseName.ts';
@@ -14,21 +15,27 @@ import { createUserExercise } from '../../model/services/createExercise/createUs
 import { fetchProgressionTypes, getExerciseProgressionTypes } from '@/entities/ExerciseProgression';
 import { Select } from '@/shared/ui/Select/Select.tsx';
 import { getProgressionType } from '../../model/selectors/getProgressionType/getProgressionType.ts';
-import { PrimaryMuscleCard } from '@/entities/Muscle/ui/PrimaryMuscleCard/PrimaryMuscleCard.tsx';
-import { EquipmentCard } from '@/entities/Equipment';
+// import Tick from '@/shared/assets/icons/tick.svg?react';
 import Image from '@/shared/assets/icons/image.svg?react';
+import { getPrimaryMuscleId } from '../../model/selectors/getPrimaryMuscleId/getPrimaryMuscleId.ts';
+import { getEquipmentId } from '../../model/selectors/getEquipmentId/getEquipmentId.ts';
+import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
+import { getErrors } from '../../model/selectors/getErrors/getErrors.ts';
 
 interface AddExerciseFormProps {
-    className?: string;
     closeHandler?: () => void
 }
 
-const AddExerciseForm = ({ className, closeHandler }: AddExerciseFormProps) => {
+const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const exerciseName = useSelector(getExerciseName);
     const exerciseProgressionTypes = useSelector(getExerciseProgressionTypes);
     const selectedProgressionType = useSelector(getProgressionType);
+    const selectedPrimaryMuscleId = useSelector(getPrimaryMuscleId);
+    const selectedEquipmentId = useSelector(getEquipmentId);
+    const errors = useSelector(getErrors);
+    const [image, setImage] = useState<File | undefined>(undefined);
 
     useEffect(() => {
         dispatch(fetchProgressionTypes());
@@ -42,20 +49,71 @@ const AddExerciseForm = ({ className, closeHandler }: AddExerciseFormProps) => {
         dispatch(addExerciseActions.setProgressionType(value));
     };
 
-    const createHandler = () => {
-        if (selectedProgressionType === 'null') {
+    const onChangEquipment = (value: string) => {
+        dispatch(addExerciseActions.setEquipmentId(Number(value)));
+    };
+
+    const onChangePrimaryMuscle = (value: string) => {
+        dispatch(addExerciseActions.setPrimaryMuscleId(Number(value)));
+    };
+
+    const onChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event?.target?.files) {
+            setImage(event?.target?.files[0]);
+        }
+    };
+
+    const createHandler = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        const errors = {
+            name: [''],
+            selectedProgressionType: [''],
+            selectedPrimaryMuscleId: [''],
+            selectedEquipmentId: [''],
+        };
+
+        let hasErrors = false;
+
+        if (!exerciseName.trim()) {
+            errors.name.push('Обязательное поле');
+            hasErrors = true;
+        }
+
+        if (selectedProgressionType === 'default') {
+            errors.selectedProgressionType.push('Выбор обязателен');
+            hasErrors = true;
+        }
+
+        if (selectedPrimaryMuscleId === undefined) {
+            errors.selectedPrimaryMuscleId.push('Выбор обязателен');
+            hasErrors = true;
+        }
+
+        if (selectedEquipmentId === undefined) {
+            errors.selectedEquipmentId.push('Выбор обязателен');
+            hasErrors = true;
+        }
+
+        if (hasErrors) {
+            dispatch(addExerciseActions.setErrors(errors));
             return;
         }
+
         if (closeHandler) {
             dispatch(createUserExercise({
                 name: exerciseName,
                 progressionType: Number(selectedProgressionType),
+                primaryMuscleId: selectedPrimaryMuscleId,
+                equipmentId: selectedEquipmentId,
                 closeHandler,
+                image,
             }));
         }
     };
 
-    const progressionOptions = exerciseProgressionTypes?.map((t) => <option value={t.id}>{t.name}</option>);
+    const progressionOptions = exerciseProgressionTypes
+        ?.map((t) => <option key={t.name} value={t.id}>{t.name}</option>);
 
     return (
         <form className={cls.AddExerciseFormProps} id="addExerciseForm">
@@ -69,67 +127,74 @@ const AddExerciseForm = ({ className, closeHandler }: AddExerciseFormProps) => {
                     onChange={onChangeName}
                     placeholder={t('Например: Жим гантелей')}
                 />
+                <ErrorMessage messages={errors?.name} />
             </div>
 
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label className="form-label">{t('Оборудование')}</label>
+                <label htmlFor="equipmentSelector" className="form-label">{t('Оборудование')}</label>
                 <div className={cls.selectorGrid} id="equipmentSelector">
-                    <EquipmentCard />
-                    <EquipmentCard />
-                    <EquipmentCard />
+                    <EquipmentCardList onChange={onChangEquipment} />
                 </div>
-                <div className={cls.selectedPreview} id="equipmentPreview">
-                    <svg
-                        className={cls.selectedPreviewSvg}
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                    >
-                        <path d="M20 6 9 17l-5-5" />
-                    </svg>
-                    <span id="equipmentPreviewText" className={cls.selectedPreviewText}>Выбранное оборудование</span>
-                </div>
+                <ErrorMessage messages={errors?.selectedEquipmentId} />
+                {/* <div className={cls.selectedPreview} id="equipmentPreview"> */}
+                {/*    <Tick className={cls.selectedPreviewSvg} /> */}
+                {/*    <span id="equipmentPreviewText" className={cls.selectedPreviewText}> */}
+                {/*        Выбранное оборудование */}
+                {/*    </span> */}
+                {/* </div> */}
             </div>
 
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label className="form-label">
+                <label htmlFor="muscleSelector" className="form-label">
                     {t('Основная мышца')}
                 </label>
                 <div className={cls.selectorGrid} id="muscleSelector">
-                    <PrimaryMuscleCard />
-                    <PrimaryMuscleCard />
-                    <PrimaryMuscleCard />
-                    <PrimaryMuscleCard />
+                    <PrimaryMuscleCardList
+                        onChange={onChangePrimaryMuscle}
+                    />
                 </div>
-                <div className={cls.selectedPreview} id="musclePreview">
-                    <svg
-                        className={cls.selectedPreviewSvg}
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                    >
-                        <path d="M20 6 9 17l-5-5" />
-                    </svg>
-                    <span id="musclePreviewText" className={cls.selectedPreviewText}>Выбранная мышца</span>
-                </div>
+                <ErrorMessage messages={errors?.selectedPrimaryMuscleId} />
+                {/* <div className={cls.selectedPreview} id="musclePreview"> */}
+                {/*    <Tick className={cls.selectedPreviewSvg} /> */}
+                {/*    <span id="musclePreviewText" className={cls.selectedPreviewText}> */}
+                {/*        Выбранная мышца */}
+                {/*    </span> */}
+                {/* </div> */}
             </div>
 
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label className="form-label">{t('Изображение')}</label>
+                <label htmlFor="imageInput" className="form-label">{t('Изображение')}</label>
                 <div className="image-upload" id="imageUpload">
                     <Image />
                     <div className="image-upload-text">
                         <span>{t('Нажмите для загрузки')}</span>
                     </div>
-                    <input type="file" id="imageInput" accept="image/*" />
+                    <input onChange={onChangeImage} type="file" id="imageInput" accept="image/*" />
                 </div>
             </div>
 
-            <Button type="submit" className={cls.addButton} id="submitBtn">{t('Добавить упражнение')}</Button>
+            <div className={classNames(cls.groupGap, {}, ['form-group'])}>
+                <label htmlFor="progressionType" className="form-label">{t('Тип прогрессии')}</label>
+                <Select
+                    value={selectedProgressionType}
+                    name="progressionType"
+                    id="progressionType"
+                    onChange={onChangeType}
+                >
+                    <option value="default" disabled>{t('Выберите...')}</option>
+                    {progressionOptions}
+                </Select>
+                <ErrorMessage messages={errors?.selectedProgressionType} />
+            </div>
+
+            <Button
+                type="submit"
+                onClick={createHandler}
+                className={cls.addButton}
+                id="submitBtn"
+            >
+                {t('Добавить упражнение')}
+            </Button>
         </form>
     );
 };
