@@ -32,7 +32,7 @@ export const Hero = (props : HeroProps) => {
             <div className={cls.heroImage}>
                 <img
                     className={cls.image}
-                    src={serverUrl + imageUrl}
+                    src={imageUrl}
                     alt={t('Программа тренировок')}
                 />
                 <div className={cls.heroImageOverlay} />
@@ -46,7 +46,7 @@ export const Hero = (props : HeroProps) => {
                 <div className={cls.programAuthor}>
                     <div className={cls.authorAvatar}>
                         <img
-                            src={authorImage ? serverUrl + authorImage : userPicture}
+                            src={authorImage || userPicture}
                             alt="Аватарка пользователя"
                         />
                     </div>

@@ -56,7 +56,7 @@ export const Sidebar = (props : SidebarProps) => {
                 <div className={cls.authorCardContent}>
                     <div className={cls.authorCardAvatar}>
                         <img
-                            src={authorImage ? serverUrl + authorImage : userPicture}
+                            src={authorImage || userPicture}
                             alt={authorName}
                         />
                     </div>

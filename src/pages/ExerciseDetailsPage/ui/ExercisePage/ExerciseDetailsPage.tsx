@@ -57,7 +57,10 @@ const ExerciseDetailsPage = () => {
                 />
             )
             : (
-                <EditMode setDisplayMode={setDisplayMode} />
+                <EditMode
+                    exerciseDetails={exerciseDetails}
+                    setDisplayMode={setDisplayMode}
+                />
             )
     );
 };

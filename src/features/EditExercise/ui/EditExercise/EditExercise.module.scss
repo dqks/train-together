@@ -15,6 +15,12 @@
     margin-bottom: var(--spacing-sm);
 }
 
+.buttonWrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
 @media (max-width: 768px) {
     .selectorGrid {
         grid-template-columns: repeat(3, 1fr);

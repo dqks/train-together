@@ -6,6 +6,7 @@ interface PrimaryMuscleCardProps {
     className?: string;
     name?: string | undefined
     id: number | undefined
+    selectedMuscle?: string;
     onChange: (value: string) => void
 }
 
@@ -15,11 +16,14 @@ export const PrimaryMuscleCard = (props : PrimaryMuscleCardProps) => {
         name,
         id,
         onChange,
+        selectedMuscle,
     } = props;
 
     const onMuscleChange = (e: ChangeEvent<HTMLInputElement>) => {
         onChange(e.target.dataset.id as string);
     };
+
+    const isSelected = selectedMuscle === id?.toString();
 
     return (
         <div className={classNames(cls.MuscleCard, {}, [className])}>
@@ -31,6 +35,7 @@ export const PrimaryMuscleCard = (props : PrimaryMuscleCardProps) => {
                 className={cls.input}
                 data-id={id}
                 onChange={onMuscleChange}
+                checked={isSelected}
             />
             <label className={cls.label} htmlFor={name}>
                 <svg

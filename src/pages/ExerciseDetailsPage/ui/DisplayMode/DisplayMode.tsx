@@ -3,7 +3,6 @@ import { type Params, useLocation } from 'react-router';
 import cls from './DisplayMode.module.scss';
 import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
-import { serverUrl } from '@/shared/const/serverUrl.ts';
 import { Badge } from '@/shared/ui/Badge/Badge.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { DeleteExerciseButton } from '@/features/DeleteExercise';
@@ -49,7 +48,7 @@ export const DisplayMode = (props : DisplayModeProps) => {
                             ? (
                                 <img
                                     alt={t('Изображение упражнения')}
-                                    src={serverUrl + exerciseDetails.image}
+                                    src={exerciseDetails.image}
                                     className={cls.exercisePicture}
                                 />
                             )
@@ -74,16 +73,18 @@ export const DisplayMode = (props : DisplayModeProps) => {
                         />
                     </div>
                 </div>
-                <div className={cls.exerciseSection}>
-                    <h2 className={cls.sectionTitle}>{t('Описание')}</h2>
-                    <p className={cls.exerciseDescription}>
-                        <strong className={cls.strong}>{exerciseDetails?.name}</strong>
-                        {' '}
-                        -
-                        {' '}
-                        {exerciseDetails?.description}
-                    </p>
-                </div>
+                {exerciseDetails?.description && (
+                    <div className={cls.exerciseSection}>
+                        <h2 className={cls.sectionTitle}>{t('Описание')}</h2>
+                        <p className={cls.exerciseDescription}>
+                            <strong className={cls.strong}>{exerciseDetails?.name}</strong>
+                            {' '}
+                            -
+                            {' '}
+                            {exerciseDetails?.description}
+                        </p>
+                    </div>
+                )}
                 <Technique technique={exerciseDetails?.technique} />
                 <Advices advices={exerciseDetails?.advice} />
                 <ActiveMuscles

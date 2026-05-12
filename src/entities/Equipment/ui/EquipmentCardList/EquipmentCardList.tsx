@@ -6,10 +6,11 @@ import { EquipmentCard } from '../EquipmentCard/EquipmentCard.tsx';
 
 interface EquipmentCardListProps {
     onChange: (value: string) => void
+    selectedEquipment?: string;
 }
 
 export const EquipmentCardList = (props: EquipmentCardListProps) => {
-    const { onChange } = props;
+    const { onChange, selectedEquipment } = props;
 
     const dispatch = useDispatch();
     const equipmentList = useSelector(getEquipmentList);
@@ -23,6 +24,7 @@ export const EquipmentCardList = (props: EquipmentCardListProps) => {
         <EquipmentCard
             id={eq.id}
             onChange={onChange}
+            selectedEquipment={selectedEquipment}
             key={eq.id}
             name={eq.name}
         />

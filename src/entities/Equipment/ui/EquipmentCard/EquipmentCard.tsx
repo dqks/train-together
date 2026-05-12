@@ -7,14 +7,23 @@ interface EquipmentCardProps {
     name?: string | undefined
     id: number | undefined
     onChange: (value: string) => void
+    selectedEquipment?: string;
 }
 
-export const EquipmentCard = ({
-    className, name, onChange, id,
-} : EquipmentCardProps) => {
+export const EquipmentCard = (props : EquipmentCardProps) => {
+    const {
+        className,
+        name,
+        onChange,
+        id,
+        selectedEquipment,
+    } = props;
+
     const onEquipmentChange = (e: ChangeEvent<HTMLInputElement>) => {
         onChange(e.target.dataset.id as string);
     };
+
+    const isSelected = selectedEquipment === id?.toString();
 
     return (
         <div className={classNames(cls.EquipmentCard, {}, [className])}>
@@ -26,6 +35,7 @@ export const EquipmentCard = ({
                 id={name}
                 className={cls.input}
                 data-id={id}
+                checked={isSelected}
             />
             <label className={cls.label} htmlFor={name}>
                 <svg

@@ -4,9 +4,11 @@ import { fetchMuscleList, PrimaryMuscleCard, getPrimaryMuscleList } from '@/enti
 
 interface PrimaryMuscleCardListProps {
     onChange: (value: string) => void
+    selectedMuscle?: string;
 }
 
-export const PrimaryMuscleCardList = ({ onChange }: PrimaryMuscleCardListProps) => {
+export const PrimaryMuscleCardList = (props: PrimaryMuscleCardListProps) => {
+    const { onChange, selectedMuscle } = props;
     const dispatch = useDispatch();
     const muscleList = useSelector(getPrimaryMuscleList);
     useEffect(() => {
@@ -21,6 +23,7 @@ export const PrimaryMuscleCardList = ({ onChange }: PrimaryMuscleCardListProps) 
             onChange={onChange}
             key={muscle.id}
             name={muscle.name}
+            selectedMuscle={selectedMuscle}
         />
     ));
 };

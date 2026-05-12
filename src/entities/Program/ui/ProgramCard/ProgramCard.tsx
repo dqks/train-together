@@ -6,7 +6,6 @@ import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { Badge, BadgeType } from '@/shared/ui/Badge/Badge.tsx';
 import Star from '@/shared/assets/icons/star.svg?react';
 import Shelf from '@/shared/assets/icons/shelf.svg?react';
-import { serverUrl } from '@/shared/const/serverUrl.ts';
 
 interface ProgramCardProps {
     id: number | undefined;
@@ -47,7 +46,7 @@ export const ProgramCard = (props : ProgramCardProps) => {
             className={classNames(cls.previewCard, {}, ['card', className])}
         >
             <img
-                src={serverUrl + imageUrl}
+                src={imageUrl}
                 alt={t('Программа')}
                 className={classNames(cls.image, {}, ['card-image'])}
             />

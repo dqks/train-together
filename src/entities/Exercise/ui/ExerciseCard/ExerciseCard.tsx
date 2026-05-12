@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import cls from './ExerciseCard.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
-import { serverUrl } from '@/shared/const/serverUrl.ts';
 import { Tag, TagType } from '@/shared/ui/Tag/Tag.tsx';
 import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
 
@@ -48,7 +47,7 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
             <div className={cls.imageWrapper}>
                 <img
                     className={cls.image}
-                    src={serverUrl + imageUrl}
+                    src={imageUrl}
                     alt={t('Изображение упражнения')}
                 />
             </div>
