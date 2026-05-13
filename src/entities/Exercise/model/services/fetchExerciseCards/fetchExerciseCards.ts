@@ -6,7 +6,7 @@ type ResponseType = {
     data: ExerciseInformation[]
 }
 
-type Filters = {
+export type Filters = {
     equipmentId?: string
     primaryMuscles?: string
 }
@@ -21,8 +21,6 @@ export const fetchExerciseCards = createAsyncThunk<
 
             try {
                 let url = '/exercises';
-
-                console.log(filters);
 
                 if (filters?.equipmentId) {
                     url += `?equipmentId=${filters.equipmentId}`;

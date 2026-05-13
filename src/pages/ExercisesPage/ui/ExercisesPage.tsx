@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router';
 import cls from './ExercisesPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ExerciseCardList } from '@/widgets/ExerciseCardList';
@@ -12,11 +13,14 @@ const ExercisesPage = () => {
     const exerciseCards = useSelector(getExerciseCards);
     const dispatch = useDispatch();
     const isLoading = useSelector(getExerciseIsLoading);
+    const [searchParams] = useSearchParams();
 
     // Отправка запроса на сервер
     // для получения упражнений
     useEffect(() => {
-        dispatch(fetchExerciseCards());
+        const equipmentId = searchParams.get('equipmentId') || undefined;
+        const primaryMuscleId = searchParams.get('primaryMuscleId') || undefined;
+        dispatch(fetchExerciseCards({ equipmentId, primaryMuscles: primaryMuscleId }));
     }, [dispatch]);
 
     return (

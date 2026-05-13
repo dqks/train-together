@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Suspense, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router';
 import cls from './EquipmentFilter.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { SidePanelTriggerButton } from '@/shared/ui/SidePanelTriggerButton/SidePanelTriggerButton.tsx';
@@ -16,9 +17,13 @@ export const EquipmentFilter = () => {
     const [isOpen, openHandler] = useOpen();
     const [equipmentId, setEquipmentId] = useState<string | undefined>(undefined);
     const dispatch = useDispatch();
+    const [_, setSearchParams] = useSearchParams();
 
     const onApplyFilter = useCallback(() => {
-        dispatch(fetchExerciseCards({ equipmentId }));
+        if (equipmentId) {
+            setSearchParams({ equipmentId });
+            dispatch(fetchExerciseCards({ equipmentId }));
+        }
         openHandler();
     }, [equipmentId]);
 

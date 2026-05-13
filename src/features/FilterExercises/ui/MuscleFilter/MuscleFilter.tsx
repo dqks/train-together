@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Suspense, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router';
 import cls from './MuscleFilter.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { SidePanelTriggerButton } from '@/shared/ui/SidePanelTriggerButton/SidePanelTriggerButton.tsx';
@@ -14,9 +15,13 @@ export const MuscleFilter = () => {
     const [primaryMuscleId, setPrimaryMuscleId] = useState<string | undefined>(undefined);
     const [isOpen, openHandler] = useOpen();
     const dispatch = useDispatch();
+    const [_, setSearchParams] = useSearchParams();
 
     const onApply = () => {
-        dispatch(fetchExerciseCards({ primaryMuscles: primaryMuscleId }));
+        if (primaryMuscleId) {
+            setSearchParams({ primaryMuscleId });
+            dispatch(fetchExerciseCards({ primaryMuscles: primaryMuscleId }));
+        }
         openHandler();
     };
 

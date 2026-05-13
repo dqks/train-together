@@ -14,8 +14,6 @@ interface ExerciseCardProps {
     secondaryMuscles: Muscle[] | undefined
 }
 
-// Получать, пользовательское ли упражнение или нет будем из запроса API /exercises/:id
-
 export const ExerciseCard = (props : ExerciseCardProps) => {
     const {
         // pictureUrl,
