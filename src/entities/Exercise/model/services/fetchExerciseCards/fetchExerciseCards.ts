@@ -7,8 +7,8 @@ type ResponseType = {
 }
 
 export type Filters = {
-    equipmentId?: string
-    primaryMuscles?: string
+    equipmentId?: string | null
+    primaryMuscles?: string | null
 }
 
 export const fetchExerciseCards = createAsyncThunk<
@@ -20,18 +20,22 @@ export const fetchExerciseCards = createAsyncThunk<
             const { extra, rejectWithValue } = thunkAPI;
 
             try {
-                let url = '/exercises';
+                const params = [];
 
                 if (filters?.equipmentId) {
-                    url += `?equipmentId=${filters.equipmentId}`;
+                    params.push(`equipmentId=${filters.equipmentId}`);
                 }
 
                 if (filters?.primaryMuscles) {
-                    url += `?primaryMuscles=${filters.primaryMuscles}`;
+                    params.push(`primaryMuscles=${filters.primaryMuscles}`);
                 }
 
                 const response = await extra.api
-                    .get<ResponseType>(url);
+                    .get<ResponseType>(
+                        params.length > 0
+                            ? `/exercises?${params.join('&')}`
+                            : '/exercises',
+                    );
 
                 if (!response.data) {
                     throw new Error('Error occurred');

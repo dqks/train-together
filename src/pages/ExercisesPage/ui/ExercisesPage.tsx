@@ -18,8 +18,8 @@ const ExercisesPage = () => {
     // Отправка запроса на сервер
     // для получения упражнений
     useEffect(() => {
-        const equipmentId = searchParams.get('equipmentId') || undefined;
-        const primaryMuscleId = searchParams.get('primaryMuscleId') || undefined;
+        const equipmentId = searchParams.get('equipmentId');
+        const primaryMuscleId = searchParams.get('primaryMuscles');
         dispatch(fetchExerciseCards({ equipmentId, primaryMuscles: primaryMuscleId }));
     }, [dispatch]);
 

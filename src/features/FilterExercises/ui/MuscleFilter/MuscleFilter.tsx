@@ -1,27 +1,24 @@
 import { useTranslation } from 'react-i18next';
-import { Suspense, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSearchParams } from 'react-router';
+import { Suspense } from 'react';
 import cls from './MuscleFilter.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { SidePanelTriggerButton } from '@/shared/ui/SidePanelTriggerButton/SidePanelTriggerButton.tsx';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { useOpen } from '@/shared/lib/useOpen/useOpen.tsx';
 import { MuscleFilterContentAsync } from './MuscleFilterContent/MuscleFilterContent.async.tsx';
-import { fetchExerciseCards } from '@/entities/Exercise';
 
-export const MuscleFilter = () => {
+interface MuscleFilterProps {
+    primaryMuscleId: string | undefined;
+    setPrimaryMuscleId: (value: string) => void;
+    onApplyFilters: () => void
+}
+
+export const MuscleFilter = ({ primaryMuscleId, setPrimaryMuscleId, onApplyFilters } : MuscleFilterProps) => {
     const { t } = useTranslation();
-    const [primaryMuscleId, setPrimaryMuscleId] = useState<string | undefined>(undefined);
     const [isOpen, openHandler] = useOpen();
-    const dispatch = useDispatch();
-    const [_, setSearchParams] = useSearchParams();
 
-    const onApply = () => {
-        if (primaryMuscleId) {
-            setSearchParams({ primaryMuscleId });
-            dispatch(fetchExerciseCards({ primaryMuscles: primaryMuscleId }));
-        }
+    const onApplyFilter = () => {
+        onApplyFilters();
         openHandler();
     };
 
@@ -33,7 +30,7 @@ export const MuscleFilter = () => {
         <SidePanelTriggerButton
             footerContent={(
                 <Button
-                    onClick={onApply}
+                    onClick={onApplyFilter}
                     type="button"
                     className={cls.applyButton}
                 >
