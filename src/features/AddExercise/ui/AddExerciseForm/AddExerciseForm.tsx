@@ -1,8 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    type ChangeEvent, type MouseEvent, useEffect, useState,
-} from 'react';
+import { type MouseEvent, useEffect, useState } from 'react';
 import { Input } from '@/shared/ui/Input/Input.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import cls from './AddExerciseForm.module.scss';
@@ -15,12 +13,12 @@ import { createUserExercise } from '../../model/services/createExercise/createUs
 import { fetchProgressionTypes, getExerciseProgressionTypes } from '@/entities/ExerciseProgression';
 import { Select } from '@/shared/ui/Select/Select.tsx';
 import { getProgressionType } from '../../model/selectors/getProgressionType/getProgressionType.ts';
-// import Tick from '@/shared/assets/icons/tick.svg?react';
-import Image from '@/shared/assets/icons/image.svg?react';
 import { getPrimaryMuscleId } from '../../model/selectors/getPrimaryMuscleId/getPrimaryMuscleId.ts';
 import { getEquipmentId } from '../../model/selectors/getEquipmentId/getEquipmentId.ts';
 import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 import { getErrors } from '../../model/selectors/getErrors/getErrors.ts';
+import { getIsLoading } from '@/features/AddExercise/model/selectors/getIsLoading/getIsLoading.ts';
+import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 
 interface AddExerciseFormProps {
     closeHandler?: () => void
@@ -30,11 +28,17 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const exerciseName = useSelector(getExerciseName);
+
+    const isLoading = useSelector(getIsLoading);
+
     const exerciseProgressionTypes = useSelector(getExerciseProgressionTypes);
     const selectedProgressionType = useSelector(getProgressionType);
+
     const selectedPrimaryMuscleId = useSelector(getPrimaryMuscleId);
     const selectedEquipmentId = useSelector(getEquipmentId);
+
     const errors = useSelector(getErrors);
+
     const [image, setImage] = useState<File | undefined>(undefined);
 
     useEffect(() => {
@@ -57,10 +61,8 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
         dispatch(addExerciseActions.setPrimaryMuscleId(Number(value)));
     };
 
-    const onChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event?.target?.files) {
-            setImage(event?.target?.files[0]);
-        }
+    const onChangeImage = (file: File | undefined) => {
+        setImage(file);
     };
 
     const createHandler = (e: MouseEvent<HTMLButtonElement>) => {
@@ -85,12 +87,12 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
             hasErrors = true;
         }
 
-        if (selectedPrimaryMuscleId === undefined) {
+        if (!selectedPrimaryMuscleId) {
             errors.selectedPrimaryMuscleId.push('Выбор обязателен');
             hasErrors = true;
         }
 
-        if (selectedEquipmentId === undefined) {
+        if (!selectedEquipmentId) {
             errors.selectedEquipmentId.push('Выбор обязателен');
             hasErrors = true;
         }
@@ -133,15 +135,12 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
                 <label htmlFor="equipmentSelector" className="form-label">{t('Оборудование')}</label>
                 <div className={cls.selectorGrid} id="equipmentSelector">
-                    <EquipmentCardList onChange={onChangEquipment} />
+                    <EquipmentCardList
+                        onChange={onChangEquipment}
+                        selectedEquipment={selectedEquipmentId?.toString()}
+                    />
                 </div>
                 <ErrorMessage messages={errors?.selectedEquipmentId} />
-                {/* <div className={cls.selectedPreview} id="equipmentPreview"> */}
-                {/*    <Tick className={cls.selectedPreviewSvg} /> */}
-                {/*    <span id="equipmentPreviewText" className={cls.selectedPreviewText}> */}
-                {/*        Выбранное оборудование */}
-                {/*    </span> */}
-                {/* </div> */}
             </div>
 
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
@@ -150,27 +149,15 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
                 </label>
                 <div className={cls.selectorGrid} id="muscleSelector">
                     <PrimaryMuscleCardList
+                        selectedMuscle={selectedPrimaryMuscleId?.toString()}
                         onChange={onChangePrimaryMuscle}
                     />
                 </div>
                 <ErrorMessage messages={errors?.selectedPrimaryMuscleId} />
-                {/* <div className={cls.selectedPreview} id="musclePreview"> */}
-                {/*    <Tick className={cls.selectedPreviewSvg} /> */}
-                {/*    <span id="musclePreviewText" className={cls.selectedPreviewText}> */}
-                {/*        Выбранная мышца */}
-                {/*    </span> */}
-                {/* </div> */}
             </div>
 
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label htmlFor="imageInput" className="form-label">{t('Изображение')}</label>
-                <div className="image-upload" id="imageUpload">
-                    <Image />
-                    <div className="image-upload-text">
-                        <span>{t('Нажмите для загрузки')}</span>
-                    </div>
-                    <input onChange={onChangeImage} type="file" id="imageInput" accept="image/*" />
-                </div>
+                <FileInput onChangeImage={onChangeImage} value={image} />
             </div>
 
             <div className={classNames(cls.groupGap, {}, ['form-group'])}>
@@ -188,6 +175,7 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
             </div>
 
             <Button
+                disabled={isLoading}
                 type="submit"
                 onClick={createHandler}
                 className={cls.addButton}
