@@ -1,4 +1,3 @@
-import { type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import cls from './ProgramsList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
@@ -11,6 +10,7 @@ interface ProgramsListProps {
     isMyProgramPage: boolean;
     programList: Program[] | null;
     isLoading: boolean;
+    subText: string;
 }
 
 export const ProgramsList = (props: ProgramsListProps) => {
@@ -19,9 +19,9 @@ export const ProgramsList = (props: ProgramsListProps) => {
         isMyProgramPage,
         programList,
         isLoading,
+        subText,
     } = props;
     const { t } = useTranslation();
-    let programCards: ReactNode[] | undefined;
 
     // Если карточки грузятся
     // показываем лоадер
@@ -29,43 +29,34 @@ export const ProgramsList = (props: ProgramsListProps) => {
         return <PageLoader />;
     }
 
-    // Если показываем список на
-    // странице "Мои упражнения"
-    if (isMyProgramPage) {
-        if (programList && programList?.length <= 0) {
-            return (<CenterText text={t('Упсс...')} subText={t('У вас нет программ')} />);
-        }
-
-        programCards = programList?.map((program) => (
-            <ProgramCard
-                programName={program.name}
-                className={cls.program}
-                description={program.description}
-                key={program.id}
-                id={program.id}
-                goal={program.goal}
-                imageUrl={program.imageUrl}
-                deleteCreator
-                difficulty={program.difficulty}
-                daysAmount={program.daysAmount}
+    if (programList && programList?.length <= 0) {
+        return (
+            <CenterText
+                className={cls.centerText}
+                text={t('Упсс...')}
+                subText={subText}
             />
-        ));
-    } else {
-        programCards = programList?.map((program) => (
-            <ProgramCard
-                programName={program.name}
-                className={cls.program}
-                description={program.description}
-                key={program.id}
-                id={program.id}
-                imageUrl={program.imageUrl}
-                userName={program.user.nickname}
-                goal={program.goal}
-                difficulty={program.difficulty}
-                daysAmount={program.daysAmount}
-            />
-        ));
+        );
     }
+
+    const programCards = programList?.map((program) => (
+        <ProgramCard
+            programName={program.name}
+            className={cls.program}
+            description={program.description}
+            key={program.id}
+            id={program.id}
+            goal={program.goal.name}
+            goalEng={program.goal.nameEng}
+            imageUrl={program.imageUrl}
+            deleteCreator={isMyProgramPage}
+            difficulty={program.difficulty.name}
+            difficultyEng={program.difficulty.nameEng}
+            daysAmount={program.daysAmount}
+            followersCount={program.followersCount}
+            userName={program?.user?.nickname}
+        />
+    ));
 
     // Возвращаем разметку
     return (

@@ -43,11 +43,15 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
     return (
         <div onClick={clickHandler} className={classNames(cls.ExerciseCard, {}, ['card'])}>
             <div className={cls.imageWrapper}>
-                <img
-                    className={cls.image}
-                    src={imageUrl}
-                    alt={t('Изображение упражнения')}
-                />
+                {imageUrl
+                    ? (
+                        <img
+                            className={cls.image}
+                            src={imageUrl || ''}
+                            alt={t('Изображение упражнения')}
+                        />
+                    )
+                    : <div className={cls.image} />}
             </div>
             <div className="card-body">
                 <h4 className={classNames(cls.cardTitle, {}, ['card-title'])}>{name}</h4>

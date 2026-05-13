@@ -32,6 +32,8 @@ export const enTranslation = {
         Звезд: 'Stars',
         'О программе': 'About program',
         Рекомендации: 'Recomendations',
+        'Программы не найдены': 'Programs are not found',
+        'У вас нет избранных программ': 'You dont have favourite programs',
         'О себе': 'About me',
         'Перед тренировкой обязательна разминка': 'Warm up before a training is a must',
         'Соблюдайте правильную технику выполнения': 'Make sure your technique is right',

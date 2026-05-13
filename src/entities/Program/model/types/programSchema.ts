@@ -10,9 +10,16 @@ export type ProgramCard = {
         id: number
         nickname: string
     }
-    goal: string
-    difficulty: string
+    goal: {
+        name: string
+        nameEng: string
+    }
+    difficulty: {
+        name: string
+        nameEng: string
+    }
     daysAmount: number | undefined
+    followersCount: number | undefined
 }
 
 export type ExerciseDay = {

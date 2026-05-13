@@ -33,9 +33,9 @@ export const FileInput = ({ onChangeImage, value }: FileInputProps) => {
 
     let imageSrc = '';
 
-    if (typeof value === 'string') {
+    if (typeof value === 'string' && value) {
         imageSrc = value;
-    } else if (typeof value === 'object') {
+    } else if (typeof value === 'object' && value) {
         imageSrc = URL.createObjectURL(value);
     }
 

@@ -36,6 +36,7 @@ const ProgramsPage = ({ className } : ProgramsPageProps) => {
             </div>
             <ProgramsControl />
             <ProgramsList
+                subText={t('Программы не найдены')}
                 isLoading={isLoading}
                 programList={programList}
                 isMyProgramPage={false}

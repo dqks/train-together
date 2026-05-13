@@ -11,13 +11,16 @@ interface ProgramCardProps {
     id: number | undefined;
     className?: string;
     programName: string | undefined
-    userName?: string;
+    userName: string;
     description: string | undefined;
     imageUrl: string | undefined;
     deleteCreator?: boolean;
     goal: string | undefined;
+    goalEng: string | undefined;
     difficulty: string | undefined;
+    difficultyEng: string | undefined;
     daysAmount: number | undefined;
+    followersCount: number | undefined;
 }
 
 export const ProgramCard = (props : ProgramCardProps) => {
@@ -32,8 +35,11 @@ export const ProgramCard = (props : ProgramCardProps) => {
         goal,
         difficulty,
         daysAmount,
+        followersCount,
+        goalEng,
+        difficultyEng,
     } = props;
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -54,10 +60,13 @@ export const ProgramCard = (props : ProgramCardProps) => {
             <div className="card-body" onClick={clickHandler}>
                 <div className={cls.meta}>
                     {/* <Badge type={BadgeType.POPULAR} text="🔥 Популярное" /> */}
-                    <Badge type={BadgeType.DEFAULT} text={difficulty} />
+                    <Badge
+                        type={BadgeType.DEFAULT}
+                        text={i18n.language === 'en' ? difficultyEng : difficulty}
+                    />
                     <div className="rating-small">
                         <Star />
-                        <span>4.8</span>
+                        <span>{followersCount}</span>
                     </div>
                 </div>
                 <h4 className={classNames(cls.cardTitle, {}, ['card-title'])}>
@@ -72,7 +81,7 @@ export const ProgramCard = (props : ProgramCardProps) => {
                 <p className="card-text">
                     {description}
                 </p>
-                <div className={cls.category}>{goal}</div>
+                <div className={cls.category}>{i18n.language === 'en' ? goalEng : goal}</div>
                 <div className={cls.stats}>
                     <span className={cls.stat}>
                         <Shelf />

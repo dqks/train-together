@@ -22,7 +22,6 @@ export const Badge = (props : BadgeProps) => {
         <span
             className={classNames(cls.badge, {}, [className, cls[type]])}
         >
-
             {text}
         </span>
     );

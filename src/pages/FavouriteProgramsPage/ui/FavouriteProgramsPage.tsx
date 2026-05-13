@@ -32,6 +32,7 @@ const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
                 </p>
             </div>
             <ProgramsList
+                subText={t('У вас нет избранных программ')}
                 isLoading={isLoading}
                 isMyProgramPage={false}
                 programList={favouritePrograms}

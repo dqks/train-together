@@ -32,6 +32,7 @@ const MyProgramsPage = () => {
             </div>
             <SearchInput placeholder={t('Поиск по названию...')} />
             <ProgramsList
+                subText={t('У вас нет программ')}
                 isLoading={isLoading}
                 programList={programList}
                 isMyProgramPage

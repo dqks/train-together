@@ -7,6 +7,7 @@ import { fetchMyExercises } from '@/entities/Exercise/model/services/fecthMyExer
 import { getMyExercises } from '@/entities/Exercise/model/selectors/getMyExercises/getMyExercises.ts';
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
+import cls from '@/widgets/ProgramsList/ui/ProgramsList.module.scss';
 
 export const MyExerciseCardList = () => {
     const { t } = useTranslation();
@@ -19,7 +20,13 @@ export const MyExerciseCardList = () => {
     }, [dispatch]);
 
     if (myExercises && myExercises.length <= 0) {
-        return <CenterText text={t('Упсс...')} subText={t('У вас нет упражнений')} />;
+        return (
+            <CenterText
+                className={cls.centerText}
+                text={t('Упсс...')}
+                subText={t('У вас нет упражнений')}
+            />
+        );
     }
 
     if (isLoading) {

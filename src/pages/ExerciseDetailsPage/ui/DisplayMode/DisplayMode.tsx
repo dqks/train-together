@@ -8,7 +8,6 @@ import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { DeleteExerciseButton } from '@/features/DeleteExercise';
 import LeftArrow from '@/shared/assets/icons/leftArrow.svg?react';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import Picture from '../../../../shared/assets/icons/picture.svg?react';
 import type { ExerciseDetails } from '@/entities/Exercise';
 import { Advices } from './Advices/Advices';
 import { Technique } from './Technique/Technique.tsx';
@@ -45,15 +44,12 @@ export const DisplayMode = (props : DisplayModeProps) => {
                 <div className={cls.exerciseHero}>
                     {
                         exerciseDetails?.image
-                            ? (
+                            && (
                                 <img
                                     alt={t('Изображение упражнения')}
                                     src={exerciseDetails.image}
                                     className={cls.exercisePicture}
                                 />
-                            )
-                            : (
-                                <Picture className={cls.exercisePicture} />
                             )
                     }
                 </div>
