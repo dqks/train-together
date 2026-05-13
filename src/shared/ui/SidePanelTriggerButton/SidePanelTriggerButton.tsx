@@ -1,38 +1,43 @@
 import type { ReactNode } from 'react';
-import { Button } from '@/shared/ui/Button/Button.tsx';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { SidePanel } from '@/shared/ui/SidePanel/SidePanel.tsx';
 
 interface SidePanelTriggerButtonProps {
     className?: string;
-    sidePageChildren: ReactNode;
+    children: ReactNode;
     buttonChildren: ReactNode;
     isOpen: boolean;
     openHandler: () => void;
-    contentClassName?: string;
+    headerTitle: string
+    themeButton?: ThemeButton
+    footerContent: ReactNode
 }
 
 export const SidePanelTriggerButton = (props : SidePanelTriggerButtonProps) => {
     const {
         className,
-        sidePageChildren,
+        children,
         buttonChildren,
-        contentClassName,
         openHandler,
         isOpen,
+        themeButton,
+        headerTitle,
+        footerContent,
     } = props;
 
     return (
         <div className={className}>
-            <Button type="button" onClick={openHandler}>
+            <Button theme={themeButton} type="button" onClick={openHandler}>
                 { buttonChildren }
             </Button>
             <SidePanel
+                footer={footerContent}
+                headerTitle={headerTitle}
                 onOutsideClick={openHandler}
                 isOpen={isOpen}
-                contentClassName={contentClassName}
             >
                 {
-                    sidePageChildren
+                    children
                 }
             </SidePanel>
         </div>

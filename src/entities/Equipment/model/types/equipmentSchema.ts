@@ -1,6 +1,7 @@
 export type Equipment = {
     id: number;
     name: string;
+    nameEng: string;
 }
 
 export interface EquipmentSchema {

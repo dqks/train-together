@@ -9,18 +9,22 @@
     color: red;
 }
 
-.tinySize {
-    font-size: var(--font-size-tiny);
+.xsSize {
+    font-size: var(--font-size-xs);
 }
 
 .smallSize {
     font-size: var(--font-size-sm);
 }
 
-.largeSize {
+.baseSize {
+    font-size: var(--font-size-base);
+}
+
+.lgSize {
     font-size: var(--font-size-lg);
 }
 
-.giantSize {
-    font-size: var(--font-size-giant);
+.xlSize {
+    font-size: var(--font-size-xl);
 }

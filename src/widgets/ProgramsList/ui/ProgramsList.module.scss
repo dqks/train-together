@@ -1,12 +1,11 @@
 .ProgramsList {
-    margin: 30px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    margin: var(--spacing-xl) 0;
 }
 
 .program {
-    max-width: 1000px;
     width: 100%;
+}
+
+.centerText {
+    padding: 50px 0;
 }

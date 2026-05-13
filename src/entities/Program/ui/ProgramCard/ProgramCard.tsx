@@ -2,35 +2,44 @@ import { useLocation, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import cls from './ProgramCard.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import Picture from '../../../../shared/assets/icons/picture.svg?react';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
-import { serverUrl } from '@/shared/const/serverUrl.ts';
+import { Badge, BadgeType } from '@/shared/ui/Badge/Badge.tsx';
+import Star from '@/shared/assets/icons/star.svg?react';
+import Shelf from '@/shared/assets/icons/shelf.svg?react';
 
 interface ProgramCardProps {
     id: number | undefined;
     className?: string;
     programName: string | undefined
-    userName?: string;
+    userName: string;
     description: string | undefined;
     imageUrl: string | undefined;
     deleteCreator?: boolean;
-    showRating?: boolean;
-    // hasClickHandler?: boolean;
+    goal: string | undefined;
+    goalEng: string | undefined;
+    difficulty: string | undefined;
+    difficultyEng: string | undefined;
+    daysAmount: number | undefined;
+    followersCount: number | undefined;
 }
 
 export const ProgramCard = (props : ProgramCardProps) => {
     const {
         className,
         deleteCreator = false,
-        showRating,
         programName,
         userName,
         description,
         id,
         imageUrl,
-        // hasClickHandler = true,
+        goal,
+        difficulty,
+        daysAmount,
+        followersCount,
+        goalEng,
+        difficultyEng,
     } = props;
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -40,36 +49,53 @@ export const ProgramCard = (props : ProgramCardProps) => {
 
     return (
         <div
-            onClick={clickHandler}
-            className={classNames(cls.ProgramCard, {}, [className])}
+            className={classNames(cls.previewCard, {}, ['card', className])}
         >
-            {
-                imageUrl
-                    ? <img className={cls.picture} src={serverUrl + imageUrl} alt="Изображение программы" />
-                    : <Picture className={cls.picture} />
-            }
-            <div className={cls.infoWrapper}>
-                {
-                    showRating
-                        ? (
-                            <div className={cls.titleWrapper}>
-                                <h3>{programName}</h3>
-                                <span>5 &#9733;</span>
-                            </div>
-                        )
-                        : (
-                            <h3>{programName}</h3>
-                        )
-                }
-                <hr className={cls.hr} />
-                <p
-                    className={classNames('', { [cls.deleteCreator]: deleteCreator }, [])}
-                >
-                    {t('От')}
-                    {' '}
-                    {userName}
+            <img
+                src={imageUrl}
+                alt={t('Программа')}
+                className={classNames(cls.image, {}, ['card-image'])}
+            />
+
+            <div className="card-body" onClick={clickHandler}>
+                <div className={cls.meta}>
+                    {/* <Badge type={BadgeType.POPULAR} text="🔥 Популярное" /> */}
+                    <Badge
+                        type={BadgeType.DEFAULT}
+                        text={i18n.language === 'en' ? difficultyEng : difficulty}
+                    />
+                    <div className="rating-small">
+                        <Star />
+                        <span>{followersCount}</span>
+                    </div>
+                </div>
+                <h4 className={classNames(cls.cardTitle, {}, ['card-title'])}>
+                    {programName}
+                </h4>
+                {!deleteCreator && (
+                    <p className="card-subtitle">
+                        {t('Автор: ')}
+                        {userName}
+                    </p>
+                )}
+                <p className="card-text">
+                    {description}
                 </p>
-                <p>{description}</p>
+                <div className={cls.category}>{i18n.language === 'en' ? goalEng : goal}</div>
+                <div className={cls.stats}>
+                    <span className={cls.stat}>
+                        <Shelf />
+                        {daysAmount}
+                        {' '}
+                        {t('дня')}
+                    </span>
+                </div>
+                {/* <Button */}
+                {/*    className={cls.subscribeButton} */}
+                {/*    type="button" */}
+                {/* > */}
+                {/*    {t('Подписаться')} */}
+                {/* </Button> */}
             </div>
         </div>
     );

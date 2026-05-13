@@ -1,0 +1,36 @@
+.ExpandedItem {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.ExpandedItem:hover {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+}
+
+.ExpandedItem svg,
+.ExpandedItemActive svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentcolor;
+}
+
+.ExpandedItemActive {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-hover);
+}

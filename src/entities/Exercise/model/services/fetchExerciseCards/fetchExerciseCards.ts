@@ -6,22 +6,44 @@ type ResponseType = {
     data: ExerciseInformation[]
 }
 
-export const fetchExerciseCards = createAsyncThunk<ExerciseInformation[], void, ThunkConfig<ExerciseError>>(
-    'exercise/fetchExerciseCards',
-    async (_, thunkAPI) => {
-        const { extra, rejectWithValue } = thunkAPI;
+export type Filters = {
+    equipmentId?: string | null
+    primaryMuscles?: string | null
+}
 
-        try {
-            const response = await extra.api
-                .get<ResponseType>('/exercises');
+export const fetchExerciseCards = createAsyncThunk<
+    ExerciseInformation[],
+    Filters | undefined,
+    ThunkConfig<ExerciseError>>(
+        'exercise/fetchExerciseCards',
+        async (filters, thunkAPI) => {
+            const { extra, rejectWithValue } = thunkAPI;
 
-            if (!response.data) {
-                throw new Error('Error occurred');
+            try {
+                const params = [];
+
+                if (filters?.equipmentId) {
+                    params.push(`equipmentId=${filters.equipmentId}`);
+                }
+
+                if (filters?.primaryMuscles) {
+                    params.push(`primaryMuscles=${filters.primaryMuscles}`);
+                }
+
+                const response = await extra.api
+                    .get<ResponseType>(
+                        params.length > 0
+                            ? `/exercises?${params.join('&')}`
+                            : '/exercises',
+                    );
+
+                if (!response.data) {
+                    throw new Error('Error occurred');
+                }
+
+                return response.data.data;
+            } catch (e: any) {
+                return rejectWithValue(e.response.data.messages);
             }
-
-            return response.data.data;
-        } catch (e: any) {
-            return rejectWithValue(e.response.data.messages);
-        }
-    },
-);
+        },
+    );

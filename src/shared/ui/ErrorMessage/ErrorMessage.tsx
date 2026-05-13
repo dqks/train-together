@@ -3,10 +3,11 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ErrorMessage.module.scss';
 
 export enum TextSize {
-    TINY = 'tinySize',
+    TINY = 'xsSize',
     SMALL = 'smallSize',
-    LARGE = 'largeSize',
-    GIANT = 'giantSize',
+    BASE = 'baseSize',
+    LARGE = 'lgSize',
+    XL = 'xlSize',
 }
 
 interface ErrorMessageProps {

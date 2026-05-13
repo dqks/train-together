@@ -3,11 +3,6 @@ import type { ReactNode } from 'react';
 import cls from './AppLink.module.scss';
 import { classNames } from '../../lib/classNames/classNames.ts';
 
-export enum AppLinkTheme {
-    PRIMARY = 'primary',
-    SECONDARY = 'secondary',
-}
-
 export enum LinkColor {
     BLACK = 'black',
     WHITE = 'white',
@@ -16,7 +11,6 @@ export enum LinkColor {
 interface AppLinkProps extends LinkProps {
     className?: string;
     children: ReactNode;
-    theme?: AppLinkTheme;
     linkColor?: LinkColor
     deleteUnderLine?: boolean
 }
@@ -26,7 +20,6 @@ export const AppLink = (props: AppLinkProps) => {
         to,
         className,
         children,
-        theme = AppLinkTheme.PRIMARY,
         linkColor = LinkColor.WHITE,
         deleteUnderLine = false,
         ...other
@@ -37,7 +30,7 @@ export const AppLink = (props: AppLinkProps) => {
             className={classNames(
                 cls.AppLink,
                 { [cls.underLined]: deleteUnderLine },
-                [className, cls[theme], cls[linkColor]],
+                [className, cls[linkColor]],
             )}
             {...other}
         >

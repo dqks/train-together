@@ -1,27 +1,69 @@
-@import "@styles/mixins/_adaptive";
+.LoginForm {
+    width: 100%;
+    max-width: 600px;
+    align-self: center;
+    margin: auto 0;
+}
 
-.RegisterForm {
+.logo {
+    display: block;
+    text-align: center;
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-xl);
+}
+
+.authCard {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.authTitle {
+    font-size: var(--font-size-2xl);
+    text-align: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+.authSubtitle {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-xl);
+}
+
+.inputDescription {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.authForm {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-
-    @include sm {
-        font-size: var(--font-size-tiny);
-    }
+    gap: var(--spacing-lg);
 }
 
-.accountExists {
-    float: right;
-    align-self: flex-end;
+.auth-form .btn {
+    width: 100%;
 }
 
-.login {
-    color: var(--primary-text-color);
+.authFooterText {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-lg);
 }
 
-.inputWrapper {
-    display: flex;
-    flex-direction: column;
+.authFooterText a {
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+.authFooterText a:hover {
+    text-decoration: underline;
 }
 
 .checkboxWrapper {
@@ -31,7 +73,9 @@
     gap: 10px;
 }
 
-.inputDescription {
-    font-size: var(--font-size-tiny);
-    line-height: 16px;
+/* Responsive */
+@media (max-width: 480px) {
+    .authCard {
+        padding: var(--spacing-xl);
+    }
 }

@@ -1,0 +1,21 @@
+.Tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+}
+
+.primary {
+    background: var(--color-accent);
+    color: white;
+    font-weight: 600;
+}
+
+.primary::before {
+    content: "★ ";
+    font-size: 10px;
+}

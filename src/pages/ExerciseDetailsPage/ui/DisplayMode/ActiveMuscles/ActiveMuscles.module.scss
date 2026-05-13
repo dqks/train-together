@@ -1,0 +1,36 @@
+.exerciseSection {
+    margin-bottom: var(--spacing-xl);
+}
+
+.sectionTitle {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-primary);
+}
+
+.muscleList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.muscleItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.muscleItem::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-text-muted);
+}
+
+.primary::before {
+    background: var(--color-accent);
+}

@@ -30,6 +30,7 @@ export const Input = (props: InputProps) => {
         <input
             className={classNames(cls.Input, {}, [className])}
             onChange={onChangeHandler}
+            value={value}
             {...otherProps}
         />
     );

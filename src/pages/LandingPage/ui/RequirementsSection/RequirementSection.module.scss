@@ -1,0 +1,17 @@
+.requirementsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+    .requirementsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .requirementsGrid {
+        grid-template-columns: 1fr;
+    }
+}

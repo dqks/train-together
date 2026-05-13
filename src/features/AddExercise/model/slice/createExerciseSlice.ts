@@ -1,13 +1,13 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { AddExerciseSchema } from '../types/addExerciseSchema.ts';
+import type { AddExerciseSchema, errorObject } from '../types/addExerciseSchema.ts';
 import { createUserExercise } from '../services/createExercise/createUserExercise.ts';
 
 const initialState: AddExerciseSchema = {
     exerciseName: '',
-    progressionType: 'null',
-    equipments: [],
-    muscles: [],
-    error: '',
+    progressionType: 'default',
+    equipmentId: undefined,
+    primaryMuscleId: undefined,
+    error: undefined,
     isLoading: false,
 };
 
@@ -21,6 +21,15 @@ export const createExerciseSlice = createSlice({
         setProgressionType: (state, action: PayloadAction<string>) => {
             state.progressionType = action.payload;
         },
+        setEquipmentId: (state, action: PayloadAction<number>) => {
+            state.equipmentId = action.payload;
+        },
+        setPrimaryMuscleId: (state, action: PayloadAction<number>) => {
+            state.primaryMuscleId = action.payload;
+        },
+        setErrors: (state, action: PayloadAction<errorObject>) => {
+            state.error = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -32,8 +41,8 @@ export const createExerciseSlice = createSlice({
                 state.error = undefined;
                 state.isLoading = false;
             })
-            .addCase(createUserExercise.rejected, (state) => {
-                state.error = 'Error occurred';
+            .addCase(createUserExercise.rejected, (state, action) => {
+                state.error = action.payload;
                 state.isLoading = false;
             });
     },

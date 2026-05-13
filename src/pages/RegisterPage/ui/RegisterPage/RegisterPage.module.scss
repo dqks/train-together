@@ -1,47 +1,6 @@
-@import "@styles/mixins/_adaptive";
-
 .RegisterPage {
+    min-height: 100vh;
     display: flex;
-
-    @include sm {
-        flex-direction: column;
-    }
-
-    @include md {
-        flex-direction: column;
-    }
-
-    @include lg {
-        flex-direction: column;
-    }
-}
-
-.form {
-    margin: 0 auto;
-    justify-content: center;
-    width: 30vw;
-
-    @include xxl {
-        width: 40vw;
-    }
-
-    @include xl {
-        width: 40vw;
-        margin: 50px auto;
-    }
-
-    @include lg {
-        width: 50vw;
-        margin: 50px auto;
-    }
-
-    @include md {
-        width: 80vw;
-        margin: 50px auto;
-    }
-
-    @include sm {
-        width: 80vw;
-        margin: 50px auto;
-    }
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg) 100%);
 }

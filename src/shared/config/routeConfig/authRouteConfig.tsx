@@ -22,7 +22,7 @@ export enum AuthAppRoutes {
 
 export const AuthRoutePath: Record<AuthAppRoutes, string> = {
     [AuthAppRoutes.MY_PROFILE]: '/app/profile',
-    [AuthAppRoutes.PROFILE]: '/app/profile/:userId?',
+    [AuthAppRoutes.PROFILE]: '/app/profile/', // + id
     [AuthAppRoutes.EXERCISES]: '/app/exercises',
     [AuthAppRoutes.EXERCISE_DETAILS]: '/app/exercises/', // + id
     [AuthAppRoutes.PROGRAMS]: '/app/programs',
@@ -38,7 +38,7 @@ export const authRouteConfig: Record<AuthAppRoutes, RouteProps> = {
         element: <ProfilePage />,
     },
     [AuthAppRoutes.PROFILE]: {
-        path: AuthRoutePath.profile,
+        path: `${AuthRoutePath.profile}:id`,
         element: <ProfilePage />,
     },
     [AuthAppRoutes.EXERCISES]: {

@@ -3,12 +3,16 @@ import type { UserSchema } from '../types/userSchema';
 import { USER_LOCAL_STORAGE_KEY } from '@/shared/const/userKey.ts';
 import { me } from '@/entities/User/model/services/me/me.ts';
 import { logout } from '../services/logout/logout';
+import { fetchProfileInfo } from '@/entities/User/model/services/fetchProfileInfo/fetchProfileInfo.ts';
 
 const initialState: UserSchema = {
-    id: null,
-    nickname: null,
-    email: null,
+    id: undefined,
+    nickname: undefined,
+    email: undefined,
+    profileInfo: undefined,
     _inited: false,
+    error: undefined,
+    isLoading: false,
 };
 
 export const userSlice = createSlice({
@@ -17,20 +21,20 @@ export const userSlice = createSlice({
     reducers: {
         setId: (
             state,
-            action: PayloadAction<number | null>,
+            action: PayloadAction<number | undefined>,
         ) => {
             state.id = action.payload;
         },
         setNickname: (
             state,
-            action: PayloadAction<string | null>,
+            action: PayloadAction<string | undefined>,
         ) => {
             state.nickname = action.payload;
         },
         logout: (state) => {
             localStorage.removeItem(USER_LOCAL_STORAGE_KEY);
-            state.id = null;
-            state.nickname = null;
+            state.id = undefined;
+            state.nickname = undefined;
         },
     },
     extraReducers: (builder) => {
@@ -45,8 +49,19 @@ export const userSlice = createSlice({
             state._inited = true;
         });
         builder.addCase(logout.fulfilled, (state) => {
-            state.id = null;
-            state.nickname = null;
+            state.id = undefined;
+            state.nickname = undefined;
+        });
+        builder.addCase(fetchProfileInfo.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(fetchProfileInfo.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.profileInfo = action.payload;
+        });
+        builder.addCase(fetchProfileInfo.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
         });
     },
 });

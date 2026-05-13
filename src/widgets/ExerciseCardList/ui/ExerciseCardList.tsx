@@ -1,48 +1,42 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import cls from './ExerciseCardList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import { ExerciseCard, getExerciseCards, getExerciseIsLoading } from '@/entities/Exercise';
-import { fetchExerciseCards } from '@/entities/Exercise/model/services/fetchExerciseCards/fetchExerciseCards.ts';
-import { Loader } from '@/shared/ui/Loader/Loader.tsx';
+import { ExerciseCard } from '@/entities/Exercise';
 import type { ExerciseInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 
 interface ExerciseCardListProps {
-    className?: string;
+    exerciseCards: ExerciseInformation[] | undefined;
+    isLoading: boolean;
 }
 
-export const ExerciseCardList = ({ className } : ExerciseCardListProps) => {
-    const dispatch = useDispatch();
-    const exerciseCards = useSelector(getExerciseCards);
-    const isLoading = useSelector(getExerciseIsLoading);
+export const ExerciseCardList = (props: ExerciseCardListProps) => {
+    const { isLoading, exerciseCards } = props;
 
-    useEffect(() => {
-        dispatch(fetchExerciseCards());
-    }, [dispatch]);
-
+    // Создание карточек
     const cards = exerciseCards
         ?.map(
             (card: ExerciseInformation) => (
                 <ExerciseCard
+                    imageUrl={card.image}
                     key={card.id}
                     name={card.name}
-                    muscles={card.muscles}
+                    secondaryMuscles={card.secondaryMuscles}
+                    primaryMuscle={card.primaryMuscle}
                     exerciseId={card.id}
                 />
             ),
         );
 
+    // Если идет загрузка
+    // то показываем лоадер
+    if (isLoading) {
+        return <PageLoader />;
+    }
+
+    // Возвращаем разметку
     return (
-        <div className={classNames(cls.ExerciseCardList, {}, [className])}>
-            {
-                !isLoading
-                    ? (
-                        <>
-                            {cards}
-                        </>
-                    )
-                    : (<Loader />)
-            }
+        <div className={classNames(cls.ExerciseCardList, {}, ['grid grid-3 mt-lg'])}>
+            {cards}
         </div>
     );
 };

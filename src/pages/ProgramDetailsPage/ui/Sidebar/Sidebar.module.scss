@@ -1,0 +1,172 @@
+.Sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    position: sticky;
+    top: var(--spacing-xl);
+}
+
+.subscribeCard {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.subscribeHeader {
+    margin-bottom: var(--spacing-lg);
+}
+
+.ratingDisplay {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    justify-content: center;
+}
+
+.yellowStar {
+    fill: #ffc107;
+    stroke: #ffc107;
+}
+
+.ratingValue {
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+}
+
+.subscribeNote {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.authorCard {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.authorCardTitle {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.authorCardContent {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.authorCardAvatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.authorCardInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.authorCardName {
+    font-weight: 600;
+}
+
+.authorCardStats {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.buttonBlock {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.tipsCard {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.tipsTitle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.tipsTitleSvg {
+    stroke: var(--color-accent);
+}
+
+.tipsList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.tipsList li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+.tipsList li::before {
+    content: "•";
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+@media (max-width: 1024px) {
+    .Sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .subscribeCard {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .Sidebar {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 400px) {
+    .Sidebar {
+        gap: var(--spacing-md);
+    }
+
+    .authorCardName {
+        font-size: var(--font-size-sm);
+    }
+
+    .tipsTitle {
+        font-size: var(--font-size-sm);
+    }
+
+    .subscribeCard,
+    .authorCard,
+    .tipsCard {
+        padding: var(--spacing-sm);
+        overflow: hidden;
+    }
+
+    .ratingValue {
+        font-size: var(--font-size-base);
+    }
+}

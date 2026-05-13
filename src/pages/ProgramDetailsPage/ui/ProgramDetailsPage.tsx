@@ -1,34 +1,28 @@
 import { useTranslation } from 'react-i18next';
-import { useLocation, useOutletContext, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from './ProgramDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
 import {
-    fetchProgramDetails,
-    getProgramDetails,
-    getProgramIsLoading,
-    ProgramCard,
-    ProgramDay,
-    programsActions,
+    fetchProgramDetails, getProgramDetails, getProgramIsLoading, programsActions,
 } from '@/entities/Program';
-import { SubscribeProgram } from '@/features/SubscribeProgram';
-import { Days } from '@/entities/Program/ui/ProgramDay/ProgramDay.tsx';
-import type { AppContextType } from '@/app/layout/AppLayout/ui/AppLayout.tsx';
 import { getUserId } from '@/entities/User';
-import { DeleteProgramButton } from '@/features/DeleteProgram';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
-import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { getProgramErrors } from '@/entities/Program/model/selectors/getProgramErrors/getProgramErrors.ts';
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
+import { StatsBar } from './StatsBar/StatsBar.tsx';
+import { Hero } from './Hero/Hero.tsx';
+import { Sidebar } from './Sidebar/Sidebar.tsx';
+import { Description } from './Description/Description.tsx';
+import { Days } from './Days/Days.tsx';
 
 interface ProgramDetailsPageProps {
     className?: string;
 }
 
 const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const userId = useSelector(getUserId);
     const programDetails = useSelector(getProgramDetails);
@@ -38,21 +32,6 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
 
     const params = useParams();
     const dispatch = useDispatch();
-    const location = useLocation();
-
-    usePageTitle('Программа', t);
-    const context : AppContextType = useOutletContext();
-
-    useEffect(() => {
-        if (location.state?.from) {
-            context.setBackButton(location.state.from);
-        } else {
-            context.setBackButton(AuthRoutePath.programs);
-        }
-        return () => {
-            context.setBackButton('');
-        };
-    }, [context]);
 
     useEffect(() => {
         dispatch(fetchProgramDetails(Number(params.id)));
@@ -71,29 +50,64 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
         );
     }
 
+    let formattedDate;
+
+    if (programDetails?.createdAt) {
+        const date = new Date(programDetails?.createdAt);
+        if (i18n.language === 'en') {
+            formattedDate = date?.toLocaleDateString('en-EN', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+            });
+        } else {
+            formattedDate = date?.toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+            });
+        }
+    }
+
+    const exerciseCount = programDetails?.days.reduce((acc, day) => acc + day.exercises.length, 0);
+
     return (
         <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
-            {
-                isOwner
-                && (
-                    <DeleteProgramButton
-                        redirectTo={location.state.from || AuthRoutePath.my_programs}
-                        programId={Number(params.id)}
-                    />
-                )
-            }
-            <ProgramCard
-                imageUrl={programDetails?.imageUrl}
-                userName={programDetails?.user.nickname}
-                id={programDetails?.id}
+            <Hero
+                authorImage={programDetails?.user.avatarUrl}
                 programName={programDetails?.name}
-                description={programDetails?.description}
-                className={cls.programCard}
+                authorName={programDetails?.user.nickname}
+                imageUrl={programDetails?.imageUrl}
+                formattedDate={formattedDate}
             />
-            <SubscribeProgram isSubscribed={programDetails?.isFollowed} programId={programDetails?.id} />
-            <ProgramDay day={Days.MONDAY} className={cls.programDay} />
-            <ProgramDay day={Days.WEDNESDAY} className={cls.programDay} />
-            <ProgramDay day={Days.FRIDAY} className={cls.programDay} />
+            <div className={cls.programContainer}>
+                <StatsBar
+                    daysCount={programDetails?.days.length}
+                    exerciseCount={exerciseCount}
+                    difficulty={programDetails?.difficulty}
+                    goal={programDetails?.goal}
+                />
+                <div className={cls.programContentGrid}>
+                    <div className={cls.programMain}>
+                        <Description description={programDetails?.description} />
+                        <section className={cls.programSection}>
+                            <h2 className={cls.sectionTitle}>
+                                {t('Программа тренировок')}
+                            </h2>
+                            <Days days={programDetails?.days} />
+                        </section>
+                    </div>
+                    <Sidebar
+                        authorImage={programDetails?.user.avatarUrl}
+                        authorId={programDetails?.user.id}
+                        followsCount={programDetails?.followsCount}
+                        programsCount={programDetails?.user.programsCount}
+                        authorName={programDetails?.user.nickname}
+                        isSubscribed={programDetails?.isFollowed}
+                        params={params}
+                    />
+                </div>
+            </div>
         </div>
     );
 };

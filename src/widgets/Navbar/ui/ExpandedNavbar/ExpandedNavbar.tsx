@@ -1,23 +1,28 @@
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { memo } from 'react';
+import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ExpandedNavbar.module.scss';
-import { UserCard } from '@/entities/User';
-import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
+import UserSvg from '@/shared/assets/icons/user.svg?react';
+import Barbell from '@/shared/assets/icons/barbell.svg?react';
+import Programs from '@/shared/assets/icons/list.svg?react';
+import FavouritePrograms from '@/shared/assets/icons/star.svg?react';
+import MyPrograms from '@/shared/assets/icons/book.svg?react';
+import MyExercises from '@/shared/assets/icons/filePlus.svg?react';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
-import { CollapseButton } from '../CollapseButton/CollapseButton';
-import { getUserNickname } from '@/entities/User/model/selectors/getUserNickname/getUserNickname.ts';
 import { LangSwitcherButton } from '@/features/LangSwitcher';
 import type { NavbarProps } from '../../types/navbarProps.ts';
+import { ExpandedItem } from '@/widgets/Navbar/ui/ExpandedNavbar/ExpandedItem/ExpandedItem.tsx';
+import { Button } from '@/shared/ui/Button/Button.tsx';
+import { getUserId } from '@/entities/User';
 
 export const ExpandedNavbar = memo(({
     className,
-    openHandler,
+    // openHandler,
     logoutHandler,
 } : NavbarProps) => {
     const { t } = useTranslation();
-    const userNickname = useSelector(getUserNickname);
+    const userId = useSelector(getUserId);
     return (
         <div className={classNames(
             cls.ExpandedNavbar,
@@ -25,54 +30,42 @@ export const ExpandedNavbar = memo(({
             [className],
         )}
         >
-
-            <div className={cls.collapseButtonWrapper}>
-                <CollapseButton
-                    hasTooltip
-                    tooltipText={t('Свернуть боковую панель')}
-                    collapseHandler={openHandler}
-                />
-            </div>
-            <UserCard name={userNickname} />
-            <AppLink
-                deleteUnderLine
+            <p className={cls.sidebarLogo}>TrainTogether</p>
+            <ExpandedItem
+                to={{
+                    pathname: AuthRoutePath.profile + userId,
+                    search: '?tab=overview',
+                }}
+                title={t('Профиль')}
+                icon={<UserSvg />}
+            />
+            <ExpandedItem
                 to={AuthRoutePath.exercises}
-                state={{ from: AuthRoutePath.exercises }}
-            >
-                {t('Упражнения')}
-            </AppLink>
-            <AppLink
-                deleteUnderLine
+                title={t('Упражнения')}
+                icon={<Barbell />}
+            />
+            <ExpandedItem
                 to={AuthRoutePath.programs}
-                state={{ from: AuthRoutePath.programs }}
-            >
-                {t('Программы пользователей')}
-            </AppLink>
-            <AppLink
-                deleteUnderLine
+                title={t('Программы пользователей')}
+                icon={<Programs />}
+            />
+            <ExpandedItem
                 to={AuthRoutePath.favourite_programs}
-                state={{ from: AuthRoutePath.favourite_programs }}
-            >
-                {t('Избранные программы')}
-            </AppLink>
-            <AppLink
-                deleteUnderLine
+                title={t('Избранные программы')} //
+                icon={<FavouritePrograms />}
+            />
+            <ExpandedItem
                 to={AuthRoutePath.my_programs}
-                state={{ from: AuthRoutePath.my_programs }}
-            >
-                {t('Ваши программы')}
-            </AppLink>
-            <AppLink
-                deleteUnderLine
+                title={t('Ваши программы')}
+                icon={<MyPrograms />}
+            />
+            <ExpandedItem
                 to={AuthRoutePath.my_exercises}
-                state={{ from: AuthRoutePath.my_exercises }}
-            >
-                {t('Ваши упражнения')}
-            </AppLink>
-            <AppLink onClick={logoutHandler} deleteUnderLine to="/">
-                {t('Выйти')}
-            </AppLink>
-            <LangSwitcherButton />
+                title={t('Ваши упражнения')} //
+                icon={<MyExercises />}
+            />
+            <Button onClick={logoutHandler} type="button">{t('Выйти')}</Button>
+            <LangSwitcherButton className={cls.langSwitcher} />
         </div>
     );
 });

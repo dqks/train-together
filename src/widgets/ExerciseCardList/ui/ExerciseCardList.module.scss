@@ -1,11 +1,15 @@
-.ExerciseCardList {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
+//.ExerciseCardList {
+//    display: flex;
+//    flex-direction: row;
+//    flex-wrap: wrap;
+//    gap: 20px;
+//    justify-content: center;
+//}
+//
+//.exerciseCard {
+//    margin: 10px 0;
+//}
 
-.exerciseCard {
-    margin: 10px 0;
+.ExerciseCardList {
+    margin-top: var(--spacing-xl);
 }
