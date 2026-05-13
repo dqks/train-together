@@ -39,8 +39,6 @@ export const FileInput = ({ onChangeImage, value }: FileInputProps) => {
         imageSrc = URL.createObjectURL(value);
     }
 
-    console.log(imageSrc);
-
     return (
         <div onClick={onImageClick}>
             <label className="form-label" htmlFor="imageInput">{t('Изображение')}</label>

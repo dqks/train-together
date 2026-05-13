@@ -1,36 +1,57 @@
 .SidePanel {
-    width: 100%;
     position: fixed;
     top: 0;
-    left: 0;
-    bottom: 0;
     right: 0;
-    background-color: rgb(0 0 0 / 50%);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    z-index: 1000;
-}
-
-.closeIcon {
-    padding: 10px 30px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    font-size: 36px;
-
-    &:hover {
-        color: red;
-    }
-}
-
-.content {
-    width: 40%;
+    width: 360px;
     height: 100vh;
-    background-color: white;
-    padding: 50px;
-    box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
+    background-color: var(--color-bg);
+    border-left: 1px solid var(--color-border-light);
+    z-index: 150;
     display: flex;
-    transition: 0.2s;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+}
+
+.sidePanelOpen {
+    transform: translateX(0);
+}
+
+.sidePanelOverlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgb(0 0 0 / 30%);
+    z-index: 140;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.overlayActive {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidePanelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.sidePanelContent {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.sidePanelFooter {
+    padding: var(--spacing-xl) var(--spacing-lg);
+    border-top: 1px solid var(--color-border-light);
+}
+
+.cross {
+    width: 20px;
+    height: 20px;
 }

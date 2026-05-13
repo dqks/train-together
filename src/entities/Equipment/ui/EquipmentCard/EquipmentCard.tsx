@@ -19,12 +19,10 @@ export const EquipmentCard = (props : EquipmentCardProps) => {
         selectedEquipment,
     } = props;
 
+    const isSelected = selectedEquipment === id?.toString();
     const onEquipmentChange = (e: ChangeEvent<HTMLInputElement>) => {
         onChange(e.target.dataset.id as string);
     };
-
-    const isSelected = selectedEquipment === id?.toString();
-
     return (
         <div className={classNames(cls.EquipmentCard, {}, [className])}>
             <input

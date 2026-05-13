@@ -19,7 +19,6 @@ export const EquipmentCardList = (props: EquipmentCardListProps) => {
             dispatch(fetchEquipmentList());
         }
     }, [dispatch]);
-
     return equipmentList?.map((eq) => (
         <EquipmentCard
             id={eq.id}

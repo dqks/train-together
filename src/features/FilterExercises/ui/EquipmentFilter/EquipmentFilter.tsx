@@ -1,28 +1,54 @@
 import { useTranslation } from 'react-i18next';
-import { Suspense } from 'react';
+import { Suspense, useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import cls from './EquipmentFilter.module.scss';
-import { ThemeButton } from '@/shared/ui/Button/Button.tsx';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { SidePanelTriggerButton } from '@/shared/ui/SidePanelTriggerButton/SidePanelTriggerButton.tsx';
-import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { useOpen } from '@/shared/lib/useOpen/useOpen.tsx';
-import { EquipmentFilterContentAsync } from './EquipmentFilterContent/EquipmentFilterContent.async.tsx';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
+import {
+    EquipmentFilterContentAsync,
+} from '@/features/FilterExercises/ui/EquipmentFilter/EquipmentFilterContent/EquipmentFilterContent.async.tsx';
+import { fetchExerciseCards } from '@/entities/Exercise';
 
 export const EquipmentFilter = () => {
     const { t } = useTranslation();
     const [isOpen, openHandler] = useOpen();
+    const [equipmentId, setEquipmentId] = useState<string | undefined>(undefined);
+    const dispatch = useDispatch();
+
+    const onApplyFilter = useCallback(() => {
+        dispatch(fetchExerciseCards({ equipmentId }));
+        openHandler();
+    }, [equipmentId]);
+
+    const onChange = (value: string) => {
+        setEquipmentId(value);
+    };
 
     return (
         <SidePanelTriggerButton
             isOpen={isOpen}
+            footerContent={(
+                <Button
+                    onClick={onApplyFilter}
+                    className={cls.applyButton}
+                    type="button"
+                >
+                    {t('Применить фильтры')}
+                </Button>
+            )}
             themeButton={ThemeButton.OUTLINE}
             openHandler={openHandler}
+            headerTitle={t('По оборудованию')}
             buttonChildren={t('По оборудованию')}
-            contentClassName={cls.sidePanelContent}
-            sidePageChildren={(
-                <Suspense fallback={<PageLoader />}>
-                    <EquipmentFilterContentAsync />
-                </Suspense>
-            )}
-        />
+        >
+            <Suspense fallback={<PageLoader />}>
+                <EquipmentFilterContentAsync
+                    value={equipmentId}
+                    onChange={onChange}
+                />
+            </Suspense>
+        </SidePanelTriggerButton>
     );
 };

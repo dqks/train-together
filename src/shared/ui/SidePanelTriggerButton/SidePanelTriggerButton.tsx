@@ -4,23 +4,25 @@ import { SidePanel } from '@/shared/ui/SidePanel/SidePanel.tsx';
 
 interface SidePanelTriggerButtonProps {
     className?: string;
-    sidePageChildren: ReactNode;
+    children: ReactNode;
     buttonChildren: ReactNode;
     isOpen: boolean;
     openHandler: () => void;
-    contentClassName?: string;
+    headerTitle: string
     themeButton?: ThemeButton
+    footerContent: ReactNode
 }
 
 export const SidePanelTriggerButton = (props : SidePanelTriggerButtonProps) => {
     const {
         className,
-        sidePageChildren,
+        children,
         buttonChildren,
-        contentClassName,
         openHandler,
         isOpen,
         themeButton,
+        headerTitle,
+        footerContent,
     } = props;
 
     return (
@@ -29,12 +31,13 @@ export const SidePanelTriggerButton = (props : SidePanelTriggerButtonProps) => {
                 { buttonChildren }
             </Button>
             <SidePanel
+                footer={footerContent}
+                headerTitle={headerTitle}
                 onOutsideClick={openHandler}
                 isOpen={isOpen}
-                contentClassName={contentClassName}
             >
                 {
-                    sidePageChildren
+                    children
                 }
             </SidePanel>
         </div>

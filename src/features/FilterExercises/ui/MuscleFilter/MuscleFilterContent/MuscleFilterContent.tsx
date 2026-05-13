@@ -1,22 +1,17 @@
-// import cls from "./SidePanelContent.module.scss"
-import { useTranslation } from 'react-i18next';
-import { Button } from '@/shared/ui/Button/Button.tsx';
+import cls from './MuscleFilterContent.module.scss';
 import { PrimaryMuscleCardList } from '@/entities/Muscle';
-import { EquipmentCardList } from '@/entities/Equipment';
 
-// interface SidePanelFilterContentProps {
-//     className?: string;
-// }
+interface MuscleFilterContentProps {
+    value: string | undefined;
+    onChange: (value: string) => void
+}
 
-const MuscleFilterContent = () => {
-    const { t } = useTranslation();
+const MuscleFilterContent = (props: MuscleFilterContentProps) => {
+    const { value, onChange } = props;
     return (
-        <>
-            <h1>{t('Фильтры')}</h1>
-            <PrimaryMuscleCardList />
-            <EquipmentCardList />
-            <Button type="button">{t('Применить фильтры')}</Button>
-        </>
+        <div className={cls.MuscleFilterContent}>
+            <PrimaryMuscleCardList selectedMuscle={value} onChange={onChange} />
+        </div>
     );
 };
 

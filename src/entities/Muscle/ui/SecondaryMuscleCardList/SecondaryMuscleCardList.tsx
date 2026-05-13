@@ -6,6 +6,7 @@ import {
 
 interface SecondaryMuscleCardListProps {
     onChange: (id: string) => void
+    values?: string[]
 }
 
 export const SecondaryMuscleCardList = (props: SecondaryMuscleCardListProps) => {
@@ -16,12 +17,13 @@ export const SecondaryMuscleCardList = (props: SecondaryMuscleCardListProps) => 
     // }
     // }, [dispatch]);
 
-    const { onChange } = props;
+    const { onChange, values } = props;
 
     const muscleList = useSelector(getSecondaryMuscleList);
 
     return muscleList?.map((muscle) => (
         <SecondaryMuscleCard
+            values={values}
             key={muscle.id}
             onChange={onChange}
             id={muscle.id}

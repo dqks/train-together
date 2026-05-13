@@ -9,7 +9,6 @@ import { SubscribeProgram } from '@/features/SubscribeProgram';
 import { getProgramsWord } from '../../lib/getProgramsWord/getProgramsWord';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import userPicture from '@/shared/assets/images/userPicture.jpg';
-import { serverUrl } from '@/shared/const/serverUrl.ts';
 
 interface SidebarProps {
     className?: string;
