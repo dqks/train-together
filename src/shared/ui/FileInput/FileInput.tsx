@@ -14,6 +14,12 @@ export const FileInput = ({ onChangeImage, value }: FileInputProps) => {
 
     const ref = useRef<HTMLInputElement>(null);
 
+    const resetInput = () => {
+        if (ref.current) {
+            ref.current.value = '';
+        }
+    };
+
     const onImageClick = () => {
         if (!value) {
             ref?.current?.click();
@@ -23,11 +29,11 @@ export const FileInput = ({ onChangeImage, value }: FileInputProps) => {
     const onChange = (e : ChangeEvent<HTMLInputElement>) => {
         if (e?.target?.files) {
             onChangeImage(e?.target?.files[0]);
+            resetInput();
         }
     };
 
     const onDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.preventDefault();
         onChangeImage(undefined);
     };
 
@@ -71,8 +77,13 @@ export const FileInput = ({ onChangeImage, value }: FileInputProps) => {
                             </div>
                         </>
                     )}
-
-                <input onChange={onChange} ref={ref} type="file" id="imageInput" accept="image/*" />
+                <input
+                    onChange={onChange}
+                    ref={ref}
+                    type="file"
+                    id="imageInput"
+                    accept="image/*"
+                />
             </div>
         </div>
     );

@@ -13,6 +13,7 @@ import type { AddExerciseSchema } from '@/features/AddExercise/model/types/addEx
 import type { ExerciseTypeSchema } from '@/entities/ExerciseType';
 import type { ExerciseProgressionSchema } from '@/entities/ExerciseProgression';
 import type { ProgramSchema } from '@/entities/Program';
+import type { ProfileSchema } from '@/pages/ProfilePage';
 
 export interface StateSchema {
     user: UserSchema
@@ -26,6 +27,7 @@ export interface StateSchema {
     addExercise: AddExerciseSchema
     exerciseType: ExerciseTypeSchema
     exerciseProgression: ExerciseProgressionSchema
+    profile: ProfileSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

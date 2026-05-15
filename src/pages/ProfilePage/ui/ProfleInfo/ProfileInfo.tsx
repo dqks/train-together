@@ -9,6 +9,7 @@ import { RatingsContent } from '../RatingsContent/RatingsContent.tsx';
 interface ProfileInfoProps {
     className?: string;
     programCount: number | undefined
+    userId: number | undefined
 }
 
 export const ProfileInfo = (props : ProfileInfoProps) => {
@@ -16,6 +17,7 @@ export const ProfileInfo = (props : ProfileInfoProps) => {
     const {
         className,
         programCount,
+        userId,
     } = props;
     const tab = searchParams.get('tab');
 
@@ -23,7 +25,7 @@ export const ProfileInfo = (props : ProfileInfoProps) => {
         <div className={classNames(cls.ProfileInfo, {}, [className])}>
             <ProfileTabs />
             {tab === 'overview' && <OverviewContent programCount={programCount} />}
-            {tab === 'programs' && <ProgramsContent />}
+            {tab === 'programs' && <ProgramsContent userId={userId} />}
             {tab === 'ratings' && <RatingsContent />}
         </div>
     );

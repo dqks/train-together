@@ -12,6 +12,7 @@ import { addExerciseReducer } from '@/features/AddExercise';
 import { exerciseTypeReducer } from '@/entities/ExerciseType';
 import { exerciseProgressionReducer } from '@/entities/ExerciseProgression';
 import { programsReducer } from '@/entities/Program';
+import { profileReducer } from '@/pages/ProfilePage';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -31,6 +32,7 @@ export function createReduxStore(
         addExercise: addExerciseReducer,
         exerciseType: exerciseTypeReducer,
         exerciseProgression: exerciseProgressionReducer,
+        profile: profileReducer,
     };
 
     // const reducerManager = createReducerManager(rootReducer);

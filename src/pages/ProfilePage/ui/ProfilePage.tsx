@@ -3,8 +3,11 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './ProfilePage.module.scss';
-import { fetchProfileInfo, getProfileInfo, UserCard } from '@/entities/User';
-import { ProfileInfo } from '@/widgets/ProfileInfo';
+import {
+    fetchProfileInfo, getProfileInfo, UserCard, getIsLoading,
+} from '@/entities/User';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
+import { ProfileInfo } from './ProfleInfo/ProfileInfo';
 
 interface ProfilePageProps {
     className?: string;
@@ -12,12 +15,17 @@ interface ProfilePageProps {
 
 const ProfilePage = ({ className }: ProfilePageProps) => {
     const profileInfo = useSelector(getProfileInfo);
+    const isLoading = useSelector(getIsLoading);
     const dispatch = useDispatch();
     const params = useParams();
 
     useEffect(() => {
         dispatch(fetchProfileInfo(Number(params.id)));
     }, [dispatch]);
+
+    if (isLoading) {
+        return <PageLoader />;
+    }
 
     return (
         <div className={classNames(cls.ProfilePage, {}, [className])}>
@@ -27,7 +35,10 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
                 programCount={profileInfo?.programCount}
                 subscribeCount={100}
             />
-            <ProfileInfo programCount={profileInfo?.programCount} />
+            <ProfileInfo
+                userId={profileInfo?.id}
+                programCount={profileInfo?.programCount}
+            />
         </div>
     );
 };

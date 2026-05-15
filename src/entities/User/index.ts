@@ -12,6 +12,7 @@ import { getUserEmail } from './model/selectors/getUserEmail/getUserEmail.tsx';
 import { getUserNickname } from './model/selectors/getUserNickname/getUserNickname.ts';
 import { fetchProfileInfo } from './model/services/fetchProfileInfo/fetchProfileInfo.ts';
 import { getProfileInfo } from './model/selectors/getProfileInfo/getProfileInfo.ts';
+import { getIsLoading } from './model/selectors/getIsLoading/getIsLoading.ts';
 
 export {
     UserCard,
@@ -28,6 +29,7 @@ export {
     getUserNickname,
     fetchProfileInfo,
     getProfileInfo,
+    getIsLoading,
 };
 
 export type {
