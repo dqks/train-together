@@ -9,6 +9,7 @@ type ResponseType = {
 export type Filters = {
     equipmentId?: string | null
     primaryMuscles?: string | null
+    name?: string | null
 }
 
 export const fetchExerciseCards = createAsyncThunk<
@@ -28,6 +29,10 @@ export const fetchExerciseCards = createAsyncThunk<
 
                 if (filters?.primaryMuscles) {
                     params.push(`primaryMuscles=${filters.primaryMuscles}`);
+                }
+
+                if (filters?.name) {
+                    params.push(`name=${filters?.name}`);
                 }
 
                 const response = await extra.api

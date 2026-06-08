@@ -6,11 +6,29 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 interface SearchInputProps {
     className?: string;
     placeholder?: string;
+    onChange?: (value: string) => void
+    value?: string
 }
 
-export const SearchInput = ({ className, placeholder } : SearchInputProps) => (
-    <div className={classNames(cls.SearchInput, {}, [className])}>
-        <Loupe />
-        <Input type="text" className="form-input" id="searchInput" placeholder={placeholder} />
-    </div>
-);
+export const SearchInput = (props : SearchInputProps) => {
+    const {
+        className,
+        placeholder,
+        onChange,
+        value,
+    } = props;
+
+    return (
+        <div className={classNames(cls.SearchInput, {}, [className])}>
+            <Loupe />
+            <Input
+                value={value}
+                onChange={onChange}
+                type="text"
+                className="form-input"
+                id="searchInput"
+                placeholder={placeholder}
+            />
+        </div>
+    );
+};

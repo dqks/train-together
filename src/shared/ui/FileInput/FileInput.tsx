@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import React, { type ChangeEvent, useRef } from 'react';
+import { type ChangeEvent, useRef } from 'react';
 import Image from '@/shared/assets/icons/image.svg?react';
 import cls from './FileInput.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
@@ -33,7 +33,7 @@ export const FileInput = ({ onChangeImage, value }: FileInputProps) => {
         }
     };
 
-    const onDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const onDelete = () => {
         onChangeImage(undefined);
     };
 

@@ -8,11 +8,14 @@ import { SearchInput } from '@/shared/ui/SearchInput/SearchInput.tsx';
 import { EquipmentFilter, MuscleFilter } from '@/features/FilterExercises';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { fetchExerciseCards } from '@/entities/Exercise';
-import type { Filters } from '@/entities/Exercise/model/services/fetchExerciseCards/fetchExerciseCards.ts';
+import { useDebounce } from '@/shared/lib/useDebounce/useDebounce.ts';
+import { makeFilterObject } from '../lib/makeFilterObject.ts';
 
 interface ExercisesControlProps {
     exerciseCount: number | undefined;
 }
+
+// For filters local state is used
 
 export const ExercisesControl = ({ exerciseCount } : ExercisesControlProps) => {
     const { t } = useTranslation();
@@ -24,34 +27,51 @@ export const ExercisesControl = ({ exerciseCount } : ExercisesControlProps) => {
     const [primaryMuscleId, setPrimaryMuscleId] = useState<string | undefined>(
         searchParams.get('primaryMuscles') || undefined,
     );
+    const [searchName, setSearchName] = useState<string>('');
 
     const onReset = () => {
         setSearchParams({});
         setEquipmentId(undefined);
         setPrimaryMuscleId(undefined);
+        setSearchName('');
         dispatch(fetchExerciseCards());
     };
 
     const onApplyFilters = useCallback(() => {
-        const filterObject : Filters = {};
-
-        if (primaryMuscleId) {
-            filterObject.primaryMuscles = primaryMuscleId;
-        }
-
-        if (equipmentId) {
-            filterObject.equipmentId = equipmentId;
-        }
-
+        const filterObject = makeFilterObject(
+            primaryMuscleId,
+            equipmentId,
+            searchName,
+        );
         // @ts-ignore
         setSearchParams(filterObject);
         dispatch(fetchExerciseCards(filterObject));
     }, [equipmentId, primaryMuscleId]);
 
+    const debouncedFetchExercises = useDebounce((value: string) => {
+        const filterObject = makeFilterObject(
+            primaryMuscleId,
+            equipmentId,
+            value,
+        );
+        // @ts-ignore
+        setSearchParams(filterObject);
+        dispatch(fetchExerciseCards(filterObject));
+    }, 350);
+
+    const onChangeSearchValue = (value: string) => {
+        setSearchName(value);
+        debouncedFetchExercises(value);
+    };
+
     return (
         <div>
             <div className={classNames(cls.ExercisesControl, {}, [])}>
-                <SearchInput placeholder={t('Поиск по названию...')} />
+                <SearchInput
+                    onChange={onChangeSearchValue}
+                    value={searchName}
+                    placeholder={t('Поиск по названию...')}
+                />
                 <MuscleFilter
                     onApplyFilters={onApplyFilters}
                     primaryMuscleId={primaryMuscleId}
