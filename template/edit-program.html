@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редактирование программы — FitApp</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/program-detail.css">
+  <link rel="stylesheet" href="css/edit-program.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="sidebar-logo">FitApp</a>
+    <nav class="sidebar-nav">
+      <a href="profile.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Профиль
+      </a>
+      <a href="exercises.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6.5 6.5h11M6.5 17.5h11M3 12h3M18 12h3M6 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+        </svg>
+        Упражнения
+      </a>
+      <a href="user-programs.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="9"/>
+        </svg>
+        Программы пользователей
+      </a>
+      <a href="my-programs.html" class="active">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="12" y1="18" x2="12" y2="12"/>
+          <line x1="9" y1="15" x2="15" y2="15"/>
+        </svg>
+        Ваши программы
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Mobile Menu Toggle -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Меню">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+
+  <main class="main-content main-with-sidebar">
+    <!-- Page Header -->
+    <div class="page-header edit-header">
+      <div class="edit-header-left">
+        <a href="my-programs.html" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Назад
+        </a>
+        <h1 class="page-title">Редактирование программы</h1>
+      </div>
+      <div class="edit-header-actions">
+        <button class="btn btn-outline" id="previewBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          Предпросмотр
+        </button>
+        <button class="btn btn-primary" id="saveBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Сохранить
+        </button>
+      </div>
+    </div>
+
+    <!-- Program Container -->
+    <div class="program-container">
+      <div class="program-content-grid">
+        <!-- Left Column -->
+        <div class="program-main">
+          <!-- Basic Info Section -->
+          <section class="program-section">
+            <div class="section-header">
+              <h2 class="section-title">Основная информация</h2>
+            </div>
+
+            <!-- Photo Upload -->
+            <div class="form-group">
+              <label class="form-label">Фото программы</label>
+              <div class="photo-upload" id="photoUpload">
+                <input type="file" id="programPhoto" name="programPhoto" accept="image/*" class="photo-upload-input">
+                <div class="photo-upload-preview" id="photoPreview">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Нажмите или перетащите изображение</span>
+                </div>
+                <div class="photo-upload-actions" id="photoActions" style="display: none;">
+                  <img id="previewImage" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=400&fit=crop" alt="Превью">
+                  <button type="button" class="btn btn-sm btn-ghost" id="removePhoto">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"/>
+                      <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                    Удалить
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Name -->
+            <div class="form-group">
+              <label class="form-label">Название программы</label>
+              <input type="text" class="form-input" id="programName" value="Сила и мощь" placeholder="Введите название программы">
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label class="form-label">Описание</label>
+              <textarea class="form-input" id="programDescription" rows="4" placeholder="Опишите вашу программу...">Комплексная программа для развития силы и набора мышечной массы. Идеально подходит для тех, кто уже имеет базовый опыт в тренажёрном зале и хочет выйти на новый уровень.</textarea>
+            </div>
+          </section>
+
+          <!-- Days Section -->
+          <section class="program-section">
+            <div class="section-header">
+              <h2 class="section-title">Дни тренировок</h2>
+              <button class="btn btn-sm btn-outline" id="addDayBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Добавить день
+              </button>
+            </div>
+
+            <div class="training-days" id="trainingDaysList">
+              <!-- Day 1 -->
+              <div class="training-day-card editable" data-day="1">
+                <div class="day-header">
+                  <div class="day-header-left">
+                    <div class="day-drag-handle" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="8" y1="6" x2="21" y2="6"/>
+                        <line x1="8" y1="12" x2="21" y2="12"/>
+                        <line x1="8" y1="18" x2="21" y2="18"/>
+                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                      </svg>
+                    </div>
+                    <div class="day-badge">
+                      <span class="day-number">1</span>
+                      <input type="text" class="day-name-input" value="Понедельник" placeholder="Название дня">
+                    </div>
+                  </div>
+                  <div class="day-header-actions">
+                    <button class="btn btn-sm btn-ghost day-toggle" type="button" aria-label="Свернуть/развернуть">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                      </svg>
+                    </button>
+                    <button class="btn btn-sm btn-ghost day-delete" type="button" aria-label="Удалить день">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="day-focus-input">
+                  <input type="text" class="form-input" value="Грудь • Трицепс • Плечи" placeholder="Фокус дня (например: Грудь • Трицепс)">
+                </div>
+
+                <div class="day-exercises">
+                  <div class="exercise-row editable" data-exercise-index="1" data-exercise-id="1">
+                    <div class="exercise-drag-handle" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="8" y1="6" x2="21" y2="6"/>
+                        <line x1="8" y1="12" x2="21" y2="12"/>
+                        <line x1="8" y1="18" x2="21" y2="18"/>
+                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                      </svg>
+                    </div>
+
+                    <div class="exercise-number">1</div>
+
+                    <div class="exercise-details">
+                      <button type="button" class="exercise-select-block" data-exercise-id="1" data-exercise-name="Жим лёжа" title="Открыть упражнение в новой вкладке">
+                        <span class="exercise-select-block-text">Жим лёжа</span>
+                        <span class="exercise-select-block-hint">открыть</span>
+                      </button>
+                      <div class="exercise-params">
+                        <input type="number" class="form-input param-input" value="4" placeholder="Подходы">
+                        <input type="text" class="form-input param-input" value="8-10" placeholder="Повторения">
+                        <input type="number" class="form-input param-input" value="90" placeholder="Отдых (сек)">
+                      </div>
+                    </div>
+
+                    <div class="exercise-muscle-tag">Грудные</div>
+
+                    <div class="exercise-actions">
+                      <button class="btn btn-xs btn-ghost exercise-delete" type="button" title="Удалить упражнение" aria-label="Удалить упражнение">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <line x1="18" y1="6" x2="6" y2="18"/>
+                          <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="exercise-row editable" data-exercise-index="2" data-exercise-id="2">
+                    <div class="exercise-drag-handle" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="8" y1="6" x2="21" y2="6"/>
+                        <line x1="8" y1="12" x2="21" y2="12"/>
+                        <line x1="8" y1="18" x2="21" y2="18"/>
+                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                      </svg>
+                    </div>
+
+                    <div class="exercise-number">2</div>
+
+                    <div class="exercise-details">
+                      <button type="button" class="exercise-select-block" data-exercise-id="2" data-exercise-name="Становая тяга" title="Открыть упражнение в новой вкладке">
+                        <span class="exercise-select-block-text">Становая тяга</span>
+                        <span class="exercise-select-block-hint">открыть</span>
+                      </button>
+                      <div class="exercise-params">
+                        <input type="number" class="form-input param-input" value="3" placeholder="Подходы">
+                        <input type="text" class="form-input param-input" value="10-12" placeholder="Повторения">
+                        <input type="number" class="form-input param-input" value="90" placeholder="Отдых (сек)">
+                      </div>
+                    </div>
+
+                    <div class="exercise-muscle-tag">Спина</div>
+
+                    <div class="exercise-actions">
+                      <button class="btn btn-xs btn-ghost exercise-delete" type="button" title="Удалить упражнение" aria-label="Удалить упражнение">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <line x1="18" y1="6" x2="6" y2="18"/>
+                          <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="exercise-empty-hint" style="display:none;">Добавьте упражнение для этого дня.</div>
+
+                  <button type="button" class="btn btn-sm btn-outline add-exercise-btn" data-add-exercise-for-day="1" title="Выбрать упражнение">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="12" y1="5" x2="12" y2="19"/>
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    Добавить упражнение
+                  </button>
+                </div>
+              </div>
+
+              <!-- Day 2 -->
+              <div class="training-day-card editable collapsed" data-day="2">
+                <div class="day-header">
+                  <div class="day-header-left">
+                    <div class="day-drag-handle" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="8" y1="6" x2="21" y2="6"/>
+                        <line x1="8" y1="12" x2="21" y2="12"/>
+                        <line x1="8" y1="18" x2="21" y2="18"/>
+                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                      </svg>
+                    </div>
+                    <div class="day-badge">
+                      <span class="day-number">2</span>
+                      <input type="text" class="day-name-input" value="Среда" placeholder="Название дня">
+                    </div>
+                  </div>
+                  <div class="day-header-actions">
+                    <button class="btn btn-sm btn-ghost day-toggle" type="button" aria-label="Свернуть/развернуть">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                      </svg>
+                    </button>
+                    <button class="btn btn-sm btn-ghost day-delete" type="button" aria-label="Удалить день">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="day-focus-input">
+                  <input type="text" class="form-input" value="Спина • Бицепс" placeholder="Фокус дня (например: Грудь • Трицепс)">
+                </div>
+
+                <div class="day-exercises">
+                  <div class="exercise-empty-hint">Добавьте упражнение для этого дня.</div>
+
+                  <button type="button" class="btn btn-sm btn-outline add-exercise-btn" data-add-exercise-for-day="2" title="Выбрать упражнение">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="12" y1="5" x2="12" y2="19"/>
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    Добавить упражнение
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column: Settings -->
+        <aside class="program-sidebar">
+          <div class="settings-card">
+            <h3 class="settings-title">Настройки программы</h3>
+
+            <div class="form-group">
+              <label class="form-label">Длительность (недель)</label>
+              <input type="number" class="form-input" id="programWeeks" value="8" min="1" max="52">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Уровень сложности</label>
+              <select class="form-input form-select" id="programLevel">
+                <option value="beginner">Новичок</option>
+                <option value="intermediate" selected>Средний</option>
+                <option value="advanced">Продвинутый</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Частота (дней/нед)</label>
+              <select class="form-input form-select" id="programFrequency">
+                <option value="2">2 дня/нед</option>
+                <option value="3" selected>3 дня/нед</option>
+                <option value="4">4 дня/нед</option>
+                <option value="5">5 дней/нед</option>
+                <option value="6">6 дней/нед</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="toggle-label">
+                <input type="checkbox" id="isPublic" checked>
+                <span class="toggle-switch"></span>
+                <span class="toggle-text">Публичная программа</span>
+              </label>
+              <p class="form-hint">Программа будет видима всем пользователям</p>
+            </div>
+          </div>
+
+          <div class="stats-preview-card">
+            <h3 class="stats-preview-title">Статистика</h3>
+            <div class="stats-preview-list">
+              <div class="stats-preview-item">
+                <span class="stats-preview-label">Дней</span>
+                <span class="stats-preview-value" id="daysCount">2</span>
+              </div>
+              <div class="stats-preview-item">
+                <span class="stats-preview-label">Упражнений</span>
+                <span class="stats-preview-value" id="exercisesCount">2</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ====== Small UX helpers for exercise selection ======
+    (function () {
+      const EXERCISE_SELECT_URL = 'exercise-select.html';
+      const localKey = 'fitapp:selectedExercises';
+
+      const overlay = document.getElementById('sidebarOverlay');
+      const sidebar = document.getElementById('sidebar');
+      const menuToggle = document.getElementById('menuToggle');
+
+      // Sidebar open/close is already handled in js/main.js on most pages,
+      // but this keeps this page resilient if scripts change.
+      if (menuToggle && sidebar && overlay) {
+        menuToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('open');
+          overlay.classList.toggle('active');
+          document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+        });
+
+        overlay.addEventListener('click', () => {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      }
+
+      function getSelectedExercises() {
+        try {
+          const raw = localStorage.getItem(localKey);
+          const parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function setSelectedExercises(arr) {
+        localStorage.setItem(localKey, JSON.stringify(arr));
+      }
+
+      // 1) Day "Добавить упражнение" → exercise-select
+      document.querySelectorAll('.add-exercise-btn[data-add-exercise-for-day]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const day = btn.getAttribute('data-add-exercise-for-day');
+          const url = new URL(EXERCISE_SELECT_URL, window.location.href);
+          url.searchParams.set('day', day);
+          window.open(url.toString(), '_blank', 'noopener');
+        });
+      });
+
+      // 2) Exercise name block → open exercise in new tab.
+      // В проекте нет отдельной страницы "exercise-detail", поэтому открываем `exercises.html`.
+      function openExerciseExternal(exerciseId) {
+        const url = new URL('exercises.html', window.location.href);
+        url.searchParams.set('exerciseId', String(exerciseId));
+        window.open(url.toString(), '_blank', 'noopener');
+      }
+
+      document.querySelectorAll('.exercise-select-block').forEach(block => {
+        block.addEventListener('click', () => {
+          const id = block.getAttribute('data-exercise-id');
+          if (id) openExerciseExternal(id);
+        });
+      });
+
+
+        // 3) Update stats
+        function updateStats() {
+        const daysCount = document.querySelectorAll('.training-day-card').length;
+
+        const exercisesCount = document.querySelectorAll('.exercise-row.editable').length;
+        const daysCountEl = document.getElementById('daysCount');
+        const exercisesCountEl = document.getElementById('exercisesCount');
+        if (daysCountEl) daysCountEl.textContent = daysCount;
+        if (exercisesCountEl) exercisesCountEl.textContent = exercisesCount;
+      }
+
+      updateStats();
+
+      // 4) Toggle day expand/collapse
+      document.querySelectorAll('.day-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const dayCard = btn.closest('.training-day-card');
+          if (!dayCard) return;
+          dayCard.classList.toggle('collapsed');
+        });
+      });
+
+      // 5) Day delete confirm
+      document.querySelectorAll('.day-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!confirm('Удалить этот день и все упражнения в нём?')) return;
+          const dayCard = btn.closest('.training-day-card');
+          if (dayCard) dayCard.remove();
+          updateStats();
+        });
+      });
+
+      // 6) Exercise delete
+      document.querySelectorAll('.exercise-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const dayCard = btn.closest('.training-day-card');
+          const row = btn.closest('.exercise-row');
+          if (!row) return;
+          row.remove();
+          if (dayCard) {
+            const exercises = dayCard.querySelectorAll('.exercise-row').length;
+            const hint = dayCard.querySelector('.exercise-empty-hint');
+            if (hint) hint.style.display = exercises <= 1 ? 'block' : 'none';
+          }
+          updateStats();
+        });
+      });
+
+      // 7) Optional: if user already selected exercises in exercise-select,
+      // we don't auto-add here because we lack a backend contract.
+      // We'll keep selection in localStorage and let your existing save flow handle it later.
+      // Still, we can adjust UI hint.
+      const selected = getSelectedExercises();
+      if (selected && selected.length) {
+        // no-op
+      }
+
+    })();
+  </script>
+</body>
+</html>
+

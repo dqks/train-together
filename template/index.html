@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitApp — Персональные программы тренировок</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">FitApp</a>
+      
+      <nav class="header-nav">
+        <a href="exercises.html">Упражнения</a>
+        <a href="user-programs.html">Тренировки</a>
+      </nav>
+      
+      <div class="header-actions">
+        <button class="btn btn-ghost btn-icon" title="Смена языка">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </button>
+        <a href="login.html" class="btn btn-outline">Войти</a>
+        <a href="register.html" class="btn btn-primary">Зарегистрироваться</a>
+      </div>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Меню">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">Создавайте и делитесь<br>программами тренировок</h1>
+        <p class="hero-subtitle">Платформа для фитнес-энтузиастов. Создавайте персональные программы, делитесь с сообществом и достигайте своих целей.</p>
+        <div class="flex gap-md justify-center">
+          <a href="register.html" class="btn btn-primary btn-lg">Начать бесплатно</a>
+          <a href="user-programs.html" class="btn btn-outline btn-lg">Смотреть программы</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section class="section" id="register">
+      <div class="container">
+        <h2 class="section-title">Быстрый старт</h2>
+        <div class="register-form-wrapper">
+          <form class="register-form">
+            <div class="form-group">
+              <input type="email" class="form-input" placeholder="Ваш e-mail" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Зарегистрироваться</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Requirements Section -->
+    <section class="section section-light">
+      <div class="container">
+        <h2 class="section-title">Создавайте тренировки под свои требования</h2>
+        <p class="text-center text-muted mb-lg">Выберите свою цель — мы подберём упражнения и программу</p>
+        
+        <div class="requirements-grid">
+          <div class="card requirement-card" data-goal="mass">
+            <div class="requirement-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6.5 6.5h11M6.5 17.5h11M3 12h3M18 12h3M6 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+              </svg>
+            </div>
+            <h4 class="requirement-title">Набор массы</h4>
+            <p class="text-small text-muted">Силовые тренировки для роста мышц</p>
+          </div>
+          
+          <div class="card requirement-card" data-goal="weight-loss">
+            <div class="requirement-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </div>
+            <h4 class="requirement-title">Похудение</h4>
+            <p class="text-small text-muted">Кардио и жиросжигающие тренировки</p>
+          </div>
+          
+          <div class="card requirement-card" data-goal="endurance">
+            <div class="requirement-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <h4 class="requirement-title">Выносливость</h4>
+            <p class="text-small text-muted">Длительные нагрузки для выносливости</p>
+          </div>
+          
+          <div class="card requirement-card" data-goal="strength">
+            <div class="requirement-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h4 class="requirement-title">Сила</h4>
+            <p class="text-small text-muted">Максимальные веса и мощь</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Save Programs Section -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Сохраняйте тренировки пользователей</h2>
+        <p class="text-center text-muted mb-lg">Подписывайтесь на авторов и сохраняйте понравившиеся программы</p>
+        
+        <div class="card program-preview-card">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=200&fit=crop" alt="Тренировка" class="card-image">
+          <div class="card-body">
+            <h4 class="card-title">Программа «Сила и мощь»</h4>
+            <p class="card-subtitle">Автор: Алексей Петров</p>
+            <p class="card-text">Комплексная программа для развития силы и увеличения мышечной массы. Включает базовые упражнения со штангой и гантелями.</p>
+            <button class="btn btn-primary subscribe-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+              </svg>
+              Подписаться
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Custom Exercises Section -->
+    <section class="section section-light">
+      <div class="container">
+        <h2 class="section-title">Добавляйте свои упражнения</h2>
+        <p class="text-center text-muted mb-lg">Создавайте уникальные упражнения под ваше оборудование и цели</p>
+        
+        <div class="exercise-form-wrapper">
+          <form class="exercise-form">
+            <div class="form-group">
+              <label class="form-label">Название упражнения</label>
+              <input type="text" class="form-input" placeholder="Например: Жим гантелей сидя">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Оборудование</label>
+              <select class="form-input form-select">
+                <option value="">Выберите оборудование</option>
+                <option value="barbell">Штанга</option>
+                <option value="dumbbells">Гантели</option>
+                <option value="kettlebell">Гиря</option>
+                <option value="pullup-bar">Турник</option>
+                <option value="rings">Кольца</option>
+                <option value="bodyweight">Собственный вес</option>
+                <option value="cable">Тросовый тренажёр</option>
+                <option value="machine">Тренажёр</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Задействованные мышцы</label>
+              <div class="muscle-selector">
+                <label class="muscle-option">
+                  <input type="checkbox" name="muscles" value="chest">
+                  <span>Грудные</span>
+                </label>
+                <label class="muscle-option">
+                  <input type="checkbox" name="muscles" value="back">
+                  <span>Спина</span>
+                </label>
+                <label class="muscle-option">
+                  <input type="checkbox" name="muscles" value="shoulders">
+                  <span>Плечи</span>
+                </label>
+                <label class="muscle-option">
+                  <input type="checkbox" name="muscles" value="biceps">
+                  <span>Бицепс</span>
+                </label>
+                <label class="muscle-option">
+                  <input type="checkbox" name="muscles" value="triceps">
+                  <span>Трицепс</span>
+                </label>
+                <label class="muscle-option">
+                  <input type="checkbox" name="muscles" value="legs">
+                  <span>Ноги</span>
+                </label>
+                <label class="muscle-option">
+                  <input type="checkbox" name="muscles" value="core">
+                  <span>Пресс</span>
+                </label>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-lg">Создать упражнение</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Workouts Section -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Самые популярные тренировки</h2>
+        <p class="text-center text-muted mb-lg">Лучшие программы по версии нашего сообщества</p>
+        
+        <div class="grid grid-3">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=200&fit=crop" alt="Тренировка" class="card-image">
+            <div class="card-body">
+              <div class="badge badge-popular mb-md">🔥 Популярное</div>
+              <h4 class="card-title">Утренняя зарядка</h4>
+              <p class="card-subtitle">Автор: Мария Иванова</p>
+              <p class="card-text">15-минутная разминка для начала дня. Проработка всего тела.</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1549576490-b0b4831ef60a?w=400&h=200&fit=crop" alt="Тренировка" class="card-image">
+            <div class="card-body">
+              <div class="badge badge-popular mb-md">🔥 Популярное</div>
+              <h4 class="card-title">Домашняя тренировка</h4>
+              <p class="card-subtitle">Автор: Дмитрий Сидоров</p>
+              <p class="card-text">Комплекс упражнений без оборудования для дома.</p>
+            </div>
+          </div>
+          
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c149a?w=400&h=200&fit=crop" alt="Тренировка" class="card-image">
+            <div class="card-body">
+              <div class="badge badge-popular mb-md">🔥 Популярное</div>
+              <h4 class="card-title">Силовая нагрузка</h4>
+              <p class="card-subtitle">Автор: Анна Козлова</p>
+              <p class="card-text">Программа для тренажёрного зала с акцентом на базу.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-text">© 2026 FitApp. Все права защищены.</p>
+        <div class="footer-links">
+          <a href="#">О проекте</a>
+          <a href="#">Контакты</a>
+          <a href="#">Политика конфиденциальности</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

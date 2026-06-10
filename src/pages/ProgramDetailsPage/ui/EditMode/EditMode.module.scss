@@ -55,6 +55,286 @@
     gap: var(--spacing-xl);
 }
 
+.programSection {
+    margin: 0;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.sectionTitle {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+}
+
+// Forms (basic mapping from template)
+
+.formGroup {
+    margin-bottom: var(--spacing-md);
+}
+
+.formGroup:last-child {
+    margin-bottom: 0;
+}
+
+.formLabel {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-primary);
+}
+
+.formInput {
+    width: 100%;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm);
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-sm);
+    outline: none;
+}
+
+.formInput:focus {
+    border-color: var(--color-accent);
+}
+
+// Photo upload (visual only)
+
+.fileInput {
+    height: 300px;
+}
+
+// Training days
+
+.trainingDays {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.trainingDayCard {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.trainingDayCard.editable {
+    background: var(--color-bg);
+}
+
+.dayHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border-light);
+    gap: var(--spacing-md);
+}
+
+.dayHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.dayDragHandle {
+    cursor: grab;
+    color: var(--color-text-muted);
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.dayBadge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.dayNumber {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.dayNameInput {
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    border: 1px solid transparent;
+    background: transparent;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    color: var(--color-text-primary);
+}
+
+.dayNameInput:hover {
+    background: var(--color-bg-secondary);
+}
+
+.dayNameInput:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background: var(--color-bg);
+}
+
+.dayHeaderActions {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+.dayFocusInput {
+    margin-bottom: var(--spacing-md);
+}
+
+.dayExercises {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.exerciseRow {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.exerciseRow.editable:hover {
+    border-color: var(--color-border);
+}
+
+.exerciseDragHandle {
+    cursor: grab;
+    color: var(--color-text-muted);
+    padding: var(--spacing-xs);
+    flex-shrink: 0;
+    margin-top: var(--spacing-sm);
+    width: 22px;
+    height: 22px;
+}
+
+.exerciseNumber {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-tertiary);
+    border-radius: 50%;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    margin-top: var(--spacing-sm);
+}
+
+.exerciseDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.exerciseSelectBlock {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--color-accent);
+}
+
+.exerciseSelectBlockText {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+}
+
+.exerciseSelectBlockHint {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+}
+
+.exerciseParams {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.paramInput {
+    width: 80px;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xs);
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    outline: none;
+}
+
+.paramInput:focus {
+    border-color: var(--color-accent);
+}
+
+.exerciseMuscleTag {
+    font-size: var(--font-size-xs);
+    padding: 4px 10px;
+    background: var(--color-accent-light);
+    color: var(--color-accent-hover);
+    border-radius: var(--radius-full);
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: var(--spacing-sm);
+}
+
+.exerciseActions {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+.exerciseEmptyHint {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-sm) 0;
+}
+
+.addExerciseBtn {
+    width: 100%;
+    margin-top: var(--spacing-md);
+}
+
 // Program Sidebar
 
 .programSidebar {
@@ -67,6 +347,12 @@
 
 // Settings
 
+.settingsTitle {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+}
+
 .settingsCard {
     background: var(--color-bg);
     border: 1px solid var(--color-border-light);
@@ -76,7 +362,25 @@
     top: var(--spacing-xl);
 }
 
-// Preview
+.formHint {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+.toggleGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.settingsCard .formGroup {
+    margin-bottom: var(--spacing-md);
+}
+
+.settingsCard .formGroup:last-child {
+    margin-bottom: 0;
+}
 
 .statsPreviewCard {
     background: var(--color-bg);
@@ -115,4 +419,73 @@
     font-size: var(--font-size-lg);
     font-weight: 700;
     color: var(--color-accent);
+}
+
+// Responsive
+
+@media (max-width: 1024px) {
+    .programGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .programSidebar {
+        position: static;
+    }
+
+    .settingsCard {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .editHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .editHeaderActions {
+        width: 100%;
+    }
+
+    .editHeaderActions button {
+        flex: 1;
+    }
+
+    .exerciseParams {
+        flex-wrap: wrap;
+    }
+
+    .paramInput {
+        width: calc(33.33% - var(--spacing-xs));
+    }
+}
+
+@media (max-width: 480px) {
+    .dayHeaderLeft {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+
+    .exerciseRow.editable {
+        flex-wrap: wrap;
+    }
+
+    .exerciseDragHandle {
+        display: none;
+    }
+
+    .exerciseNumber {
+        display: none;
+    }
+
+    .exerciseActions {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: var(--spacing-sm);
+    }
+
+    .addExerciseBtn {
+        font-size: var(--font-size-sm);
+    }
 }

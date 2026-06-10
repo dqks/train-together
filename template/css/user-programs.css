@@ -1,0 +1,141 @@
+/* ============================================
+   User Programs Page Styles
+   ============================================ */
+
+.programs-grid {
+  margin-top: var(--spacing-xl);
+}
+
+.program-card .card-image {
+  height: 180px;
+}
+
+.program-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.program-card .card-title {
+  margin-bottom: var(--spacing-xs);
+}
+
+.program-card .card-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+.program-card .card-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.5;
+}
+
+.program-stats {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.program-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.program-stat svg {
+  stroke: var(--color-text-muted);
+}
+
+.rating-small {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: #FFC107;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.rating-small svg {
+  width: 14px;
+  height: 14px;
+}
+
+.subscribe-btn {
+  width: 100%;
+}
+
+/* Filter Row - Horizontal Scroll on Mobile */
+.filter-row {
+  margin-top: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg) 0;
+}
+
+/* Filter Chips */
+.filter-chips {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  flex-shrink: 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-chip:hover {
+  background-color: var(--color-bg-tertiary);
+  border-color: var(--color-text-muted);
+}
+
+.filter-chip.active {
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filters-bar {
+    gap: var(--spacing-md);
+  }
+  
+  .filter-row {
+    padding: var(--spacing-md);
+  }
+  
+  .filter-chips {
+    margin: 0 calc(-1 * var(--spacing-md));
+    padding: 0 var(--spacing-md) var(--spacing-sm);
+  }
+  
+  .filters-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

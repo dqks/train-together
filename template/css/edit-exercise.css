@@ -1,0 +1,257 @@
+/* ============================================
+   Edit Exercise Page Styles
+   Aligns with app-wide design system
+   ============================================ */
+
+/* Page Header */
+.edit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.edit-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.edit-header-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.edit-header-actions .btn {
+  margin-left: 0;
+}
+
+/* Back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+  margin-bottom: var(--spacing-lg);
+}
+
+.back-link:hover {
+  color: var(--color-accent);
+}
+
+.back-link svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+/* Edit Container */
+.edit-container {
+  max-width: 800px;
+}
+
+/* Edit Card — matches exercise-card styling */
+.edit-card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  transition: box-shadow var(--transition-base);
+}
+
+.edit-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: var(--spacing-xl);
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: calc(-1 * var(--spacing-xs));
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Form Input */
+.form-input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background-color: var(--color-bg);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.form-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   Selector Grid (Equipment & Muscles)
+   Uses same patterns as filter-selector-grid in exercises.css
+   ============================================ */
+
+.selector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.selector-item {
+  position: relative;
+}
+
+.selector-item input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.selector-item label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: var(--spacing-md) var(--spacing-sm);
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.selector-item label:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-text-secondary);
+}
+
+.selector-item svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--color-text-muted);
+  transition: stroke var(--transition-fast);
+}
+
+.selector-item label .item-name {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Checked state — matches exercises.css filter style */
+.selector-item input:checked + label {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent);
+}
+
+.selector-item input:checked + label svg {
+  stroke: var(--color-accent);
+}
+
+.selector-item input:checked + label .item-name {
+  color: var(--color-accent);
+}
+
+/* Radio specific — filled dot */
+.selector-item input[type="radio"]:checked + label::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+/* Multi selector (checkbox) adjustments */
+.selector-grid.multi .selector-item input:checked + label {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent);
+}
+
+/* ============================================
+   Action Buttons
+   Uses common.css .btn system
+   ============================================ */
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+  .edit-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+  }
+
+  .edit-header-actions {
+    width: 100%;
+  }
+
+  .edit-header-actions .btn {
+    flex: 1;
+  }
+
+  .edit-card {
+    padding: var(--spacing-lg);
+  }
+
+  .selector-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .selector-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .selector-item label {
+    padding: var(--spacing-sm);
+  }
+
+  .selector-item svg {
+    width: 24px;
+    height: 24px;
+  }
+}

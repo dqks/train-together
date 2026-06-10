@@ -3,13 +3,15 @@ import { type ChangeEvent, useRef } from 'react';
 import Image from '@/shared/assets/icons/image.svg?react';
 import cls from './FileInput.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 
 interface FileInputProps {
     onChangeImage: (file: File | undefined) => void;
     value: string | File | undefined;
+    className?: string;
 }
 
-export const FileInput = ({ onChangeImage, value }: FileInputProps) => {
+export const FileInput = ({ onChangeImage, value, className }: FileInputProps) => {
     const { t } = useTranslation();
 
     const ref = useRef<HTMLInputElement>(null);
@@ -47,9 +49,14 @@ export const FileInput = ({ onChangeImage, value }: FileInputProps) => {
 
     return (
         <div onClick={onImageClick}>
-            <label className="form-label" htmlFor="imageInput">{t('Изображение')}</label>
+            <label
+                className="form-label"
+                htmlFor="imageInput"
+            >
+                {t('Изображение')}
+            </label>
             <div
-                className="image-upload"
+                className={classNames('image-upload', {}, [className])}
                 id="imageUpload"
             >
                 {value

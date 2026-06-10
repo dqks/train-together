@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Выбор упражнения — FitApp</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/exercises.css">
+  <style>
+    /* Page layout */
+    .select-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .select-header .left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .select-header .actions {
+      display: flex;
+      gap: var(--spacing-sm);
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    /* Chips (we reuse filter-chip styles from common.css, but ensure smaller look) */
+    .filter-bar-right {
+      display: flex;
+      gap: var(--spacing-md);
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .select-grid {
+      margin-top: var(--spacing-lg);
+    }
+
+    .exercise-card {
+      user-select: none;
+    }
+
+    /* Selected state */
+    .exercise-card.is-selected {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .exercise-card.is-selected .select-indicator {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    .select-indicator {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-lg);
+      background: var(--color-accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.85);
+      transition: all var(--transition-fast);
+      z-index: 2;
+    }
+
+    .exercise-card {
+      position: relative;
+    }
+
+    /* Better empty-state */
+    .empty-state {
+      display: none;
+      margin-top: var(--spacing-xl);
+      padding: var(--spacing-xl);
+      border: 1px dashed var(--color-border);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      color: var(--color-text-muted);
+      background: var(--color-bg-secondary);
+    }
+
+    .empty-state.visible {
+      display: block;
+    }
+
+    /* Footer bar for selection */
+    .selection-footer {
+      position: sticky;
+      bottom: 0;
+      z-index: 50;
+      margin-top: var(--spacing-xl);
+      padding: var(--spacing-md) 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 25%, rgba(255,255,255,0.98) 100%);
+      pointer-events: none;
+    }
+
+    .selection-footer-inner {
+      pointer-events: all;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+    }
+
+    .selection-summary {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+
+    .selection-summary strong {
+      color: var(--color-text-primary);
+    }
+
+    /* Modal (local) */
+    .select-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition-base), visibility var(--transition-base);
+    }
+
+    .select-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .select-modal {
+      width: 94%;
+      max-width: 720px;
+      max-height: 90vh;
+      overflow: auto;
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border-light);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(14px) scale(0.98);
+      transition: transform var(--transition-base);
+    }
+
+    .select-modal-overlay.active .select-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .select-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-md);
+      padding: var(--spacing-lg);
+      border-bottom: 1px solid var(--color-border-light);
+      position: sticky;
+      top: 0;
+      background: var(--color-bg);
+      z-index: 1;
+    }
+
+    .select-modal-title {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .select-modal-title h2 {
+      font-size: var(--font-size-xl);
+    }
+
+    .select-modal-title p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+
+    .selection-list {
+      padding: var(--spacing-lg);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .selection-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-lg);
+      background: var(--color-bg-secondary);
+    }
+
+    .selection-item .meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .selection-item .meta .name {
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .selection-item .meta .tags {
+      display: flex;
+      gap: var(--spacing-xs);
+      flex-wrap: wrap;
+    }
+
+    .selection-item .meta .tags .tag {
+      background: var(--color-bg);
+    }
+
+    .selection-item .remove {
+      flex: 0 0 auto;
+    }
+
+    @media (max-width: 480px) {
+      .select-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .selection-footer-inner {
+        align-items: stretch;
+      }
+
+      .selection-footer-inner .actions {
+        width: 100%;
+      }
+
+      .selection-footer-inner .actions .btn {
+        width: 100%;
+      }
+
+      .select-modal {
+        width: 100%;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-height: 85vh;
+      }
+
+      .select-modal-overlay.active .select-modal {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="sidebar-logo">FitApp</a>
+    <nav class="sidebar-nav">
+      <a href="profile.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Профиль
+      </a>
+      <a href="exercises.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6.5 6.5h11M6.5 17.5h11M3 12h3M18 12h3M6 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+        </svg>
+        Упражнения
+      </a>
+      <a href="user-programs.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="9"/>
+        </svg>
+        Программы пользователей
+      </a>
+      <a href="my-programs.html" class="active">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="12" y1="18" x2="12" y2="12"/>
+          <line x1="9" y1="15" x2="15" y2="15"/>
+        </svg>
+        Ваши программы
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Mobile Menu Toggle -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Меню">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+
+  <main class="main-content main-with-sidebar">
+    <div class="select-header">
+      <div class="left">
+        <h1 class="page-title">Выбор упражнения</h1>
+        <p class="page-subtitle">Найдите упражнение и добавьте его в выбранный день программы</p>
+      </div>
+      <div class="actions">
+        <a href="edit-program.html" class="btn btn-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Назад к редактору
+        </a>
+        <button class="btn btn-primary" id="openSelectedModal" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Выбрано: <span id="selectedCount">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="filters-bar">
+      <div class="search-box">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" class="form-input" id="searchInput" placeholder="Поиск по названию...">
+      </div>
+
+      <button class="btn btn-outline" type="button" id="filterMusclesBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6.5 6.5h11M6.5 17.5h11M3 12h3M18 12h3"/>
+        </svg>
+        По мышцам
+      </button>
+
+      <button class="btn btn-outline" type="button" id="filterEquipmentBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+        По оборудованию
+      </button>
+
+      <div style="flex: 1 1 100%;"></div>
+
+      <div class="filters-info" id="filtersInfo" style="width:100%;">
+        <span class="results-count" id="resultsCount">Показано: <strong id="resultsCountValue">0</strong> упражнений</span>
+        <div class="active-filters" id="activeFilters"></div>
+        <button class="btn btn-sm btn-ghost" id="clearFilters" style="display:none;" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          Сбросить
+        </button>
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState">
+      Ничего не найдено по текущим фильтрам.
+      <div style="margin-top: var(--spacing-md);">
+        <button class="btn btn-sm btn-primary" type="button" id="clearEmptyFilters">Сбросить фильтры</button>
+      </div>
+    </div>
+
+    <!-- Exercise Cards Grid -->
+    <div class="grid grid-3 select-grid" id="exercisesGrid">
+      <!-- Demo exercises (same approach as exercises.html via data-* for client-side filtering) -->
+      <div class="card exercise-card" data-id="1" data-name="жим лёжа" data-muscles="chest triceps shoulders" data-equipment="barbell" tabindex="0">
+        <div class="select-indicator" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="exercise-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="8" width="18" height="8" rx="1"/>
+            <rect x="1" y="10" width="4" height="4" rx="0.5"/>
+            <rect x="19" y="10" width="4" height="4" rx="0.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Жим лёжа</h4>
+          <div class="exercise-muscles">
+            <span class="tag">Грудные</span>
+            <span class="tag">Трицепс</span>
+            <span class="tag">Передние дельты</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card exercise-card" data-id="2" data-name="становщая тяга" data-muscles="back glutes hamstrings" data-equipment="barbell" tabindex="0">
+        <div class="select-indicator" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="exercise-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v20M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Становая тяга</h4>
+          <div class="exercise-muscles">
+            <span class="tag">Спина</span>
+            <span class="tag">Бицепс бедра</span>
+            <span class="tag">Ягодицы</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card exercise-card" data-id="3" data-name="приседания" data-muscles="legs glutes hamstrings" data-equipment="barbell bodyweight" tabindex="0">
+        <div class="select-indicator" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="exercise-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="5" r="3"/>
+            <line x1="12" y1="8" x2="12" y2="22"/>
+            <path d="M8 12h8M8 16h8"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Приседания</h4>
+          <div class="exercise-muscles">
+            <span class="tag">Квадрицепсы</span>
+            <span class="tag">Ягодицы</span>
+            <span class="tag">Бицепс бедра</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card exercise-card" data-id="4" data-name="подтягивания" data-muscles="back biceps forearms" data-equipment="pullup-bar bodyweight" tabindex="0">
+        <div class="select-indicator" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="exercise-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M18 8h-6M6 8h6M6 8v8M18 8v8M12 4v8M6 16l6-4 6 4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Подтягивания</h4>
+          <div class="exercise-muscles">
+            <span class="tag">Широчайшие</span>
+            <span class="tag">Бицепс</span>
+            <span class="tag">Предплечья</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card exercise-card" data-id="5" data-name="жим гантелей сидя" data-muscles="shoulders triceps chest" data-equipment="dumbbells" tabindex="0">
+        <div class="select-indicator" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="exercise-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <path d="M12 8v8M8 12h8"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Жим гантелей сидя</h4>
+          <div class="exercise-muscles">
+            <span class="tag">Плечи</span>
+            <span class="tag">Трицепс</span>
+            <span class="tag">Верх груди</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card exercise-card" data-id="6" data-name="сгибания на бицепс" data-muscles="biceps forearms" data-equipment="dumbbells barbell" tabindex="0">
+        <div class="select-indicator" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="exercise-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <ellipse cx="12" cy="12" rx="8" ry="4"/>
+            <path d="M4 12v4c0 2.21 3.58 4 8 4s8-1.79 8-4v-4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Сгибания на бицепс</h4>
+          <div class="exercise-muscles">
+            <span class="tag">Бицепс</span>
+            <span class="tag">Предплечья</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card exercise-card" data-id="7" data-name="разгибания на трицепс" data-muscles="triceps" data-equipment="cable machine dumbbells" tabindex="0">
+        <div class="select-indicator" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="exercise-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="8"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Разгибания на трицепс</h4>
+          <div class="exercise-muscles">
+            <span class="tag">Трицепс</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card exercise-card" data-id="8" data-name="тяга в наклоне" data-muscles="back biceps traps" data-equipment="barbell dumbbells" tabindex="0">
+        <div class="select-indicator" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="exercise-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Тяга в наклоне</h4>
+          <div class="exercise-muscles">
+            <span class="tag">Широчайшие</span>
+            <span class="tag">Трапеции</span>
+            <span class="tag">Бицепс</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card exercise-card" data-id="9" data-name="планка" data-muscles="core shoulders back" data-equipment="bodyweight" tabindex="0">
+        <div class="select-indicator" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div class="exercise-card-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="11" width="18" height="6" rx="1"/>
+            <path d="M7 11V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"/>
+            <path d="M12 17v-3"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">Планка</h4>
+          <div class="exercise-muscles">
+            <span class="tag">Пресс</span>
+            <span class="tag">Плечи</span>
+            <span class="tag">Спина</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Selection footer -->
+    <div class="selection-footer">
+      <div class="container">
+        <div class="selection-footer-inner">
+          <div class="selection-summary">
+            Выбрано: <strong id="selectedCountFooter">0</strong>
+            <span>•</span>
+            <span>Нажмите «Добавить в программу» чтобы вернуться в редактор</span>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" id="addToProgramBtn" disabled type="button">
+              Добавить в программу
+            </button>
+            <button class="btn btn-outline" id="clearSelectedBtn" type="button" style="display:none;">
+              Очистить выбранное
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Muscles Filter Sidebar -->
+  <div class="filter-sidebar" id="musclesSidebar" aria-hidden="true">
+    <div class="filter-sidebar-header">
+      <h3>По мышцам</h3>
+      <button class="modal-close" id="closeMusclesSidebar" aria-label="Закрыть фильтр">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="filter-sidebar-content">
+      <div class="filter-selector-grid" id="muscleFilterGrid">
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-muscle" value="chest" id="filter-mus-chest" checked>
+          <label for="filter-mus-chest">
+            <span class="item-name">Грудные</span>
+          </label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-muscle" value="back" id="filter-mus-back">
+          <label for="filter-mus-back"><span class="item-name">Спина</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-muscle" value="shoulders" id="filter-mus-shoulders">
+          <label for="filter-mus-shoulders"><span class="item-name">Плечи</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-muscle" value="biceps" id="filter-mus-biceps">
+          <label for="filter-mus-biceps"><span class="item-name">Бицепс</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-muscle" value="triceps" id="filter-mus-triceps">
+          <label for="filter-mus-triceps"><span class="item-name">Трицепс</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-muscle" value="legs" id="filter-mus-legs">
+          <label for="filter-mus-legs"><span class="item-name">Ноги</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-muscle" value="core" id="filter-mus-core">
+          <label for="filter-mus-core"><span class="item-name">Пресс</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-muscle" value="glutes" id="filter-mus-glutes">
+          <label for="filter-mus-glutes"><span class="item-name">Ягодицы</span></label>
+        </div>
+      </div>
+      <div class="filter-selection-preview" id="muscleFilterPreview" style="display:none;">
+        <span id="muscleFilterPreviewText"></span>
+      </div>
+    </div>
+    <div class="filter-sidebar-footer">
+      <button class="btn btn-primary" id="applyMusclesFilter" type="button">Показать</button>
+    </div>
+  </div>
+
+  <!-- Equipment Filter Sidebar -->
+  <div class="filter-sidebar" id="equipmentSidebar" aria-hidden="true">
+    <div class="filter-sidebar-header">
+      <h3>По оборудованию</h3>
+      <button class="modal-close" id="closeEquipmentSidebar" aria-label="Закрыть фильтр">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="filter-sidebar-content">
+      <div class="filter-selector-grid" id="equipmentFilterGrid">
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-equipment" value="barbell" id="filter-eq-barbell" checked>
+          <label for="filter-eq-barbell"><span class="item-name">Штанга</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-equipment" value="dumbbells" id="filter-eq-dumbbells">
+          <label for="filter-eq-dumbbells"><span class="item-name">Гантели</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-equipment" value="kettlebell" id="filter-eq-kettlebell">
+          <label for="filter-eq-kettlebell"><span class="item-name">Гиря</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-equipment" value="pullup-bar" id="filter-eq-pullup-bar">
+          <label for="filter-eq-pullup-bar"><span class="item-name">Турник</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-equipment" value="bodyweight" id="filter-eq-bodyweight">
+          <label for="filter-eq-bodyweight"><span class="item-name">Свой вес</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-equipment" value="cable" id="filter-eq-cable">
+          <label for="filter-eq-cable"><span class="item-name">Трос</span></label>
+        </div>
+        <div class="filter-selector-item">
+          <input type="radio" name="filter-equipment" value="machine" id="filter-eq-machine">
+          <label for="filter-eq-machine"><span class="item-name">Тренажёр</span></label>
+        </div>
+      </div>
+
+      <div class="filter-selection-preview" id="equipmentFilterPreview" style="display:none;">
+        <span id="equipmentFilterPreviewText"></span>
+      </div>
+    </div>
+    <div class="filter-sidebar-footer">
+      <button class="btn btn-primary" id="applyEquipmentFilter" type="button">Показать</button>
+    </div>
+  </div>
+
+  <!-- Shared overlay (for sidebars) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Selected modal -->
+  <div class="select-modal-overlay" id="selectedModalOverlay" aria-hidden="true">
+    <div class="select-modal" role="dialog" aria-modal="true" aria-labelledby="selectedModalTitle">
+      <div class="select-modal-header">
+        <div class="select-modal-title">
+          <h2 id="selectedModalTitle">Выбранные упражнения</h2>
+          <p id="selectedModalSubtitle">Список выбранных карточек</p>
+        </div>
+        <button class="modal-close" id="closeSelectedModal" aria-label="Закрыть">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="selection-list" id="selectedList"></div>
+      <div style="padding: 0 var(--spacing-lg) var(--spacing-lg);">
+        <div style="display:flex; gap: var(--spacing-sm); justify-content:flex-end; flex-wrap:wrap;">
+          <button class="btn btn-outline" id="removeAllSelected" type="button">Очистить</button>
+          <button class="btn btn-primary" id="confirmSelection" type="button" disabled>Добавить в программу</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script>
+    const equipmentLabels = {
+      barbell: 'Штанга',
+      dumbbells: 'Гантели',
+      kettlebell: 'Гиря',
+      'pullup-bar': 'Турник',
+      bodyweight: 'Свой вес',
+      cable: 'Трос',
+      machine: 'Тренажёр'
+    };
+
+    const muscleLabels = {
+      chest: 'Грудные',
+      back: 'Спина',
+      shoulders: 'Плечи',
+      biceps: 'Бицепс',
+      triceps: 'Трицепс',
+      legs: 'Ноги',
+      core: 'Пресс',
+      glutes: 'Ягодицы',
+    };
+
+    const searchInput = document.getElementById('searchInput');
+    const exercisesGrid = document.getElementById('exercisesGrid');
+    const emptyState = document.getElementById('emptyState');
+    const resultsCountValue = document.getElementById('resultsCountValue');
+
+    const filterMusclesBtn = document.getElementById('filterMusclesBtn');
+    const filterEquipmentBtn = document.getElementById('filterEquipmentBtn');
+    const musclesSidebar = document.getElementById('musclesSidebar');
+    const equipmentSidebar = document.getElementById('equipmentSidebar');
+    const closeMusclesSidebar = document.getElementById('closeMusclesSidebar');
+    const closeEquipmentSidebar = document.getElementById('closeEquipmentSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    const applyMusclesFilterBtn = document.getElementById('applyMusclesFilter');
+    const applyEquipmentFilterBtn = document.getElementById('applyEquipmentFilter');
+
+    const muscleFilterPreview = document.getElementById('muscleFilterPreview');
+    const muscleFilterPreviewText = document.getElementById('muscleFilterPreviewText');
+
+    const equipmentFilterPreview = document.getElementById('equipmentFilterPreview');
+    const equipmentFilterPreviewText = document.getElementById('equipmentFilterPreviewText');
+
+    // Selection
+    const storageKey = 'fitapp:selectedExercises';
+    const selectedCountEl = document.getElementById('selectedCount');
+    const selectedCountFooter = document.getElementById('selectedCountFooter');
+    const openSelectedModalBtn = document.getElementById('openSelectedModal');
+    const addToProgramBtn = document.getElementById('addToProgramBtn');
+    const clearSelectedBtn = document.getElementById('clearSelectedBtn');
+
+    const selectedModalOverlay = document.getElementById('selectedModalOverlay');
+    const closeSelectedModal = document.getElementById('closeSelectedModal');
+    const selectedList = document.getElementById('selectedList');
+    const selectedModalSubtitle = document.getElementById('selectedModalSubtitle');
+    const removeAllSelected = document.getElementById('removeAllSelected');
+    const confirmSelectionBtn = document.getElementById('confirmSelection');
+
+    function getSelectedIds() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        const arr = raw ? JSON.parse(raw) : [];
+        return Array.isArray(arr) ? arr : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function setSelectedIds(ids) {
+      localStorage.setItem(storageKey, JSON.stringify(ids));
+    }
+
+    function syncSelectedUI() {
+      const selectedIds = getSelectedIds();
+      selectedCountEl.textContent = selectedIds.length;
+      selectedCountFooter.textContent = selectedIds.length;
+      openSelectedModalBtn.disabled = selectedIds.length === 0;
+      addToProgramBtn.disabled = selectedIds.length === 0;
+      clearSelectedBtn.style.display = selectedIds.length ? '' : 'none';
+      confirmSelectionBtn.disabled = selectedIds.length === 0;
+
+      document.querySelectorAll('.exercise-card').forEach(card => {
+        const id = card.dataset.id;
+        card.classList.toggle('is-selected', selectedIds.includes(String(id)));
+      });
+    }
+
+    function toggleSelected(card) {
+      const id = String(card.dataset.id);
+      const selectedIds = getSelectedIds();
+      const idx = selectedIds.indexOf(id);
+      if (idx >= 0) selectedIds.splice(idx, 1);
+      else selectedIds.push(id);
+      setSelectedIds(selectedIds);
+      syncSelectedUI();
+    }
+
+    document.querySelectorAll('.exercise-card').forEach(card => {
+      const onActivate = () => {
+        toggleSelected(card);
+      };
+
+      card.addEventListener('click', onActivate);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onActivate();
+        }
+      });
+    });
+
+    // Modal
+    function openSelectedModal() {
+      selectedModalOverlay.classList.add('active');
+      selectedModalOverlay.setAttribute('aria-hidden', 'false');
+      renderSelectedList();
+    }
+
+    function closeSelectedModalFn() {
+      selectedModalOverlay.classList.remove('active');
+      selectedModalOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    openSelectedModalBtn.addEventListener('click', () => {
+      openSelectedModal();
+    });
+
+    closeSelectedModal.addEventListener('click', closeSelectedModalFn);
+    selectedModalOverlay.addEventListener('click', (e) => {
+      if (e.target === selectedModalOverlay) closeSelectedModalFn();
+    });
+
+    removeAllSelected.addEventListener('click', () => {
+      setSelectedIds([]);
+      syncSelectedUI();
+      renderSelectedList();
+    });
+
+    confirmSelectionBtn.addEventListener('click', () => {
+      // For now we just navigate back.
+      // Edit-program.html can read localStorage and add exercises.
+      window.location.href = 'edit-program.html';
+    });
+
+    function renderSelectedList() {
+      const selectedIds = getSelectedIds();
+      selectedList.innerHTML = '';
+
+      const cards = Array.from(document.querySelectorAll('.exercise-card'));
+      const selectedCards = cards.filter(c => selectedIds.includes(String(c.dataset.id)));
+
+      selectedModalSubtitle.textContent = selectedCards.length
+        ? `Найдено: ${selectedCards.length}`
+        : 'Пока ничего не выбрано';
+
+      if (!selectedCards.length) {
+        const div = document.createElement('div');
+        div.style.padding = 'var(--spacing-lg)';
+        div.style.color = 'var(--color-text-muted)';
+        div.textContent = 'Выберите упражнения на странице выше.';
+        selectedList.appendChild(div);
+        return;
+      }
+
+      selectedCards.forEach(card => {
+        const id = String(card.dataset.id);
+        const name = card.dataset.name;
+        const muscles = (card.dataset.muscles || '').split(' ');
+        const equipment = (card.dataset.equipment || '').split(' ');
+
+        const item = document.createElement('div');
+        item.className = 'selection-item';
+        item.innerHTML = `
+          <div class="meta">
+            <div class="name">${name}</div>
+            <div class="tags">
+              ${(muscles.slice(0,2).map(m => `<span class="tag">${muscleLabels[m] || m}</span>`).join(''))}
+              ${(equipment.slice(0,2).map(eq => `<span class="tag">${equipmentLabels[eq] || eq}</span>`).join(''))}
+            </div>
+          </div>
+          <button type="button" class="btn btn-sm btn-ghost remove" data-remove-id="${id}">Удалить</button>
+        `;
+        selectedList.appendChild(item);
+
+        item.querySelector('[data-remove-id="' + id + '"]').addEventListener('click', () => {
+          const selectedIdsNow = getSelectedIds().filter(x => x !== id);
+          setSelectedIds(selectedIdsNow);
+          syncSelectedUI();
+          renderSelectedList();
+        });
+      });
+    }
+
+    // Sidebar open/close
+    function openSidebar(sidebar) {
+      if (!sidebar) return;
+      sidebar.classList.add('open');
+      overlay.classList.add('active');
+      sidebar.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar(sidebar) {
+      if (!sidebar) return;
+      sidebar.classList.remove('open');
+      sidebar.setAttribute('aria-hidden', 'true');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    filterMusclesBtn.addEventListener('click', () => openSidebar(musclesSidebar));
+    filterEquipmentBtn.addEventListener('click', () => openSidebar(equipmentSidebar));
+    closeMusclesSidebar.addEventListener('click', () => closeSidebar(musclesSidebar));
+    closeEquipmentSidebar.addEventListener('click', () => closeSidebar(equipmentSidebar));
+    overlay.addEventListener('click', () => {
+      closeSidebar(musclesSidebar);
+      closeSidebar(equipmentSidebar);
+    });
+
+    // Sidebar preview changes
+    const muscleFilterRadios = document.querySelectorAll('input[name="filter-muscle"]');
+    muscleFilterRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.checked) {
+          muscleFilterPreviewText.textContent = muscleLabels[radio.value] || radio.value;
+          muscleFilterPreview.style.display = 'flex';
+          muscleFilterPreview.style.alignItems = 'center';
+          muscleFilterPreview.style.gap = '8px';
+        }
+      });
+    });
+
+    const equipmentFilterRadios = document.querySelectorAll('input[name="filter-equipment"]');
+    equipmentFilterRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.checked) {
+          equipmentFilterPreviewText.textContent = equipmentLabels[radio.value] || radio.value;
+          equipmentFilterPreview.style.display = 'flex';
+          equipmentFilterPreview.style.alignItems = 'center';
+          equipmentFilterPreview.style.gap = '8px';
+        }
+      });
+    });
+
+    // Filters state (client-side)
+    let selectedMuscle = null;
+    let selectedEquipment = null;
+
+    applyMusclesFilterBtn.addEventListener('click', () => {
+      const selected = document.querySelector('input[name="filter-muscle"]:checked');
+      selectedMuscle = selected ? selected.value : null;
+      closeSidebar(musclesSidebar);
+      applyFilters();
+    });
+
+    applyEquipmentFilterBtn.addEventListener('click', () => {
+      const selected = document.querySelector('input[name="filter-equipment"]:checked');
+      selectedEquipment = selected ? selected.value : null;
+      closeSidebar(equipmentSidebar);
+      applyFilters();
+    });
+
+    document.getElementById('clearFilters').addEventListener('click', () => {
+      selectedMuscle = null;
+      selectedEquipment = null;
+      if (searchInput) searchInput.value = '';
+      document.querySelectorAll('input[name="filter-muscle"]').forEach(r => r.checked = false);
+      document.querySelectorAll('input[name="filter-equipment"]').forEach(r => r.checked = false);
+      document.getElementById('clearFilters').style.display = 'none';
+      activeFilters.innerHTML = '';
+      applyFilters();
+    });
+
+    document.getElementById('clearEmptyFilters').addEventListener('click', () => {
+      selectedMuscle = null;
+      selectedEquipment = null;
+      if (searchInput) searchInput.value = '';
+      document.getElementById('clearFilters').style.display = 'none';
+      const activeFilters = document.getElementById('activeFilters');
+      activeFilters.innerHTML = '';
+      applyFilters();
+    });
+
+    const activeFilters = document.getElementById('activeFilters');
+
+    function updateActiveFilters() {
+      const chips = [];
+      if (selectedMuscle) {
+        chips.push(`<span class="filter-chip" style="cursor: default;">${muscleLabels[selectedMuscle] || selectedMuscle}</span>`);
+      }
+      if (selectedEquipment) {
+        chips.push(`<span class="filter-chip" style="cursor: default;">${equipmentLabels[selectedEquipment] || selectedEquipment}</span>`);
+      }
+      activeFilters.innerHTML = chips.join('');
+
+      const anyFilters = Boolean(selectedMuscle) || Boolean(selectedEquipment) || (searchInput && searchInput.value.trim().length);
+      document.getElementById('clearFilters').style.display = anyFilters ? '' : 'none';
+    }
+
+    function applyFilters() {
+      const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+      const cards = exercisesGrid ? exercisesGrid.querySelectorAll('.exercise-card') : [];
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const name = (card.dataset.name || '').toLowerCase();
+        const muscles = (card.dataset.muscles || '').split(' ');
+        const equipment = (card.dataset.equipment || '').split(' ');
+
+        const matchesSearch = !searchQuery || name.includes(searchQuery);
+        const matchesMuscle = !selectedMuscle || muscles.includes(selectedMuscle);
+        const matchesEquipment = !selectedEquipment || equipment.includes(selectedEquipment);
+
+        const visible = matchesSearch && matchesMuscle && matchesEquipment;
+        card.style.display = visible ? '' : 'none';
+        if (visible) visibleCount++;
+      });
+
+      resultsCountValue.textContent = String(visibleCount);
+      emptyState.classList.toggle('visible', visibleCount === 0);
+
+      updateActiveFilters();
+    }
+
+    // Search
+    if (searchInput) {
+      searchInput.addEventListener('input', () => applyFilters());
+    }
+
+    // Sidebar escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (musclesSidebar && musclesSidebar.classList.contains('open')) closeSidebar(musclesSidebar);
+        if (equipmentSidebar && equipmentSidebar.classList.contains('open')) closeSidebar(equipmentSidebar);
+        closeSelectedModalFn();
+      }
+    });
+
+    // Init
+    syncSelectedUI();
+    applyFilters();
+
+    // When leaving/entering, keep previous selection.
+    // (Edit-program.html can read localStorage key.)
+  </script>
+</body>
+</html>
+

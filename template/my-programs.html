@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ваши программы — FitApp</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/my-programs.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="sidebar-logo">FitApp</a>
+    <nav class="sidebar-nav">
+      <a href="profile.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Профиль
+      </a>
+      <a href="exercises.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6.5 6.5h11M6.5 17.5h11M3 12h3M18 12h3M6 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+        </svg>
+        Упражнения
+      </a>
+      <a href="user-programs.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="9"/>
+        </svg>
+        Программы пользователей
+      </a>
+      <a href="my-programs.html" class="active">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="12" y1="18" x2="12" y2="12"/>
+          <line x1="9" y1="15" x2="15" y2="15"/>
+        </svg>
+        Ваши программы
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content main-with-sidebar">
+    <div class="page-header">
+      <div class="page-header-content">
+        <div>
+          <h1 class="page-title">Ваши программы</h1>
+          <p class="page-subtitle">Создавайте и управляйте своими программами тренировок</p>
+        </div>
+        <button class="btn btn-primary" id="createProgramBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Создать программу
+        </button>
+      </div>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="filters-bar">
+      <div class="search-box">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" class="form-input" placeholder="Поиск по названию...">
+      </div>
+    </div>
+
+    <!-- Programs Grid -->
+    <div class="grid grid-3 programs-grid mt-lg">
+      <div class="card program-card">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=200&fit=crop" alt="Тренировка" class="card-image">
+        <div class="card-body">
+          <h4 class="card-title">Утренняя зарядка</h4>
+          <p class="card-subtitle">12 упражнений • 3 раза в неделю</p>
+          <p class="card-text">Лёгкая разминка для начала дня. Подходит для новичков.</p>
+          <div class="program-stats">
+            <span class="program-stat">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6.5 6.5h11M6.5 17.5h11"/>
+              </svg>
+              12 упражнений
+            </span>
+            <span class="program-stat">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              3 раза/нед
+            </span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-sm btn-primary">Открыть</button>
+            <button class="btn btn-sm btn-outline">Редактировать</button>
+            <button class="btn btn-sm btn-ghost">Удалить</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card program-card">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=200&fit=crop" alt="Тренировка" class="card-image">
+        <div class="card-body">
+          <h4 class="card-title">Силовая на верх</h4>
+          <p class="card-subtitle">8 упражнений • 2 раза в неделю</p>
+          <p class="card-text">Прокачка верха тела. Грудь, спина, плечи, руки.</p>
+          <div class="program-stats">
+            <span class="program-stat">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6.5 6.5h11M6.5 17.5h11"/>
+              </svg>
+              8 упражнений
+            </span>
+            <span class="program-stat">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              2 раза/нед
+            </span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-sm btn-primary">Открыть</button>
+            <button class="btn btn-sm btn-outline">Редактировать</button>
+            <button class="btn btn-sm btn-ghost">Удалить</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card program-card">
+        <img src="https://images.unsplash.com/photo-1549576490-b0b4831ef60a?w=400&h=200&fit=crop" alt="Тренировка" class="card-image">
+        <div class="card-body">
+          <h4 class="card-title">Домашний фитнес</h4>
+          <p class="card-subtitle">10 упражнений • 4 раза в неделю</p>
+          <p class="card-text">Тренировки без оборудования. Можно делать дома.</p>
+          <div class="program-stats">
+            <span class="program-stat">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6.5 6.5h11M6.5 17.5h11"/>
+              </svg>
+              10 упражнений
+            </span>
+            <span class="program-stat">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              4 раза/нед
+            </span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-sm btn-primary">Открыть</button>
+            <button class="btn btn-sm btn-outline">Редактировать</button>
+            <button class="btn btn-sm btn-ghost">Удалить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Create Program Modal -->
+  <div class="modal-overlay" id="createProgramModal">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">Создать программу тренировок</h3>
+        <button class="modal-close" id="closeModal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="create-program-form">
+          <!-- Basic Info -->
+          <div class="form-section">
+            <h4 class="form-section-title">Основная информация</h4>
+            
+            <div class="form-group">
+              <label class="form-label">Название программы</label>
+              <input type="text" class="form-input" placeholder="Например: Прокачка ног на массу">
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Цель</label>
+                <select class="form-input form-select">
+                  <option value="">Выберите цель</option>
+                  <option value="mass">Набор массы</option>
+                  <option value="weight-loss">Похудение</option>
+                  <option value="endurance">Выносливость</option>
+                  <option value="strength">Сила</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Уровень</label>
+                <select class="form-input form-select">
+                  <option value="">Выберите уровень</option>
+                  <option value="beginner">Новичок</option>
+                  <option value="intermediate">Средний</option>
+                  <option value="advanced">Продвинутый</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Описание</label>
+              <textarea class="form-input" rows="2" placeholder="Кратко опишите программу..."></textarea>
+            </div>
+          </div>
+          
+          <!-- Days -->
+          <div class="form-section">
+            <h4 class="form-section-title">Дни тренировок</h4>
+            <p class="form-hint">Выберите дни недели для тренировок</p>
+            
+            <div class="days-selector">
+              <label class="day-option">
+                <input type="checkbox" name="days" value="mon">
+                <span>Пн</span>
+              </label>
+              <label class="day-option">
+                <input type="checkbox" name="days" value="tue">
+                <span>Вт</span>
+              </label>
+              <label class="day-option">
+                <input type="checkbox" name="days" value="wed">
+                <span>Ср</span>
+              </label>
+              <label class="day-option">
+                <input type="checkbox" name="days" value="thu">
+                <span>Чт</span>
+              </label>
+              <label class="day-option">
+                <input type="checkbox" name="days" value="fri">
+                <span>Пт</span>
+              </label>
+              <label class="day-option">
+                <input type="checkbox" name="days" value="sat">
+                <span>Сб</span>
+              </label>
+              <label class="day-option">
+                <input type="checkbox" name="days" value="sun">
+                <span>Вс</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Exercises -->
+          <div class="form-section">
+            <div class="form-section-header">
+              <h4 class="form-section-title">Упражнения</h4>
+              <button type="button" class="btn btn-sm btn-outline" id="addExerciseBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Добавить день
+              </button>
+            </div>
+            
+            <!-- Training Day -->
+            <div class="training-day">
+              <div class="training-day-header">
+                <input type="text" class="form-input training-day-name" value="День 1" placeholder="Название дня">
+                <button type="button" class="btn btn-sm btn-ghost remove-day">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <div class="exercise-list">
+                <div class="exercise-item">
+                  <div class="exercise-item-content">
+                    <input type="text" class="form-input exercise-name" placeholder="Название упражнения" value="Жим лёжа">
+                    <div class="exercise-params">
+                      <input type="number" class="form-input param-input" placeholder="Подходы" value="4">
+                      <input type="number" class="form-input param-input" placeholder="Повторения" value="10">
+                      <input type="number" class="form-input param-input" placeholder="Отдых (сек)" value="90">
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-ghost remove-exercise">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"/>
+                      <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                  </button>
+                </div>
+                
+                <div class="exercise-item">
+                  <div class="exercise-item-content">
+                    <input type="text" class="form-input exercise-name" placeholder="Название упражнения" value="Приседания со штангой">
+                    <div class="exercise-params">
+                      <input type="number" class="form-input param-input" placeholder="Подходы" value="4">
+                      <input type="number" class="form-input param-input" placeholder="Повторения" value="8">
+                      <input type="number" class="form-input param-input" placeholder="Отдых (сек)" value="120">
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-ghost remove-exercise">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"/>
+                      <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              
+              <button type="button" class="btn btn-sm btn-outline add-exercise-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Добавить упражнение
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancelCreate">Отмена</button>
+        <button class="btn btn-primary">Создать программу</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

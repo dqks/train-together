@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Программа "Сила и мощь" — FitApp</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/program-detail.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="sidebar-logo">FitApp</a>
+    <nav class="sidebar-nav">
+      <a href="profile.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Профиль
+      </a>
+      <a href="exercises.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6.5 6.5h11M6.5 17.5h11M3 12h3M18 12h3M6 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+        </svg>
+        Упражнения
+      </a>
+      <a href="user-programs.html" class="active">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="9"/>
+        </svg>
+        Программы пользователей
+      </a>
+      <a href="my-programs.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="12" y1="18" x2="12" y2="12"/>
+          <line x1="9" y1="15" x2="15" y2="15"/>
+        </svg>
+        Ваши программы
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content main-with-sidebar">
+    <!-- Hero Section -->
+    <div class="program-hero">
+      <div class="program-hero-image">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=400&fit=crop" alt="Программа тренировок">
+        <div class="program-hero-overlay"></div>
+      </div>
+      <div class="program-hero-content">
+        <a href="user-programs.html" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Назад к программам
+        </a>
+        <div class="program-title-row">
+          <h1 class="program-title">Сила и мощь</h1>
+          <div class="program-hero-actions">
+            <a href="edit-program.html" class="btn btn-outline btn-hero-edit" title="Редактировать программу">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+              </svg>
+              Редактировать
+            </a>
+          </div>
+        </div>
+        <div class="program-author">
+          <div class="author-avatar">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Алексей">
+          </div>
+          <div class="author-info">
+            <span class="author-name">Алексей Петров</span>
+            <span class="author-meta">Создано 15 марта 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Program Info -->
+    <div class="program-container">
+      <!-- Stats Bar -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <div class="stat-content">
+            <span class="stat-value">8 недель</span>
+            <span class="stat-label">Длительность</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6.5 6.5h11M6.5 17.5h11M3 12h3M18 12h3"/>
+          </svg>
+          <div class="stat-content">
+            <span class="stat-value">12</span>
+            <span class="stat-label">Упражнений</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          <div class="stat-content">
+            <span class="stat-value">3 дня/нед</span>
+            <span class="stat-label">Частота</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20V10M18 20V4M6 20v-4"/>
+          </svg>
+          <div class="stat-content">
+            <span class="stat-value badge badge-intermediate">Средний</span>
+            <span class="stat-label">Уровень</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="program-content-grid">
+        <!-- Left Column: Description & Info -->
+        <div class="program-main">
+          <!-- Description -->
+          <section class="program-section">
+            <h2 class="section-title">О программе</h2>
+            <div class="program-description">
+              <p>Комплексная программа для развития силы и набора мышечной массы. Идеально подходит для тех, кто уже имеет базовый опыт в тренажёрном зале и хочет выйти на новый уровень.</p>
+              <p>Программа построена на основе прогрессивных методов перегрузки и включает все основные движения: жим, приседание и тягу. Каждая тренировка целенаправленно прорабатывает различные мышечные группы с акцентом на базовые упражнения.</p>
+            </div>
+          </section>
+
+          <!-- Training Schedule -->
+          <section class="program-section">
+            <h2 class="section-title">Расписание тренировок</h2>
+            <div class="training-days">
+              <!-- Day 1 -->
+              <div class="training-day-card">
+                <div class="day-header">
+                  <div class="day-badge">
+                    <span class="day-number">1</span>
+                    <span class="day-name">Понедельник</span>
+                  </div>
+                  <span class="day-focus">Грудь • Трицепс • Плечи</span>
+                </div>
+                <div class="day-exercises">
+                  <div class="exercise-row">
+                    <div class="exercise-number">1</div>
+                    <div class="exercise-details">
+                      <a href="exercise.html" class="exercise-link" aria-label="Перейти к упражнению Жим лёжа">
+                        <span class="exercise-name">Жим лёжа</span>
+                      </a>
+                      <span class="exercise-sets">4 × 8-10</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Грудные</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">2</div>
+                    <div class="exercise-details">
+                      <a href="exercise.html" class="exercise-link" aria-label="Перейти к упражнению Жим гантелей на наклонной скамье">
+                        <span class="exercise-name">Жим гантелей на наклонной скамье</span>
+                      </a>
+
+                      <span class="exercise-sets">3 × 10-12</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Верх груди</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">3</div>
+                    <div class="exercise-details">
+                      <a href="exercise.html" class="exercise-link" aria-label="Перейти к упражнению Разведение гантелей лёжа">
+                        <span class="exercise-name">Разведение гантелей лёжа</span>
+                      </a>
+
+                      <span class="exercise-sets">3 × 12-15</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Грудные</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">4</div>
+                    <div class="exercise-details">
+                      <a href="exercise.html" class="exercise-link" aria-label="Перейти к упражнению Французский жим">
+                        <span class="exercise-name">Французский жим</span>
+                      </a>
+
+                      <span class="exercise-sets">3 × 10-12</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Трицепс</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">5</div>
+                    <div class="exercise-details">
+                      <a href="exercise.html" class="exercise-link" aria-label="Перейти к упражнению Жим штанги сидя">
+                        <span class="exercise-name">Жим штанги сидя</span>
+                      </a>
+
+                      <span class="exercise-sets">3 × 10-12</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Плечи</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Day 2 -->
+              <div class="training-day-card">
+                <div class="day-header">
+                  <div class="day-badge">
+                    <span class="day-number">2</span>
+                    <span class="day-name">Среда</span>
+                  </div>
+                  <span class="day-focus">Спина • Бицепс</span>
+                </div>
+                <div class="day-exercises">
+                  <div class="exercise-row">
+                    <div class="exercise-number">1</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Становая тяга</span>
+                      <span class="exercise-sets">4 × 5-6</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Спина</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">2</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Подтягивания</span>
+                      <span class="exercise-sets">4 × 8-10</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Широчайшие</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">3</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Тяга штанги в наклоне</span>
+                      <span class="exercise-sets">3 × 8-10</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Спина</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">4</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Тяга верхнего блока</span>
+                      <span class="exercise-sets">3 × 10-12</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Широчайшие</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">5</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Сгибания со штангой</span>
+                      <span class="exercise-sets">3 × 10-12</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Бицепс</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Day 3 -->
+              <div class="training-day-card">
+                <div class="day-header">
+                  <div class="day-badge">
+                    <span class="day-number">3</span>
+                    <span class="day-name">Пятница</span>
+                  </div>
+                  <span class="day-focus">Ноги • Пресс</span>
+                </div>
+                <div class="day-exercises">
+                  <div class="exercise-row">
+                    <div class="exercise-number">1</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Приседания со штангой</span>
+                      <span class="exercise-sets">4 × 6-8</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Квадрицепсы</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">2</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Жим ногами</span>
+                      <span class="exercise-sets">3 × 10-12</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Ноги</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">3</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Румынская тяга</span>
+                      <span class="exercise-sets">3 × 8-10</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Бицепс бедра</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">4</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Разгибания ног</span>
+                      <span class="exercise-sets">3 × 12-15</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Квадрицепсы</div>
+                  </div>
+                  <div class="exercise-row">
+                    <div class="exercise-number">5</div>
+                    <div class="exercise-details">
+                      <span class="exercise-name">Скручивания на пресс</span>
+                      <span class="exercise-sets">3 × 15-20</span>
+                    </div>
+                    <div class="exercise-muscle-tag">Пресс</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column: Sidebar -->
+        <aside class="program-sidebar">
+          <!-- Subscribe Card -->
+          <div class="subscribe-card">
+            <div class="subscribe-header">
+              <div class="rating-display">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+                <span class="rating-value">4.8</span>
+                <span class="rating-count">(124 оценки)</span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-subscribe" id="subscribeBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              Подписаться на программу
+            </button>
+            <p class="subscribe-note">Программа будет добавлена в ваш список</p>
+          </div>
+
+          <!-- Author Card -->
+          <div class="author-card">
+            <h3 class="author-card-title">Об авторе</h3>
+            <div class="author-card-content">
+              <div class="author-card-avatar">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Алексей Петров">
+              </div>
+              <div class="author-card-info">
+                <span class="author-card-name">Алексей Петров</span>
+                <span class="author-card-stats">12 программ • 2.4K подписчиков</span>
+              </div>
+            </div>
+            <button class="btn btn-outline btn-block">Посмотреть профиль</button>
+          </div>
+
+          <!-- Tips Card -->
+          <div class="tips-card">
+            <h3 class="tips-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              Рекомендации
+            </h3>
+            <ul class="tips-list">
+              <li>Отдых между подходами: 90-120 секунд</li>
+              <li>Перед тренировкой обязательна разминка</li>
+              <li>Соблюдайте правильную технику выполнения</li>
+              <li>Ведите дневник тренировок</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Subscribe button handler
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    if (subscribeBtn) {
+      subscribeBtn.addEventListener('click', () => {
+        subscribeBtn.classList.toggle('subscribed');
+        if (subscribeBtn.classList.contains('subscribed')) {
+          subscribeBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Вы подписаны
+          `;
+          subscribeBtn.classList.add('btn-subscribed');
+        } else {
+          subscribeBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Подписаться на программу
+          `;
+          subscribeBtn.classList.remove('btn-subscribed');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

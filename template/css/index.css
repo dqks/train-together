@@ -1,0 +1,131 @@
+/* ============================================
+   Index Page (Landing) Styles
+   ============================================ */
+
+/* Registration Form */
+.register-form-wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.register-form {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.register-form .form-input {
+  flex: 1;
+}
+
+@media (max-width: 480px) {
+  .register-form {
+    flex-direction: column;
+  }
+}
+
+/* Requirements Grid Enhancement */
+.requirement-card {
+  border: 2px solid transparent;
+  transition: all var(--transition-base);
+}
+
+.requirement-card:hover {
+  transform: translateY(-4px);
+}
+
+.requirement-card.active {
+  border-color: var(--color-accent);
+}
+
+/* Exercise Form */
+.exercise-form-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.exercise-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.muscle-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.muscle-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-fast);
+}
+
+.muscle-option:hover {
+  background-color: var(--color-accent-light);
+}
+
+.muscle-option input {
+  accent-color: var(--color-accent);
+}
+
+.muscle-option input:checked + span {
+  color: var(--color-accent-hover);
+  font-weight: 500;
+}
+
+/* Section Variants */
+.section-light {
+  background-color: var(--color-bg-secondary);
+}
+
+/* Program Preview Card Enhancement */
+.program-preview-card {
+  border: 2px solid var(--color-border-light);
+}
+
+.program-preview-card .card-image {
+  height: 220px;
+}
+
+/* Popular Workouts Grid */
+.popular-workouts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+/* Responsive adjustments for landing */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .hero-subtitle {
+    font-size: var(--font-size-base);
+  }
+  
+  .requirements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .section-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .requirements-grid {
+    grid-template-columns: 1fr;
+  }
+}

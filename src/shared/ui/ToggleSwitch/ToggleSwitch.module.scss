@@ -1,0 +1,49 @@
+.Toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    cursor: pointer;
+    user-select: none;
+}
+
+.Toggle input {
+    display: none;
+}
+
+.switch {
+    width: 44px;
+    height: 24px;
+    background: var(--color-bg-tertiary);
+    border-radius: 12px;
+    position: relative;
+    transition: background var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.switch::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform var(--transition-fast);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.Toggle input:checked + .switch {
+    background: var(--color-accent);
+}
+
+.Toggle input:checked + .switch::after {
+    transform: translateX(20px);
+}
+
+.text {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
