@@ -54,6 +54,7 @@ export type Names = {
 export type ProgramDetails = {
     id: number
     name: string
+    isPublic: boolean
     description: string | undefined
     imageUrl: string | undefined
     createdAt: string

@@ -82,7 +82,11 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
             {isEditMode
                 ? (
                     <EditMode
+                        programIsPublic={programDetails?.isPublic}
+                        programName={programDetails?.name}
                         setIsEditMode={setIsEditMode}
+                        programImageUrl={programDetails?.imageUrl}
+                        programDescription={programDetails?.description}
                     />
                 )
                 : (
@@ -105,7 +109,7 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
                             />
                             <div className={cls.programContentGrid}>
                                 <div className={cls.programMain}>
-                                    <Description description={programDetails?.description} />
+                                    <Description programDescription={programDetails?.description} />
                                     <section className={cls.programSection}>
                                         <h2 className={cls.sectionTitle}>
                                             {t('Программа тренировок')}
