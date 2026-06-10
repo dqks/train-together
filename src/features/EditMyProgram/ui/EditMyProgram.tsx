@@ -1,95 +1,98 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
 import { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import cls from './EditMyProgram.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
-import { Input } from '@/shared/ui/Input/Input.tsx';
-import { Textarea } from '@/shared/ui/Textarea/Textarea.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
-import { Select } from '@/shared/ui/Select/Select.tsx';
-import { ToggleSwitch } from '@/shared/ui/ToggleSwitch/ToggleSwitch.tsx';
 import Show from '@/shared/assets/icons/show.svg?react';
 import TrashCan from '@/shared/assets/icons/trash-can.svg?react';
 import Cross from '@/shared/assets/icons/cross.svg?react';
 import ToDetails from '@/shared/assets/icons/to-details.svg?react';
 import Burger from '@/shared/assets/icons/burger.svg?react';
+import { Sidebar } from './Sidebar/Sidebar';
+import { MainInfo } from './MainInfo/MainInfo';
+import { updateProgram } from '../model/services/updateProgram/updateProgram.ts';
+import { fetchProgramDetails } from '@/entities/Program';
 
 interface EditMyProgramProps {
-    className?: string;
     programImageUrl: string | undefined
     programName: string | undefined
     programDescription: string | undefined
     programIsPublic: boolean | undefined
+    programId: number | undefined
+    onCancel: () => void
 }
 
 export const EditMyProgram = (props : EditMyProgramProps) => {
     const { t } = useTranslation();
 
     const {
-        className,
         programImageUrl,
         programName,
         programDescription,
         programIsPublic,
+        programId,
+        onCancel,
     } = props;
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [name, setName] = useState<string>(programName || '');
     const [description, setDescription] = useState<string>(programDescription || '');
     const [isPublic, setIsPublic] = useState<boolean>(programIsPublic || false);
     const [image, setImage] = useState<File | string | undefined>(programImageUrl);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const onChangeName = useCallback((value: string) => {
+        setName(value);
+    }, [setName]);
+
+    const onChangeDescription = useCallback((value: string) => {
+        setDescription(value);
+    }, [setDescription]);
 
     const onChangeIsPublic = useCallback((value: boolean) => {
         setIsPublic(value);
     }, [setIsPublic]);
 
+    const onChangeImage = useCallback((file : File | undefined) => {
+        setImage(file);
+    }, [setImage]);
+
+    const onSave = useCallback(async () => {
+        setIsLoading(true);
+
+        const response = await updateProgram({
+            id: programId,
+            name,
+            description,
+            publicSetting: isPublic ? 'true' : 'false',
+            image: image instanceof File ? image : undefined,
+        });
+
+        if (response.data.success) {
+            if (programId != null) {
+                dispatch(fetchProgramDetails(programId));
+            }
+            onCancel();
+        }
+
+        setIsLoading(false);
+    }, [setIsLoading, image, name, description, isPublic]);
+
     return (
         <div className={cls.programContainer}>
             <div className={cls.programGrid}>
                 <div className={cls.programMain}>
-                    <section className={cls.programSection}>
-                        <div className={cls.sectionHeader}>
-                            <h2 className={cls.sectionTitle}>{t('Основная информация')}</h2>
-                        </div>
-
-                        <div className={cls.formGroup}>
-                            <FileInput className={cls.fileInput} onChangeImage={setImage} value={image} />
-                        </div>
-
-                        <div className={cls.formGroup}>
-                            <label
-                                className={cls.formLabel}
-                                htmlFor="name"
-                            >
-                                {t('Название программы')}
-                            </label>
-                            <Input
-                                id="name"
-                                className={cls.formInput}
-                                placeholder={t('Введите название программы')}
-                                type="text"
-                                value={name}
-                            />
-                        </div>
-
-                        <div className={cls.formGroup}>
-                            <label
-                                htmlFor="description"
-                                className={cls.formLabel}
-                            >
-                                {t('Описание')}
-                            </label>
-                            <Textarea
-                                id="description"
-                                className={cls.textareaDescription}
-                                rows={4}
-                                value={description}
-                                placeholder={t('Опишите вашу программу...')}
-                            />
-                        </div>
-                    </section>
+                    <MainInfo
+                        onChangeDescription={onChangeDescription}
+                        onChangeName={onChangeName}
+                        image={image}
+                        onChangeImage={onChangeImage}
+                        name={name}
+                        description={description}
+                    />
 
                     <section className={cls.programSection}>
                         <div className={cls.sectionHeader}>
@@ -125,17 +128,6 @@ export const EditMyProgram = (props : EditMyProgramProps) => {
                                         </Button>
                                     </div>
                                 </div>
-
-                                {/* TODO Description should be added later due to design issues */}
-                                {/* <div className={cls.dayFocusInput}> */}
-                                {/*    <input */}
-                                {/*        className={cls.formInput} */}
-                                {/*        type="text" */}
-                                {/*        defaultValue={t('Грудь • Трицепс • Плечи')} */}
-                                {/*        placeholder={t('Фокус дня (например: Грудь • Трицепс)')} */}
-                                {/*    /> */}
-                                {/* </div> */}
-
                                 <div className={cls.dayExercises}>
                                     <div className={classNames(cls.exerciseRow, {}, ['editable'])}>
                                         <div className={cls.exerciseDragHandle} aria-hidden="true">
@@ -185,50 +177,13 @@ export const EditMyProgram = (props : EditMyProgramProps) => {
                         </div>
                     </section>
                 </div>
-                <aside className={cls.programSidebar}>
-                    <div className={cls.settingsCard}>
-                        <h3 className={cls.settingsTitle}>{t('Настройки программы')}</h3>
-
-                        <div className={cls.formGroup}>
-                            <label
-                                htmlFor="difficulty"
-                                className={cls.formLabel}
-                            >
-                                {t('Уровень сложности')}
-                            </label>
-                            <Select className={cls.formInput}>
-                                <option value="beginner">{t('Новичок')}</option>
-                                <option value="intermediate">{t('Средний')}</option>
-                                <option value="advanced">{t('Продвинутый')}</option>
-                            </Select>
-                        </div>
-
-                        <div className={cls.toggleGroup}>
-                            <ToggleSwitch
-                                checked={isPublic}
-                                onChange={onChangeIsPublic}
-                                label={t('Публичная программа')}
-                            />
-                            <p className={cls.formHint}>
-                                {t('Программа будет видима всем пользователям')}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className={cls.statsPreviewCard}>
-                        <h3 className={cls.statsPreviewTitle}>{t('Статистика')}</h3>
-                        <div className={cls.statsPreviewList}>
-                            <div className={cls.statsPreviewItem}>
-                                <span className={cls.statsPreviewLabel}>{t('Дней')}</span>
-                                <span className={cls.statsPreviewValue}>2</span>
-                            </div>
-                            <div className={cls.statsPreviewItem}>
-                                <span className={cls.statsPreviewLabel}>{t('Упражнений')}</span>
-                                <span className={cls.statsPreviewValue}>2</span>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
+                <Sidebar
+                    isLoading={isLoading}
+                    onCancel={onCancel}
+                    onChangeIsPublic={onChangeIsPublic}
+                    isPublic={isPublic}
+                    onSave={onSave}
+                />
             </div>
         </div>
     );

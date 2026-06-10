@@ -1,12 +1,10 @@
 import { useTranslation } from 'react-i18next';
+import { useCallback } from 'react';
 import cls from './EditMode.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { BackLink } from '@/shared/ui/BackLink/BackLink.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
-import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
-import Save from '@/shared/assets/icons/save.svg?react';
-
-import { EditMyProgram } from '@/features/EditMyProgram/ui/EditMyProgram.tsx';
+import { EditMyProgram } from '@/features/EditMyProgram';
 
 interface EditModeProps {
     className?: string;
@@ -15,6 +13,7 @@ interface EditModeProps {
     programName: string | undefined
     programDescription: string | undefined
     programIsPublic: boolean | undefined
+    programId: number | undefined
 }
 
 export const EditMode = (props: EditModeProps) => {
@@ -22,12 +21,17 @@ export const EditMode = (props: EditModeProps) => {
 
     const {
         className,
-        setIsEditMode,
         programImageUrl,
         programName,
         programDescription,
         programIsPublic,
+        programId,
+        setIsEditMode,
     } = props;
+
+    const onCancel = useCallback(() => {
+        setIsEditMode(false);
+    }, [setIsEditMode]);
 
     return (
         <div className={classNames(cls.EditMode, {}, [className])}>
@@ -37,22 +41,11 @@ export const EditMode = (props: EditModeProps) => {
                     <BackLink className={cls.backLink} text="Назад" to={AuthRoutePath.programs} />
                     <h1 className={cls.pageTitle}>{t('Редактирование программы')}</h1>
                 </div>
-                <div className={cls.editHeaderActions}>
-                    <Button
-                        onClick={() => setIsEditMode(false)}
-                        theme={ThemeButton.OUTLINE}
-                        type="button"
-                    >
-                        {t('Отмена')}
-                    </Button>
-                    <Button type="button">
-                        <Save />
-                        {t('Сохранить')}
-                    </Button>
-                </div>
             </div>
 
             <EditMyProgram
+                programId={programId}
+                onCancel={onCancel}
                 programIsPublic={programIsPublic}
                 programName={programName}
                 programDescription={programDescription}

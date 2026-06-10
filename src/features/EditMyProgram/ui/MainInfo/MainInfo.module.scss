@@ -1,0 +1,67 @@
+.programSection {
+    margin: 0;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.sectionTitle {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+}
+
+// Forms (basic mapping from template)
+
+.formGroup {
+    margin-bottom: var(--spacing-md);
+}
+
+.formGroup:last-child {
+    margin-bottom: 0;
+}
+
+.formLabel {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-primary);
+}
+
+.formInput {
+    width: 100%;
+
+    //border: 1px solid var(--color-border-light);
+    //border-radius: var(--radius-md);
+    //padding: var(--spacing-sm);
+    //background: var(--color-bg);
+    //color: var(--color-text-primary);
+    //font-size: var(--font-size-sm);
+    //outline: none;
+}
+
+//.formInput:focus {
+//    border-color: var(--color-accent);
+//}
+
+.textareaDescription {
+    width: 100%;
+    resize: vertical;
+}
+
+// Photo upload (visual only)
+
+.fileInput {
+    height: 300px;
+}

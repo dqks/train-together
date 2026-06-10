@@ -67,7 +67,7 @@ export const EditExercise = ({ className, exerciseDetails, setDisplayMode } : Ed
 
             return [...m, id];
         });
-    }, [setImage]);
+    }, [setSecondaryMuscleIds]);
 
     const onEdit = async () => {
         const errors: ErrorObject = {

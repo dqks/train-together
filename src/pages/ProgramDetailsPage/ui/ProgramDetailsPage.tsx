@@ -87,6 +87,7 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
                         setIsEditMode={setIsEditMode}
                         programImageUrl={programDetails?.imageUrl}
                         programDescription={programDetails?.description}
+                        programId={programDetails?.id}
                     />
                 )
                 : (

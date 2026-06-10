@@ -1,0 +1,104 @@
+// Program Sidebar
+
+.programSidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    position: sticky;
+    top: var(--spacing-xl);
+}
+
+// Settings
+
+.settingsTitle {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+}
+
+.settingsCard {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    position: sticky;
+    top: var(--spacing-xl);
+}
+
+.formHint {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+.toggleGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.settingsCard .formGroup {
+    margin-bottom: var(--spacing-md);
+}
+
+.settingsCard .formGroup:last-child {
+    margin-bottom: 0;
+}
+
+.statsPreviewCard {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.statsPreviewTitle {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.statsPreviewList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.statsPreviewItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.statsPreviewLabel {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.statsPreviewValue {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.formInput {
+    width: 100%;
+}
+
+.editActions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+@media (max-width: 1024px) {
+    .programSidebar {
+        position: static;
+    }
+
+    .settingsCard {
+        position: static;
+    }
+}
