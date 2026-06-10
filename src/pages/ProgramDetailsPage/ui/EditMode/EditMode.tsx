@@ -39,6 +39,28 @@ export const EditMode = (props : EditModeProps) => {
                 </div>
             </div>
 
+            <div className={cls.programContainer}>
+                <div className={cls.programGrid}>
+                    <div className={cls.programMain}>program-main</div>
+                    <aside className={cls.programSidebar}>
+                        <div className={cls.settingsCard}>ds</div>
+                        <div className={cls.statsPreviewCard}>
+                            <h3 className={cls.statsPreviewTitle}>{t('Статистика')}</h3>
+                            <div className={cls.statsPreviewList}>
+                                <div className={cls.statsPreviewItem}>
+                                    <span className={cls.statsPreviewLabel}>{t('Дней')}</span>
+                                    <span className={cls.statsPreviewValue}>2</span>
+                                </div>
+                                <div className={cls.statsPreviewItem}>
+                                    <span className={cls.statsPreviewLabel}>{t('Упражнений')}</span>
+                                    <span className={cls.statsPreviewValue}>2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
         </div>
     );
 };
