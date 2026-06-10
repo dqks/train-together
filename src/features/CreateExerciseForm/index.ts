@@ -1,3 +1,1 @@
-import { CreateExerciseForm } from './ui/CreateExerciseForm';
-
-export { CreateExerciseForm };
+export { CreateExerciseForm } from './ui/CreateExerciseForm';

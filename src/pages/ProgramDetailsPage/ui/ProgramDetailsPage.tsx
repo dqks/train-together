@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from './ProgramDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
@@ -16,12 +16,13 @@ import { Hero } from './Hero/Hero.tsx';
 import { Sidebar } from './Sidebar/Sidebar.tsx';
 import { Description } from './Description/Description.tsx';
 import { Days } from './Days/Days.tsx';
+import { EditMode } from './EditMode/EditMode.tsx';
 
 interface ProgramDetailsPageProps {
     className?: string;
 }
 
-const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
+const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
     const { t, i18n } = useTranslation();
 
     const userId = useSelector(getUserId);
@@ -29,6 +30,8 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
     const isLoading = useSelector(getProgramIsLoading);
     const errors = useSelector(getProgramErrors);
     const isOwner = userId === programDetails?.user.id;
+
+    const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
     const params = useParams();
     const dispatch = useDispatch();
@@ -69,46 +72,61 @@ const ProgramDetailsPage = ({ className } : ProgramDetailsPageProps) => {
         }
     }
 
-    const exerciseCount = programDetails?.days.reduce((acc, day) => acc + day.exercises.length, 0);
+    const exerciseCount = programDetails?.days.reduce((
+        acc,
+        day,
+    ) => acc + day.exercises.length, 0);
 
     return (
-        <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
-            <Hero
-                authorImage={programDetails?.user.avatarUrl}
-                programName={programDetails?.name}
-                authorName={programDetails?.user.nickname}
-                imageUrl={programDetails?.imageUrl}
-                formattedDate={formattedDate}
-            />
-            <div className={cls.programContainer}>
-                <StatsBar
-                    daysCount={programDetails?.days.length}
-                    exerciseCount={exerciseCount}
-                    difficulty={programDetails?.difficulty}
-                    goal={programDetails?.goal}
-                />
-                <div className={cls.programContentGrid}>
-                    <div className={cls.programMain}>
-                        <Description description={programDetails?.description} />
-                        <section className={cls.programSection}>
-                            <h2 className={cls.sectionTitle}>
-                                {t('Программа тренировок')}
-                            </h2>
-                            <Days days={programDetails?.days} />
-                        </section>
-                    </div>
-                    <Sidebar
-                        authorImage={programDetails?.user.avatarUrl}
-                        authorId={programDetails?.user.id}
-                        followsCount={programDetails?.followsCount}
-                        programsCount={programDetails?.user.programsCount}
-                        authorName={programDetails?.user.nickname}
-                        isSubscribed={programDetails?.isFollowed}
-                        params={params}
+        <>
+            {isEditMode
+                ? (
+                    <EditMode
+                        setIsEditMode={setIsEditMode}
                     />
-                </div>
-            </div>
-        </div>
+                )
+                : (
+                    <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
+                        <Hero
+                            authorImage={programDetails?.user.avatarUrl}
+                            programName={programDetails?.name}
+                            authorName={programDetails?.user.nickname}
+                            imageUrl={programDetails?.imageUrl}
+                            formattedDate={formattedDate}
+                            isOwner={isOwner}
+                            setIsEditMode={setIsEditMode}
+                        />
+                        <div className={cls.programContainer}>
+                            <StatsBar
+                                daysCount={programDetails?.days.length}
+                                exerciseCount={exerciseCount}
+                                difficulty={programDetails?.difficulty}
+                                goal={programDetails?.goal}
+                            />
+                            <div className={cls.programContentGrid}>
+                                <div className={cls.programMain}>
+                                    <Description description={programDetails?.description} />
+                                    <section className={cls.programSection}>
+                                        <h2 className={cls.sectionTitle}>
+                                            {t('Программа тренировок')}
+                                        </h2>
+                                        <Days days={programDetails?.days} />
+                                    </section>
+                                </div>
+                                <Sidebar
+                                    authorImage={programDetails?.user.avatarUrl}
+                                    authorId={programDetails?.user.id}
+                                    followsCount={programDetails?.followsCount}
+                                    programsCount={programDetails?.user.programsCount}
+                                    authorName={programDetails?.user.nickname}
+                                    isSubscribed={programDetails?.isFollowed}
+                                    params={params}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+        </>
     );
 };
 

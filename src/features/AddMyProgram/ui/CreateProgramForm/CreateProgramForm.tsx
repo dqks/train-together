@@ -23,6 +23,7 @@ import { getProgramDiff } from '../../model/selectors/getProgramDiff/getProgramD
 import { getProgramGoals } from '../../model/selectors/getProgramGoals/getProgramGoals.ts';
 import { getSelectedDiff } from '../../model/selectors/getSelectedDiff/getSelectedDiff.ts';
 import { getSelectedGoal } from '../../model/selectors/getSelectedGoal/getSelectedGoal.ts';
+import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 
 interface CreateProgramFormProps {
     className?: string;
@@ -79,15 +80,16 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
         dispatch(createProgramActions.setSelectedDifficulty(value));
     }, [dispatch]);
 
-    const onChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event?.target?.files) {
-            if (event.target.files[0].size > fileSizeLimit) {
-                dispatch(createProgramActions.setErrors({ image: ['Максимум 3 мегабайта'] }));
-            } else {
-                setImage(event?.target?.files[0]);
-            }
-        }
-    };
+    // TODO добавить в FileInput проверку на размер
+    // const onChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
+    //     if (event?.target?.files) {
+    //         if (event.target.files[0].size > fileSizeLimit) {
+    //             dispatch(createProgramActions.setErrors({ image: ['Максимум 3 мегабайта'] }));
+    //         } else {
+    //             setImage(event?.target?.files[0]);
+    //         }
+    //     }
+    // };
 
     const onCreateClick = () => {
         const errors = {
@@ -151,7 +153,7 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
 
     return (
         <form className={classNames(cls.CreateProgramForm, {}, [className])}>
-            <h1>{t('Создание программы')}</h1>
+            {/* <h1>{t('Создание программы')}</h1> */}
             <div className={cls.inputWrapper}>
                 <label htmlFor="name">{t('Название')}</label>
                 <Input onChange={onChangeName} value={name} type="text" name="name" id="name" />
@@ -200,13 +202,14 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
                 <ErrorMessage messages={errors?.diffId} />
             </div>
             <div className={cls.inputWrapper}>
-                <input
-                    className={cls.fileInput}
-                    onChange={onChangeImage}
-                    type="file"
-                    id="image"
-                    name="image"
-                />
+                {/* <input */}
+                {/*    className={cls.fileInput} */}
+                {/*    onChange={onChangeImage} */}
+                {/*    type="file" */}
+                {/*    id="image" */}
+                {/*    name="image" */}
+                {/* /> */}
+                <FileInput onChangeImage={setImage} value={image} />
             </div>
             <Button
                 disabled={isLoading}

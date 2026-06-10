@@ -21,6 +21,7 @@ export const enTranslation = {
         'Ваш пароль': 'Your password',
         'Ваш никнейм': 'Your nickname',
         'Об авторе': 'About author',
+        'Назад к программам': 'Back to programs',
         'Программа будет добавлена в ваш список избранных': 'Program will be added to your favourite list',
         'Войдите в свой аккаунт для доступа к программа': 'Log in your account to access the programs',
         Программы: 'Programs',

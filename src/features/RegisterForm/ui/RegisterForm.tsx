@@ -171,7 +171,7 @@ export const RegisterForm = () => {
                         type="button"
                         onClick={onRegisterClick}
                     >
-                        {t('Войти')}
+                        {t('Создать аккаунт')}
                     </Button>
                 </form>
                 <p className={cls.authFooterText}>

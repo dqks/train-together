@@ -34,7 +34,7 @@ const ProgramsPage = ({ className } : ProgramsPageProps) => {
                     {t('Изучайте и сохраняйте программы тренировок от сообщества')}
                 </p>
             </div>
-            <ProgramsControl />
+            <ProgramsControl programCount={programList?.length} />
             <ProgramsList
                 subText={t('Программы не найдены')}
                 isLoading={isLoading}

@@ -28,7 +28,7 @@ export const LoginForm = () => {
 
     useEffect(() => {
         if (userId) {
-            navigate(AuthRoutePath.exercises);
+            navigate(AuthRoutePath.programs);
         }
     }, [userId, navigate]);
 
@@ -103,7 +103,6 @@ export const LoginForm = () => {
                     >
                         {t('Войти')}
                     </Button>
-
                 </form>
 
                 <p className={cls.authFooterText}>

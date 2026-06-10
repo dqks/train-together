@@ -16,6 +16,7 @@ export const AddMyProgram = () => {
         <>
             <Button type="button" onClick={openHandler}>{t('+ Создать программу')}</Button>
             <Modal
+                modalTitle={t('Создание программы')}
                 isOpen={isOpen}
                 onOutsideClick={openHandler}
                 wrapperClassName={cls.modal}

@@ -17,7 +17,7 @@ export const AddExerciseButton = () => {
             <Modal
                 isOpen={isOpen}
                 onOutsideClick={openHandler}
-                modalTitle={t('Создать программу тренировок')}
+                modalTitle={t('Создать упражнение')}
             >
                 <Suspense fallback={(
                     <PageLoader />

@@ -6,30 +6,14 @@ export const RatingsContent = () => (
         <ProgramCard
             id={1}
             className={cls.programCard}
-            programName="Силовая"
-            description="Описание программы"
+            programName="Силовая программа"
+            description="Программа для чистого силового развития"
             imageUrl="test"
-        />
-        <ProgramCard
-            className={cls.programCard}
-            id={1}
-            programName="Силовая"
-            description="Описание программы"
-            imageUrl="test"
-        />
-        <ProgramCard
-            className={cls.programCard}
-            id={1}
-            programName="Силовая"
-            description="Описание программы"
-            imageUrl="test"
-        />
-        <ProgramCard
-            className={cls.programCard}
-            id={1}
-            programName="Силовая"
-            description="Описание программы"
-            imageUrl="test"
+            userName="Olsh"
+            followersCount={2}
+            daysAmount={3}
+            difficulty="Средний"
+            goal="Сила"
         />
     </div>
 );

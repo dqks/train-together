@@ -30,6 +30,14 @@ export const ExercisesControl = ({ exerciseCount } : ExercisesControlProps) => {
     const [searchName, setSearchName] = useState<string>('');
 
     const onReset = () => {
+        if (
+            searchParams.get('name') === null
+            && searchParams.get('primaryMuscles') === null
+            && searchParams.get('equipmentId') === null
+        ) {
+            return;
+        }
+
         setSearchParams({});
         setEquipmentId(undefined);
         setPrimaryMuscleId(undefined);

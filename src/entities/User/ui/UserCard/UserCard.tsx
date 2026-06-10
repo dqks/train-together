@@ -43,10 +43,10 @@ export const UserCard = (props: UserCardProps) => {
                     {/*    <span className="stat-value">12</span> */}
                     {/*    <span className="stat-label">Подписчики</span> */}
                     {/* </div> */}
-                    <div className={cls.stat}>
-                        <span className={cls.statValue}>{subscribeCount}</span>
-                        <span className={cls.statLabel}>{t('Подписки')}</span>
-                    </div>
+                    {/* <div className={cls.stat}> */}
+                    {/*    <span className={cls.statValue}>{subscribeCount}</span> */}
+                    {/*    <span className={cls.statLabel}>{t('Подписки')}</span> */}
+                    {/* </div> */}
                 </div>
             </div>
         </div>

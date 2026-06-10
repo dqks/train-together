@@ -6,9 +6,10 @@ import { Chip } from '@/shared/ui/Chip/Chip.tsx';
 
 interface ProgramsControlProps {
     className?: string;
+    programCount: number | undefined
 }
 
-export const ProgramsControl = ({ className } : ProgramsControlProps) => {
+export const ProgramsControl = ({ className, programCount } : ProgramsControlProps) => {
     const { t } = useTranslation();
     return (
         <div className={classNames(cls.ProgramsControl, {}, [className])}>
@@ -28,7 +29,7 @@ export const ProgramsControl = ({ className } : ProgramsControlProps) => {
             <span>
                 {t('Показано: ')}
                 {' '}
-                <strong>6</strong>
+                <strong>{programCount || 0}</strong>
                 {' '}
                 {t('программ')}
             </span>

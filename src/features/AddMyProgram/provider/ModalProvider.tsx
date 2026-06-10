@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Modal, ModalContext } from './lib/ModalContext';
 import { ModalContent } from '../ui/ModalContent/ModalContent';
 
-const defaultModal = Modal.CREATE_TYPE;
+const defaultModal = Modal.FORM;
 
 type ModalProviderProps = {
     openHandler: () => void

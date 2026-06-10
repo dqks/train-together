@@ -40,11 +40,6 @@ export const ExpandedNavbar = memo(({
                 icon={<UserSvg />}
             />
             <ExpandedItem
-                to={AuthRoutePath.exercises}
-                title={t('Упражнения')}
-                icon={<Barbell />}
-            />
-            <ExpandedItem
                 to={AuthRoutePath.programs}
                 title={t('Программы пользователей')}
                 icon={<Programs />}
@@ -58,6 +53,11 @@ export const ExpandedNavbar = memo(({
                 to={AuthRoutePath.my_programs}
                 title={t('Ваши программы')}
                 icon={<MyPrograms />}
+            />
+            <ExpandedItem
+                to={AuthRoutePath.exercises}
+                title={t('Упражнения')}
+                icon={<Barbell />}
             />
             <ExpandedItem
                 to={AuthRoutePath.my_exercises}

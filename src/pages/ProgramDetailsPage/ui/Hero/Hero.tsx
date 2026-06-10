@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Hero.module.scss';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
-import BackArrow from '@/shared/assets/icons/backArrow.svg?react';
-import { serverUrl } from '@/shared/const/serverUrl.ts';
+import Edit from '@/shared/assets/icons/edit.svg?react';
 import userPicture from '@/shared/assets/images/userPicture.jpg';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
+import { BackLink } from '@/shared/ui/BackLink/BackLink.tsx';
 
 interface HeroProps {
     className?: string;
@@ -14,9 +14,11 @@ interface HeroProps {
     imageUrl: string | undefined;
     formattedDate: string | undefined;
     authorImage: string | undefined
+    isOwner: boolean | undefined;
+    setIsEditMode: (value: boolean) => void
 }
 
-export const Hero = (props : HeroProps) => {
+export const Hero = (props: HeroProps) => {
     const { t } = useTranslation();
     const {
         className,
@@ -25,7 +27,8 @@ export const Hero = (props : HeroProps) => {
         imageUrl,
         formattedDate,
         authorImage,
-
+        isOwner,
+        setIsEditMode,
     } = props;
     return (
         <div className={classNames(cls.Hero, {}, [className])}>
@@ -38,11 +41,21 @@ export const Hero = (props : HeroProps) => {
                 <div className={cls.heroImageOverlay} />
             </div>
             <div className={cls.heroContent}>
-                <Link className={cls.backLink} to={AuthRoutePath.programs}>
-                    <BackArrow className={cls.backLinkSvg} />
-                    Назад к программам
-                </Link>
-                <h1 className={cls.programTitle}>{programName}</h1>
+                <BackLink text={t('Назад к программам')} to={AuthRoutePath.programs} />
+                <div className={cls.titleRow}>
+                    <h1 className={cls.programTitle}>{programName}</h1>
+                    {isOwner && (
+                        <Button
+                            onClick={() => setIsEditMode(true)}
+                            theme={ThemeButton.OUTLINE}
+                            className={cls.editButton}
+                            type="button"
+                        >
+                            <Edit />
+                            {t('Редактировать')}
+                        </Button>
+                    )}
+                </div>
                 <div className={cls.programAuthor}>
                     <div className={cls.authorAvatar}>
                         <img

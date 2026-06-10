@@ -21,12 +21,12 @@ export const OverviewContent = ({ programCount }: OverviewContentProps) => {
                         <span className={cls.creatorStatValue}>{programCount}</span>
                         <span className={cls.creatorStatLabel}>{t('Программ')}</span>
                     </div>
+                    {/* <div className={cls.creatorStat}> */}
+                    {/*    <span className={cls.creatorStatValue}>156</span> */}
+                    {/*    <span className={cls.creatorStatLabel}>{t('Подписчиков')}</span> */}
+                    {/* </div> */}
                     <div className={cls.creatorStat}>
-                        <span className={cls.creatorStatValue}>156</span>
-                        <span className={cls.creatorStatLabel}>{t('Подписчиков')}</span>
-                    </div>
-                    <div className={cls.creatorStat}>
-                        <span className={cls.creatorStatValue}>150</span>
+                        <span className={cls.creatorStatValue}>1</span>
                         <span className={cls.creatorStatLabel}>{t('Звезд')}</span>
                     </div>
                 </div>
