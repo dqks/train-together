@@ -5,7 +5,7 @@ import { Sidebar } from './Sidebar/Sidebar';
 import { MainInfo } from './MainInfo/MainInfo';
 import { updateProgram } from '../model/services/updateProgram/updateProgram.ts';
 import {
-    fetchProgramDetails, fetchCreateInfo, getProgramGoals, getProgramDifficulties,
+    fetchCreateInfo, fetchProgramDetails, getProgramDifficulties, getProgramGoals,
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
 
@@ -15,6 +15,8 @@ interface EditMyProgramProps {
     programDescription: string | undefined
     programIsPublic: boolean | undefined
     programId: number | undefined
+    selectedProgramGoalId: number | undefined
+    selectedProgramDifficultyId: number | undefined
     onCancel: () => void
 }
 
@@ -25,6 +27,8 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         programDescription,
         programIsPublic,
         programId,
+        selectedProgramGoalId,
+        selectedProgramDifficultyId,
         onCancel,
     } = props;
 
@@ -37,11 +41,20 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const [image, setImage] = useState<File | string | undefined>(programImageUrl);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const goals = useSelector(getProgramGoals);
-    const difficulties = useSelector(getProgramDifficulties);
+    const [
+        selectedGoalId,
+        setSelectedGoalId,
+    ] = useState<number | undefined>(selectedProgramGoalId);
+    const [
+        selectedDiffId,
+        setSelectedDiffId,
+    ] = useState<number | undefined>(selectedProgramDifficultyId);
+
+    const programGoals = useSelector(getProgramGoals);
+    const programDifficulties = useSelector(getProgramDifficulties);
 
     useEffect(() => {
-        if (!goals && !difficulties) {
+        if (!programGoals && !programDifficulties) {
             dispatch(fetchCreateInfo());
         }
     }, [dispatch]);
@@ -62,6 +75,14 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         setImage(file);
     }, [setImage]);
 
+    const onChangeGoal = useCallback((id: string) => {
+        setSelectedGoalId(Number(id));
+    }, [setImage]);
+
+    const onChangeDiff = useCallback((id: string) => {
+        setSelectedDiffId(Number(id));
+    }, [setImage]);
+
     const onSave = useCallback(async () => {
         setIsLoading(true);
 
@@ -71,6 +92,8 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
             description,
             publicSetting: isPublic ? 'true' : 'false',
             image: image instanceof File ? image : undefined,
+            diffId: selectedDiffId?.toString(),
+            goalId: selectedGoalId?.toString(),
         });
 
         if (response.data.success) {
@@ -81,7 +104,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         }
 
         setIsLoading(false);
-    }, [setIsLoading, image, name, description, isPublic]);
+    }, [setIsLoading, image, name, description, isPublic, selectedGoalId, selectedDiffId, onCancel]);
 
     return (
         <div className={cls.programContainer}>
@@ -99,6 +122,12 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                     <TrainingDays />
                 </div>
                 <Sidebar
+                    onChangeDiff={onChangeDiff}
+                    onChangeGoal={onChangeGoal}
+                    selectedProgramDifficultyId={selectedDiffId}
+                    selectedProgramGoalId={selectedGoalId}
+                    programGoals={programGoals}
+                    programDifficulties={programDifficulties}
                     isLoading={isLoading}
                     onCancel={onCancel}
                     onChangeIsPublic={onChangeIsPublic}

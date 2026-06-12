@@ -4,21 +4,58 @@ import { Select } from '@/shared/ui/Select/Select.tsx';
 import { ToggleSwitch } from '@/shared/ui/ToggleSwitch/ToggleSwitch.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Save from '@/shared/assets/icons/save.svg?react';
+import type { Difficulty, Goal } from '@/entities/Program';
 
 interface SidebarProps {
     isPublic: boolean;
+    isLoading: boolean
+    programGoals: Goal[] | undefined
+    programDifficulties: Difficulty[] | undefined
+    selectedProgramGoalId: number | undefined
+    selectedProgramDifficultyId: number | undefined
     onCancel: () => void;
     onChangeIsPublic: (isPublic: boolean) => void;
+    onChangeGoal: (id: string) => void;
+    onChangeDiff: (id: string) => void;
     onSave: () => void;
-    isLoading: boolean
 }
 
 export const Sidebar = (props : SidebarProps) => {
     const { t } = useTranslation();
 
     const {
-        isPublic, isLoading, onSave, onCancel, onChangeIsPublic,
+        isPublic,
+        isLoading,
+        programGoals,
+        programDifficulties,
+        selectedProgramGoalId,
+        selectedProgramDifficultyId,
+        onSave,
+        onCancel,
+        onChangeIsPublic,
+        onChangeGoal,
+        onChangeDiff,
     } = props;
+
+    const goalOptions = programGoals
+        ?.map((goal) => (
+            <option
+                key={goal.id}
+                value={goal.id}
+            >
+                {goal.name}
+            </option>
+        ));
+
+    const diffOptions = programDifficulties
+        ?.map((diff) => (
+            <option
+                key={diff.id}
+                value={diff.id}
+            >
+                {diff.name}
+            </option>
+        ));
 
     return (
         <aside className={cls.programSidebar}>
@@ -32,10 +69,12 @@ export const Sidebar = (props : SidebarProps) => {
                     >
                         {t('Уровень сложности')}
                     </label>
-                    <Select className={cls.formInput}>
-                        <option value="beginner">{t('Новичок')}</option>
-                        <option value="intermediate">{t('Средний')}</option>
-                        <option value="advanced">{t('Продвинутый')}</option>
+                    <Select
+                        onChange={onChangeDiff}
+                        defaultValue={selectedProgramDifficultyId}
+                        className={cls.formInput}
+                    >
+                        {diffOptions}
                     </Select>
                 </div>
 
@@ -46,10 +85,12 @@ export const Sidebar = (props : SidebarProps) => {
                     >
                         {t('Цель')}
                     </label>
-                    <Select className={cls.formInput}>
-                        <option value="beginner">{t('Новичок')}</option>
-                        <option value="intermediate">{t('Средний')}</option>
-                        <option value="advanced">{t('Продвинутый')}</option>
+                    <Select
+                        onChange={onChangeGoal}
+                        defaultValue={selectedProgramGoalId}
+                        className={cls.formInput}
+                    >
+                        {goalOptions}
                     </Select>
                 </div>
 

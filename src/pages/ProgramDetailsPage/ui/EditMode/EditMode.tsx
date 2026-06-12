@@ -14,6 +14,8 @@ interface EditModeProps {
     programDescription: string | undefined
     programIsPublic: boolean | undefined
     programId: number | undefined
+    selectedProgramGoalId: number | undefined
+    selectedProgramDifficultyId: number | undefined
 }
 
 export const EditMode = (props: EditModeProps) => {
@@ -26,6 +28,8 @@ export const EditMode = (props: EditModeProps) => {
         programDescription,
         programIsPublic,
         programId,
+        selectedProgramGoalId,
+        selectedProgramDifficultyId,
         setIsEditMode,
     } = props;
 
@@ -44,6 +48,8 @@ export const EditMode = (props: EditModeProps) => {
             </div>
 
             <EditMyProgram
+                selectedProgramGoalId={selectedProgramGoalId}
+                selectedProgramDifficultyId={selectedProgramDifficultyId}
                 programId={programId}
                 onCancel={onCancel}
                 programIsPublic={programIsPublic}

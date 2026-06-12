@@ -82,6 +82,8 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
             {isEditMode
                 ? (
                     <EditMode
+                        selectedProgramDifficultyId={programDetails?.difficulty.id}
+                        selectedProgramGoalId={programDetails?.goal.id}
                         programIsPublic={programDetails?.isPublic}
                         programName={programDetails?.name}
                         setIsEditMode={setIsEditMode}

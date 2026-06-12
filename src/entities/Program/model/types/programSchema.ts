@@ -74,8 +74,8 @@ export type ProgramDetails = {
     createdAt: string
     followsCount: number
     isFollowed: boolean
-    goal: Names
-    difficulty: Names
+    goal: Goal
+    difficulty: Difficulty
     user: {
         id: number
         nickname: string

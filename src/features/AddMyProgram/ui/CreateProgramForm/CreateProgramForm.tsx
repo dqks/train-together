@@ -203,13 +203,6 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
                 <ErrorMessage messages={errors?.diffId} />
             </div>
             <div className={cls.inputWrapper}>
-                {/* <input */}
-                {/*    className={cls.fileInput} */}
-                {/*    onChange={onChangeImage} */}
-                {/*    type="file" */}
-                {/*    id="image" */}
-                {/*    name="image" */}
-                {/* /> */}
                 <FileInput onChangeImage={setImage} value={image} />
             </div>
             <Button
