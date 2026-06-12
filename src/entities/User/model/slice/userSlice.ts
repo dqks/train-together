@@ -1,9 +1,9 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { UserSchema } from '../types/userSchema';
 import { USER_LOCAL_STORAGE_KEY } from '@/shared/const/userKey.ts';
-import { me } from '@/entities/User/model/services/me/me.ts';
+import { me } from '../services/me/me.ts';
 import { logout } from '../services/logout/logout';
-import { fetchProfileInfo } from '@/entities/User/model/services/fetchProfileInfo/fetchProfileInfo.ts';
+import { fetchProfileInfo } from '../services/fetchProfileInfo/fetchProfileInfo.ts';
 
 const initialState: UserSchema = {
     id: undefined,

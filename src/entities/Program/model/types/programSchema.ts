@@ -1,5 +1,19 @@
 import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
 
+export type Difficulty = {
+    id: number
+    name: string
+    nameEng: string
+    level: number
+}
+
+export type Goal = {
+    id: number
+    name: string
+    nameEng: string
+    sortOrder: number
+}
+
 export type ProgramCard = {
     id: number
     name: string
@@ -80,4 +94,6 @@ export interface ProgramSchema {
     favouritePrograms: ProgramCard[] | null
     error: ProgramError | undefined
     isLoading: boolean
+    goals: Goal[] | undefined
+    difficulties: Difficulty[] | undefined
 }

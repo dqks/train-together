@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    type ChangeEvent, useCallback, useContext, useEffect, useState,
+    useCallback, useContext, useEffect, useState,
 } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './CreateProgramForm.module.scss';
@@ -13,24 +13,25 @@ import { getProgramName } from '../../model/selectors/getProgramName/getProgramN
 import { getProgramDescription } from '../../model/selectors/getProgramDescription/getProgramDescription.ts';
 import { createUserProgram } from '../../model/services/createUserProgram/createUserProgram.ts';
 import { createProgramActions } from '../../model/slice/createProgramSlice.ts';
-import { getProgramPublicSetting } from '../../model/selectors/getProgramPublicSetting/getProgramPublicSetting.ts';
+import {
+    getProgramPublicSetting,
+} from '../../model/selectors/getProgramPublicSetting/getProgramPublicSetting.ts';
 import { ModalContext } from '../../provider/lib/ModalContext.tsx';
 import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 import { getProgramIsLoading } from '../../model/selectors/getProgramIsLoading/getProgramIsLoading.ts';
 import { getProgramErrors } from '../../model/selectors/getProgramErrors/getProgramErrors.ts';
-import { fetchCreateInfo } from '../../model/services/fetchCreateInfo/fetchCreateInfo.ts';
-import { getProgramDiff } from '../../model/selectors/getProgramDiff/getProgramDiff.ts';
-import { getProgramGoals } from '../../model/selectors/getProgramGoals/getProgramGoals.ts';
+import { fetchCreateInfo } from '@/entities/Program/model/services/fetchCreateInfo/fetchCreateInfo.ts';
 import { getSelectedDiff } from '../../model/selectors/getSelectedDiff/getSelectedDiff.ts';
 import { getSelectedGoal } from '../../model/selectors/getSelectedGoal/getSelectedGoal.ts';
 import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
+import { getProgramGoals, getProgramDifficulties } from '@/entities/Program';
 
 interface CreateProgramFormProps {
     className?: string;
 }
 
 // 3 MB
-const fileSizeLimit = 3 * 1024 * 1024;
+// const fileSizeLimit = 3 * 1024 * 1024;
 
 export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const { t } = useTranslation();
@@ -42,7 +43,7 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const isLoading = useSelector(getProgramIsLoading);
     const errors = useSelector(getProgramErrors);
     const goals = useSelector(getProgramGoals);
-    const difficulties = useSelector(getProgramDiff);
+    const difficulties = useSelector(getProgramDifficulties);
     const selectedDiff = useSelector(getSelectedDiff);
     const selectedGoal = useSelector(getSelectedGoal);
     const [image, setImage] = useState<File | undefined>(undefined);

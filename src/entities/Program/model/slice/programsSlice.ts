@@ -6,6 +6,7 @@ import { fetchProgramDetails } from '../services/fetchProgramDetails/fetchProgra
 import {
     fetchFavouritePrograms,
 } from '@/entities/Program/model/services/fetchFavouritePrograms/fetchFavouritePrograms.ts';
+import { fetchCreateInfo } from '@/entities/Program/model/services/fetchCreateInfo/fetchCreateInfo.ts';
 
 const initialState: ProgramSchema = {
     publicPrograms: null,
@@ -14,6 +15,8 @@ const initialState: ProgramSchema = {
     favouritePrograms: null,
     error: undefined,
     isLoading: false,
+    goals: undefined,
+    difficulties: undefined,
 };
 
 export const programsSlice = createSlice({
@@ -78,6 +81,19 @@ export const programsSlice = createSlice({
             .addCase(fetchFavouritePrograms.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.favouritePrograms = action.payload;
+            })
+            .addCase(fetchCreateInfo.pending, (state) => {
+                // state.errors = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetchCreateInfo.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.difficulties = action.payload.difficulties;
+                state.goals = action.payload.goals;
+            })
+            .addCase(fetchCreateInfo.rejected, (state) => {
+                state.isLoading = false;
+                // state.errors = action.payload;
             });
     },
 });

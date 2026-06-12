@@ -1,10 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
 import type { ResponseType } from '@/shared/api/api.ts';
-import type { CreateInfo, createProgramErrors } from '../../types/createProgramSchema.ts';
+import type { Difficulty, Goal } from '../../types/programSchema';
 
-export const fetchCreateInfo = createAsyncThunk<CreateInfo, void, ThunkConfig<createProgramErrors>>(
-    'createPrograms/fetchCreateInfo',
+export type CreateInfo = {
+    goals: Goal[]
+    difficulties: Difficulty[]
+}
+
+export const fetchCreateInfo = createAsyncThunk<CreateInfo, void, ThunkConfig<Record<string, string[]>>>(
+    'program/fetchCreateInfo',
     async (
         _,
         thunkAPI,
@@ -20,8 +25,6 @@ export const fetchCreateInfo = createAsyncThunk<CreateInfo, void, ThunkConfig<cr
             if (!response.data.data) {
                 throw new Error('Error occurred');
             }
-
-            console.log(response.data.data);
 
             return response.data.data;
         } catch (err : any) {
