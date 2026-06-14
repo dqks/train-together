@@ -90,6 +90,7 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
                         programImageUrl={programDetails?.imageUrl}
                         programDescription={programDetails?.description}
                         programId={programDetails?.id}
+                        programDays={programDetails?.days}
                     />
                 )
                 : (

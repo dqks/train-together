@@ -1,0 +1,79 @@
+.dayHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border-light);
+    gap: var(--spacing-md);
+    background: var(--color-bg-tertiary);
+}
+
+.dayHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.dayDragHandle {
+    cursor: grab;
+    color: var(--color-text-muted);
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.dayBadge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.dayNumber {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.dayNameInput {
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    border: 1px solid transparent;
+    background: transparent;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    color: var(--color-text-primary);
+}
+
+.dayNameInput:hover {
+    background: var(--color-bg-secondary);
+}
+
+.dayNameInput:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background: var(--color-bg);
+}
+
+.dayHeaderActions {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+    .dayHeaderLeft {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+}

@@ -5,6 +5,7 @@ import { Sidebar } from './Sidebar/Sidebar';
 import { MainInfo } from './MainInfo/MainInfo';
 import { updateProgram } from '../model/services/updateProgram/updateProgram.ts';
 import {
+    type Day,
     fetchCreateInfo, fetchProgramDetails, getProgramDifficulties, getProgramGoals,
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
@@ -17,6 +18,7 @@ interface EditMyProgramProps {
     programId: number | undefined
     selectedProgramGoalId: number | undefined
     selectedProgramDifficultyId: number | undefined
+    programDays: Day[] | undefined
     onCancel: () => void
 }
 
@@ -29,10 +31,10 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         programId,
         selectedProgramGoalId,
         selectedProgramDifficultyId,
+        programDays,
         onCancel,
     } = props;
 
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [name, setName] = useState<string>(programName || '');
@@ -119,7 +121,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                         description={description}
                     />
 
-                    <TrainingDays />
+                    <TrainingDays programDays={programDays} />
                 </div>
                 <Sidebar
                     onChangeDiff={onChangeDiff}

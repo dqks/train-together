@@ -5,6 +5,7 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { BackLink } from '@/shared/ui/BackLink/BackLink.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { EditMyProgram } from '@/features/EditMyProgram';
+import type { Day } from '@/entities/Program';
 
 interface EditModeProps {
     className?: string;
@@ -16,6 +17,7 @@ interface EditModeProps {
     programId: number | undefined
     selectedProgramGoalId: number | undefined
     selectedProgramDifficultyId: number | undefined
+    programDays: Day[] | undefined
 }
 
 export const EditMode = (props: EditModeProps) => {
@@ -30,6 +32,7 @@ export const EditMode = (props: EditModeProps) => {
         programId,
         selectedProgramGoalId,
         selectedProgramDifficultyId,
+        programDays,
         setIsEditMode,
     } = props;
 
@@ -48,6 +51,7 @@ export const EditMode = (props: EditModeProps) => {
             </div>
 
             <EditMyProgram
+                programDays={programDays}
                 selectedProgramGoalId={selectedProgramGoalId}
                 selectedProgramDifficultyId={selectedProgramDifficultyId}
                 programId={programId}
