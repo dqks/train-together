@@ -1,23 +1,88 @@
 import { useTranslation } from 'react-i18next';
+import type { Dispatch, SetStateAction } from 'react';
 import cls from './TrainingDays.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
-import { classNames } from '@/shared/lib/classNames/classNames.ts';
-
 import type { Day } from '@/entities/Program';
 import { DayHeader } from '../DayHeader/DayHeader';
-import { DayExercise } from '@/features/EditMyProgram/ui/DayExercise/DayExercise.tsx';
+import { ExerciseRow } from '@/features/EditMyProgram/ui/ExerciseRow/ExerciseRow.tsx';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 
 interface TrainingDaysProps {
-    programDays: Day[] | undefined
-
+    trainingDays: Day[] | undefined
+    setTrainingDays: Dispatch<SetStateAction<Day[] | undefined>>
 }
 
 export const TrainingDays = (props : TrainingDaysProps) => {
     const { t } = useTranslation();
 
-    const { programDays } = props;
+    const { trainingDays, setTrainingDays } = props;
 
-    console.log(programDays);
+    const onChangeExerciseReps = (dayIndex: number, exIndex: number, reps: number) => {
+        setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
+            ? {
+                ...td,
+                exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, reps } : ex)),
+            }
+            : td)));
+    };
+
+    const onChangeExerciseSets = (dayIndex: number, exIndex: number, sets: number) => {
+        setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
+            ? {
+                ...td,
+                exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, sets } : ex)),
+            }
+            : td)));
+    };
+
+    const onDeleteExercise = (dayIndex: number, exIndex: number) => {
+        setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
+            ? {
+                ...td,
+                exercises: td.exercises.filter((ex, eIndex) => eIndex !== exIndex),
+            }
+            : td)));
+    };
+
+    const onDeleteDay = (dayIndex: number) => {
+        setTrainingDays((prevState) => prevState?.filter((td, index) => (index !== dayIndex)));
+    };
+
+    const trainingDaysCards = trainingDays?.map((td, dayIndex) => (
+        <div className={classNames(cls.trainingDayCard, {}, ['editable'])} key={td.id}>
+            <DayHeader
+                onDeleteDay={onDeleteDay}
+                dayName={td.day.name}
+                dayNumber={dayIndex + 1}
+            />
+            <div className={cls.dayExercises}>
+                {td.exercises.map((exercise, exerciseIndex) => (
+                    <ExerciseRow
+                        key={exercise.id}
+                        exerciseNumber={exerciseIndex + 1}
+                        exerciseName={exercise.exercise.name}
+                        reps={exercise.reps}
+                        sets={exercise.sets}
+                        exerciseId={exercise.exercise.id}
+                        dayIndex={dayIndex}
+                        exerciseIndex={exerciseIndex}
+                        primaryMuscle={exercise.exercise.primaryMuscle.name}
+                        onChangeExerciseReps={onChangeExerciseReps}
+                        onChangeExerciseSets={onChangeExerciseSets}
+                        onDeleteExercise={onDeleteExercise}
+                        // primaryMuscleEng={exercise.exercise.primaryMuscle.nameEng}
+                    />
+                ))}
+                <Button
+                    theme={ThemeButton.OUTLINE}
+                    type="button"
+                    className={cls.addExerciseBtn}
+                >
+                    {t('+ Добавить упражнение')}
+                </Button>
+            </div>
+        </div>
+    ));
 
     return (
         <section className={cls.programSection}>
@@ -27,12 +92,8 @@ export const TrainingDays = (props : TrainingDaysProps) => {
                     {t('Добавить день')}
                 </Button>
             </div>
-
             <div className={cls.trainingDays}>
-                <div className={classNames(cls.trainingDayCard, {}, ['editable'])}>
-                    <DayHeader />
-                    <DayExercise />
-                </div>
+                { trainingDaysCards }
             </div>
         </section>
     );

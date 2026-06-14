@@ -40,6 +40,18 @@
     background: var(--color-bg);
 }
 
+.dayExercises {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+@media (max-width: 480px) {
+    .addExerciseBtn {
+        font-size: var(--font-size-sm);
+    }
+}
+
 //.dayFocusInput {
 //    margin-bottom: var(--spacing-md);
 //}

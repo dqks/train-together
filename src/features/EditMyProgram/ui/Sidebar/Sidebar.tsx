@@ -9,6 +9,8 @@ import type { Difficulty, Goal } from '@/entities/Program';
 interface SidebarProps {
     isPublic: boolean;
     isLoading: boolean
+    daysAmount: number | undefined;
+    // exerciseAmount: number;
     programGoals: Goal[] | undefined
     programDifficulties: Difficulty[] | undefined
     selectedProgramGoalId: number | undefined
@@ -30,6 +32,7 @@ export const Sidebar = (props : SidebarProps) => {
         programDifficulties,
         selectedProgramGoalId,
         selectedProgramDifficultyId,
+        daysAmount,
         onSave,
         onCancel,
         onChangeIsPublic,
@@ -111,10 +114,11 @@ export const Sidebar = (props : SidebarProps) => {
                 <div className={cls.statsPreviewList}>
                     <div className={cls.statsPreviewItem}>
                         <span className={cls.statsPreviewLabel}>{t('Дней')}</span>
-                        <span className={cls.statsPreviewValue}>2</span>
+                        <span className={cls.statsPreviewValue}>{daysAmount}</span>
                     </div>
                     <div className={cls.statsPreviewItem}>
                         <span className={cls.statsPreviewLabel}>{t('Упражнений')}</span>
+                        {/* TODO */}
                         <span className={cls.statsPreviewValue}>2</span>
                     </div>
                 </div>

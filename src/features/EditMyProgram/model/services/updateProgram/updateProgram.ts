@@ -15,6 +15,7 @@ export const updateProgram = async (programData: UpdateProgramBody) => {
     const fd = new FormData();
 
     const {
+        id,
         name,
         description,
         publicSetting,
@@ -47,6 +48,6 @@ export const updateProgram = async (programData: UpdateProgramBody) => {
         fd.append('diffId', diffId);
     }
 
-    const response = await $api.patch(`/training-programs/${programData.id}`, fd);
+    const response = await $api.patch(`/training-programs/${id}`, fd);
     return response.data as ResponseType<{success: boolean}, string>;
 };

@@ -9,6 +9,7 @@ import {
     fetchCreateInfo, fetchProgramDetails, getProgramDifficulties, getProgramGoals,
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
+import { updateDays } from '../model/services/updateDays/updateDays.ts';
 
 interface EditMyProgramProps {
     programImageUrl: string | undefined
@@ -37,11 +38,16 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
 
     const dispatch = useDispatch();
 
+    // Main info
     const [name, setName] = useState<string>(programName || '');
     const [description, setDescription] = useState<string>(programDescription || '');
     const [isPublic, setIsPublic] = useState<boolean>(programIsPublic || false);
     const [image, setImage] = useState<File | string | undefined>(programImageUrl);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    // const [isMainInfoEdited, setIsMainInfoEdited] = useState<boolean>(false);
+
+    // Training days
+    const [trainingDays, setTrainingDays] = useState<Day[] | undefined>(programDays);
 
     const [
         selectedGoalId,
@@ -105,8 +111,36 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
             onCancel();
         }
 
+        // const responseDays = await updateDays({
+        //     programId,
+        //     details: {
+        //         ...trainingDays?.map((td) => ({
+        //             dayId: td.day.id,
+        //             name: td.name,
+        //             description: td.description,
+        //             exercises: {
+        //                 ...td.exercises.map((ex) => ({
+        //                     exerciseId: ex.exercise.id,
+        //                     sets: ex.sets,
+        //                     reps: ex.reps,
+        //                     exerciseOrder: ex.exerciseOrder,
+        //                 })),
+        //             },
+        //         })),
+        //     },
+        // });
+
         setIsLoading(false);
-    }, [setIsLoading, image, name, description, isPublic, selectedGoalId, selectedDiffId, onCancel]);
+    }, [
+        setIsLoading,
+        image,
+        name,
+        description,
+        isPublic,
+        selectedGoalId,
+        selectedDiffId,
+        onCancel,
+    ]);
 
     return (
         <div className={cls.programContainer}>
@@ -120,10 +154,13 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                         name={name}
                         description={description}
                     />
-
-                    <TrainingDays programDays={programDays} />
+                    <TrainingDays
+                        trainingDays={trainingDays}
+                        setTrainingDays={setTrainingDays}
+                    />
                 </div>
                 <Sidebar
+                    daysAmount={trainingDays?.length}
                     onChangeDiff={onChangeDiff}
                     onChangeGoal={onChangeGoal}
                     selectedProgramDifficultyId={selectedDiffId}
