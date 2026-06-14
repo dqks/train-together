@@ -1,0 +1,409 @@
+// Exercise Selection
+
+.ExerciseSelection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+// Header
+
+.selectHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.pageTitle {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+}
+
+.pageSubtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.btnOutline {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    background: transparent;
+    color: var(--color-text-primary);
+    cursor: pointer;
+}
+
+.btnOutline:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btnPrimary {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-lg);
+    background: var(--color-accent);
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.btnPrimary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+// Search & Filters
+
+.filtersBar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.searchInput {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+}
+
+.filtersInfo {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.resultsCount {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.resultsCountValue {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.activeFilters {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.filterChip {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-light);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-xs);
+}
+
+.clearFiltersBtn {
+    margin-left: auto;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+    background: transparent;
+    color: var(--color-text-primary);
+    cursor: pointer;
+}
+
+.clearFiltersBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+// Empty state
+
+.emptyState {
+    display: none;
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    border: 1px dashed var(--color-border-light);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: var(--color-text-muted);
+    background: var(--color-bg-secondary);
+}
+
+.visible {
+    display: block;
+}
+
+.emptyActions {
+    margin-top: var(--spacing-md);
+}
+
+.btnPrimarySm {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-lg);
+    background: var(--color-accent);
+    color: #fff;
+    cursor: pointer;
+}
+
+// Grid
+
+.selectGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-md);
+}
+
+.exerciseCard {
+    user-select: none;
+    text-align: left;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    padding: var(--spacing-md);
+    position: relative;
+    cursor: pointer;
+}
+
+.exerciseCard:hover {
+    border-color: var(--color-border);
+}
+
+.exerciseCard:focus {
+    outline: none;
+    box-shadow: var(--shadow-md);
+}
+
+.isSelected {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.selectIndicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-lg);
+    background: var(--color-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.85);
+    transition: all var(--transition-fast);
+    z-index: 2;
+}
+
+.exerciseCard.isSelected .selectIndicator,
+.exerciseCard.isSelected .selectIndicator {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding-right: 44px;
+}
+
+.cardTitle {
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.exerciseMuscles {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+}
+
+.tag {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border-light);
+}
+
+// Selection footer (sticky)
+
+.selectionFooter {
+    position: sticky;
+    bottom: 0;
+    z-index: 50;
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-md) 0;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.95) 25%,
+        rgba(255, 255, 255, 0.98) 100%
+    );
+}
+
+.selectionFooterInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    padding: 0 var(--spacing-lg);
+}
+
+.selectionSummary {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.dot {
+    color: var(--color-text-secondary);
+}
+
+.actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.btnPrimary {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-lg);
+    background: var(--color-accent);
+    color: #fff;
+    cursor: pointer;
+}
+
+.btnOutline {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    background: transparent;
+    color: var(--color-text-primary);
+    cursor: pointer;
+}
+
+// Placeholders for filter sidebars (since logic currently lives in React)
+
+.debugFilters {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-secondary);
+}
+
+.filterBlock {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    min-width: 220px;
+}
+
+.filterTitle {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.filterSelect {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+}
+
+@media (max-width: 1024px) {
+    .selectGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .selectionFooterInner {
+        padding: 0 var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .selectHeader {
+        flex-direction: row;
+        align-items: center;
+    }
+
+
+
+
+
+
+
+    .actions {
+        width: 100%;
+    }
+
+    .actions button {
+        width: 100%;
+    }
+
+    .selectGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .selectionFooterInner {
+        align-items: stretch;
+    }
+
+    .selectionFooterInner .actions {
+        width: 100%;
+    }
+
+    .selectionFooterInner .actions .btnPrimary,
+    .selectionFooterInner .actions .btnOutline {
+        width: 100%;
+    }
+
+    .debugFilters {
+        flex-direction: column;
+    }
+}
+

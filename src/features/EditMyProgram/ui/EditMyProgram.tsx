@@ -10,6 +10,7 @@ import {
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
 import { updateDays } from '../model/services/updateDays/updateDays.ts';
+import { ExerciseSelection } from './ExerciseSelection/ExerciseSelection.tsx';
 
 interface EditMyProgramProps {
     programImageUrl: string | undefined
@@ -48,6 +49,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
 
     // Training days
     const [trainingDays, setTrainingDays] = useState<Day[] | undefined>(programDays);
+    const [isAddingExercise, setIsAddingExercise] = useState<boolean>(true);
 
     const [
         selectedGoalId,
@@ -143,38 +145,50 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         onCancel,
     ]);
 
+    const exercises = [{
+        id: 1,
+        name: 'ds',
+        muscles: ['dsds'],
+        equipment: ['dsds'],
+    }];
+
     return (
-        <div className={cls.programContainer}>
-            <div className={cls.programGrid}>
-                <div className={cls.programMain}>
-                    <MainInfo
-                        onChangeDescription={onChangeDescription}
-                        onChangeName={onChangeName}
-                        image={image}
-                        onChangeImage={onChangeImage}
-                        name={name}
-                        description={description}
-                    />
-                    <TrainingDays
-                        trainingDays={trainingDays}
-                        setTrainingDays={setTrainingDays}
-                    />
+
+        isAddingExercise
+            ? <ExerciseSelection subtitle="Тест" exercises={exercises} onBack={() => {}} />
+            : (
+                <div className={cls.programContainer}>
+                    <div className={cls.programGrid}>
+                        <div className={cls.programMain}>
+                            <MainInfo
+                                onChangeDescription={onChangeDescription}
+                                onChangeName={onChangeName}
+                                image={image}
+                                onChangeImage={onChangeImage}
+                                name={name}
+                                description={description}
+                            />
+                            <TrainingDays
+                                trainingDays={trainingDays}
+                                setTrainingDays={setTrainingDays}
+                            />
+                        </div>
+                        <Sidebar
+                            daysAmount={trainingDays?.length}
+                            onChangeDiff={onChangeDiff}
+                            onChangeGoal={onChangeGoal}
+                            selectedProgramDifficultyId={selectedDiffId}
+                            selectedProgramGoalId={selectedGoalId}
+                            programGoals={programGoals}
+                            programDifficulties={programDifficulties}
+                            isLoading={isLoading}
+                            onCancel={onCancel}
+                            onChangeIsPublic={onChangeIsPublic}
+                            isPublic={isPublic}
+                            onSave={onSave}
+                        />
+                    </div>
                 </div>
-                <Sidebar
-                    daysAmount={trainingDays?.length}
-                    onChangeDiff={onChangeDiff}
-                    onChangeGoal={onChangeGoal}
-                    selectedProgramDifficultyId={selectedDiffId}
-                    selectedProgramGoalId={selectedGoalId}
-                    programGoals={programGoals}
-                    programDifficulties={programDifficulties}
-                    isLoading={isLoading}
-                    onCancel={onCancel}
-                    onChangeIsPublic={onChangeIsPublic}
-                    isPublic={isPublic}
-                    onSave={onSave}
-                />
-            </div>
-        </div>
+            )
     );
 };
