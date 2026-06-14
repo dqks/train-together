@@ -94,7 +94,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const onSave = useCallback(async () => {
         setIsLoading(true);
 
-        const response = await updateProgram({
+        const responseInfo = await updateProgram({
             id: programId,
             name,
             description,
@@ -104,31 +104,31 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
             goalId: selectedGoalId?.toString(),
         });
 
-        if (response.data.success) {
+        const details = trainingDays?.map((td) => ({
+            dayId: td.day.id,
+            name: td.name,
+            description: td.description,
+            exercises: [
+                ...td.exercises.map((ex) => ({
+                    exerciseId: ex.exercise.id,
+                    sets: ex.sets,
+                    reps: ex.reps,
+                    exerciseOrder: ex.exerciseOrder,
+                })),
+            ],
+        }));
+
+        const responseDays = await updateDays({
+            programId,
+            details,
+        });
+
+        if (responseInfo.data.success && responseDays.data.success) {
             if (programId != null) {
                 dispatch(fetchProgramDetails(programId));
             }
             onCancel();
         }
-
-        // const responseDays = await updateDays({
-        //     programId,
-        //     details: {
-        //         ...trainingDays?.map((td) => ({
-        //             dayId: td.day.id,
-        //             name: td.name,
-        //             description: td.description,
-        //             exercises: {
-        //                 ...td.exercises.map((ex) => ({
-        //                     exerciseId: ex.exercise.id,
-        //                     sets: ex.sets,
-        //                     reps: ex.reps,
-        //                     exerciseOrder: ex.exerciseOrder,
-        //                 })),
-        //             },
-        //         })),
-        //     },
-        // });
 
         setIsLoading(false);
     }, [
@@ -139,6 +139,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         isPublic,
         selectedGoalId,
         selectedDiffId,
+        trainingDays,
         onCancel,
     ]);
 
