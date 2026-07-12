@@ -1,9 +1,14 @@
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import cls from './MyExercisesPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
 import { AddExerciseButton } from '@/features/AddExercise';
-import { MyExerciseCardList } from '@/widgets/MyExerciseCardList';
+import { ExerciseCardList } from '@/widgets/ExerciseCardList';
+import { getMyExercises } from '@/entities/Exercise/model/selectors/getMyExercises/getMyExercises.ts';
+import { getExerciseIsLoading } from '@/entities/Exercise';
+import { fetchMyExercises } from '@/entities/Exercise/model/services/fecthMyExercises/fecthMyExercises.ts';
 
 interface ExercisesPageProps {
     className?: string;
@@ -12,6 +17,14 @@ interface ExercisesPageProps {
 const MyExercisesPage = ({ className } : ExercisesPageProps) => {
     const { t } = useTranslation();
     usePageTitle('Ваши упражнения', t);
+
+    const dispatch = useDispatch();
+    const myExercises = useSelector(getMyExercises);
+    const isLoading = useSelector(getExerciseIsLoading);
+
+    useEffect(() => {
+        dispatch(fetchMyExercises());
+    }, [dispatch]);
 
     return (
         <div className={classNames(cls.ExercisesPage, {}, [className])}>
@@ -24,7 +37,7 @@ const MyExercisesPage = ({ className } : ExercisesPageProps) => {
                 </div>
                 <AddExerciseButton />
             </div>
-            <MyExerciseCardList />
+            <ExerciseCardList exercises={myExercises} isLoading={isLoading} />
         </div>
     );
 };

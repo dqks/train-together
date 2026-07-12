@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
-import type { ExerciseError, ExerciseInformation } from '@/entities/Exercise/model/types/exerciseSchema.ts';
+import type { ExerciseError, Exercise } from '@/entities/Exercise/model/types/exerciseSchema.ts';
 
 type ResponseType = {
-    data: ExerciseInformation[]
+    data: Exercise[]
 }
 
 export type Filters = {
@@ -13,7 +13,7 @@ export type Filters = {
 }
 
 export const fetchExerciseCards = createAsyncThunk<
-    ExerciseInformation[],
+    Exercise[],
     Filters | undefined,
     ThunkConfig<ExerciseError>>(
         'exercise/fetchExerciseCards',
@@ -45,6 +45,8 @@ export const fetchExerciseCards = createAsyncThunk<
                 if (!response.data) {
                     throw new Error('Error occurred');
                 }
+
+                console.log(response.data.data);
 
                 return response.data.data;
             } catch (e: any) {

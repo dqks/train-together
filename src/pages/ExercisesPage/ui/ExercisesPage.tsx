@@ -23,6 +23,8 @@ const ExercisesPage = () => {
         dispatch(fetchExerciseCards({ equipmentId, primaryMuscles: primaryMuscleId }));
     }, [dispatch]);
 
+    console.log(exerciseCards);
+
     return (
         <div className={classNames(cls.ExercisesPage, {}, [])}>
             <div className="page-header-row">
@@ -31,10 +33,12 @@ const ExercisesPage = () => {
                     <p className="page-subtitle">{t('Найдите упражнение по мышцам или оборудованию')}</p>
                 </div>
             </div>
-            <ExercisesControl exerciseCount={exerciseCards?.length} />
+            <ExercisesControl
+                exerciseCount={exerciseCards?.length}
+            />
             <ExerciseCardList
                 isLoading={isLoading}
-                exerciseCards={exerciseCards}
+                exercises={exerciseCards}
             />
         </div>
     );

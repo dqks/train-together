@@ -1,7 +1,7 @@
 import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
 import type { Equipment } from '@/entities/Equipment/model/types/equipmentSchema.ts';
 
-export type ExerciseInformation = {
+export type Exercise = {
     id: number,
     name: string,
     image: string
@@ -30,9 +30,9 @@ export type ExerciseDetails = {
 export type ExerciseError = Record<string, string[]>
 
 export interface ExerciseSchema {
-    exerciseCards: ExerciseInformation[] | undefined
+    exercises: Exercise[] | undefined
     exerciseDetails: ExerciseDetails | null,
-    myExercises: ExerciseInformation[] | null,
+    myExercises: Exercise[] | undefined,
     isLoading: boolean
     error: ExerciseError | undefined
 }

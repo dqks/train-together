@@ -1,13 +1,13 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { ExerciseInformation, ExerciseSchema } from '../types/exerciseSchema.ts';
+import type { Exercise, ExerciseSchema } from '../types/exerciseSchema.ts';
 import { fetchExerciseCards } from '../services/fetchExerciseCards/fetchExerciseCards.ts';
 import { fetchExerciseDetails } from '../services/fetchExerciseDetails/fetchExerciseDetails.ts';
 import { fetchMyExercises } from '@/entities/Exercise/model/services/fecthMyExercises/fecthMyExercises.ts';
 
 const initialState: ExerciseSchema = {
-    exerciseCards: null,
+    exercises: undefined,
     exerciseDetails: null,
-    myExercises: null,
+    myExercises: undefined,
     error: undefined,
     isLoading: false,
 };
@@ -16,8 +16,8 @@ export const exerciseSlice = createSlice({
     name: 'exercise',
     initialState,
     reducers: {
-        setExerciseCards: (state, action: PayloadAction<ExerciseInformation[]>) => {
-            state.exerciseCards = action.payload;
+        setExerciseCards: (state, action: PayloadAction<Exercise[]>) => {
+            state.exercises = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -28,7 +28,7 @@ export const exerciseSlice = createSlice({
             })
             .addCase(fetchExerciseCards.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.exerciseCards = action.payload;
+                state.exercises = action.payload;
             })
             .addCase(fetchExerciseCards.rejected, (state, action) => {
                 state.isLoading = false;
