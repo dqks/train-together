@@ -1,6 +1,8 @@
 import { ExerciseCard } from './ui/ExerciseCard/ExerciseCard.tsx';
 import { ExerciseInProgram } from './ui/ExerciseInProgram/ExerciseInProgram.tsx';
-import type { ExerciseSchema, ExerciseDetails, ListItem } from './model/types/exerciseSchema.ts';
+import type {
+    ExerciseSchema, ExerciseDetails, ListItem, Exercise,
+} from './model/types/exerciseSchema.ts';
 import { exerciseReducer, exerciseActions } from './model/slice/exerciseSlice.ts';
 import { getExerciseCards } from './model/selectors/getExerciseCards/getExerciseCards.ts';
 import {
@@ -30,4 +32,5 @@ export type {
     ExerciseSchema,
     ExerciseDetails,
     ListItem,
+    Exercise,
 };

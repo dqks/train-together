@@ -7,6 +7,7 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ExerciseCardList } from '@/widgets/ExerciseCardList';
 import { ExercisesControl } from '@/widgets/ExercisesControl';
 import { fetchExerciseCards, getExerciseCards, getExerciseIsLoading } from '@/entities/Exercise';
+import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
 
 const ExercisesPage = () => {
     const { t } = useTranslation();
@@ -23,7 +24,7 @@ const ExercisesPage = () => {
         dispatch(fetchExerciseCards({ equipmentId, primaryMuscles: primaryMuscleId }));
     }, [dispatch]);
 
-    console.log(exerciseCards);
+    useTabTitle('Упражнения');
 
     return (
         <div className={classNames(cls.ExercisesPage, {}, [])}>

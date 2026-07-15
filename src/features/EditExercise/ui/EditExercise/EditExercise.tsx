@@ -16,7 +16,6 @@ import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 
 interface EditExerciseProps {
     className?: string;
-    setDisplayMode: () => void
     exerciseDetails: ExerciseDetails | null
 }
 
@@ -28,7 +27,7 @@ type errorKeys = 'name' |
 
 type ErrorObject = Partial<Record<errorKeys, string[]>>
 
-export const EditExercise = ({ className, exerciseDetails, setDisplayMode } : EditExerciseProps) => {
+export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps) => {
     const { t } = useTranslation();
     const [name, setName] = useState<string | undefined>(exerciseDetails?.name);
     const [equipmentId, setEquipmentId] = useState(exerciseDetails?.equipment.id.toString());
@@ -160,7 +159,6 @@ export const EditExercise = ({ className, exerciseDetails, setDisplayMode } : Ed
             </div>
             <div className={cls.buttonWrapper}>
                 <Button
-                    onClick={setDisplayMode}
                     theme={ThemeButton.OUTLINE}
                     type="button"
                 >

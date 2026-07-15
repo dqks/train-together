@@ -1,8 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import cls from './ExerciseSelection.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { SearchInput } from '@/shared/ui/SearchInput/SearchInput.tsx';
+import {
+    SelectableExerciseCard,
+} from '@/features/EditMyProgram/ui/ExerciseSelection/SelectableExerciseCard/SelectableExerciseCard.tsx';
+import { fetchExerciseCards, getExerciseCards } from '@/entities/Exercise';
 
 export type ExerciseSelectionExercise = {
     id: number;
@@ -12,11 +17,8 @@ export type ExerciseSelectionExercise = {
 };
 
 export type ExerciseSelectionProps = {
-    exercises: ExerciseSelectionExercise[];
-    title?: string;
-    subtitle?: string;
     onBack: () => void;
-    onAddToProgram?: (selectedIds: number[]) => void;
+    onAddExercise?: (selectedIds: number[]) => void;
 };
 
 const LABELS_EQUIPMENT: Record<string, string> = {
@@ -57,18 +59,21 @@ function setSelectedIdsToStorage(ids: number[]) {
 }
 
 export const ExerciseSelection = ({
-    exercises,
-    title,
-    subtitle,
     onBack,
-    onAddToProgram,
+    onAddExercise,
 }: ExerciseSelectionProps) => {
     const { t } = useTranslation();
+
+    const exercises = useSelector(getExerciseCards);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!exercises) dispatch(fetchExerciseCards());
+    }, [dispatch]);
 
     const [query, setQuery] = useState('');
     const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
     const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
-
 
     const [selectedIds, setSelectedIds] = useState<number[]>(() => getSelectedIdsFromStorage());
 
@@ -83,18 +88,16 @@ export const ExerciseSelection = ({
     const visibleExercises = useMemo(() => {
         const q = query.trim().toLowerCase();
 
-        return exercises.filter((ex) => {
+        return exercises?.filter((ex) => {
             const matchesSearch = !q || ex.name.toLowerCase().includes(q);
-            const matchesMuscle = !selectedMuscle || ex.muscles.includes(selectedMuscle);
-            const matchesEquipment = !selectedEquipment || ex.equipment.includes(selectedEquipment);
-            return matchesSearch && matchesMuscle && matchesEquipment;
+            const matchesMuscle = !selectedMuscle || ex?.primaryMuscle?.name === selectedMuscle;
+            return matchesSearch && matchesMuscle;
         });
     }, [exercises, query, selectedMuscle, selectedEquipment]);
 
-    const allMuscles = useMemo(() => Array.from(new Set(exercises.flatMap((e) => e.muscles))), [exercises]);
-    const allEquipment = useMemo(() => Array.from(new Set(exercises.flatMap((e) => e.equipment))), [exercises]);
+    const allMuscles = useMemo(() => Array.from(new Set(exercises?.flatMap((e) => e.primaryMuscle))), [exercises]);
 
-    const toggleSelected = (id: number) => {
+    const toggleSelected = (id: number | undefined) => {
         setSelectedIds((prev) => {
             if (prev.includes(id)) {
                 return prev.filter((x) => x !== id);
@@ -115,14 +118,13 @@ export const ExerciseSelection = ({
     const closeSelectedModal = () => setSelectedModalOpened(false);
 
     const handleAddToProgram = () => {
-        onAddToProgram?.(selectedIds);
+        onAddExercise?.(selectedIds);
         setSelectedModalOpened(false);
     };
 
-
     const selectedExercisesForModal = useMemo(() => {
         const set = new Set(selectedIds);
-        return exercises.filter((e) => set.has(e.id));
+        return exercises?.filter((e) => set.has(e.id));
     }, [exercises, selectedIds]);
 
     // Modal escape
@@ -139,16 +141,14 @@ export const ExerciseSelection = ({
         return () => window.removeEventListener('keydown', onKeyDown);
     }, [selectedModalOpened]);
 
-
-
     return (
         <div className={cls.ExerciseSelection}>
             {/* Header */}
             <div className={cls.selectHeader}>
                 <div className={cls.left}>
-                    <h1 className={cls.pageTitle}>{title ?? t('Выбор упражнения')}</h1>
+                    <h1 className={cls.pageTitle}>{t('Выбор упражнения')}</h1>
                     <p className={cls.pageSubtitle}>
-                        {subtitle ?? t('Найдите упражнение и добавьте его в выбранный день программы')}
+                        {t('Найдите упражнение и добавьте его в выбранный день программы')}
                     </p>
                 </div>
 
@@ -168,7 +168,7 @@ export const ExerciseSelection = ({
                         disabled={selectedCount === 0}
                     >
                         {t('Выбрано')}
-                        :
+                        {' : '}
                         {selectedCount}
                     </Button>
                 </div>
@@ -188,7 +188,7 @@ export const ExerciseSelection = ({
                     <span className={cls.resultsCount}>
                         {t('Показано')}
                         :
-                        <strong className={cls.resultsCountValue}>{visibleExercises.length}</strong>
+                        <strong className={cls.resultsCountValue}>{visibleExercises?.length}</strong>
                     </span>
 
                     <div className={cls.activeFilters}>
@@ -215,9 +215,8 @@ export const ExerciseSelection = ({
                 </div>
             </div>
 
-
             {/* Empty state */}
-            <div className={`${cls.emptyState} ${visibleExercises.length === 0 ? cls.visible : ''}`}>
+            <div className={`${cls.emptyState} ${visibleExercises?.length === 0 ? cls.visible : ''}`}>
                 {t('Ничего не найдено по текущим фильтрам.')}
                 <div className={cls.emptyActions}>
                     <Button
@@ -232,30 +231,15 @@ export const ExerciseSelection = ({
 
             {/* Exercise Cards Grid */}
             <div className={cls.selectGrid}>
-                {visibleExercises.map((ex) => {
+                {exercises?.map((ex) => {
                     const isSelected = selectedIds.includes(ex.id);
                     return (
-                        <button
+                        <SelectableExerciseCard
                             key={ex.id}
-                            type="button"
-                            className={`${cls.exerciseCard} ${isSelected ? cls.isSelected : ''}`}
-                            onClick={() => toggleSelected(ex.id)}
-                        >
-                            <span className={cls.selectIndicator} aria-hidden="true">
-                                ✓
-                            </span>
-
-                            <div className={cls.cardBody}>
-                                <h4 className={cls.cardTitle}>{ex.name}</h4>
-                                <div className={cls.exerciseMuscles}>
-                                    {ex.muscles.slice(0, 3).map((m) => (
-                                        <span key={m} className={cls.tag}>
-                                            {LABELS_MUSCLES[m] ?? m}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </button>
+                            toggleSelected={toggleSelected}
+                            isSelected={isSelected}
+                            exercise={ex}
+                        />
                     );
                 })}
             </div>
@@ -293,88 +277,87 @@ export const ExerciseSelection = ({
                 </div>
             </div>
 
-            {/* Selected modal (template-like) */}
-            {selectedModalOpened && (
-                <div className={cls.modalOverlay}>
-                    <div className={cls.modal} role="dialog" aria-modal="true">
-                        <div className={cls.modalHeader}>
-                            <div className={cls.modalTitle}>
-                                <h2>{t('Выбранные упражнения')}</h2>
-                                <p>{t('Список выбранных карточек')}</p>
-                            </div>
+            {/* /!* Selected modal (template-like) *!/ */}
+            {/* {selectedModalOpened && ( */}
+            {/*    <div className={cls.modalOverlay}> */}
+            {/*        <div className={cls.modal} role="dialog" aria-modal="true"> */}
+            {/*            <div className={cls.modalHeader}> */}
+            {/*                <div className={cls.modalTitle}> */}
+            {/*                    <h2>{t('Выбранные упражнения')}</h2> */}
+            {/*                    <p>{t('Список выбранных карточек')}</p> */}
+            {/*                </div> */}
 
-                            <Button theme={ThemeButton.OUTLINE} type="button" onClick={closeSelectedModal}>
-                                {t('Закрыть')}
-                            </Button>
-                        </div>
+            {/*                <Button theme={ThemeButton.OUTLINE} type="button" onClick={closeSelectedModal}> */}
+            {/*                    {t('Закрыть')} */}
+            {/*                </Button> */}
+            {/*            </div> */}
 
-                        <div className={cls.selectionList}>
-                            {selectedExercisesForModal.length === 0 ? (
-                                <div className={cls.selectionEmpty}>
-                                    {t('Пока ничего не выбрано')}
-                                </div>
-                            ) : (
-                                selectedExercisesForModal.map((item) => (
-                                    <div key={item.id} className={cls.selectionItem}>
-                                        <div className={cls.selectionMeta}>
-                                            <div className={cls.selectionItemName}>{item.name}</div>
-                                            <div className={cls.selectionItemTags}>
-                                                {item.muscles.slice(0, 2).map((m) => (
-                                                    <span key={m} className={cls.tag}>
-                                                        {LABELS_MUSCLES[m] ?? m}
-                                                    </span>
-                                                ))}
-                                                {item.equipment.slice(0, 2).map((eq) => (
-                                                    <span key={eq} className={cls.tag}>
-                                                        {LABELS_EQUIPMENT[eq] ?? eq}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
+            {/*            <div className={cls.selectionList}> */}
+            {/*                {selectedExercisesForModal.length === 0 ? ( */}
+            {/*                    <div className={cls.selectionEmpty}> */}
+            {/*                        {t('Пока ничего не выбрано')} */}
+            {/*                    </div> */}
+            {/*                ) : ( */}
+            {/*                    selectedExercisesForModal.map((item) => ( */}
+            {/*                        <div key={item.id} className={cls.selectionItem}> */}
+            {/*                            <div className={cls.selectionMeta}> */}
+            {/*                                <div className={cls.selectionItemName}>{item.name}</div> */}
+            {/*                                <div className={cls.selectionItemTags}> */}
+            {/*                                    {item.muscles.slice(0, 2).map((m) => ( */}
+            {/*                                        <span key={m} className={cls.tag}> */}
+            {/*                                            {LABELS_MUSCLES[m] ?? m} */}
+            {/*                                        </span> */}
+            {/*                                    ))} */}
+            {/*                                    {item.equipment.slice(0, 2).map((eq) => ( */}
+            {/*                                        <span key={eq} className={cls.tag}> */}
+            {/*                                            {LABELS_EQUIPMENT[eq] ?? eq} */}
+            {/*                                        </span> */}
+            {/*                                    ))} */}
+            {/*                                </div> */}
+            {/*                            </div> */}
 
-                                        <Button
-                                            theme={ThemeButton.OUTLINE}
-                                            type="button"
-                                            onClick={() => toggleSelected(item.id)}
-                                        >
-                                            {t('Удалить')}
-                                        </Button>
-                                    </div>
-                                ))
-                            )}
-                        </div>
+            {/*                            <Button */}
+            {/*                                theme={ThemeButton.OUTLINE} */}
+            {/*                                type="button" */}
+            {/*                                onClick={() => toggleSelected(item.id)} */}
+            {/*                            > */}
+            {/*                                {t('Удалить')} */}
+            {/*                            </Button> */}
+            {/*                        </div> */}
+            {/*                    )) */}
+            {/*                )} */}
+            {/*            </div> */}
 
-                        <div className={cls.modalFooter}>
-                            <Button
-                                theme={ThemeButton.OUTLINE}
-                                type="button"
-                                onClick={clearSelected}
-                                disabled={selectedCount === 0}
-                            >
-                                {t('Очистить')}
-                            </Button>
+            {/*            <div className={cls.modalFooter}> */}
+            {/*                <Button */}
+            {/*                    theme={ThemeButton.OUTLINE} */}
+            {/*                    type="button" */}
+            {/*                    onClick={clearSelected} */}
+            {/*                    disabled={selectedCount === 0} */}
+            {/*                > */}
+            {/*                    {t('Очистить')} */}
+            {/*                </Button> */}
 
-                            <Button
-                                theme={ThemeButton.PRIMARY}
-                                type="button"
-                                onClick={onAddToProgram}
-                                disabled={selectedCount === 0}
-                            >
-                                {t('Добавить в программу')}
-                            </Button>
-                        </div>
-                    </div>
+            {/*                <Button */}
+            {/*                    theme={ThemeButton.PRIMARY} */}
+            {/*                    type="button" */}
+            {/*                    onClick={onAddExercise} */}
+            {/*                    disabled={selectedCount === 0} */}
+            {/*                > */}
+            {/*                    {t('Добавить в программу')} */}
+            {/*                </Button> */}
+            {/*            </div> */}
+            {/*        </div> */}
 
-                    {/* close overlay click */}
-                    <button
-                        type="button"
-                        className={cls.modalBackdrop}
-                        aria-label={t('Закрыть')}
-                        onClick={closeSelectedModal}
-                    />
-                </div>
-            )}
+            {/*        /!* close overlay click *!/ */}
+            {/*        <button */}
+            {/*            type="button" */}
+            {/*            className={cls.modalBackdrop} */}
+            {/*            aria-label={t('Закрыть')} */}
+            {/*            onClick={closeSelectedModal} */}
+            {/*        /> */}
+            {/*    </div> */}
+            {/* )} */}
         </div>
     );
 };
-

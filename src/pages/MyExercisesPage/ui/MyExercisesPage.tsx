@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import cls from './MyExercisesPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
 import { AddExerciseButton } from '@/features/AddExercise';
 import { ExerciseCardList } from '@/widgets/ExerciseCardList';
 import { getMyExercises } from '@/entities/Exercise/model/selectors/getMyExercises/getMyExercises.ts';
 import { getExerciseIsLoading } from '@/entities/Exercise';
 import { fetchMyExercises } from '@/entities/Exercise/model/services/fecthMyExercises/fecthMyExercises.ts';
+import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
 
 interface ExercisesPageProps {
     className?: string;
@@ -16,7 +16,6 @@ interface ExercisesPageProps {
 
 const MyExercisesPage = ({ className } : ExercisesPageProps) => {
     const { t } = useTranslation();
-    usePageTitle('Ваши упражнения', t);
 
     const dispatch = useDispatch();
     const myExercises = useSelector(getMyExercises);
@@ -25,6 +24,8 @@ const MyExercisesPage = ({ className } : ExercisesPageProps) => {
     useEffect(() => {
         dispatch(fetchMyExercises());
     }, [dispatch]);
+
+    useTabTitle('Мои упражнения');
 
     return (
         <div className={classNames(cls.ExercisesPage, {}, [className])}>

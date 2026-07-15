@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchMuscleList, PrimaryMuscleCard, getPrimaryMuscleList } from '@/entities/Muscle';
+import { fetchMuscleList, getPrimaryMuscleList, PrimaryMuscleCard } from '@/entities/Muscle';
 
 interface PrimaryMuscleCardListProps {
     onChange: (value: string) => void
@@ -25,5 +25,15 @@ export const PrimaryMuscleCardList = (props: PrimaryMuscleCardListProps) => {
             name={muscle.name}
             selectedMuscle={selectedMuscle}
         />
+        // TODO find a way to use 1 component for different muscle lists
+        // <MuscleCard
+        //     id={muscle.id}
+        //     onChange={onChange}
+        //     key={muscle.id}
+        //     muscleName={muscle.name}
+        //     value={selectedMuscle}
+        //     inputName="muscleInline"
+        //     type="radio"
+        // />
     ));
 };

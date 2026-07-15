@@ -49,7 +49,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
 
     // Training days
     const [trainingDays, setTrainingDays] = useState<Day[] | undefined>(programDays);
-    const [isAddingExercise, setIsAddingExercise] = useState<boolean>(true);
+    const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false);
 
     const [
         selectedGoalId,
@@ -145,17 +145,26 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         onCancel,
     ]);
 
-    const exercises = [{
-        id: 1,
-        name: 'ds',
-        muscles: ['dsds'],
-        equipment: ['dsds'],
-    }];
+    const onBack = useCallback(() => {
+        setIsAddingExercise(false);
+    }, []);
+
+    const onAddExerciseToProgram = useCallback(() => {
+        setIsAddingExercise(false);
+    }, []);
+
+    const onSelectExercise = useCallback(() => {
+        setIsAddingExercise(true);
+    }, []);
 
     return (
-
         isAddingExercise
-            ? <ExerciseSelection subtitle="Тест" exercises={exercises} onBack={() => {}} />
+            ? (
+                <ExerciseSelection
+                    onBack={onBack}
+                    onAddExercise={onAddExerciseToProgram}
+                />
+            )
             : (
                 <div className={cls.programContainer}>
                     <div className={cls.programGrid}>
@@ -169,6 +178,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                                 description={description}
                             />
                             <TrainingDays
+                                onSelectExercise={onSelectExercise}
                                 trainingDays={trainingDays}
                                 setTrainingDays={setTrainingDays}
                             />

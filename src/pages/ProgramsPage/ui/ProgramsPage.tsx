@@ -6,9 +6,9 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import {
     fetchPublicPrograms, getProgramIsLoading, getPublicPrograms, ProgramsList,
 } from '@/widgets/ProgramsList';
-import { usePageTitle } from '@/shared/lib/usePageTItle/usePageTitle.ts';
 import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
 import { ProgramsControl } from '@/widgets/ProgramsControl/ui/ProgramsControl/ProgramsControl.tsx';
+import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
 
 interface ProgramsPageProps {
     className?: string;
@@ -20,11 +20,11 @@ const ProgramsPage = ({ className } : ProgramsPageProps) => {
     const programList : Program[] | null = useSelector(getPublicPrograms);
     const isLoading = useSelector(getProgramIsLoading);
 
-    usePageTitle('Программы пользователей', t);
-
     useEffect(() => {
         dispatch(fetchPublicPrograms());
     }, [dispatch]);
+
+    useTabTitle('Программы пользователей');
 
     return (
         <div className={classNames(cls.ProgramsPage, {}, [className])}>

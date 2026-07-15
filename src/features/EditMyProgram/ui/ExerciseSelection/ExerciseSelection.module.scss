@@ -179,86 +179,6 @@
     gap: var(--spacing-md);
 }
 
-.exerciseCard {
-    user-select: none;
-    text-align: left;
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-lg);
-    background: var(--color-bg);
-    padding: var(--spacing-md);
-    position: relative;
-    cursor: pointer;
-}
-
-.exerciseCard:hover {
-    border-color: var(--color-border);
-}
-
-.exerciseCard:focus {
-    outline: none;
-    box-shadow: var(--shadow-md);
-}
-
-.isSelected {
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-}
-
-.selectIndicator {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 34px;
-    height: 34px;
-    border-radius: var(--radius-lg);
-    background: var(--color-accent);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow-md);
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.85);
-    transition: all var(--transition-fast);
-    z-index: 2;
-}
-
-.exerciseCard.isSelected .selectIndicator,
-.exerciseCard.isSelected .selectIndicator {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
-}
-
-.cardBody {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    padding-right: 44px;
-}
-
-.cardTitle {
-    font-weight: 700;
-    color: var(--color-text-primary);
-}
-
-.exerciseMuscles {
-    display: flex;
-    gap: var(--spacing-xs);
-    flex-wrap: wrap;
-}
-
-.tag {
-    font-size: var(--font-size-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--radius-lg);
-    background: var(--color-bg-secondary);
-    color: var(--color-text-secondary);
-    border: 1px solid var(--color-border-light);
-}
-
 // Selection footer (sticky)
 
 .selectionFooter {
@@ -267,12 +187,13 @@
     z-index: 50;
     margin-top: var(--spacing-xl);
     padding: var(--spacing-md) 0;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.95) 25%,
-        rgba(255, 255, 255, 0.98) 100%
-    );
+    background:
+        linear-gradient(
+            180deg,
+            rgb(255 255 255 / 0%) 0%,
+            rgb(255 255 255 / 95%) 25%,
+            rgb(255 255 255 / 98%) 100%
+        );
 }
 
 .selectionFooterInner {
@@ -371,12 +292,6 @@
         align-items: center;
     }
 
-
-
-
-
-
-
     .actions {
         width: 100%;
     }
@@ -406,4 +321,3 @@
         flex-direction: column;
     }
 }
-

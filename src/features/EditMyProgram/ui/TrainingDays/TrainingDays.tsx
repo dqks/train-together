@@ -10,12 +10,13 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 interface TrainingDaysProps {
     trainingDays: Day[] | undefined
     setTrainingDays: Dispatch<SetStateAction<Day[] | undefined>>
+    onSelectExercise: () => void
 }
 
 export const TrainingDays = (props : TrainingDaysProps) => {
     const { t } = useTranslation();
 
-    const { trainingDays, setTrainingDays } = props;
+    const { trainingDays, setTrainingDays, onSelectExercise } = props;
 
     const onChangeExerciseReps = (dayIndex: number, exIndex: number, reps: number) => {
         setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
@@ -39,13 +40,13 @@ export const TrainingDays = (props : TrainingDaysProps) => {
         setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
             ? {
                 ...td,
-                exercises: td.exercises.filter((ex, eIndex) => eIndex !== exIndex),
+                exercises: td.exercises.filter((_rs, eIndex) => eIndex !== exIndex),
             }
             : td)));
     };
 
     const onDeleteDay = (dayIndex: number) => {
-        setTrainingDays((prevState) => prevState?.filter((td, index) => (index !== dayIndex)));
+        setTrainingDays((prevState) => prevState?.filter((_, index) => (index !== dayIndex)));
     };
 
     const trainingDaysCards = trainingDays?.map((td, dayIndex) => (
@@ -77,6 +78,7 @@ export const TrainingDays = (props : TrainingDaysProps) => {
                     theme={ThemeButton.OUTLINE}
                     type="button"
                     className={cls.addExerciseBtn}
+                    onClick={onSelectExercise}
                 >
                     {t('+ Добавить упражнение')}
                 </Button>

@@ -8,6 +8,7 @@ import {
 } from '@/entities/User';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { ProfileInfo } from './ProfleInfo/ProfileInfo';
+import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
 
 interface ProfilePageProps {
     className?: string;
@@ -22,6 +23,8 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     useEffect(() => {
         dispatch(fetchProfileInfo(Number(params.id)));
     }, [dispatch]);
+
+    useTabTitle(profileInfo?.nickname);
 
     if (isLoading) {
         return <PageLoader />;

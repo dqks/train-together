@@ -1,8 +1,6 @@
 import { useSelector } from 'react-redux';
-import { SecondaryMuscleCard } from '../SecondaryMuscleCard/SecondaryMuscleCard.tsx';
-import {
-    getSecondaryMuscleList,
-} from '@/entities/Muscle/model/selectors/getSecondaryMuscleList/getSecondaryMuscleList.ts';
+import { getSecondaryMuscleList } from '../../model/selectors/getSecondaryMuscleList/getSecondaryMuscleList.ts';
+import { MuscleCard } from '../MuscleCard/MuscleCard.tsx';
 
 interface SecondaryMuscleCardListProps {
     onChange: (id: string) => void
@@ -22,12 +20,22 @@ export const SecondaryMuscleCardList = (props: SecondaryMuscleCardListProps) => 
     const muscleList = useSelector(getSecondaryMuscleList);
 
     return muscleList?.map((muscle) => (
-        <SecondaryMuscleCard
+        // <SecondaryMuscleCard
+        //     values={values}
+        //     key={muscle.id}
+        //     onChange={onChange}
+        //     id={muscle.id}
+        //     name={muscle.name}
+        //     value={muscle.checkBoxValue}
+        // />
+        <MuscleCard
+            type="checkbox"
+            inputName="secondaryMuscleInline"
             values={values}
             key={muscle.id}
             onChange={onChange}
             id={muscle.id}
-            name={muscle.name}
+            muscleName={muscle.name}
             value={muscle.checkBoxValue}
         />
     ));

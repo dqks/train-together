@@ -8,6 +8,7 @@ import { fetchUserPrograms, getProgramIsLoading } from '@/entities/Program';
 import { getUserPrograms } from '@/entities/Program/model/selectors/getUserPrograms/getUserPrograms.ts';
 import { SearchInput } from '@/shared/ui/SearchInput/SearchInput.tsx';
 import { AddMyProgram } from '@/features/AddMyProgram';
+import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
 
 const MyProgramsPage = () => {
     const { t } = useTranslation();
@@ -18,6 +19,8 @@ const MyProgramsPage = () => {
     useEffect(() => {
         dispatch(fetchUserPrograms());
     }, [dispatch]);
+
+    useTabTitle('Ваши программы');
 
     return (
         <div>

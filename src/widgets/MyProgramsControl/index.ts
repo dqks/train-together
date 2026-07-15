@@ -1,3 +1,1 @@
-import { MyProgramsControl } from './ui/MyProgramsControl.tsx';
-
-export { MyProgramsControl };
+export { MyProgramsControl } from './ui/MyProgramsControl.tsx';

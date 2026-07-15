@@ -4,10 +4,11 @@ import { useEffect } from 'react';
 import cls from './FavouriteProgramsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ProgramsList } from '@/widgets/ProgramsList';
-import { getProgramIsLoading, getFavouritePrograms } from '@/entities/Program';
+import { getFavouritePrograms, getProgramIsLoading } from '@/entities/Program';
 import {
     fetchFavouritePrograms,
 } from '@/entities/Program/model/services/fetchFavouritePrograms/fetchFavouritePrograms.ts';
+import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
 
 interface FavouriteProgramsPageProps {
     className?: string;
@@ -23,10 +24,12 @@ const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
         dispatch(fetchFavouritePrograms());
     }, [dispatch]);
 
+    useTabTitle('Избранные программы');
+
     return (
         <div className={classNames(cls.FavouriteProgramsPage, {}, [className])}>
             <div className="page-header">
-                <h1 className="page-title">{t('Избранные программы')}</h1>
+                {/* <h1 className="page-title">{t('Избранные программы')}</h1> */}
                 <p className="page-subtitle">
                     {t('Программы, добавленные в избранное вами')}
                 </p>

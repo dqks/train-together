@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { classNames } from '@/shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './ActiveMuscles.module.scss';
 import type { Muscle } from '@/entities/Muscle';
 

@@ -1,18 +1,20 @@
 import type { RouteProps } from 'react-router';
-import { ProgramsPage } from '../../../pages/ProgramsPage';
-import { MyProgramsPage } from '../../../pages/MyProgramsPage';
-import { ExercisesPage } from '../../../pages/ExercisesPage';
-import { ProfilePage } from '../../../pages/ProfilePage';
-import { ExerciseDetailsPage } from '../../../pages/ExerciseDetailsPage';
-import { ProgramDetailsPage } from '../../../pages/ProgramDetailsPage';
+import { ProgramsPage } from '@/pages/ProgramsPage';
+import { MyProgramsPage } from '@/pages/MyProgramsPage';
+import { ExercisesPage } from '@/pages/ExercisesPage';
+import { ProfilePage } from '@/pages/ProfilePage';
+import { ExerciseDetailsPage } from '@/pages/ExerciseDetailsPage';
+import { ProgramDetailsPage } from '@/pages/ProgramDetailsPage';
 import { MyExercisesPage } from '@/pages/MyExercisesPage';
 import { FavouriteProgramsPage } from '@/pages/FavouriteProgramsPage';
+import { EditExercisePage } from '@/pages/EditExercisePage';
 
 export enum AuthAppRoutes {
     MY_PROFILE = 'my_profile',
     PROFILE = 'profile',
     EXERCISES = 'exercises',
     EXERCISE_DETAILS = 'exercise_details',
+    EDIT_EXERCISE = 'edit_exercise',
     PROGRAMS = 'programs',
     PROGRAM_DETAILS = 'program_details',
     MY_PROGRAMS = 'my_programs',
@@ -25,6 +27,7 @@ export const AuthRoutePath: Record<AuthAppRoutes, string> = {
     [AuthAppRoutes.PROFILE]: '/app/profile/', // + id
     [AuthAppRoutes.EXERCISES]: '/app/exercises',
     [AuthAppRoutes.EXERCISE_DETAILS]: '/app/exercises/', // + id
+    [AuthAppRoutes.EDIT_EXERCISE]: '/app/exercises/:id/edit', // + id
     [AuthAppRoutes.PROGRAMS]: '/app/programs',
     [AuthAppRoutes.PROGRAM_DETAILS]: '/app/programs/', // + id
     [AuthAppRoutes.MY_PROGRAMS]: '/app/my-programs',
@@ -44,6 +47,10 @@ export const authRouteConfig: Record<AuthAppRoutes, RouteProps> = {
     [AuthAppRoutes.EXERCISES]: {
         path: AuthRoutePath.exercises,
         element: <ExercisesPage />,
+    },
+    [AuthAppRoutes.EDIT_EXERCISE]: {
+        path: AuthRoutePath.edit_exercise,
+        element: <EditExercisePage />,
     },
     [AuthAppRoutes.PROGRAMS]: {
         path: AuthRoutePath.programs,
