@@ -13,6 +13,7 @@ import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Save from '@/shared/assets/icons/save.svg?react';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
+import { createErrorObject, type ErrorObject } from '@/shared/lib/createErrorObject/createErrorObject';
 
 interface EditExerciseProps {
     className?: string;
@@ -25,7 +26,7 @@ type errorKeys = 'name' |
     'secondaryMuscleIds' |
     'equipmentId'
 
-type ErrorObject = Partial<Record<errorKeys, string[]>>
+type ErrorObjectState = Partial<Record<errorKeys, string[]>>
 
 export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps) => {
     const { t } = useTranslation();
@@ -36,7 +37,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
         exerciseDetails?.secondaryMuscles?.map((m) => m.id.toString()) || [],
     );
     const [image, setImage] = useState<File | string | undefined>(exerciseDetails?.image);
-    const [errors, setErrors] = useState<ErrorObject>({});
+    const [errors, setErrors] = useState<ErrorObjectState>({});
     const navigate = useNavigate();
 
     const onChangeName = useCallback((name: string) => {
@@ -69,32 +70,30 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
     }, [setSecondaryMuscleIds]);
 
     const onEdit = async () => {
-        const errors: ErrorObject = {
-            name: [''],
-            secondaryMuscleIds: [''],
-            equipmentId: [''],
-            primaryMuscleId: [''],
-            exerciseProgressionTypeId: [''],
-        };
-        let hasError = false;
-
-        const trimmedName = name?.trim();
-
-        if (!trimmedName) {
-            errors?.name?.push('Поле обязательное');
-            hasError = true;
-        } else if (trimmedName?.length < 5) {
-            errors?.name?.push('Минимум 5 символов');
-            hasError = true;
+        const errorObject: ErrorObject = {
+            name: [
+                {
+                    errorMessage: 'Поле обязательное',
+                    condition: !name?.trim()
+                },
+                {
+                    errorMessage: "Минимум 5 символов",
+                    condition: !!name && name.trim().length < 5
+                },
+            ],
+            secondaryMuscleIds: [
+                {
+                    errorMessage: 'Дополнительные мышцы не могут содержать основную',
+                    condition: !!primaryMuscleId && secondaryMuscleIds.includes(primaryMuscleId)
+                }
+            ],
         }
 
-        if (primaryMuscleId && secondaryMuscleIds.includes(primaryMuscleId)) {
-            errors.secondaryMuscleIds?.push('Дополнительные мышцы не могут содержать основную');
-            hasError = true;
-        }
+        const [errors, hasErrors] = createErrorObject(errorObject)
 
-        if (hasError) {
-            setErrors(errors);
+
+        if (hasErrors) {
+            setErrors(errors as ErrorObjectState);
             return;
         }
 
@@ -105,7 +104,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
             equipmentId,
             primaryMuscleId,
             secondaryMuscleIds,
-            // exerciseProgressionTypeId,
+            // exerciseProgressionTypeId TODO доделать,
         });
         if (response.resultCode === 0) {
             navigate(AuthRoutePath.my_exercises);

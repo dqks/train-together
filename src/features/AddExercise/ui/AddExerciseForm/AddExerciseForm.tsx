@@ -19,6 +19,7 @@ import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 import { getErrors } from '../../model/selectors/getErrors/getErrors.ts';
 import { getIsLoading } from '@/features/AddExercise/model/selectors/getIsLoading/getIsLoading.ts';
 import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
+import { createErrorObject, type ErrorObject } from '@/shared/lib/createErrorObject/createErrorObject.ts';
 
 interface AddExerciseFormProps {
     closeHandler?: () => void
@@ -68,39 +69,38 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
     const createHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        const errors = {
-            name: [''],
-            selectedProgressionType: [''],
-            selectedPrimaryMuscleId: [''],
-            selectedEquipmentId: [''],
-        };
-
-        let hasErrors = false;
-
-        if (!exerciseName.trim()) {
-            errors.name.push('Обязательное поле');
-            hasErrors = true;
+        const errorsTest : ErrorObject = {
+            name: [
+                {
+                    errorMessage: 'Обязательное поле',
+                    condition: !exerciseName.trim()
+                },
+                {
+                    errorMessage: 'Название дожно быть больше 5 символов',
+                    condition: exerciseName.length < 5
+                }
+            ],
+            selectedProgressionType: [
+                {
+                    errorMessage: 'Выбор обязателен',
+                    condition: selectedProgressionType === 'default'
+                }
+            ],
+            selectedPrimaryMuscleId: [
+                {
+                    errorMessage: 'Выбор обязателен',
+                    condition: !selectedPrimaryMuscleId
+                }
+            ],
+            selectedEquipmentId: [
+                {
+                    errorMessage: 'Выбор обязателен',
+                    condition: !selectedEquipmentId
+                }
+            ]
         }
 
-        if (exerciseName.length < 5) {
-            errors.name.push('Название дожно быть больше 5 символов');
-            hasErrors = true;
-        }
-
-        if (selectedProgressionType === 'default') {
-            errors.selectedProgressionType.push('Выбор обязателен');
-            hasErrors = true;
-        }
-
-        if (!selectedPrimaryMuscleId) {
-            errors.selectedPrimaryMuscleId.push('Выбор обязателен');
-            hasErrors = true;
-        }
-
-        if (!selectedEquipmentId) {
-            errors.selectedEquipmentId.push('Выбор обязателен');
-            hasErrors = true;
-        }
+        const [errors, hasErrors] = createErrorObject(errorsTest)
 
         if (hasErrors) {
             dispatch(addExerciseActions.setErrors(errors));

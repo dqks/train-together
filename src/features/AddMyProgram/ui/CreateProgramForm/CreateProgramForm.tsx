@@ -25,6 +25,8 @@ import { getSelectedDiff } from '../../model/selectors/getSelectedDiff/getSelect
 import { getSelectedGoal } from '../../model/selectors/getSelectedGoal/getSelectedGoal.ts';
 import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 import { getProgramGoals, getProgramDifficulties } from '@/entities/Program';
+import { createErrorObject, type ErrorObject } from '@/shared/lib/createErrorObject/createErrorObject.ts';
+import type { CreateProgramErrors } from '../../model/types/createProgramSchema.ts';
 
 interface CreateProgramFormProps {
     className?: string;
@@ -93,51 +95,49 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     // };
 
     const onCreateClick = () => {
-        const errors = {
-            name: [''],
-            description: [''],
-            goalId: [''],
-            diffId: [''],
-        };
-        let hasErrors = false;
-
-        if (!name.trim()) {
-            errors.name.push('Обязательное поле');
-            hasErrors = true;
+        const errorObject: ErrorObject = {
+            name: [
+                {
+                    errorMessage: 'Обязательное поле',
+                    condition: !name.trim()
+                },
+                {
+                    errorMessage: 'Минимум 5 символов',
+                    condition: name.trim().length < 5
+                },
+                {
+                    errorMessage: 'Максимум 30 символов',
+                    condition: name.trim().length > 30
+                }
+            ],
+            description: [
+                {
+                    errorMessage: 'Минимум 5 символов',
+                    condition: !!description.trim() && description.trim().length < 5
+                },
+                                {
+                    errorMessage: 'Максимум 2500 символов',
+                    condition: !!description.trim() && description.trim().length > 2500
+                }
+            ],
+            goalId: [
+                {
+                    errorMessage: 'Выберите цель программы',
+                    condition: selectedGoal === 'default'
+                }
+            ],
+            diffId  : [
+                {
+                    errorMessage: 'Выберите сложность программы',
+                    condition: selectedDiff === 'default'
+                }
+            ]
         }
-
-        if (name.trim().length < 5) {
-            errors.name.push('Минимум 5 символов');
-            hasErrors = true;
-        }
-
-        if (name.trim().length > 30) {
-            errors.name.push('Максимум 30 символов');
-            hasErrors = true;
-        }
-
-        if (description.trim() && description.trim().length < 5) {
-            errors.description.push('Минимум 5 символов');
-            hasErrors = true;
-        }
-
-        if (description.trim() && description.trim().length > 2500) {
-            errors.description.push('Максимум 2500 символов');
-            hasErrors = true;
-        }
-
-        if (selectedGoal === 'default') {
-            errors.goalId.push('Выберите цель программы');
-            hasErrors = true;
-        }
-
-        if (selectedDiff === 'default') {
-            errors.diffId.push('Выберите сложность программы');
-            hasErrors = true;
-        }
+        
+        const [errors, hasErrors] = createErrorObject(errorObject)
 
         if (hasErrors) {
-            dispatch(createProgramActions.setErrors(errors));
+            dispatch(createProgramActions.setErrors(errors as CreateProgramErrors));
             return;
         }
 
@@ -145,10 +145,10 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
             name,
             description,
             publicSetting,
-            closeModal: openHandler,
             image,
             diffId: selectedDiff,
             goalId: selectedGoal,
+            closeModal: openHandler,
         }));
     };
 

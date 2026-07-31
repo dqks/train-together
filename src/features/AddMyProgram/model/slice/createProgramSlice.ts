@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { createProgramErrors, CreateProgramSchema } from '../types/createProgramSchema.ts';
+import type { CreateProgramErrors, CreateProgramSchema } from '../types/createProgramSchema.ts';
 import { createUserProgram } from '../services/createUserProgram/createUserProgram.ts';
 
 const initialState: CreateProgramSchema = {
@@ -25,7 +25,7 @@ export const createProgramSlice = createSlice({
         setIsPublic: (state, action: PayloadAction<'true' | 'false'>) => {
             state.publicSetting = action.payload;
         },
-        setErrors: (state, action: PayloadAction<createProgramErrors>) => {
+        setErrors: (state, action: PayloadAction<CreateProgramErrors>) => {
             state.errors = action.payload;
         },
         setSelectedGoal: (state, action: PayloadAction<string>) => {

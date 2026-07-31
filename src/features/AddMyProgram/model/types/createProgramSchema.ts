@@ -1,6 +1,6 @@
-export type errorKeys = 'name' | 'description' | 'image' | 'goalId' | 'diffId'
+export type ErrorKeys = 'name' | 'description' | 'image' | 'goalId' | 'diffId'
 
-export type createProgramErrors = Partial<Record<errorKeys, string[]>>
+export type CreateProgramErrors = Partial<Record<ErrorKeys, string[]>>
 
 export interface CreateProgramSchema {
     name: string;
@@ -8,6 +8,6 @@ export interface CreateProgramSchema {
     publicSetting: 'true' | 'false';
     selectedGoal: string;
     selectedDifficulty: string;
-    errors: createProgramErrors | undefined;
+    errors: CreateProgramErrors | undefined;
     isLoading: boolean
 }
