@@ -22,6 +22,7 @@ import { Advices } from '@/pages/ExerciseDetailsPage/ui/Advices/Advices.tsx';
 import { ActiveMuscles } from '@/pages/ExerciseDetailsPage/ui/ActiveMuscles/ActiveMuscles.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { DeleteExerciseButton } from '@/features/DeleteExercise';
+import { useOpen } from '@/shared/lib/useOpen/useOpen';
 
 const ExerciseDetailsPage = () => {
     const { t, i18n } = useTranslation();
