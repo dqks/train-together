@@ -3,12 +3,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from './ProgramsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
-import {
-    fetchPublicPrograms, getProgramIsLoading, getPublicPrograms, ProgramsList,
-} from '@/widgets/ProgramsList';
+import { ProgramsList } from '@/widgets/ProgramsList';
 import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
 import { ProgramsControl } from '@/widgets/ProgramsControl/ui/ProgramsControl/ProgramsControl.tsx';
 import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
+import { fetchPublicPrograms, getProgramIsLoading, getPublicPrograms } from '@/entities/Program';
 
 interface ProgramsPageProps {
     className?: string;

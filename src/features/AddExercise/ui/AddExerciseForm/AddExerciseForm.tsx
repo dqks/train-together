@@ -82,6 +82,11 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
             hasErrors = true;
         }
 
+        if (exerciseName.length < 5) {
+            errors.name.push('Название дожно быть больше 5 символов');
+            hasErrors = true;
+        }
+
         if (selectedProgressionType === 'default') {
             errors.selectedProgressionType.push('Выбор обязателен');
             hasErrors = true;
