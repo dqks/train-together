@@ -8,6 +8,7 @@ import { ProgramDetailsPage } from '@/pages/ProgramDetailsPage';
 import { MyExercisesPage } from '@/pages/MyExercisesPage';
 import { FavouriteProgramsPage } from '@/pages/FavouriteProgramsPage';
 import { EditExercisePage } from '@/pages/EditExercisePage';
+import { EditProgramPage } from '@/pages/EditProgramPage';
 
 export enum AuthAppRoutes {
     MY_PROFILE = 'my_profile',
@@ -17,6 +18,7 @@ export enum AuthAppRoutes {
     EDIT_EXERCISE = 'edit_exercise',
     PROGRAMS = 'programs',
     PROGRAM_DETAILS = 'program_details',
+    EDIT_PROGRAM = 'edit_program',
     MY_PROGRAMS = 'my_programs',
     MY_EXERCISES = 'my_exercises',
     FAVOURITE_PROGRAMS = 'favourite_programs',
@@ -30,6 +32,7 @@ export const AuthRoutePath: Record<AuthAppRoutes, string> = {
     [AuthAppRoutes.EDIT_EXERCISE]: '/app/exercises/:id/edit', // + id
     [AuthAppRoutes.PROGRAMS]: '/app/programs',
     [AuthAppRoutes.PROGRAM_DETAILS]: '/app/programs/', // + id
+    [AuthAppRoutes.EDIT_PROGRAM]: '/app/programs/:id/edit', // + id
     [AuthAppRoutes.MY_PROGRAMS]: '/app/my-programs',
     [AuthAppRoutes.MY_EXERCISES]: '/app/my-exercises',
     [AuthAppRoutes.FAVOURITE_PROGRAMS]: '/app/favourite-programs',
@@ -59,6 +62,10 @@ export const authRouteConfig: Record<AuthAppRoutes, RouteProps> = {
     [AuthAppRoutes.PROGRAM_DETAILS]: {
         path: `${AuthRoutePath.program_details}:id`,
         element: <ProgramDetailsPage />,
+    },
+    [AuthAppRoutes.EDIT_PROGRAM]: {
+        path: `${AuthRoutePath.edit_program}`,
+        element: <EditProgramPage />,
     },
     [AuthAppRoutes.EXERCISE_DETAILS]: {
         path: `${AuthRoutePath.exercise_details}:id`,

@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
     fetchExerciseDetails,
@@ -13,7 +13,7 @@ import { getUserId } from '@/entities/User';
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
 import LeftArrow from '@/shared/assets/icons/leftArrow.svg?react';
 import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
-import cls from '@/pages/ExerciseDetailsPage/ui/ExercisePage/ExerciseDetailsPage.module.scss';
+import cls from '@/pages/ExerciseDetailsPage/ui/ExerciseDetailsPage/ExerciseDetailsPage.module.scss';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { Badge } from '@/shared/ui/Badge/Badge.tsx';
@@ -33,9 +33,12 @@ const ExerciseDetailsPage = () => {
     const userId = useSelector(getUserId);
     const errors = useSelector(getExerciseErrors);
     const isOwner = userId === exerciseDetails?.userId;
-    const location = useLocation();
-
+    const navigate = useNavigate();
     const params = useParams();
+
+    const onDelete = useCallback(() => {
+        navigate(AuthRoutePath.my_exercises);
+    }, [navigate]);
 
     useEffect(() => {
         dispatch(fetchExerciseDetails(Number(params.id)));
@@ -120,7 +123,7 @@ const ExerciseDetailsPage = () => {
                                 </AppLink>
                                 <DeleteExerciseButton
                                     exerciseId={Number(params.id)}
-                                    redirectRoute={location.state?.from || AuthRoutePath.my_exercises}
+                                    onDelete={onDelete}
                                 />
                             </div>
                         </div>

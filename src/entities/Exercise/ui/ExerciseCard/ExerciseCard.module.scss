@@ -8,13 +8,7 @@
 }
 
 .imageWrapper {
-    //height: 250px;
-    //display: flex;
-    //align-items: center;
-    //justify-content: center;
     background-color: var(--color-bg-tertiary);
-
-    //color: var(--color-text-muted);
 }
 
 .image {
@@ -27,4 +21,11 @@
     flex-wrap: wrap;
     gap: var(--spacing-xs);
     margin-top: var(--spacing-sm);
+}
+
+.actions {
+    margin-top: var(--spacing-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
 }

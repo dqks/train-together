@@ -38,7 +38,7 @@ const MyExercisesPage = ({ className } : ExercisesPageProps) => {
                 </div>
                 <AddExerciseButton />
             </div>
-            <ExerciseCardList exercises={myExercises} isLoading={isLoading} />
+            <ExerciseCardList exercises={myExercises} isLoading={isLoading} showActions />
         </div>
     );
 };
