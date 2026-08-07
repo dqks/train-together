@@ -1,26 +1,39 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
-import { Button } from '@/shared/ui/Button/Button.tsx';
+import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { deleteExercise } from '../../model/service/deleteExercise/deleteExercise.ts';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 
 interface DeleteExerciseButtonProps {
-    // className?: string;
+    theme?: ThemeButton
+    className?: string;
     exerciseId: number;
-    redirectRoute: string
+    onDelete: () => void;
 }
 
-export const DeleteExerciseButton = ({ exerciseId, redirectRoute } : DeleteExerciseButtonProps) => {
+export const DeleteExerciseButton = (props : DeleteExerciseButtonProps) => {
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const {
+        exerciseId,
+        className,
+        theme = ThemeButton.PRIMARY,
+        onDelete,
+    } = props;
 
     const deleteHandler = async () => {
         const response = await deleteExercise(exerciseId);
         if (response.data.success) {
-            navigate(redirectRoute);
+            onDelete();
         }
     };
 
     return (
-        <Button onClick={deleteHandler} type="button">{t('Удалить')}</Button>
+        <Button
+            theme={theme}
+            onClick={deleteHandler}
+            className={classNames('', {}, [className])}
+            type="button"
+        >
+            {t('Удалить')}
+        </Button>
     );
 };

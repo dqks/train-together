@@ -6,6 +6,7 @@ import Edit from '@/shared/assets/icons/edit.svg?react';
 import userPicture from '@/shared/assets/images/userPicture.jpg';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { BackLink } from '@/shared/ui/BackLink/BackLink.tsx';
+import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
 
 interface HeroProps {
     className?: string;
@@ -15,7 +16,7 @@ interface HeroProps {
     formattedDate: string | undefined;
     authorImage: string | undefined
     isOwner: boolean | undefined;
-    setIsEditMode: (value: boolean) => void
+    programId: number | undefined;
 }
 
 export const Hero = (props: HeroProps) => {
@@ -28,8 +29,9 @@ export const Hero = (props: HeroProps) => {
         formattedDate,
         authorImage,
         isOwner,
-        setIsEditMode,
+        programId,
     } = props;
+
     return (
         <div className={classNames(cls.Hero, {}, [className])}>
             <div className={cls.heroImage}>
@@ -45,15 +47,16 @@ export const Hero = (props: HeroProps) => {
                 <div className={cls.titleRow}>
                     <h1 className={cls.programTitle}>{programName}</h1>
                     {isOwner && (
-                        <Button
-                            onClick={() => setIsEditMode(true)}
-                            theme={ThemeButton.OUTLINE}
-                            className={cls.editButton}
-                            type="button"
-                        >
-                            <Edit />
-                            {t('Редактировать')}
-                        </Button>
+                        <AppLink to={`${AuthRoutePath.program_details}${programId}/edit`}>
+                            <Button
+                                theme={ThemeButton.OUTLINE}
+                                className={cls.editButton}
+                                type="button"
+                            >
+                                <Edit />
+                                {t('Редактировать')}
+                            </Button>
+                        </AppLink>
                     )}
                 </div>
                 <div className={cls.programAuthor}>

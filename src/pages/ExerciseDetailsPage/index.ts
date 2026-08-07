@@ -1,3 +1,3 @@
-import { ExerciseDetailsPageAsync } from './ui/ExercisePage/ExerciseDetailsPage.async.tsx';
+import { ExerciseDetailsPageAsync } from '@/pages/ExerciseDetailsPage/ui/ExerciseDetailsPage/ExerciseDetailsPage.async.tsx';
 
 export { ExerciseDetailsPageAsync as ExerciseDetailsPage };

@@ -5,6 +5,7 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { Tag, TagType } from '@/shared/ui/Tag/Tag.tsx';
 import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
+import { Card } from '@/shared/ui/Card/Card.tsx';
 
 interface ExerciseCardProps {
     exerciseId: number;
@@ -41,7 +42,7 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
     const secondaryMuscleTags = secondaryMuscles?.map((m) => <Tag name={m.name} key={m.id} />);
 
     return (
-        <div onClick={clickHandler} className={classNames(cls.ExerciseCard, {}, ['card'])}>
+        <Card onClick={clickHandler} className={cls.ExerciseCard}>
             <div className={cls.imageWrapper}>
                 {imageUrl
                     ? (
@@ -59,7 +60,24 @@ export const ExerciseCard = (props : ExerciseCardProps) => {
                     <Tag name={primaryMuscle?.name} type={TagType.PRIMARY} />
                     {secondaryMuscleTags}
                 </div>
+                {/* {showActions && ( */}
+                {/*    <div className={cls.actions} onClick={(e) => e.stopPropagation()}> */}
+                {/*        <Button */}
+                {/*            type="button" */}
+                {/*            className={cls.buttonAction} */}
+                {/*            theme={ThemeButton.OUTLINE} */}
+                {/*        > */}
+                {/*            {t('Редактировать')} */}
+                {/*        </Button> */}
+                {/*        <DeleteExerciseButton */}
+                {/*            onDelete={() => {}} */}
+                {/*            exerciseId={exerciseId} */}
+                {/*            className={cls.buttonAction} */}
+                {/*            theme={ThemeButton.SECONDARY} */}
+                {/*        /> */}
+                {/*    </div> */}
+                {/* )} */}
             </div>
-        </div>
+        </Card>
     );
 };

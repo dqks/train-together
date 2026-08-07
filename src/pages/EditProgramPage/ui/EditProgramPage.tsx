@@ -1,30 +1,30 @@
 import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
-import cls from './EditMode.module.scss';
+import { useNavigate } from 'react-router';
+import cls from './EditProgramPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { BackLink } from '@/shared/ui/BackLink/BackLink.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { EditMyProgram } from '@/features/EditMyProgram';
-import type { Day } from '@/entities/Program';
 
-interface EditModeProps {
-    className?: string;
-    setIsEditMode: (value: boolean) => void
-    programImageUrl: string | undefined
-    programName: string | undefined
-    programDescription: string | undefined
-    programIsPublic: boolean | undefined
-    programId: number | undefined
-    selectedProgramGoalId: number | undefined
-    selectedProgramDifficultyId: number | undefined
-    programDays: Day[] | undefined
-}
+// interface EditModeProps {
+//     className?: string;
+//     setIsEditMode: (value: boolean) => void
+//     programImageUrl: string | undefined
+//     programName: string | undefined
+//     programDescription: string | undefined
+//     programIsPublic: boolean | undefined
+//     programId: number | undefined
+//     selectedProgramGoalId: number | undefined
+//     selectedProgramDifficultyId: number | undefined
+//     programDays: Day[] | undefined
+// }
 
-export const EditMode = (props: EditModeProps) => {
+export const EditProgramPage = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const {
-        className,
         programImageUrl,
         programName,
         programDescription,
@@ -33,12 +33,11 @@ export const EditMode = (props: EditModeProps) => {
         selectedProgramGoalId,
         selectedProgramDifficultyId,
         programDays,
-        setIsEditMode,
     } = props;
 
     const onCancel = useCallback(() => {
-        setIsEditMode(false);
-    }, [setIsEditMode]);
+        navigate(AuthRoutePath.program_details + programId);
+    }, []);
 
     return (
         <div className={classNames(cls.EditMode, {}, [className])}>
