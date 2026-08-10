@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
 import { registerActions } from '@/features/RegisterForm/model/slice/registerSlice.ts';
-import type { errorKeys } from '@/features/RegisterForm/model/types/registerSchema.ts';
+import type { RegisterErrorKeys } from '@/features/RegisterForm/model/types/registerSchema.ts';
 import type { ResponseType } from '@/shared/api/api.ts';
 
 type RegisterData = {
@@ -16,15 +16,15 @@ type ResponseData = {
 }
 
 export const registerByEmail = createAsyncThunk<
-    ResponseType<ResponseData, errorKeys>,
+    ResponseType<ResponseData, RegisterErrorKeys>,
     RegisterData,
-    ThunkConfig<Record<errorKeys, string[]> | undefined>>(
+    ThunkConfig<Record<RegisterErrorKeys, string[]> | undefined>>(
         'register/registerByEmail',
         async (registerData, thunkAPI) => {
             const { dispatch, extra, rejectWithValue } = thunkAPI;
             try {
                 const response = await extra.api
-                    .post<ResponseType<ResponseData, errorKeys>>('/auth/registration', {
+                    .post<ResponseType<ResponseData, RegisterErrorKeys>>('/auth/registration', {
                         email: registerData.email,
                         password: registerData.password,
                         nickname: registerData.nickname,

@@ -1,12 +1,12 @@
-export type errorKeys = 'email' | 'password' | 'nickname' | 'consent'
+export type RegisterErrorKeys = 'email' | 'password' | 'nickname' | 'consent'
 
-export type errorsObject = Partial<Record<errorKeys, string[]>> | undefined
+export type RegisterErrorsObject = Partial<Record<RegisterErrorKeys, string[]>> | undefined
 
 export interface RegisterSchema {
     email: string;
     password: string;
     nickname: string;
     consent: boolean;
-    errors: errorsObject;
+    errors: RegisterErrorsObject;
     isLoading: boolean;
 }

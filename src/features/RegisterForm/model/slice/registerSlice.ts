@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { errorsObject, RegisterSchema } from '../types/registerSchema.ts';
+import type { RegisterErrorsObject, RegisterSchema } from '../types/registerSchema.ts';
 import { registerByEmail } from '@/features/RegisterForm/model/services/registerByEmail/registerByEmail.ts';
 
 const initialState: RegisterSchema = {
@@ -24,7 +24,7 @@ export const registerSlice = createSlice({
         setNickname: (state, action: PayloadAction<string>) => {
             state.nickname = action.payload;
         },
-        setErrors: (state, action: PayloadAction<errorsObject>) => {
+        setErrors: (state, action: PayloadAction<RegisterErrorsObject>) => {
             state.errors = action.payload;
         },
         setConsent: (state, action: PayloadAction<boolean>) => {

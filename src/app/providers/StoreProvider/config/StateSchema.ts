@@ -19,7 +19,6 @@ export interface StateSchema {
     user: UserSchema
     exercise: ExerciseSchema
     program: ProgramSchema
-    register: RegisterSchema
     muscle: MuscleSchema
     equipment: EquipmentSchema
     exerciseType: ExerciseTypeSchema
@@ -28,6 +27,7 @@ export interface StateSchema {
     login?: LoginSchema
     profile?: ProfileSchema
     addExercise?: AddExerciseSchema
+    register?: RegisterSchema
     createProgram?: CreateProgramSchema
 }
 
