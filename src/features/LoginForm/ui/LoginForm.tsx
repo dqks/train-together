@@ -15,6 +15,8 @@ import { getLoginPassword } from '../model/selectors/getLoginPassword/getLoginPa
 import { loginActions } from '../model/slice/loginSlice.ts';
 import { getLoginError } from '../model/selectors/getLoginError/getLoginError.ts';
 import { ErrorMessage, TextSize } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
+import { createErrorObject } from '@/shared/lib/createErrorObject/createErrorObject.ts';
+import type { LoginErrors } from '../model/types/loginSchema.ts';
 
 export const LoginForm = () => {
     const { t } = useTranslation();
@@ -41,21 +43,21 @@ export const LoginForm = () => {
     }, [dispatch]);
 
     const onLoginClick = () => {
-        let hasErrors = false;
-        const errors = { status: [''] };
+        const [errors, hasErrors] = createErrorObject({ status: [
+            {
+                condition: !email?.trim() || !password?.trim(),
+                errorMessage: 'Все поля должны быть заполнены'
+            },
+            {
+                condition: !email?.includes('@') || !email?.includes('.'),
+                errorMessage: 'Почта должна быть валидной'
+            }
+        ] })
 
-        if (!email.trim() || !password.trim()) {
-            errors.status.push('Все поля должны быть заполнены');
-            hasErrors = true;
-        }
-
-        if (!email.includes('@') || !email.includes('.')) {
-            errors.status.push('Почта должна быть валидной');
-            hasErrors = true;
-        }
+        console.log(errors)
 
         if (hasErrors) {
-            dispatch(loginActions.setError(errors));
+            dispatch(loginActions.setError(errors as LoginErrors));
             return;
         }
 

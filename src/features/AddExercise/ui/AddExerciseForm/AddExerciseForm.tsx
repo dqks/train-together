@@ -20,6 +20,7 @@ import { getErrors } from '../../model/selectors/getErrors/getErrors.ts';
 import { getIsLoading } from '@/features/AddExercise/model/selectors/getIsLoading/getIsLoading.ts';
 import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 import { createErrorObject, type ErrorObject } from '@/shared/lib/createErrorObject/createErrorObject.ts';
+import type { AddExerciseErrorObject } from '../../model/types/addExerciseSchema.ts';
 
 interface AddExerciseFormProps {
     closeHandler?: () => void
@@ -103,7 +104,7 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
         const [errors, hasErrors] = createErrorObject(errorsTest)
 
         if (hasErrors) {
-            dispatch(addExerciseActions.setErrors(errors));
+            dispatch(addExerciseActions.setErrors(errors as AddExerciseErrorObject));
             return;
         }
 

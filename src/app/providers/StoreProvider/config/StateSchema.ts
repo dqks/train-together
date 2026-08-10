@@ -20,7 +20,6 @@ export interface StateSchema {
     exercise: ExerciseSchema
     program: ProgramSchema
     register: RegisterSchema
-    login: LoginSchema
     muscle: MuscleSchema
     equipment: EquipmentSchema
     createProgram: CreateProgramSchema
@@ -28,6 +27,8 @@ export interface StateSchema {
     exerciseType: ExerciseTypeSchema
     exerciseProgression: ExerciseProgressionSchema
     profile: ProfileSchema
+    //async
+    login?: LoginSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

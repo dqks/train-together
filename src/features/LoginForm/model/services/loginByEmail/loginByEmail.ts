@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userActions } from '@/entities/User';
 import { USER_LOCAL_STORAGE_KEY } from '@/shared/const/userKey.ts';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
-import type { loginErrors } from '@/features/LoginForm/model/types/loginSchema.ts';
+import type { LoginErrors } from '@/features/LoginForm/model/types/loginSchema.ts';
 
 type LoginData = {
     email: string
@@ -19,7 +19,7 @@ type Response = {
     data: Return
 }
 
-export const loginByEmail = createAsyncThunk<Return, LoginData, ThunkConfig<loginErrors>>(
+export const loginByEmail = createAsyncThunk<Return, LoginData, ThunkConfig<LoginErrors>>(
     'login/loginByEmail',
     async (loginData, thunkAPI) => {
         const { extra, dispatch, rejectWithValue } = thunkAPI;

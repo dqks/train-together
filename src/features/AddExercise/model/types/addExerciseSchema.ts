@@ -4,7 +4,7 @@ type ErrorKeys = 'name' |
     'selectedEquipmentId' |
     'status'
 
-export type ErrorObject = Partial<Record<ErrorKeys, string[]>>
+export type AddExerciseErrorObject = Partial<Record<ErrorKeys, string[]>>
 
 export interface AddExerciseSchema {
     exerciseName: string
@@ -12,5 +12,5 @@ export interface AddExerciseSchema {
     primaryMuscleId: number | undefined
     equipmentId: number | undefined
     isLoading: boolean
-    error: ErrorObject | undefined
+    error: AddExerciseErrorObject | undefined
 }

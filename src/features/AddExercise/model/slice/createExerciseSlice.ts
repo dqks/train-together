@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { AddExerciseSchema, errorObject } from '../types/addExerciseSchema.ts';
+import type { AddExerciseSchema, AddExerciseErrorObject } from '../types/addExerciseSchema.ts';
 import { createUserExercise } from '../services/createExercise/createUserExercise.ts';
 
 const initialState: AddExerciseSchema = {
@@ -27,7 +27,7 @@ export const createExerciseSlice = createSlice({
         setPrimaryMuscleId: (state, action: PayloadAction<number>) => {
             state.primaryMuscleId = action.payload;
         },
-        setErrors: (state, action: PayloadAction<errorObject>) => {
+        setErrors: (state, action: PayloadAction<AddExerciseErrorObject>) => {
             state.error = action.payload;
         },
     },

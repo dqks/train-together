@@ -1,9 +1,8 @@
-import { configureStore, type ReducersMapObject } from '@reduxjs/toolkit';
+import { configureStore, type CombinedState, type Reducer, type ReducersMapObject } from '@reduxjs/toolkit';
 import type { StateSchema, ThunkExtraArg } from './StateSchema';
 import { userReducer } from '@/entities/User';
 import { exerciseReducer } from '@/entities/Exercise';
 import { registerReducer } from '@/features/RegisterForm';
-import { loginReducer } from '@/features/LoginForm';
 import { createProgramReducer } from '@/features/AddMyProgram';
 import { muscleReducer } from '@/entities/Muscle';
 import { equipmentReducer } from '@/entities/Equipment';
@@ -13,6 +12,7 @@ import { exerciseTypeReducer } from '@/entities/ExerciseType';
 import { exerciseProgressionReducer } from '@/entities/ExerciseProgression';
 import { programsReducer } from '@/entities/Program';
 import { profileReducer } from '@/pages/ProfilePage';
+import { createReducerManager } from './reducerManager';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -25,7 +25,6 @@ export function createReduxStore(
         exercise: exerciseReducer,
         program: programsReducer,
         register: registerReducer,
-        login: loginReducer,
         muscle: muscleReducer,
         equipment: equipmentReducer,
         createProgram: createProgramReducer,
@@ -35,7 +34,7 @@ export function createReduxStore(
         profile: profileReducer,
     };
 
-    // const reducerManager = createReducerManager(rootReducer);
+    const reducerManager = createReducerManager(rootReducer);
 
     const extraArg: ThunkExtraArg = {
         api: $api,
@@ -43,8 +42,8 @@ export function createReduxStore(
     };
 
     const store = configureStore<StateSchema>({
-        // reducer: reducerManager.reduce,
-        reducer: rootReducer,
+        reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>,
+        // reducer: rootReducer,
         devTools: true,
         preloadedState: initialState,
         // @ts-ignore
@@ -56,7 +55,7 @@ export function createReduxStore(
     });
 
     // @ts-ignore
-    // store.reducerManager = reducerManager;
+    store.reducerManager = reducerManager;
 
     return store;
 }

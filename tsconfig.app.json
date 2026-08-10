@@ -13,7 +13,6 @@
     "skipLibCheck": true,
 
     /* Paths */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"] // Map '@/*' to files within the 'src' directory
     },

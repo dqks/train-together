@@ -5,8 +5,8 @@ export type ConditionObject = {
 
 export type ErrorObject = Record<string, ConditionObject[]> 
 
-export const createErrorObject = (object: ErrorObject ) => {
-    let errors: Record<string, string[]> = {}
+export const createErrorObject = (object: ErrorObject) => {
+    let errors: Record<keyof ErrorObject, string[]> = {}
     let hasErrors: boolean = false
     Object.keys(object).forEach(key => errors[key] = [])
 
