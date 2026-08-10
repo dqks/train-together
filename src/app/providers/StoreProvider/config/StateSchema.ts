@@ -22,13 +22,13 @@ export interface StateSchema {
     register: RegisterSchema
     muscle: MuscleSchema
     equipment: EquipmentSchema
-    createProgram: CreateProgramSchema
     exerciseType: ExerciseTypeSchema
     exerciseProgression: ExerciseProgressionSchema
     //async
     login?: LoginSchema
     profile?: ProfileSchema
     addExercise?: AddExerciseSchema
+    createProgram?: CreateProgramSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

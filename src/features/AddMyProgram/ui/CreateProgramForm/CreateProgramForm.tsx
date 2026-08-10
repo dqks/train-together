@@ -12,7 +12,7 @@ import { Select } from '@/shared/ui/Select/Select.tsx';
 import { getProgramName } from '../../model/selectors/getProgramName/getProgramName.ts';
 import { getProgramDescription } from '../../model/selectors/getProgramDescription/getProgramDescription.ts';
 import { createUserProgram } from '../../model/services/createUserProgram/createUserProgram.ts';
-import { createProgramActions } from '../../model/slice/createProgramSlice.ts';
+import { createProgramActions, createProgramReducer } from '../../model/slice/createProgramSlice.ts';
 import {
     getProgramPublicSetting,
 } from '../../model/selectors/getProgramPublicSetting/getProgramPublicSetting.ts';
@@ -27,6 +27,7 @@ import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 import { getProgramGoals, getProgramDifficulties } from '@/entities/Program';
 import { createErrorObject, type ErrorObject } from '@/shared/lib/createErrorObject/createErrorObject.ts';
 import type { CreateProgramErrors } from '../../model/types/createProgramSchema.ts';
+import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader.tsx';
 
 interface CreateProgramFormProps {
     className?: string;
@@ -34,6 +35,10 @@ interface CreateProgramFormProps {
 
 // 3 MB
 // const fileSizeLimit = 3 * 1024 * 1024;
+
+const reducers: ReducerList = {
+    createProgram: createProgramReducer
+}
 
 export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const { t } = useTranslation();
@@ -153,65 +158,67 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     };
 
     return (
-        <form className={classNames(cls.CreateProgramForm, {}, [className])}>
-            {/* <h1>{t('Создание программы')}</h1> */}
-            <div className={cls.inputWrapper}>
-                <label htmlFor="name">{t('Название')}</label>
-                <Input onChange={onChangeName} value={name} type="text" name="name" id="name" />
-                <ErrorMessage messages={errors?.name} />
-            </div>
-            <div className={cls.inputWrapper}>
-                <label htmlFor="description">{t('Описание')}</label>
-                <Textarea
-                    onChange={onChangeDescription}
-                    value={description}
-                    className={cls.textarea}
-                    id="description"
-                    name="description"
-                />
-                <ErrorMessage messages={errors?.description} />
-            </div>
-            <div className={cls.selectWrapper}>
-                <label htmlFor="privacy">
-                    {t('Кто сможет просматривать')}
-                </label>
-                <span>❓</span>
-                <Select value={publicSetting} onChange={onChangePrivacy} name="privacy" id="privacy">
-                    <option value="true">{t('Все пользователи')}</option>
-                    <option value="false">{t('Только я')}</option>
-                </Select>
-            </div>
-            <div className={cls.selectWrapper}>
-                <label htmlFor="privacy">
-                    {t('Цель программы')}
-                </label>
-                <Select value={selectedGoal} onChange={onChangeGoal} name="goalId" id="goalId">
-                    <option value="default" disabled>{t('Выберите...')}</option>
-                    {goalOptions}
-                </Select>
-                <ErrorMessage messages={errors?.goalId} />
+        <DynamicModuleLoader reducers={reducers}>
+            <form className={classNames(cls.CreateProgramForm, {}, [className])}>
+                {/* <h1>{t('Создание программы')}</h1> */}
+                <div className={cls.inputWrapper}>
+                    <label htmlFor="name">{t('Название')}</label>
+                    <Input onChange={onChangeName} value={name} type="text" name="name" id="name" />
+                    <ErrorMessage messages={errors?.name} />
+                </div>
+                <div className={cls.inputWrapper}>
+                    <label htmlFor="description">{t('Описание')}</label>
+                    <Textarea
+                        onChange={onChangeDescription}
+                        value={description}
+                        className={cls.textarea}
+                        id="description"
+                        name="description"
+                    />
+                    <ErrorMessage messages={errors?.description} />
+                </div>
+                <div className={cls.selectWrapper}>
+                    <label htmlFor="privacy">
+                        {t('Кто сможет просматривать')}
+                    </label>
+                    <span>❓</span>
+                    <Select value={publicSetting} onChange={onChangePrivacy} name="privacy" id="privacy">
+                        <option value="true">{t('Все пользователи')}</option>
+                        <option value="false">{t('Только я')}</option>
+                    </Select>
+                </div>
+                <div className={cls.selectWrapper}>
+                    <label htmlFor="privacy">
+                        {t('Цель программы')}
+                    </label>
+                    <Select value={selectedGoal} onChange={onChangeGoal} name="goalId" id="goalId">
+                        <option value="default" disabled>{t('Выберите...')}</option>
+                        {goalOptions}
+                    </Select>
+                    <ErrorMessage messages={errors?.goalId} />
 
-            </div>
-            <div className={cls.selectWrapper}>
-                <label htmlFor="privacy">
-                    {t('Сложность')}
-                </label>
-                <Select value={selectedDiff} onChange={onChangeDifficulty} name="diffId" id="diffId">
-                    <option value="default" disabled>{t('Выберите...')}</option>
-                    {diffOptions}
-                </Select>
-                <ErrorMessage messages={errors?.diffId} />
-            </div>
-            <div className={cls.inputWrapper}>
-                <FileInput onChangeImage={setImage} value={image} />
-            </div>
-            <Button
-                disabled={isLoading}
-                onClick={onCreateClick}
-                type="button"
-            >
-                {t('Создать')}
-            </Button>
-        </form>
+                </div>
+                <div className={cls.selectWrapper}>
+                    <label htmlFor="privacy">
+                        {t('Сложность')}
+                    </label>
+                    <Select value={selectedDiff} onChange={onChangeDifficulty} name="diffId" id="diffId">
+                        <option value="default" disabled>{t('Выберите...')}</option>
+                        {diffOptions}
+                    </Select>
+                    <ErrorMessage messages={errors?.diffId} />
+                </div>
+                <div className={cls.inputWrapper}>
+                    <FileInput onChangeImage={setImage} value={image} />
+                </div>
+                <Button
+                    disabled={isLoading}
+                    onClick={onCreateClick}
+                    type="button"
+                >
+                    {t('Создать')}
+                </Button>
+            </form>
+        </DynamicModuleLoader>
     );
 };

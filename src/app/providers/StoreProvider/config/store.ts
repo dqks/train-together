@@ -3,7 +3,6 @@ import type { StateSchema, ThunkExtraArg } from './StateSchema';
 import { userReducer } from '@/entities/User';
 import { exerciseReducer } from '@/entities/Exercise';
 import { registerReducer } from '@/features/RegisterForm';
-import { createProgramReducer } from '@/features/AddMyProgram';
 import { muscleReducer } from '@/entities/Muscle';
 import { equipmentReducer } from '@/entities/Equipment';
 import { $api } from '@/shared/api/api.ts';
@@ -25,7 +24,6 @@ export function createReduxStore(
         register: registerReducer,
         muscle: muscleReducer,
         equipment: equipmentReducer,
-        createProgram: createProgramReducer,
         exerciseType: exerciseTypeReducer,
         exerciseProgression: exerciseProgressionReducer,
     };
