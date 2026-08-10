@@ -17,6 +17,12 @@ import { getLoginError } from '../model/selectors/getLoginError/getLoginError.ts
 import { ErrorMessage, TextSize } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 import { createErrorObject } from '@/shared/lib/createErrorObject/createErrorObject.ts';
 import type { LoginErrors } from '../model/types/loginSchema.ts';
+import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import { loginReducer } from '@/features/LoginForm';
+
+const reducers: ReducerList = {
+    login: loginReducer
+}
 
 export const LoginForm = () => {
     const { t } = useTranslation();
@@ -65,53 +71,55 @@ export const LoginForm = () => {
     };
 
     return (
-        <div className={cls.LoginForm}>
-            <Link to={PublicRoutePath.landing} className={cls.logo}>TrainTogether</Link>
-            <div className={cls.authCard}>
-                <h1 className={cls.authTitle}>{t('Авторизация')}</h1>
-                <p className={cls.authSubtitle}>
-                    {t('Войдите в свой аккаунт для доступа к программа')}
-                </p>
+        <DynamicModuleLoader reducers={reducers}>
+            <div className={cls.LoginForm}>
+                <Link to={PublicRoutePath.landing} className={cls.logo}>TrainTogether</Link>
+                <div className={cls.authCard}>
+                    <h1 className={cls.authTitle}>{t('Авторизация')}</h1>
+                    <p className={cls.authSubtitle}>
+                        {t('Войдите в свой аккаунт для доступа к программа')}
+                    </p>
 
-                <form className={cls.authForm}>
-                    <div className="form-group">
-                        <label htmlFor="email" className="form-label">{t('Email')}</label>
-                        <Input
-                            onChange={onChangeEmail}
-                            value={email}
-                            name="email"
-                            type="email"
-                            placeholder={t('Ваш email')}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email" className="form-label">{t('Пароль')}</label>
-                        <Input
-                            value={password}
-                            onChange={onChangePassword}
-                            name="password"
-                            type="password"
-                            placeholder={t('Ваш пароль')}
-                        />
-                    </div>
-                    <ErrorMessage messages={error?.status} textSize={TextSize.SMALL} />
+                    <form className={cls.authForm}>
+                        <div className="form-group">
+                            <label htmlFor="email" className="form-label">{t('Email')}</label>
+                            <Input
+                                onChange={onChangeEmail}
+                                value={email}
+                                name="email"
+                                type="email"
+                                placeholder={t('Ваш email')}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="email" className="form-label">{t('Пароль')}</label>
+                            <Input
+                                value={password}
+                                onChange={onChangePassword}
+                                name="password"
+                                type="password"
+                                placeholder={t('Ваш пароль')}
+                            />
+                        </div>
+                        <ErrorMessage messages={error?.status} textSize={TextSize.SMALL} />
 
-                    <Button
-                        disabled={isLoading}
-                        size={SizeButton.LARGE}
-                        theme={ThemeButton.PRIMARY}
-                        type="button"
-                        onClick={onLoginClick}
-                    >
-                        {t('Войти')}
-                    </Button>
-                </form>
+                        <Button
+                            disabled={isLoading}
+                            size={SizeButton.LARGE}
+                            theme={ThemeButton.PRIMARY}
+                            type="button"
+                            onClick={onLoginClick}
+                        >
+                            {t('Войти')}
+                        </Button>
+                    </form>
 
-                <p className={cls.authFooterText}>
-                    {t('Нет аккаунта? ')}
-                    <Link to={PublicRoutePath.registration}>{t('Зарегистрироваться')}</Link>
-                </p>
+                    <p className={cls.authFooterText}>
+                        {t('Нет аккаунта? ')}
+                        <Link to={PublicRoutePath.registration}>{t('Зарегистрироваться')}</Link>
+                    </p>
+                </div>
             </div>
-        </div>
+        </DynamicModuleLoader>
     );
 };

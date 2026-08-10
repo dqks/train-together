@@ -2,15 +2,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { ProgramCard } from '@/entities/Program';
 import cls from './ProgramsContent.module.scss';
-import { getUserPrograms } from '@/pages/ProfilePage/model/selectors/getUserPrograms/getUserPrograms.ts';
-import { fetchUserPrograms } from '@/pages/ProfilePage/model/services/fetchUserPrograms/fetchUserPrograms.ts';
+import { getUserPrograms } from '../../model/selectors/getUserPrograms/getUserPrograms';
+import { fetchUserPrograms } from '../../model/services/fetchUserPrograms/fetchUserPrograms';
+import { getIsLoading } from '../../model/selectors/getIsLoading/getIsLoading';
+import { Loader } from '@/shared/ui/Loader/Loader';
 
 interface ProgramsContentProps {
-        userId: number | undefined
+    userId: number | undefined
 }
 
 export const ProgramsContent = ({ userId }: ProgramsContentProps) => {
     const userPrograms = useSelector(getUserPrograms);
+    const isLoading = useSelector(getIsLoading);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,6 +21,10 @@ export const ProgramsContent = ({ userId }: ProgramsContentProps) => {
             dispatch(fetchUserPrograms(userId));
         }
     }, [dispatch]);
+
+    if (isLoading) {
+        return <Loader />
+    }
 
     const programCards = userPrograms?.map((program) => (
         <ProgramCard

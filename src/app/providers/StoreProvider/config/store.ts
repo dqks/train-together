@@ -31,7 +31,6 @@ export function createReduxStore(
         addExercise: addExerciseReducer,
         exerciseType: exerciseTypeReducer,
         exerciseProgression: exerciseProgressionReducer,
-        profile: profileReducer,
     };
 
     const reducerManager = createReducerManager(rootReducer);

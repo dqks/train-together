@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
-import type { Profile } from '@/entities/User/model/types/userSchema.ts';
 import type { ResponseType } from '@/shared/api/api.ts';
+import type { Profile } from '../../types/profileSchema';
 
 type Response = Profile
 
 export const fetchProfileInfo = createAsyncThunk<Response, number, ThunkConfig<string>>(
-    'user/fetchProfileInfo',
+    'profile/fetchProfileInfo',
     async (id, thunkAPI) => {
         const { extra } = thunkAPI;
         try {
