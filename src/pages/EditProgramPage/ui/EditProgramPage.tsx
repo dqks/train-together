@@ -1,13 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router';
+import { useCallback, useEffect } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import cls from './EditProgramPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { BackLink } from '@/shared/ui/BackLink/BackLink.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { EditMyProgram } from '@/features/EditMyProgram';
+import { fetchProgramDetails, getProgramDetails, programsActions } from '@/entities/Program';
+import { useDispatch, useSelector } from 'react-redux';
 
-// interface EditModeProps {
+// interface EditProgramPageProps {
 //     className?: string;
 //     setIsEditMode: (value: boolean) => void
 //     programImageUrl: string | undefined
@@ -23,24 +25,27 @@ import { EditMyProgram } from '@/features/EditMyProgram';
 export const EditProgramPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const { state } = useLocation()
 
-    const {
-        programImageUrl,
-        programName,
-        programDescription,
-        programIsPublic,
-        programId,
-        selectedProgramGoalId,
-        selectedProgramDifficultyId,
-        programDays,
-    } = props;
+    const programDetails = useSelector(getProgramDetails)
+    const dispatch = useDispatch()
+    const params = useParams();
+
+    console.log(params)
+
+    useEffect(() => {
+        if (!state) dispatch(fetchProgramDetails(Number(params.id)))
+        return () => {
+            dispatch(programsActions.setProgramDetails(null));
+        };
+    }, [])
 
     const onCancel = useCallback(() => {
-        navigate(AuthRoutePath.program_details + programId);
+        navigate(AuthRoutePath.program_details + programDetails?.id);
     }, []);
 
     return (
-        <div className={classNames(cls.EditMode, {}, [className])}>
+        <div className={classNames(cls.EditMode, {}, [])}>
 
             <div className={cls.editHeader}>
                 <div className={cls.editHeaderLeft}>
@@ -50,15 +55,15 @@ export const EditProgramPage = () => {
             </div>
 
             <EditMyProgram
-                programDays={programDays}
-                selectedProgramGoalId={selectedProgramGoalId}
-                selectedProgramDifficultyId={selectedProgramDifficultyId}
-                programId={programId}
+                programDays={programDetails?.days || state?.days}
+                selectedProgramGoalId={programDetails?.goal.id || state?.goal.id}
+                selectedProgramDifficultyId={programDetails?.difficulty.id || state?.difficulty.id}
+                programId={programDetails?.id || state?.id}
                 onCancel={onCancel}
-                programIsPublic={programIsPublic}
-                programName={programName}
-                programDescription={programDescription}
-                programImageUrl={programImageUrl}
+                programIsPublic={programDetails?.isPublic || state?.isPublic}
+                programName={programDetails?.name || state?.name}
+                programDescription={programDetails?.description || state?.description}
+                programImageUrl={programDetails?.imageUrl || state?.imageUrl}
             />
         </div>
     );

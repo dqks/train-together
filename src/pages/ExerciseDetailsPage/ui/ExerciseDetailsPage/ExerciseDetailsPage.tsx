@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
     fetchExerciseDetails,
@@ -22,7 +22,6 @@ import { Advices } from '@/pages/ExerciseDetailsPage/ui/Advices/Advices.tsx';
 import { ActiveMuscles } from '@/pages/ExerciseDetailsPage/ui/ActiveMuscles/ActiveMuscles.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { DeleteExerciseButton } from '@/features/DeleteExercise';
-import { useOpen } from '@/shared/lib/useOpen/useOpen';
 
 const ExerciseDetailsPage = () => {
     const { t, i18n } = useTranslation();
@@ -33,12 +32,7 @@ const ExerciseDetailsPage = () => {
     const userId = useSelector(getUserId);
     const errors = useSelector(getExerciseErrors);
     const isOwner = userId === exerciseDetails?.userId;
-    const navigate = useNavigate();
     const params = useParams();
-
-    const onDelete = useCallback(() => {
-        navigate(AuthRoutePath.my_exercises);
-    }, [navigate]);
 
     useEffect(() => {
         dispatch(fetchExerciseDetails(Number(params.id)));
@@ -123,7 +117,6 @@ const ExerciseDetailsPage = () => {
                                 </AppLink>
                                 <DeleteExerciseButton
                                     exerciseId={Number(params.id)}
-                                    onDelete={onDelete}
                                 />
                             </div>
                         </div>

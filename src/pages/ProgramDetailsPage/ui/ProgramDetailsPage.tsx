@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
-import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from './ProgramDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
@@ -16,6 +16,7 @@ import { Hero } from './Hero/Hero.tsx';
 import { Sidebar } from './Sidebar/Sidebar.tsx';
 import { Description } from './Description/Description.tsx';
 import { Days } from './Days/Days.tsx';
+import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 
 interface ProgramDetailsPageProps {
     className?: string;
@@ -29,9 +30,10 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
     const isLoading = useSelector(getProgramIsLoading);
     const errors = useSelector(getProgramErrors);
     const isOwner = userId === programDetails?.user.id;
-
+    
     const params = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(fetchProgramDetails(Number(params.id)));
@@ -39,6 +41,13 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
             dispatch(programsActions.setProgramDetails(null));
         };
     }, [dispatch]);
+
+    const onEditButtonClick = useCallback(() => {
+        navigate(
+            `${AuthRoutePath.program_details}${programDetails?.id}/edit`,
+             {state: programDetails}
+        )
+    }, [programDetails])
 
     if (isLoading) {
         return <PageLoader />;
@@ -83,6 +92,7 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
                 imageUrl={programDetails?.imageUrl}
                 formattedDate={formattedDate}
                 isOwner={isOwner}
+                onEditButtonClick={onEditButtonClick}
             />
             <div className={cls.programContainer}>
                 <StatsBar

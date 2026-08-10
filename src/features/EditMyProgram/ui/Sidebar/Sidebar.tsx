@@ -5,6 +5,7 @@ import { ToggleSwitch } from '@/shared/ui/ToggleSwitch/ToggleSwitch.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Save from '@/shared/assets/icons/save.svg?react';
 import type { Difficulty, Goal } from '@/entities/Program';
+import { AppLink } from '@/shared/ui/AppLink/AppLink';
 
 interface SidebarProps {
     isPublic: boolean;

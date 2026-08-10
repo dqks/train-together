@@ -17,6 +17,7 @@ interface HeroProps {
     authorImage: string | undefined
     isOwner: boolean | undefined;
     programId: number | undefined;
+    onEditButtonClick: () => void
 }
 
 export const Hero = (props: HeroProps) => {
@@ -30,6 +31,7 @@ export const Hero = (props: HeroProps) => {
         authorImage,
         isOwner,
         programId,
+        onEditButtonClick,
     } = props;
 
     return (
@@ -47,16 +49,15 @@ export const Hero = (props: HeroProps) => {
                 <div className={cls.titleRow}>
                     <h1 className={cls.programTitle}>{programName}</h1>
                     {isOwner && (
-                        <AppLink to={`${AuthRoutePath.program_details}${programId}/edit`}>
-                            <Button
-                                theme={ThemeButton.OUTLINE}
-                                className={cls.editButton}
-                                type="button"
-                            >
-                                <Edit />
-                                {t('Редактировать')}
-                            </Button>
-                        </AppLink>
+                        <Button
+                            onClick={onEditButtonClick}
+                            theme={ThemeButton.OUTLINE}
+                            className={cls.editButton}
+                            type="button"
+                        >
+                            <Edit />
+                            {t('Редактировать')}
+                        </Button>
                     )}
                 </div>
                 <div className={cls.programAuthor}>
