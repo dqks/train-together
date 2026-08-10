@@ -8,7 +8,7 @@ import { EquipmentCardList } from '@/entities/Equipment/ui/EquipmentCardList/Equ
 import { PrimaryMuscleCardList } from '@/entities/Muscle/ui/PrimaryMuscleCardList/PrimaryMuscleCardList.tsx';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { getExerciseName } from '../../model/selectors/getExerciseName/getExerciseName.ts';
-import { addExerciseActions } from '../../model/slice/createExerciseSlice.ts';
+import { addExerciseActions, addExerciseReducer } from '../../model/slice/createExerciseSlice.ts';
 import { createUserExercise } from '../../model/services/createExercise/createUserExercise.ts';
 import { fetchProgressionTypes, getExerciseProgressionTypes } from '@/entities/ExerciseProgression';
 import { Select } from '@/shared/ui/Select/Select.tsx';
@@ -21,26 +21,27 @@ import { getIsLoading } from '@/features/AddExercise/model/selectors/getIsLoadin
 import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 import { createErrorObject, type ErrorObject } from '@/shared/lib/createErrorObject/createErrorObject.ts';
 import type { AddExerciseErrorObject } from '../../model/types/addExerciseSchema.ts';
+import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader.tsx';
 
 interface AddExerciseFormProps {
     closeHandler?: () => void
 }
 
+const reducers: ReducerList = {
+   addExercise: addExerciseReducer
+}
+
+
 const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const exerciseName = useSelector(getExerciseName);
-
     const isLoading = useSelector(getIsLoading);
-
     const exerciseProgressionTypes = useSelector(getExerciseProgressionTypes);
     const selectedProgressionType = useSelector(getProgressionType);
-
     const selectedPrimaryMuscleId = useSelector(getPrimaryMuscleId);
     const selectedEquipmentId = useSelector(getEquipmentId);
-
     const errors = useSelector(getErrors);
-
     const [image, setImage] = useState<File | undefined>(undefined);
 
     useEffect(() => {
@@ -124,72 +125,74 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
         ?.map((t) => <option key={t.name} value={t.id}>{t.name}</option>);
 
     return (
-        <form className={cls.AddExerciseFormProps} id="addExerciseForm">
-            <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label htmlFor="exerciseName" className="form-label">{t('Название')}</label>
-                <Input
-                    name="exerciseName"
-                    type="text"
-                    id="exerciseName"
-                    value={exerciseName}
-                    onChange={onChangeName}
-                    placeholder={t('Например: Жим гантелей')}
-                />
-                <ErrorMessage messages={errors?.name} />
-            </div>
-
-            <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label htmlFor="equipmentSelector" className="form-label">{t('Оборудование')}</label>
-                <div className={cls.selectorGrid} id="equipmentSelector">
-                    <EquipmentCardList
-                        onChange={onChangEquipment}
-                        selectedEquipment={selectedEquipmentId?.toString()}
+        <DynamicModuleLoader reducers={reducers}>
+            <form className={cls.AddExerciseFormProps} id="addExerciseForm">
+                <div className={classNames(cls.groupGap, {}, ['form-group'])}>
+                    <label htmlFor="exerciseName" className="form-label">{t('Название')}</label>
+                    <Input
+                        name="exerciseName"
+                        type="text"
+                        id="exerciseName"
+                        value={exerciseName}
+                        onChange={onChangeName}
+                        placeholder={t('Например: Жим гантелей')}
                     />
+                    <ErrorMessage messages={errors?.name} />
                 </div>
-                <ErrorMessage messages={errors?.selectedEquipmentId} />
-            </div>
 
-            <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label htmlFor="muscleSelector" className="form-label">
-                    {t('Основная мышца')}
-                </label>
-                <div className={cls.selectorGrid} id="muscleSelector">
-                    <PrimaryMuscleCardList
-                        selectedMuscle={selectedPrimaryMuscleId?.toString()}
-                        onChange={onChangePrimaryMuscle}
-                    />
+                <div className={classNames(cls.groupGap, {}, ['form-group'])}>
+                    <label htmlFor="equipmentSelector" className="form-label">{t('Оборудование')}</label>
+                    <div className={cls.selectorGrid} id="equipmentSelector">
+                        <EquipmentCardList
+                            onChange={onChangEquipment}
+                            selectedEquipment={selectedEquipmentId?.toString()}
+                        />
+                    </div>
+                    <ErrorMessage messages={errors?.selectedEquipmentId} />
                 </div>
-                <ErrorMessage messages={errors?.selectedPrimaryMuscleId} />
-            </div>
 
-            <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <FileInput onChangeImage={onChangeImage} value={image} />
-            </div>
+                <div className={classNames(cls.groupGap, {}, ['form-group'])}>
+                    <label htmlFor="muscleSelector" className="form-label">
+                        {t('Основная мышца')}
+                    </label>
+                    <div className={cls.selectorGrid} id="muscleSelector">
+                        <PrimaryMuscleCardList
+                            selectedMuscle={selectedPrimaryMuscleId?.toString()}
+                            onChange={onChangePrimaryMuscle}
+                        />
+                    </div>
+                    <ErrorMessage messages={errors?.selectedPrimaryMuscleId} />
+                </div>
 
-            <div className={classNames(cls.groupGap, {}, ['form-group'])}>
-                <label htmlFor="progressionType" className="form-label">{t('Тип прогрессии')}</label>
-                <Select
-                    value={selectedProgressionType}
-                    name="progressionType"
-                    id="progressionType"
-                    onChange={onChangeType}
+                <div className={classNames(cls.groupGap, {}, ['form-group'])}>
+                    <FileInput onChangeImage={onChangeImage} value={image} />
+                </div>
+
+                <div className={classNames(cls.groupGap, {}, ['form-group'])}>
+                    <label htmlFor="progressionType" className="form-label">{t('Тип прогрессии')}</label>
+                    <Select
+                        value={selectedProgressionType}
+                        name="progressionType"
+                        id="progressionType"
+                        onChange={onChangeType}
+                    >
+                        <option value="default" disabled>{t('Выберите...')}</option>
+                        {progressionOptions}
+                    </Select>
+                    <ErrorMessage messages={errors?.selectedProgressionType} />
+                </div>
+
+                <Button
+                    disabled={isLoading}
+                    type="submit"
+                    onClick={createHandler}
+                    className={cls.addButton}
+                    id="submitBtn"
                 >
-                    <option value="default" disabled>{t('Выберите...')}</option>
-                    {progressionOptions}
-                </Select>
-                <ErrorMessage messages={errors?.selectedProgressionType} />
-            </div>
-
-            <Button
-                disabled={isLoading}
-                type="submit"
-                onClick={createHandler}
-                className={cls.addButton}
-                id="submitBtn"
-            >
-                {t('Добавить упражнение')}
-            </Button>
-        </form>
+                    {t('Добавить упражнение')}
+                </Button>
+            </form>
+        </DynamicModuleLoader>
     );
 };
 

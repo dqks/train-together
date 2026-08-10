@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Suspense } from 'react';
-import { AddExerciseFormAsync } from '@/features/AddExercise/ui/AddExerciseForm/AddExerciseForm.async.tsx';
+import AddExerciseFormAsync from '../AddExerciseForm/AddExerciseForm.async';
 import { useOpen } from '@/shared/lib/useOpen/useOpen.tsx';
 import { Button } from '@/shared/ui/Button/Button.tsx';
 import { Modal } from '@/shared/ui/Modal/Modal.tsx';

@@ -1,3 +1,3 @@
 import type { StateSchema } from '@/app/providers/StoreProvider';
 
-export const getIsLoading = (state: StateSchema) => state.addExercise.isLoading;
+export const getIsLoading = (state: StateSchema) => state?.addExercise?.isLoading || false;

@@ -7,11 +7,9 @@ import { createProgramReducer } from '@/features/AddMyProgram';
 import { muscleReducer } from '@/entities/Muscle';
 import { equipmentReducer } from '@/entities/Equipment';
 import { $api } from '@/shared/api/api.ts';
-import { addExerciseReducer } from '@/features/AddExercise';
 import { exerciseTypeReducer } from '@/entities/ExerciseType';
 import { exerciseProgressionReducer } from '@/entities/ExerciseProgression';
 import { programsReducer } from '@/entities/Program';
-import { profileReducer } from '@/pages/ProfilePage';
 import { createReducerManager } from './reducerManager';
 
 export function createReduxStore(
@@ -28,7 +26,6 @@ export function createReduxStore(
         muscle: muscleReducer,
         equipment: equipmentReducer,
         createProgram: createProgramReducer,
-        addExercise: addExerciseReducer,
         exerciseType: exerciseTypeReducer,
         exerciseProgression: exerciseProgressionReducer,
     };
