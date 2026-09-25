@@ -19,6 +19,7 @@ import { createErrorObject } from '@/shared/lib/createErrorObject/createErrorObj
 import type { LoginErrors } from '../model/types/loginSchema.ts';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { loginReducer } from '@/features/LoginForm';
+import { Form } from '@/shared/ui/Form/Form.tsx';
 
 const reducers: ReducerList = {
     login: loginReducer
@@ -59,9 +60,7 @@ export const LoginForm = () => {
                 errorMessage: 'Почта должна быть валидной'
             }
         ] })
-
-        console.log(errors)
-
+ 
         if (hasErrors) {
             dispatch(loginActions.setError(errors as LoginErrors));
             return;
@@ -79,9 +78,8 @@ export const LoginForm = () => {
                     <p className={cls.authSubtitle}>
                         {t('Войдите в свой аккаунт для доступа к программа')}
                     </p>
-
-                    <form className={cls.authForm}>
-                        <div className="form-group">
+                    <Form className={cls.authForm}>
+                        <Form.Group>
                             <label htmlFor="email" className="form-label">{t('Email')}</label>
                             <Input
                                 onChange={onChangeEmail}
@@ -90,8 +88,8 @@ export const LoginForm = () => {
                                 type="email"
                                 placeholder={t('Ваш email')}
                             />
-                        </div>
-                        <div className="form-group">
+                        </Form.Group>
+                        <Form.Group>
                             <label htmlFor="email" className="form-label">{t('Пароль')}</label>
                             <Input
                                 value={password}
@@ -100,9 +98,8 @@ export const LoginForm = () => {
                                 type="password"
                                 placeholder={t('Ваш пароль')}
                             />
-                        </div>
+                        </Form.Group>
                         <ErrorMessage messages={error?.status} textSize={TextSize.SMALL} />
-
                         <Button
                             disabled={isLoading}
                             size={SizeButton.LARGE}
@@ -112,8 +109,7 @@ export const LoginForm = () => {
                         >
                             {t('Войти')}
                         </Button>
-                    </form>
-
+                    </Form>
                     <p className={cls.authFooterText}>
                         {t('Нет аккаунта? ')}
                         <Link to={PublicRoutePath.registration}>{t('Зарегистрироваться')}</Link>

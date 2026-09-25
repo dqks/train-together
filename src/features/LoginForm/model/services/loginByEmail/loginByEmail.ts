@@ -45,7 +45,7 @@ export const loginByEmail = createAsyncThunk<Return, LoginData, ThunkConfig<Logi
             );
 
             return response.data.data;
-        } catch (err :any) {
+        } catch (err: any) {
             return rejectWithValue(err.response.data.messages);
         }
     },
