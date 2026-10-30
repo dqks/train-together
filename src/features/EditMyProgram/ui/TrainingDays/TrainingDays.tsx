@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import type { Dispatch, SetStateAction } from 'react';
 import cls from './TrainingDays.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import type { Day } from '@/entities/Program';
@@ -9,7 +8,7 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 
 interface TrainingDaysProps {
     trainingDays: Day[] | undefined
-    setTrainingDays: Dispatch<SetStateAction<Day[] | undefined>>
+    setTrainingDays: (days: Day[] | undefined) => void
     onSelectExercise: () => void
 }
 
@@ -19,34 +18,53 @@ export const TrainingDays = (props : TrainingDaysProps) => {
     const { trainingDays, setTrainingDays, onSelectExercise } = props;
 
     const onChangeExerciseReps = (dayIndex: number, exIndex: number, reps: number) => {
-        setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
+        // setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
+        //     ? {
+        //         ...td,
+        //         exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, reps } : ex)),
+        //     }
+        //     : td)));
+        setTrainingDays(trainingDays?.map((td, index) => (index === dayIndex
             ? {
                 ...td,
                 exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, reps } : ex)),
             }
-            : td)));
+            : td)))
     };
 
     const onChangeExerciseSets = (dayIndex: number, exIndex: number, sets: number) => {
-        setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
+        // setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
+        //     ? {
+        //         ...td,
+        //         exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, sets } : ex)),
+        //     }
+        //     : td)));
+        setTrainingDays(trainingDays?.map((td, index) => (index === dayIndex
             ? {
                 ...td,
                 exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, sets } : ex)),
             }
-            : td)));
+            : td)))
     };
 
     const onDeleteExercise = (dayIndex: number, exIndex: number) => {
-        setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
+        // setTrainingDays((prevState) => prevState?.map((td, index) => (index === dayIndex
+        //     ? {
+        //         ...td,
+        //         exercises: td.exercises.filter((_rs, eIndex) => eIndex !== exIndex),
+        //     }
+        //     : td)));
+        setTrainingDays(
+            trainingDays?.map((td, index) => (index === dayIndex
             ? {
                 ...td,
                 exercises: td.exercises.filter((_rs, eIndex) => eIndex !== exIndex),
             }
-            : td)));
+            : td)))
     };
 
     const onDeleteDay = (dayIndex: number) => {
-        setTrainingDays((prevState) => prevState?.filter((_, index) => (index !== dayIndex)));
+        setTrainingDays(trainingDays?.filter((_, index) => (index !== dayIndex)));
     };
 
     const trainingDaysCards = trainingDays?.map((td, dayIndex) => (

@@ -6,10 +6,10 @@ import { Chip } from './Chip.tsx';
 describe('button', () => {
     test('render', () => {
         render(<Chip text="Test" />);
-        expect(screen.getByText('Test')).toBeInTheDocument();
+        expect(screen.getByTestId('Test')).toBeInTheDocument();
     });
 
-    test('add class by click', () => {
+    test('selects by click', () => {
         render(<Chip text="Test" />);
         const element = screen.getByTestId('chip');
         fireEvent.click(element);

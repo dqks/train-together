@@ -26,3 +26,4 @@ export { fetchCreateInfo } from './model/services/fetchCreateInfo/fetchCreateInf
 export type { Day } from './model/types/programSchema.ts';
 export type { Goal } from './model/types/programSchema.ts';
 export type { Difficulty } from './model/types/programSchema.ts';
+export type { ProgramDetails } from './model/types/programSchema.ts';

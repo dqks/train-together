@@ -4,6 +4,7 @@ import svgr from 'vite-plugin-svgr';
 import path from 'path';
 
 export default defineConfig({
+    //TODO добавить удаление аттрибуа data-id data-testid
     plugins: [react(), svgr()],
     resolve: {
         alias: {

@@ -16,6 +16,7 @@ export const Chip = ({ className, text }: ChipProps) => {
 
     return (
         <button
+            data-testid="chip"
             type="button"
             onClick={onToggle}
             className={

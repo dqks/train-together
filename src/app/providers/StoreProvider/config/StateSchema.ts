@@ -15,6 +15,7 @@ import type { ExerciseProgressionSchema } from '@/entities/ExerciseProgression';
 import type { ProgramSchema } from '@/entities/Program';
 import type { ProfileSchema } from '@/pages/ProfilePage';
 import type { EditExerciseSchema } from '@/features/EditExercise';
+import type { EditProgramSchema } from '@/features/EditMyProgram';
 
 export interface StateSchema {
     user: UserSchema
@@ -31,6 +32,7 @@ export interface StateSchema {
     register?: RegisterSchema
     createProgram?: CreateProgramSchema
     editExercise?: EditExerciseSchema
+    editProgram?: EditProgramSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

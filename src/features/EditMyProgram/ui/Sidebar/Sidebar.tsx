@@ -8,7 +8,7 @@ import type { Difficulty, Goal } from '@/entities/Program';
 import { AppLink } from '@/shared/ui/AppLink/AppLink';
 
 interface SidebarProps {
-    isPublic: boolean;
+    isPublic: boolean | undefined;
     isLoading: boolean
     daysAmount: number | undefined;
     // exerciseAmount: number;
@@ -100,7 +100,7 @@ export const Sidebar = (props : SidebarProps) => {
 
                 <div className={cls.toggleGroup}>
                     <ToggleSwitch
-                        checked={isPublic}
+                        checked={isPublic ?? false}
                         onChange={onChangeIsPublic}
                         label={t('Публичная программа')}
                     />

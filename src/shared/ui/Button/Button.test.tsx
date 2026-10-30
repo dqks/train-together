@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { Button } from './Button.tsx';
+import { Button, ThemeButton } from './Button.tsx';
 import cls from './Button.module.scss';
 
 describe('button', () => {
@@ -10,7 +10,7 @@ describe('button', () => {
     });
 
     test('render with outline', () => {
-        render(<Button type="button" isOutlined>TEST</Button>);
+        render(<Button type="button" theme={ThemeButton.OUTLINE}>TEST</Button>);
         expect(screen.getByText('TEST')).toHaveClass(cls.outline);
     });
 });

@@ -6,12 +6,14 @@ type ResponseType = {
     data: ProgramDetails
 }
 
-export const fetchProgramDetails = createAsyncThunk<ProgramDetails, number, ThunkConfig<ProgramError>>(
+export const fetchProgramDetails = createAsyncThunk<ProgramDetails, number | undefined, ThunkConfig<ProgramError>>(
     'program/fetchProgramDetails',
     async (id, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
-
         try {
+            // if (id == undefined ) {
+            //     throw new Error('id is undefined');
+            // }
             const response = await extra.api
                 .get<ResponseType>(`/training-programs/${id}`);
 
