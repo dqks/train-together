@@ -29,7 +29,7 @@ export const TrainingDays = (props : TrainingDaysProps) => {
                 ...td,
                 exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, reps } : ex)),
             }
-            : td)))
+            : td)));
     };
 
     const onChangeExerciseSets = (dayIndex: number, exIndex: number, sets: number) => {
@@ -44,7 +44,7 @@ export const TrainingDays = (props : TrainingDaysProps) => {
                 ...td,
                 exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, sets } : ex)),
             }
-            : td)))
+            : td)));
     };
 
     const onDeleteExercise = (dayIndex: number, exIndex: number) => {
@@ -56,11 +56,12 @@ export const TrainingDays = (props : TrainingDaysProps) => {
         //     : td)));
         setTrainingDays(
             trainingDays?.map((td, index) => (index === dayIndex
-            ? {
-                ...td,
-                exercises: td.exercises.filter((_rs, eIndex) => eIndex !== exIndex),
-            }
-            : td)))
+                ? {
+                    ...td,
+                    exercises: td.exercises.filter((_rs, eIndex) => eIndex !== exIndex),
+                }
+                : td)),
+        );
     };
 
     const onDeleteDay = (dayIndex: number) => {

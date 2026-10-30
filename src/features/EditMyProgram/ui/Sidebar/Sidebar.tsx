@@ -5,7 +5,7 @@ import { ToggleSwitch } from '@/shared/ui/ToggleSwitch/ToggleSwitch.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Save from '@/shared/assets/icons/save.svg?react';
 import type { Difficulty, Goal } from '@/entities/Program';
-import { AppLink } from '@/shared/ui/AppLink/AppLink';
+import type { EditProgramErrorInfo } from '@/features/EditMyProgram/model/types/editProgramSchema.ts';
 
 interface SidebarProps {
     isPublic: boolean | undefined;
@@ -21,6 +21,8 @@ interface SidebarProps {
     onChangeGoal: (id: string) => void;
     onChangeDiff: (id: string) => void;
     onSave: () => void;
+    disableEdit: boolean | undefined;
+
 }
 
 export const Sidebar = (props : SidebarProps) => {
@@ -34,6 +36,7 @@ export const Sidebar = (props : SidebarProps) => {
         selectedProgramGoalId,
         selectedProgramDifficultyId,
         daysAmount,
+        disableEdit,
         onSave,
         onCancel,
         onChangeIsPublic,
@@ -136,7 +139,7 @@ export const Sidebar = (props : SidebarProps) => {
                 <Button
                     type="button"
                     onClick={onSave}
-                    disabled={isLoading}
+                    disabled={isLoading || disableEdit}
                 >
                     <Save />
                     {t('Сохранить')}

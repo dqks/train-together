@@ -37,8 +37,8 @@ interface CreateProgramFormProps {
 // const fileSizeLimit = 3 * 1024 * 1024;
 
 const reducers: ReducerList = {
-    createProgram: createProgramReducer
-}
+    createProgram: createProgramReducer,
+};
 
 export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const { t } = useTranslation();
@@ -104,42 +104,42 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
             name: [
                 {
                     errorMessage: 'Обязательное поле',
-                    condition: !name.trim()
+                    condition: !name.trim(),
                 },
                 {
                     errorMessage: 'Минимум 5 символов',
-                    condition: name.trim().length < 5
+                    condition: name.trim().length < 5,
                 },
                 {
                     errorMessage: 'Максимум 30 символов',
-                    condition: name.trim().length > 30
-                }
+                    condition: name.trim().length > 30,
+                },
             ],
             description: [
                 {
                     errorMessage: 'Минимум 5 символов',
-                    condition: !!description.trim() && description.trim().length < 5
+                    condition: !!description.trim() && description.trim().length < 5,
                 },
-                                {
+                {
                     errorMessage: 'Максимум 2500 символов',
-                    condition: !!description.trim() && description.trim().length > 2500
-                }
+                    condition: !!description.trim() && description.trim().length > 2500,
+                },
             ],
             goalId: [
                 {
                     errorMessage: 'Выберите цель программы',
-                    condition: selectedGoal === 'default'
-                }
+                    condition: selectedGoal === 'default',
+                },
             ],
-            diffId  : [
+            diffId: [
                 {
                     errorMessage: 'Выберите сложность программы',
-                    condition: selectedDiff === 'default'
-                }
-            ]
-        }
-        
-        const [errors, hasErrors] = createErrorObject(errorObject)
+                    condition: selectedDiff === 'default',
+                },
+            ],
+        };
+
+        const [errors, hasErrors] = createErrorObject(errorObject);
 
         if (hasErrors) {
             dispatch(createProgramActions.setErrors(errors as CreateProgramErrors));

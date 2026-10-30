@@ -17,9 +17,9 @@ interface ProfilePageProps {
     className?: string;
 }
 
-const reducers: ReducerList  = {
-    profile: profileReducer
-}
+const reducers: ReducerList = {
+    profile: profileReducer,
+};
 
 const ProfilePage = ({ className }: ProfilePageProps) => {
     const profileInfo = useSelector(getProfileInfo);
@@ -31,7 +31,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
         dispatch(fetchProfileInfo(Number(params.id)));
     }, [dispatch]);
 
-    useTabTitle(profileInfo?.nickname || "Профиль");
+    useTabTitle(profileInfo?.nickname || 'Профиль');
 
     if (isInitializing) {
         return <PageLoader />;

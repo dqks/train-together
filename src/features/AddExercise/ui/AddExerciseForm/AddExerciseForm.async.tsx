@@ -1,5 +1,5 @@
 import { lazy } from 'react';
 
-const AddExerciseFormAsync = lazy(() => import('./AddExerciseForm.tsx'))
+const AddExerciseFormAsync = lazy(() => import('./AddExerciseForm.tsx'));
 
-export default AddExerciseFormAsync
+export default AddExerciseFormAsync;

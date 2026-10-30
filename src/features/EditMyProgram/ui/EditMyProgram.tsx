@@ -4,17 +4,35 @@ import cls from './EditMyProgram.module.scss';
 import { Sidebar } from './Sidebar/Sidebar';
 import { MainInfo } from './MainInfo/MainInfo';
 import {
-    fetchCreateInfo, fetchProgramDetails, getProgramDetails, getProgramDifficulties, getProgramGoals,
-    getProgramIsLoading,
-    programsActions,
     type Day,
+    fetchCreateInfo,
+    fetchProgramDetails,
+    getProgramDetails,
+    getProgramDifficulties,
+    getProgramGoals,
+    getProgramIsLoading,
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
 import { ExerciseSelection } from './ExerciseSelection/ExerciseSelection.tsx';
 import { editProgramActions, editProgramReducer } from '../model/slice/editProgramSlice.ts';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader.tsx';
-import { getDescription, getIsPublic, getName, getSelectedDiffId, getSelectedGoalId, getTrainingDays } from '../model/selectors/editFormSelectors.ts';
+import {
+    getDescription,
+    getDisableEdit,
+    getErrorProgramInfo,
+    getIsLoadingDays,
+    getIsLoadingPrograms,
+    getIsPublic,
+    getName,
+    getSelectedDiffId,
+    getSelectedGoalId,
+    getSendUpdateDays,
+    getSendUpdateProgramInfo,
+    getTrainingDays,
+} from '../model/selectors/editFormSelectors.ts';
+import { updateProgramInfo } from '../model/services/updateProgram/updateProgramInfo.ts';
+import { updateDays } from '../model/services/updateDays/updateDays.ts';
 
 interface EditMyProgramProps {
     programId: number | undefined
@@ -22,8 +40,8 @@ interface EditMyProgramProps {
 }
 
 const reducers: ReducerList = {
-    editProgram: editProgramReducer
-}
+    editProgram: editProgramReducer,
+};
 
 export const EditMyProgram = (props: EditMyProgramProps) => {
     const {
@@ -31,30 +49,36 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         onCancel,
     } = props;
     const dispatch = useDispatch();
-    const programDetails = useSelector(getProgramDetails)
-    const isLoading = useSelector(getProgramIsLoading)
-    const name = useSelector(getName)
-    const description = useSelector(getDescription)
-    const isPublic = useSelector(getIsPublic)
-    const selectedGoalId = useSelector(getSelectedGoalId)
-    const selectedDiffId = useSelector(getSelectedDiffId)
-    const trainingDays = useSelector(getTrainingDays)
-    const [image, setImage] = useState<File | string | undefined>(undefined) 
-    const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false) 
-
-    console.log(programId)
+    const sendUpdateDays = useSelector(getSendUpdateDays);
+    const sendUpdateProgramInfo = useSelector(getSendUpdateProgramInfo);
+    const disableEdit = useSelector(getDisableEdit);
+    const programDetails = useSelector(getProgramDetails);
+    const isLoading = useSelector(getProgramIsLoading);
+    const isLoadingPrograms = useSelector(getIsLoadingPrograms);
+    const isLoadingDays = useSelector(getIsLoadingDays);
+    const name = useSelector(getName);
+    const description = useSelector(getDescription);
+    const isPublic = useSelector(getIsPublic);
+    const selectedGoalId = useSelector(getSelectedGoalId);
+    const selectedDiffId = useSelector(getSelectedDiffId);
+    const trainingDays = useSelector(getTrainingDays);
+    const errorProgramInfo = useSelector(getErrorProgramInfo);
+    // const errorDays = useSelector(getErrorDays);
+    const [image, setImage] = useState<File | string | undefined>(undefined);
+    const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!programId) {
-           dispatch(fetchProgramDetails(programId))
+        if (programId) {
+            dispatch(fetchProgramDetails(programId));
         }
-    }, [])
+    }, [programId]);
 
-    // useEffect(() => {
-    //     if (programDetails) {
-    //         dispatch(editProgramActions.initEditForm(programDetails))
-    //     }
-    // }, [dispatch])
+    useEffect(() => {
+        if (programDetails) {
+            dispatch(editProgramActions.initEditForm(programDetails));
+            setImage(programDetails.imageUrl);
+        }
+    }, [dispatch, programDetails]);
 
     const programGoals = useSelector(getProgramGoals);
     const programDifficulties = useSelector(getProgramDifficulties);
@@ -79,70 +103,63 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
 
     const onChangeImage = useCallback((file: File | undefined) => {
         setImage(file);
+        dispatch(editProgramActions.setDiableEdit(false));
+        dispatch(editProgramActions.setSendUpdateProgramInfo(true));
     }, []);
 
     const onChangeGoal = useCallback((id: string) => {
-       dispatch(editProgramActions.setSelectedGoalId(Number(id)));
+        dispatch(editProgramActions.setSelectedGoalId(Number(id)));
     }, []);
 
     const onChangeDiff = useCallback((id: string) => {
         dispatch(editProgramActions.setSelectedDiffId(Number(id)));
     }, []);
-    
+
     const onChangeTrainingDays = useCallback((days: Day[] | undefined) => {
         dispatch(editProgramActions.setTrainingDays(days ?? []));
     }, []);
 
     const onSave = useCallback(async () => {
-        // setIsLoading(true);
+        if (sendUpdateProgramInfo) {
+            dispatch(updateProgramInfo({
+                id: programId,
+                name,
+                description,
+                publicSetting: isPublic ? 'true' : 'false',
+                image: image instanceof File ? image : undefined,
+                diffId: selectedDiffId?.toString(),
+                goalId: selectedGoalId?.toString(),
+            }));
+        }
+        if (sendUpdateDays) {
+            const details = trainingDays?.map((td) => ({
+                dayId: td.day.id,
+                name: td.name,
+                description: td.description,
+                exercises: [
+                    ...td.exercises.map((ex) => ({
+                        exerciseId: ex.exercise.id,
+                        sets: ex.sets,
+                        reps: ex.reps,
+                        exerciseOrder: ex.exerciseOrder,
+                    })),
+                ],
+            }));
 
-        // const responseInfo = await updateProgram({
-        //     id: programId,
-        //     name,
-        //     description,
-        //     publicSetting: isPublic ? 'true' : 'false',
-        //     image: image instanceof File ? image : undefined,
-        //     diffId: selectedDiffId?.toString(),
-        //     goalId: selectedGoalId?.toString(),
-        // });
-
-        // const details = trainingDays?.map((td) => ({
-        //     dayId: td.day.id,
-        //     name: td.name,
-        //     description: td.description,
-        //     exercises: [
-        //         ...td.exercises.map((ex) => ({
-        //             exerciseId: ex.exercise.id,
-        //             sets: ex.sets,
-        //             reps: ex.reps,
-        //             exerciseOrder: ex.exerciseOrder,
-        //         })),
-        //     ],
-        // }));
-
-        // const responseDays = await updateDays({
-        //     programId,
-        //     details,
-        // });
-
-        // if (responseInfo.data.success && responseDays.data.success) {
-        //     if (programId != null) {
-        //         dispatch(fetchProgramDetails(programId));
-        //     }
-        //     onCancel();
-        // }
-
-        // setIsLoading(false);
+            dispatch(updateDays({
+                programId,
+                details,
+            }));
+        }
     }, [
-        // setIsLoading,
-        // image,
-        // name,
-        // description,
-        // isPublic,
-        // selectedGoalId,
-        // selectedDiffId,
-        // trainingDays,
-        // onCancel,
+        image,
+        name,
+        description,
+        isPublic,
+        selectedGoalId,
+        selectedDiffId,
+        trainingDays,
+        onCancel,
     ]);
 
     const onBack = useCallback(() => {
@@ -157,10 +174,8 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         setIsAddingExercise(true);
     }, []);
 
-
-
     if (isLoading) {
-        return <PageLoader />
+        return <PageLoader />;
     }
 
     return (
@@ -178,11 +193,12 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                             <div className={cls.programGrid}>
                                 <div className={cls.programMain}>
                                     <MainInfo
+                                        errorProgramInfo={errorProgramInfo}
                                         onChangeDescription={onChangeDescription}
                                         onChangeName={onChangeName}
                                         image={image}
                                         onChangeImage={onChangeImage}
-                                        name={name}
+                                        name={name || ''}
                                         description={description}
                                     />
                                     <TrainingDays
@@ -192,6 +208,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                                     />
                                 </div>
                                 <Sidebar
+                                    disableEdit={disableEdit}
                                     daysAmount={trainingDays?.length}
                                     onChangeDiff={onChangeDiff}
                                     onChangeGoal={onChangeGoal}
@@ -199,7 +216,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                                     selectedProgramGoalId={selectedGoalId}
                                     programGoals={programGoals}
                                     programDifficulties={programDifficulties}
-                                    isLoading={isLoading}
+                                    isLoading={(isLoadingPrograms || isLoadingDays) || false}
                                     onCancel={onCancel}
                                     onChangeIsPublic={onChangeIsPublic}
                                     isPublic={isPublic}

@@ -22,7 +22,7 @@ import type { RegisterErrorsObject } from '../model/types/registerSchema.ts';
 
 const reducers = {
     register: registerReducer,
-}
+};
 
 export const RegisterForm = () => {
     const { t } = useTranslation();
@@ -60,38 +60,38 @@ export const RegisterForm = () => {
             email: [
                 {
                     errorMessage: 'Обязательное поле',
-                    condition: !email.trim()
+                    condition: !email.trim(),
                 },
                 {
                     errorMessage: 'Почта должна быть валидной',
-                    condition: !email.includes('@') || !email.includes('.')
+                    condition: !email.includes('@') || !email.includes('.'),
                 },
             ],
             password: [
                 {
                     errorMessage: 'Обязательное поле',
-                    condition: !password.trim()
+                    condition: !password.trim(),
                 },
                 {
                     errorMessage: 'Длина должна быть минимум 6 символов',
-                    condition: password.length < 6
+                    condition: password.length < 6,
                 },
             ],
             nickname: [
                 {
                     errorMessage: 'Обязательное поле',
-                    condition: !nickname.trim()
+                    condition: !nickname.trim(),
                 },
             ],
             consent: [
                 {
                     errorMessage: 'Согласие обязательно',
-                    condition: !consent
+                    condition: !consent,
                 },
-            ]
-        }
+            ],
+        };
 
-        const [errors, hasErrors] = createErrorObject(errorObject)
+        const [errors, hasErrors] = createErrorObject(errorObject);
 
         if (hasErrors) {
             dispatch(registerActions.setErrors(errors as RegisterErrorsObject));

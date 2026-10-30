@@ -23,7 +23,7 @@ export const ProgramsContent = ({ userId }: ProgramsContentProps) => {
     }, [dispatch]);
 
     if (isLoading) {
-        return <Loader />
+        return <Loader />;
     }
 
     const programCards = userPrograms?.map((program) => (

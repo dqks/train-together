@@ -3,14 +3,17 @@ import cls from './MainInfo.module.scss';
 import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 import { Input } from '@/shared/ui/Input/Input.tsx';
 import { Textarea } from '@/shared/ui/Textarea/Textarea.tsx';
+import type { EditProgramErrorInfo } from '../../model/types/editProgramSchema';
+import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 
 interface MainInfoProps {
     image: File | string | undefined
     onChangeImage: (file: File | undefined) => void
-    name: string | undefined
+    name: string
     description: string | undefined
     onChangeName: (value: string) => void
     onChangeDescription: (value: string) => void
+    errorProgramInfo: EditProgramErrorInfo
 }
 
 export const MainInfo = (props : MainInfoProps) => {
@@ -20,6 +23,7 @@ export const MainInfo = (props : MainInfoProps) => {
         image,
         name,
         description,
+        errorProgramInfo,
         onChangeImage,
         onChangeName,
         onChangeDescription,
@@ -30,11 +34,13 @@ export const MainInfo = (props : MainInfoProps) => {
             <div className={cls.sectionHeader}>
                 <h2 className={cls.sectionTitle}>{t('Основная информация')}</h2>
             </div>
-
             <div className={cls.formGroup}>
-                <FileInput className={cls.fileInput} onChangeImage={onChangeImage} value={image} />
+                <FileInput
+                    className={cls.fileInput}
+                    onChangeImage={onChangeImage}
+                    value={image}
+                />
             </div>
-
             <div className={cls.formGroup}>
                 <label
                     className={cls.formLabel}
@@ -50,8 +56,8 @@ export const MainInfo = (props : MainInfoProps) => {
                     type="text"
                     value={name}
                 />
+                <ErrorMessage messages={errorProgramInfo?.name} />
             </div>
-
             <div className={cls.formGroup}>
                 <label
                     htmlFor="description"
@@ -67,6 +73,7 @@ export const MainInfo = (props : MainInfoProps) => {
                     value={description || ''}
                     placeholder={t('Опишите вашу программу...')}
                 />
+                <ErrorMessage messages={errorProgramInfo?.description} />
             </div>
         </section>
     );

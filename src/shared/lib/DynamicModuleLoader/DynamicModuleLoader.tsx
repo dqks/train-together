@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect } from 'react';
 import { useDispatch, useStore } from 'react-redux';
-import type { ReduxStoreWithManager, StateSchema } from '@/app/providers/StoreProvider';
 import type { Reducer } from '@reduxjs/toolkit';
+import type { ReduxStoreWithManager, StateSchema } from '@/app/providers/StoreProvider';
 import type { StateSchemaKey } from '@/app/providers/StoreProvider/config/StateSchema';
 
 export type ReducerList = {
@@ -25,7 +25,6 @@ export const DynamicModuleLoader = (props: DynamicModuleLoaderProps) => {
 
     useEffect(() => {
         const mountedReducers = store.reducerManager.getReducerMap();
-
 
         Object.entries(reducers).forEach(([name, reducer]) => {
             if (!mountedReducers[name as StateSchemaKey]) {

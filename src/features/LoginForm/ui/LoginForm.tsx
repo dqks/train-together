@@ -22,8 +22,8 @@ import { loginReducer } from '@/features/LoginForm';
 import { Form } from '@/shared/ui/Form/Form.tsx';
 
 const reducers: ReducerList = {
-    login: loginReducer
-}
+    login: loginReducer,
+};
 
 export const LoginForm = () => {
     const { t } = useTranslation();
@@ -50,17 +50,19 @@ export const LoginForm = () => {
     }, [dispatch]);
 
     const onLoginClick = () => {
-        const [errors, hasErrors] = createErrorObject({ status: [
-            {
-                condition: !email?.trim() || !password?.trim(),
-                errorMessage: 'Все поля должны быть заполнены'
-            },
-            {
-                condition: !email?.includes('@') || !email?.includes('.'),
-                errorMessage: 'Почта должна быть валидной'
-            }
-        ] })
- 
+        const [errors, hasErrors] = createErrorObject({
+            status: [
+                {
+                    condition: !email?.trim() || !password?.trim(),
+                    errorMessage: 'Все поля должны быть заполнены',
+                },
+                {
+                    condition: !email?.includes('@') || !email?.includes('.'),
+                    errorMessage: 'Почта должна быть валидной',
+                },
+            ],
+        });
+
         if (hasErrors) {
             dispatch(loginActions.setError(errors as LoginErrors));
             return;

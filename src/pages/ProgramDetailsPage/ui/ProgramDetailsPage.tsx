@@ -30,10 +30,10 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
     const isLoading = useSelector(getProgramIsLoading);
     const errors = useSelector(getProgramErrors);
     const isOwner = userId === programDetails?.user.id;
-    
+
     const params = useParams();
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(fetchProgramDetails(Number(params.id)));
@@ -45,9 +45,9 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
     const onEditButtonClick = useCallback(() => {
         navigate(
             `${AuthRoutePath.program_details}${programDetails?.id}/edit`,
-             {state: programDetails}
-        )
-    }, [programDetails])
+            { state: programDetails },
+        );
+    }, [programDetails]);
 
     if (isLoading) {
         return <PageLoader />;
@@ -55,7 +55,7 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
 
     if (errors) {
         return (
-            <CenterText text="Программа не найдена" />
+            <CenterText text={t('Программа не найдена')} />
         );
     }
     let formattedDate;

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './EditExercise.module.scss';
 import { Input } from '@/shared/ui/Input/Input.tsx';
@@ -15,8 +16,13 @@ import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 import { createErrorObject, type ErrorObject } from '@/shared/lib/createErrorObject/createErrorObject';
 import type { ErrorObjectState } from '../../model/types/editExerciseSchema';
-import { getEquipmentId, getErrors, getName, getPrimaryMuscleId, getSecondaryMusleIds } from '../../model/selectors/selectors';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+    getEquipmentId,
+    getErrors,
+    getName,
+    getPrimaryMuscleId,
+    getSecondaryMusleIds,
+} from '../../model/selectors/selectors';
 import { editExerciseActions, editExerciseReducer } from '../../model/slice/editExerciseSice';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { Form } from '@/shared/ui/Form/Form';
@@ -27,31 +33,31 @@ interface EditExerciseProps {
 }
 
 const reducers: ReducerList = {
-    editExercise: editExerciseReducer
-}
+    editExercise: editExerciseReducer,
+};
 
 export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps) => {
     const { t } = useTranslation();
-    const dispatch = useDispatch()
-    const name = useSelector(getName)
-    const equipmentId = useSelector(getEquipmentId)
-    const primaryMuscleId  = useSelector(getPrimaryMuscleId)
-    const secondaryMuscleIds = useSelector(getSecondaryMusleIds)
+    const dispatch = useDispatch();
+    const name = useSelector(getName);
+    const equipmentId = useSelector(getEquipmentId);
+    const primaryMuscleId = useSelector(getPrimaryMuscleId);
+    const secondaryMuscleIds = useSelector(getSecondaryMusleIds);
     const [image, setImage] = useState<File | string | undefined>(exerciseDetails?.image);
-    const errors = useSelector(getErrors)
+    const errors = useSelector(getErrors);
     const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(editExerciseActions.init({
-            name: exerciseDetails?.name || "",
-            equipmentId: exerciseDetails?.equipment.id.toString() || "",
-            primaryMuscleId: exerciseDetails?.primaryMuscle.id.toString() || "",
-            secondaryMuscleIds: exerciseDetails?.secondaryMuscles?.map((m) => m.id.toString()) || [],            
-        }))
-    }, [dispatch])
+            name: exerciseDetails?.name || '',
+            equipmentId: exerciseDetails?.equipment.id.toString() || '',
+            primaryMuscleId: exerciseDetails?.primaryMuscle.id.toString() || '',
+            secondaryMuscleIds: exerciseDetails?.secondaryMuscles?.map((m) => m.id.toString()) || [],
+        }));
+    }, [dispatch]);
 
     const onChangeName = useCallback((name: string) => {
-        dispatch(editExerciseActions.setName(name))
+        dispatch(editExerciseActions.setName(name));
     }, [dispatch]);
 
     const onChangeEquipment = useCallback((value: string) => {
@@ -59,7 +65,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
     }, [dispatch]);
 
     const onChangePrimaryMuscle = useCallback((value: string) => {
-        dispatch(editExerciseActions.setPrimaryMuscleId(value))
+        dispatch(editExerciseActions.setPrimaryMuscleId(value));
     }, [dispatch]);
 
     const onChangeImage = useCallback((file : File | undefined) => {
@@ -67,37 +73,37 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
     }, [setImage]);
 
     const onChangeSecondaryMuscle = useCallback((id : string) => {
-        dispatch(editExerciseActions.setSecondaryMuscleIds(id))
+        dispatch(editExerciseActions.setSecondaryMuscleIds(id));
     }, [dispatch]);
 
     const onCancel = useCallback(() => {
-        navigate(AuthRoutePath.my_exercises)
-    }, [navigate])
+        navigate(AuthRoutePath.my_exercises);
+    }, [navigate]);
 
     const onEdit = async () => {
         const errorObject: ErrorObject = {
             name: [
                 {
                     errorMessage: 'Поле обязательное',
-                    condition: !name?.trim()
+                    condition: !name?.trim(),
                 },
                 {
-                    errorMessage: "Минимум 5 символов",
-                    condition: !!name && name.trim().length < 5
+                    errorMessage: 'Минимум 5 символов',
+                    condition: !!name && name.trim().length < 5,
                 },
             ],
             secondaryMuscleIds: [
                 {
                     errorMessage: 'Дополнительные мышцы не могут содержать основную',
-                    condition: !!primaryMuscleId && secondaryMuscleIds?.includes(primaryMuscleId) || false
-                }
+                    condition: !!primaryMuscleId && secondaryMuscleIds?.includes(primaryMuscleId) || false,
+                },
             ],
-        }
+        };
 
-        const [errors, hasErrors] = createErrorObject(errorObject)
+        const [errors, hasErrors] = createErrorObject(errorObject);
 
         if (hasErrors) {
-            dispatch(editExerciseActions.setErrors(errors as ErrorObjectState))
+            dispatch(editExerciseActions.setErrors(errors as ErrorObjectState));
             return;
         }
         dispatch(updateExerciseThunk({
@@ -108,8 +114,10 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
             primaryMuscleId,
             secondaryMuscleIds,
             // exerciseProgressionTypeId TODO доделать,
-        }))
+        }));
     };
+
+    console.log();
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -134,7 +142,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
                         />
                     </div>
                 </Form.Group>
-                <Form.Group className={cls.formGroup}>                
+                <Form.Group className={cls.formGroup}>
                     <Form.Label>{t('Основная мышца')}</Form.Label>
                     <div className={cls.selectorGrid}>
                         <PrimaryMuscleCardList
@@ -143,7 +151,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
                         />
                     </div>
                 </Form.Group>
-                <Form.Group className={cls.formGroup}>                
+                <Form.Group className={cls.formGroup}>
                     <Form.Label>{t('Второстепенные мышцы')}</Form.Label>
                     <p className={cls.hint}>{t('Выберите мышцы, которые также задействованы')}</p>
                     <div className={cls.selectorGrid}>
@@ -165,7 +173,10 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
                     >
                         {t('Отмена')}
                     </Button>
-                    <Button type="button" onClick={onEdit}>
+                    <Button
+                        type="button"
+                        onClick={onEdit}
+                    >
                         <Save className={cls.saveIcon} />
                         {t('Сохранить')}
                     </Button>

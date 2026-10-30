@@ -1,6 +1,6 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema';
 import { $api, type ResponseType } from '@/shared/api/api.ts';
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { ErrorObjectState } from '../../types/editExerciseSchema';
 
 export type UpdateExerciseBody = {
@@ -32,32 +32,29 @@ export const updateExercise = async (body: UpdateExerciseBody) => {
 
 export const updateExerciseThunk = createAsyncThunk<
     ResponseType<{success: boolean}, string>,
-    UpdateExerciseBody, 
+    UpdateExerciseBody,
     ThunkConfig<ErrorObjectState>>(
-        "editExercice/updateExercise", 
+        'editExercice/updateExercise',
         async (data, thunkAPI) => {
+            const { extra, rejectWithValue } = thunkAPI;
 
-        const { extra, rejectWithValue } = thunkAPI;
+            try {
+                const fd = new FormData();
+                fd.append('image', data?.image || '');
+                fd.append('name', data?.name || '');
+                fd.append('primaryMuscleId', data?.primaryMuscleId || '');
+                fd.append('equipmentId', data?.equipmentId || '');
 
-        try {
+                if (data?.secondaryMuscleIds) {
+                    data?.secondaryMuscleIds.forEach((secondaryMuscleId: string, index) => {
+                        fd.append(`secondaryMuscleIds[${index}]`, secondaryMuscleId);
+                    });
+                }
 
-            const fd = new FormData();
-            fd.append('image', data?.image || '');
-            fd.append('name', data?.name || '');
-            fd.append('primaryMuscleId', data?.primaryMuscleId || '');
-            fd.append('equipmentId', data?.equipmentId || '');
-
-            if (data?.secondaryMuscleIds) {
-                data?.secondaryMuscleIds.forEach((secondaryMuscleId: string, index) => {
-                    fd.append(`secondaryMuscleIds[${index}]`, secondaryMuscleId);
-                });
+                const response = await extra.api.patch(`exercises/${data.id}`, fd);
+                return response.data;
+            } catch (err: any) {
+                return rejectWithValue(err.response.data.messages);
             }
-
-            const response = await extra.api.patch(`exercises/${data.id}`, fd);
-            return response.data;
-
-        } catch (err: any) {
-            return rejectWithValue(err.response.data.messages);
-        }
-
-})
+        },
+    );

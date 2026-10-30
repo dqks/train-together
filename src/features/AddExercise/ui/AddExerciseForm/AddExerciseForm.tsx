@@ -28,9 +28,8 @@ interface AddExerciseFormProps {
 }
 
 const reducers: ReducerList = {
-   addExercise: addExerciseReducer
-}
-
+    addExercise: addExerciseReducer,
+};
 
 const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
     const { t } = useTranslation();
@@ -75,34 +74,34 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
             name: [
                 {
                     errorMessage: 'Обязательное поле',
-                    condition: !exerciseName.trim()
+                    condition: !exerciseName.trim(),
                 },
                 {
                     errorMessage: 'Название дожно быть больше 5 символов',
-                    condition: exerciseName.length < 5
-                }
+                    condition: exerciseName.length < 5,
+                },
             ],
             selectedProgressionType: [
                 {
                     errorMessage: 'Выбор обязателен',
-                    condition: selectedProgressionType === 'default'
-                }
+                    condition: selectedProgressionType === 'default',
+                },
             ],
             selectedPrimaryMuscleId: [
                 {
                     errorMessage: 'Выбор обязателен',
-                    condition: !selectedPrimaryMuscleId
-                }
+                    condition: !selectedPrimaryMuscleId,
+                },
             ],
             selectedEquipmentId: [
                 {
                     errorMessage: 'Выбор обязателен',
-                    condition: !selectedEquipmentId
-                }
-            ]
-        }
+                    condition: !selectedEquipmentId,
+                },
+            ],
+        };
 
-        const [errors, hasErrors] = createErrorObject(errorsTest)
+        const [errors, hasErrors] = createErrorObject(errorsTest);
 
         if (hasErrors) {
             dispatch(addExerciseActions.setErrors(errors as AddExerciseErrorObject));
