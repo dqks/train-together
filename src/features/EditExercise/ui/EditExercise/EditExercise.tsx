@@ -8,7 +8,7 @@ import { EquipmentCardList } from '@/entities/Equipment';
 import { PrimaryMuscleCardList, SecondaryMuscleCardList } from '@/entities/Muscle';
 import type { ExerciseDetails } from '@/entities/Exercise';
 import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
-import { updateExercise, updateExerciseThunk } from '../../model/services/updateExercise/updateExercise';
+import { updateExerciseThunk } from '../../model/services/updateExercise/updateExercise';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Save from '@/shared/assets/icons/save.svg?react';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
@@ -100,17 +100,6 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
             dispatch(editExerciseActions.setErrors(errors as ErrorObjectState))
             return;
         }
-
-        // const response = await updateExercise({
-        //     id: exerciseDetails?.id,
-        //     image: typeof image === 'object' ? image : undefined,
-        //     name,
-        //     equipmentId,
-        //     primaryMuscleId,
-        //     secondaryMuscleIds,
-        //     // exerciseProgressionTypeId TODO доделать,
-        // });
-
         dispatch(updateExerciseThunk({
             id: exerciseDetails?.id,
             image: typeof image === 'object' ? image : undefined,
@@ -120,10 +109,6 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
             secondaryMuscleIds,
             // exerciseProgressionTypeId TODO доделать,
         }))
-
-        // if (response.resultCode === 0) {
-        //     navigate(AuthRoutePath.my_exercises);
-        // }
     };
 
     return (
