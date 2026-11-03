@@ -45,9 +45,9 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
     const secondaryMuscleIds = useSelector(getSecondaryMusleIds);
     const [image, setImage] = useState<File | string | undefined>(exerciseDetails?.image);
     const errors = useSelector(getErrors);
-    const navigate = useNavigate();
+    const navigate = useNavigate();    
 
-    useEffect(() => {
+    useEffect(() => {        
         dispatch(editExerciseActions.init({
             name: exerciseDetails?.name || '',
             equipmentId: exerciseDetails?.equipment.id.toString() || '',
@@ -106,6 +106,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
             dispatch(editExerciseActions.setErrors(errors as ErrorObjectState));
             return;
         }
+
         dispatch(updateExerciseThunk({
             id: exerciseDetails?.id,
             image: typeof image === 'object' ? image : undefined,
@@ -116,8 +117,6 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
             // exerciseProgressionTypeId TODO доделать,
         }));
     };
-
-    console.log();
 
     return (
         <DynamicModuleLoader reducers={reducers}>

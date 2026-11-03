@@ -19,6 +19,7 @@ const initialState: EditProgramSchema = {
     isLoadingPrograms: false,
     sendUpdateDays: false,
     sendUpdateProgramInfo: false,
+    selectedExerciseIds: []
 };
 
 export const programsSlice = createSlice({
@@ -61,6 +62,7 @@ export const programsSlice = createSlice({
         setTrainingDays: (state, action: PayloadAction<Day[]>) => {
             state.trainingDays = action.payload;
             state.disableEdit = false;
+            state.sendUpdateDays = true;
         },
         setDiableEdit: (state, action: PayloadAction<boolean>) => {
             state.disableEdit = action.payload;
@@ -68,6 +70,11 @@ export const programsSlice = createSlice({
         setSendUpdateProgramInfo: (state, action: PayloadAction<boolean>) => {
             state.sendUpdateProgramInfo = action.payload;
         },
+        setSelectedExerciseIds: (state, action: PayloadAction<number[]>) => {
+            console.log(action.payload);
+            
+            state.selectedExerciseIds = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder

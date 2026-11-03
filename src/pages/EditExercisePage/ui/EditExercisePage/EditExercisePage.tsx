@@ -1,7 +1,8 @@
+
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './EditExercisePage.module.scss';
 import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
@@ -24,10 +25,9 @@ export const EditExercisePage = () => {
     const isLoading = useSelector(getExerciseIsLoading);
     const errors = useSelector(getExerciseErrors);
     const params = useParams();
-    const { state } = useLocation();
 
     useEffect(() => {
-        if (!state) dispatch(fetchExerciseDetails(Number(params.id)));
+        dispatch(fetchExerciseDetails(Number(params.id)));
     }, [dispatch]);
 
     if (isLoading) {
@@ -36,8 +36,12 @@ export const EditExercisePage = () => {
 
     if (errors) {
         return <CenterText text={errors.status[0]} />;
+    }    
+    
+    if (!exerciseDetails?.userId) {
+        return null
     }
-
+    
     return (
         <div className={classNames(cls.EditMode, {}, [])}>
             <div className={cls.editHeader}>
@@ -54,10 +58,12 @@ export const EditExercisePage = () => {
             <div className={cls.editContainer}>
                 <div className={cls.editCard}>
                     <EditExercise
-                        exerciseDetails={state || exerciseDetails}
+
+                        exerciseDetails={exerciseDetails}
                     />
                 </div>
             </div>
         </div>
     );
 };
+

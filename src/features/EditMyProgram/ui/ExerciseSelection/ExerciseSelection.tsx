@@ -8,6 +8,9 @@ import {
     SelectableExerciseCard,
 } from '@/features/EditMyProgram/ui/ExerciseSelection/SelectableExerciseCard/SelectableExerciseCard.tsx';
 import { fetchExerciseCards, getExerciseCards } from '@/entities/Exercise';
+import { getSelectedExerciseIds } from '../../model/selectors/editFormSelectors';
+import { editExerciseActions } from '@/features/EditExercise/model/slice/editExerciseSice';
+import { editProgramActions } from '../../model/slice/editProgramSlice';
 
 export type ExerciseSelectionExercise = {
     id: number;
@@ -63,7 +66,7 @@ export const ExerciseSelection = ({
     onAddExercise,
 }: ExerciseSelectionProps) => {
     const { t } = useTranslation();
-
+    const selectedExerciseIds = useSelector(getSelectedExerciseIds)
     const exercises = useSelector(getExerciseCards);
     const dispatch = useDispatch();
 
@@ -98,12 +101,15 @@ export const ExerciseSelection = ({
     const allMuscles = useMemo(() => Array.from(new Set(exercises?.flatMap((e) => e.primaryMuscle))), [exercises]);
 
     const toggleSelected = (id: number | undefined) => {
-        setSelectedIds((prev) => {
-            if (prev.includes(id)) {
-                return prev.filter((x) => x !== id);
-            }
-            return [...prev, id];
-        });
+        if (!selectedExerciseIds || !id) {
+            return 
+        }
+    
+        if (selectedExerciseIds.includes(id)) {
+            dispatch(editProgramActions.setSelectedExerciseIds(selectedExerciseIds.filter((x) => x !== id)))
+            return
+        }
+        dispatch(editProgramActions.setSelectedExerciseIds([...selectedExerciseIds, id]));
     };
 
     const clearSelected = () => setSelectedIds([]);
@@ -232,7 +238,7 @@ export const ExerciseSelection = ({
             {/* Exercise Cards Grid */}
             <div className={cls.selectGrid}>
                 {exercises?.map((ex) => {
-                    const isSelected = selectedIds.includes(ex.id);
+                    const isSelected = selectedExerciseIds?.includes(ex.id);
                     return (
                         <SelectableExerciseCard
                             key={ex.id}

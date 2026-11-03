@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link, useLocation, useParams } from 'react-router';
 import cls from './ExerciseRow.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Cross from '@/shared/assets/icons/cross.svg?react';
@@ -7,6 +7,7 @@ import ToDetails from '@/shared/assets/icons/to-details.svg?react';
 // import Burger from '@/shared/assets/icons/burger.svg?react';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
+import type { ExerciseLinkState } from '../../../../../features/EditMyProgram/model/types/editProgramSchema';
 
 interface ExerciseRowProps {
     exerciseName: string;
@@ -39,6 +40,17 @@ export const ExerciseRow = (props : ExerciseRowProps) => {
         onDeleteExercise,
         // primaryMuscleEng,
     } = props;
+    const params = useParams()
+
+    if (!params.id) {
+        return null
+    }
+
+    const state: ExerciseLinkState = {
+        from:"edit", 
+        programId: params.id
+    }
+
     return (
         <div className={classNames(cls.exerciseRow, {}, ['editable'])}>
             {/* <div className={cls.exerciseDragHandle}> aria-hidden="true"> */}
@@ -76,7 +88,10 @@ export const ExerciseRow = (props : ExerciseRowProps) => {
             <div className={cls.exerciseMuscleTag}>{t(primaryMuscle)}</div>
             <div className={cls.exerciseActions}>
                 <Button theme={ThemeButton.GHOST} type="button">
-                    <Link to={`${AuthRoutePath.exercise_details}${exerciseId}`}>
+                    <Link 
+                        state={state} 
+                        to={`${AuthRoutePath.exercise_details}${exerciseId}`}
+                    >
                         <ToDetails className={cls.toDetailsIcon} />
                     </Link>
                 </Button>

@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect, type ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
     fetchExerciseDetails,
@@ -22,6 +22,7 @@ import { Advices } from '@/pages/ExerciseDetailsPage/ui/Advices/Advices.tsx';
 import { ActiveMuscles } from '@/pages/ExerciseDetailsPage/ui/ActiveMuscles/ActiveMuscles.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { DeleteExerciseButton } from '@/features/DeleteExercise';
+import type { ExerciseLinkState } from '@/features/EditMyProgram';
 
 const ExerciseDetailsPage = () => {
     const { t, i18n } = useTranslation();
@@ -33,6 +34,10 @@ const ExerciseDetailsPage = () => {
     const errors = useSelector(getExerciseErrors);
     const isOwner = userId === exerciseDetails?.userId;
     const params = useParams();
+
+    const location = useLocation()
+    const state = location.state as ExerciseLinkState
+    
 
     useEffect(() => {
         dispatch(fetchExerciseDetails(Number(params.id)));
@@ -46,12 +51,25 @@ const ExerciseDetailsPage = () => {
         return <CenterText text={errors.status[0]} />;
     }
 
-    return (
-        <>
+    let returnLink = (
             <AppLink className={cls.backLink} to={AuthRoutePath.exercises}>
                 <LeftArrow className={cls.backLinkSvg} />
                 {t('К списку упражнений')}
             </AppLink>
+    )
+    
+    if (state.programId &&  state.from == 'edit') {
+           returnLink = (
+           <AppLink className={cls.backLink} to={`${AuthRoutePath.program_details}${state.programId}/edit`}>
+                <LeftArrow className={cls.backLinkSvg} />
+                {t('Обратно к программе')}
+            </AppLink>
+        )
+    }
+
+    return (
+        <>
+            {returnLink}
             <div className={classNames(cls.DisplayMode, {}, [])}>
                 <div className={cls.exerciseHero}>
                     {

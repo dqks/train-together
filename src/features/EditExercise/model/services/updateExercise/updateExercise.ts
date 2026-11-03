@@ -40,17 +40,16 @@ export const updateExerciseThunk = createAsyncThunk<
 
             try {
                 const fd = new FormData();
-                fd.append('image', data?.image || '');
-                fd.append('name', data?.name || '');
-                fd.append('primaryMuscleId', data?.primaryMuscleId || '');
-                fd.append('equipmentId', data?.equipmentId || '');
+                fd.append('image', data.image || '');
+                fd.append('name', data.name || '');
+                fd.append('primaryMuscleId', data.primaryMuscleId || '');
+                fd.append('equipmentId', data.equipmentId || '');
 
                 if (data?.secondaryMuscleIds) {
                     data?.secondaryMuscleIds.forEach((secondaryMuscleId: string, index) => {
                         fd.append(`secondaryMuscleIds[${index}]`, secondaryMuscleId);
                     });
                 }
-
                 const response = await extra.api.patch(`exercises/${data.id}`, fd);
                 return response.data;
             } catch (err: any) {

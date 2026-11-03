@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { $api, type ResponseType } from '@/shared/api/api.ts';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
-import type { LoginErrors } from '@/features/LoginForm/model/types/loginSchema.ts';
+import type { EditProgramErrorInfo } from '../../types/editProgramSchema';
 
 type UpdateProgramInfoBody = {
     id?: number | undefined
@@ -19,7 +19,7 @@ type UpdateProgramInfoResponse = ResponseType<{success: boolean}, string>
 export const updateProgramInfo = createAsyncThunk<
     UpdateProgramInfoResponse,
     UpdateProgramInfoBody,
-    ThunkConfig<LoginErrors>>(
+    ThunkConfig<EditProgramErrorInfo>>(
         'editProgram/updateProgramInfo',
         async (
             programData,

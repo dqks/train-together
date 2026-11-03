@@ -1,6 +1,6 @@
 import type { StateSchema } from "@/app/providers/StoreProvider";
 
-export const getName = (state: StateSchema) => state.editExercise?.name
+export const getName = (state: StateSchema) => state.editExercise?.name || ""
 
 export const getEquipmentId = (state: StateSchema) => state.editExercise?.equipmentId 
 

@@ -116,6 +116,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     }, []);
 
     const onChangeTrainingDays = useCallback((days: Day[] | undefined) => {
+        console.log(days);
         dispatch(editProgramActions.setTrainingDays(days ?? []));
     }, []);
 
@@ -159,6 +160,8 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         selectedGoalId,
         selectedDiffId,
         trainingDays,
+        sendUpdateProgramInfo,
+        sendUpdateDays,
         onCancel,
     ]);
 
@@ -204,7 +207,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                                     <TrainingDays
                                         onSelectExercise={onSelectExercise}
                                         trainingDays={trainingDays}
-                                        setTrainingDays={onChangeTrainingDays}
+                                        onChangeTrainingDays={onChangeTrainingDays}
                                     />
                                 </div>
                                 <Sidebar

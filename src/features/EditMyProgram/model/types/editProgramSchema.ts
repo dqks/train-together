@@ -17,4 +17,10 @@ export interface EditProgramSchema {
     isLoadingPrograms: boolean
     sendUpdateDays: boolean
     sendUpdateProgramInfo: boolean
+    selectedExerciseIds: number[]
+}
+
+export interface ExerciseLinkState {
+    programId: string | undefined
+    from: "edit"
 }

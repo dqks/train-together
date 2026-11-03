@@ -45,9 +45,6 @@ export const fetchExerciseCards = createAsyncThunk<
                 if (!response.data) {
                     throw new Error('Error occurred');
                 }
-
-                console.log(response.data.data);
-
                 return response.data.data;
             } catch (e: any) {
                 return rejectWithValue(e.response.data.messages);

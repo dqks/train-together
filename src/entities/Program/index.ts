@@ -3,6 +3,8 @@ export { ProgramCard } from './ui/ProgramCard/ProgramCard';
 export { LandingProgramCard }
     from './ui/LandingTrainingProgramCard/LandingProgramCard';
 export { ProgramDay } from './ui/ProgramDay/ProgramDay';
+export { DayCard } from "./ui/DayCard/DayCard.tsx"
+export { EditableDayCard } from "./ui/EditableDayCard/EditableDayCard.tsx"
 
 // Selectors
 export { getProgramDetails } from './model/selectors/getProgramDetails/getProgramDetails.ts';
