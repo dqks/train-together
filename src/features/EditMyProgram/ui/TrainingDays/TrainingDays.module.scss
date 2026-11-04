@@ -21,7 +21,12 @@
     font-weight: 600;
 }
 
-
+// Training days
+.trainingDays {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
 
 //.dayFocusInput {
 //    margin-bottom: var(--spacing-md);

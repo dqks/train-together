@@ -1,18 +1,51 @@
 import { useTranslation } from 'react-i18next';
+import { useCallback } from 'react';
 import cls from './DayHeader.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Show from '@/shared/assets/icons/show.svg?react';
 import TrashCan from '@/shared/assets/icons/trash-can.svg?react';
+import { Input } from '@/shared/ui/Input/Input.tsx';
+import { Select } from '@/shared/ui/Select/Select.tsx';
+import type { DayOfWeek } from '@/entities/Program/model/types/programSchema.ts';
 
 interface DayHeaderProps {
     dayNumber: number;
     dayName: string;
+    dayId: number | undefined;
+    daysOfWeek: DayOfWeek[] | null
+    selectedDayOfWeekId: number | null
     onDeleteDay: (dayIndex: number) => void
+    onChangeDayName: (name: string, dayId: number) => void
 }
+
+const shortDayNames: Record<string, string> = {
+    Понедельник: 'ПН',
+    Вторник: 'ВТ',
+    Среда: 'СР',
+    Четверг: 'ЧТ',
+    Пятница: 'ПТ',
+    Суббота: 'СБ',
+    Воскресенье: 'ВС',
+};
 
 export const DayHeader = (props : DayHeaderProps) => {
     const { t } = useTranslation();
-    const { dayNumber, dayName, onDeleteDay } = props;
+    const {
+        dayNumber,
+        dayName,
+        dayId,
+        daysOfWeek,
+        selectedDayOfWeekId,
+        onDeleteDay,
+        onChangeDayName,
+    } = props;
+
+    const changeNameHandler = useCallback((name: string) => {
+        if (dayId) {
+            onChangeDayName(name, dayId);
+        }
+    }, [dayId, onChangeDayName]);
+
     return (
         <div className={cls.dayHeader}>
             <div className={cls.dayHeaderLeft}>
@@ -20,13 +53,18 @@ export const DayHeader = (props : DayHeaderProps) => {
                 {/*    <Burger /> */}
                 {/* </div> */}
                 <div className={cls.dayBadge}>
-                    <span className={cls.dayNumber}>{dayNumber}</span>
-                    <input
-                        className={cls.dayNameInput}
+                    {/* <span className={cls.dayOfWeek}>{dayNumber}</span> */}
+                    <Select value={String(selectedDayOfWeekId)} theme="ghost" className={cls.dayOfWeek}>
+                        {daysOfWeek?.map((day) => (
+                            <option value={day.id}>{shortDayNames[day.name]}</option>
+                        ))}
+                    </Select>
+                    <Input
+                        onChange={changeNameHandler}
                         type="text"
-                        defaultValue={t(dayName)}
+                        theme="ghost"
+                        value={dayName}
                         placeholder={t('Название дня')}
-                        disabled
                     />
                 </div>
             </div>

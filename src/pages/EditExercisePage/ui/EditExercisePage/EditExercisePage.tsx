@@ -1,4 +1,3 @@
-
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,10 +16,12 @@ import {
 } from '@/entities/Exercise';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
+import { getUserId } from '@/entities/User';
 
 export const EditExercisePage = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const userId = useSelector(getUserId);
     const exerciseDetails = useSelector(getExerciseDetails);
     const isLoading = useSelector(getExerciseIsLoading);
     const errors = useSelector(getExerciseErrors);
@@ -28,7 +29,7 @@ export const EditExercisePage = () => {
 
     useEffect(() => {
         dispatch(fetchExerciseDetails(Number(params.id)));
-    }, [dispatch]);
+    }, [dispatch, exerciseDetails?.userId, params.id, userId]);
 
     if (isLoading) {
         return <PageLoader />;
@@ -36,12 +37,12 @@ export const EditExercisePage = () => {
 
     if (errors) {
         return <CenterText text={errors.status[0]} />;
-    }    
-    
-    if (!exerciseDetails?.userId) {
-        return null
     }
-    
+
+    if (exerciseDetails?.userId !== userId && exerciseDetails?.userId !== undefined) {
+        return null;
+    }
+
     return (
         <div className={classNames(cls.EditMode, {}, [])}>
             <div className={cls.editHeader}>
@@ -58,7 +59,6 @@ export const EditExercisePage = () => {
             <div className={cls.editContainer}>
                 <div className={cls.editCard}>
                     <EditExercise
-
                         exerciseDetails={exerciseDetails}
                     />
                 </div>
@@ -66,4 +66,3 @@ export const EditExercisePage = () => {
         </div>
     );
 };
-

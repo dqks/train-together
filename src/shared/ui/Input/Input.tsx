@@ -4,6 +4,8 @@ import { classNames } from '../../lib/classNames/classNames.ts';
 
 type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
 
+type InputTheme = 'primary' | 'ghost'
+
 interface InputProps extends HTMLInputProps {
     className?: string;
     otherProps?: ReactNode;
@@ -12,6 +14,7 @@ interface InputProps extends HTMLInputProps {
     name?: string;
     onChange?: (value: string) => void
     value?: string
+    theme?: InputTheme
 }
 
 export const Input = (props: InputProps) => {
@@ -19,6 +22,7 @@ export const Input = (props: InputProps) => {
         className,
         onChange,
         value,
+        theme = 'primary',
         ...otherProps
     } = props;
 
@@ -26,9 +30,11 @@ export const Input = (props: InputProps) => {
         onChange?.(e.target.value);
     };
 
+    const additional = [className, theme && cls[theme]];
+
     return (
         <input
-            className={classNames(cls.Input, {}, [className])}
+            className={classNames(cls.Input, {}, additional)}
             onChange={onChangeHandler}
             value={value}
             {...otherProps}

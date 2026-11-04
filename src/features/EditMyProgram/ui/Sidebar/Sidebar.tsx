@@ -5,7 +5,7 @@ import { ToggleSwitch } from '@/shared/ui/ToggleSwitch/ToggleSwitch.tsx';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Save from '@/shared/assets/icons/save.svg?react';
 import type { Difficulty, Goal } from '@/entities/Program';
-import type { EditProgramErrorInfo } from '@/features/EditMyProgram/model/types/editProgramSchema.ts';
+import { ErrorMessage, TextSize } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
 
 interface SidebarProps {
     isPublic: boolean | undefined;
@@ -22,7 +22,7 @@ interface SidebarProps {
     onChangeDiff: (id: string) => void;
     onSave: () => void;
     disableEdit: boolean | undefined;
-
+    saveError: boolean
 }
 
 export const Sidebar = (props : SidebarProps) => {
@@ -37,6 +37,7 @@ export const Sidebar = (props : SidebarProps) => {
         selectedProgramDifficultyId,
         daysAmount,
         disableEdit,
+        saveError,
         onSave,
         onCancel,
         onChangeIsPublic,
@@ -145,6 +146,16 @@ export const Sidebar = (props : SidebarProps) => {
                     {t('Сохранить')}
                 </Button>
             </div>
+            {
+                saveError
+                    ? (
+                        <ErrorMessage
+                            messages={t('Произошла ошибка при сохранении')}
+                            textSize={TextSize.BASE}
+                        />
+                    )
+                    : null
+            }
         </aside>
     );
 };

@@ -5,8 +5,9 @@ import { fetchUserPrograms } from '../services/fetchUserPrograms/fetchUserProgra
 import { fetchProgramDetails } from '../services/fetchProgramDetails/fetchProgramDetails.ts';
 import {
     fetchFavouritePrograms,
-} from '@/entities/Program/model/services/fetchFavouritePrograms/fetchFavouritePrograms.ts';
-import { fetchCreateInfo } from '@/entities/Program/model/services/fetchCreateInfo/fetchCreateInfo.ts';
+} from '../services/fetchFavouritePrograms/fetchFavouritePrograms.ts';
+import { fetchCreateInfo } from '../services/fetchCreateInfo/fetchCreateInfo.ts';
+import { fetchDaysOfWeek } from '../services/fetchDaysOfWeek/fetchDaysOfWeek.ts';
 
 const initialState: ProgramSchema = {
     publicPrograms: null,
@@ -17,6 +18,7 @@ const initialState: ProgramSchema = {
     isLoading: false,
     goals: undefined,
     difficulties: undefined,
+    daysOfWeek: null,
 };
 
 export const programsSlice = createSlice({
@@ -94,6 +96,18 @@ export const programsSlice = createSlice({
             .addCase(fetchCreateInfo.rejected, (state) => {
                 state.isLoading = false;
                 // state.errors = action.payload;
+            })
+            .addCase(fetchDaysOfWeek.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetchDaysOfWeek.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.daysOfWeek = action.payload;
+            })
+            .addCase(fetchDaysOfWeek.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
             });
     },
 });

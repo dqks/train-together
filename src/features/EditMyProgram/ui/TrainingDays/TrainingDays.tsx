@@ -1,20 +1,28 @@
 import { useTranslation } from 'react-i18next';
+import { useCallback } from 'react';
 import cls from './TrainingDays.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
-import type { Day } from '@/entities/Program';
+import type { TrainingDay } from '@/entities/Program';
 import { EditableDayCard } from '@/entities/Program';
+import type { DayOfWeek } from '@/entities/Program/model/types/programSchema.ts';
 
 interface TrainingDaysProps {
-    trainingDays: Day[] | undefined
-    onChangeTrainingDays: (days: Day[] | undefined) => void
+    trainingDays: TrainingDay[] | undefined
+    onChangeTrainingDays: (days: TrainingDay[] | undefined) => void
     onSelectExercise: () => void
+    daysOfWeek: DayOfWeek[] | null
 }
 
 export const TrainingDays = (props : TrainingDaysProps) => {
     const { t } = useTranslation();
-    const { trainingDays, onChangeTrainingDays, onSelectExercise } = props;
+    const {
+        trainingDays,
+        onChangeTrainingDays,
+        onSelectExercise,
+        daysOfWeek,
+    } = props;
 
-    const onChangeExerciseReps = (dayIndex: number, exIndex: number, reps: number) => {        
+    const onChangeExerciseReps = (dayIndex: number, exIndex: number, reps: number) => {
         onChangeTrainingDays(trainingDays?.map((td, index) => (index === dayIndex
             ? {
                 ...td,
@@ -50,23 +58,55 @@ export const TrainingDays = (props : TrainingDaysProps) => {
     const onAddTrainingDay = () => {
         if (trainingDays && trainingDays.length < 7) {
             const days = [...trainingDays, {
-                    id: 100,
-                    name: "",
-                    description: "",
-                    day: {
-                        id: 1,
-                        name: ""
-                    },
-                    exercises: []
-            }]
-            onChangeTrainingDays(days)
+                id: 100,
+                name: '',
+                description: '',
+                day: {
+                    id: 1,
+                    name: '',
+                },
+                exercises: [],
+            }];
+            onChangeTrainingDays(days);
         }
-    }
+    };
+
+    const onChangeDayName = useCallback((dayName: string, dayId: number) => {
+        const days = trainingDays?.map((td) => {
+            if (td.id !== dayId) {
+                return td;
+            }
+            // changed
+            return {
+                ...td,
+                name: dayName,
+            };
+        });
+        onChangeTrainingDays(days);
+    }, [onChangeTrainingDays, trainingDays]);
+
+    console.log(trainingDays);
+
+    // const onChangeDayOfWeek = useCallback((dayOfWeekId: number, dayId: number) => {
+    //     const days = trainingDays?.map((td) => {
+    //         if (td.id !== dayId) {
+    //             return td;
+    //         }
+    //         // changed
+    //         return {
+    //             ...td,
+    //             name: dayName,
+    //         };
+    //     });
+    //     onChangeTrainingDays(days);
+    // }, [onChangeTrainingDays, trainingDays]);
 
     const trainingDaysCards = trainingDays?.map((td, dayIndex) => (
-        <EditableDayCard 
+        <EditableDayCard
+            selectedDayOfWeekId={td.day.id}
+            daysOfWeek={daysOfWeek}
+            onChangeDayName={onChangeDayName}
             dayIndex={dayIndex}
-            dayName={td.name}
             dayNumber={dayIndex + 1}
             onChangeExerciseReps={onChangeExerciseReps}
             onChangeExerciseSets={onChangeExerciseSets}
@@ -74,7 +114,7 @@ export const TrainingDays = (props : TrainingDaysProps) => {
             onDeleteExercise={onDeleteExercise}
             onSelectExercise={onSelectExercise}
             trainingDay={td}
-            key={dayIndex}
+            key={td.id}
         />
     ));
 
@@ -82,9 +122,9 @@ export const TrainingDays = (props : TrainingDaysProps) => {
         <section className={cls.programSection}>
             <div className={cls.sectionHeader}>
                 <h2 className={cls.sectionTitle}>{t('Дни тренировок')}</h2>
-                <Button 
-                    theme={ThemeButton.OUTLINE} 
-                    type="button" 
+                <Button
+                    theme={ThemeButton.OUTLINE}
+                    type="button"
                     onClick={onAddTrainingDay}
                     disabled={trainingDays ? trainingDays.length >= 7 : true}
                 >

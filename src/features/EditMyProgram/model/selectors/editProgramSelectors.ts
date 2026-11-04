@@ -14,3 +14,4 @@ export const getIsLoadingDays = (state: StateSchema) => state.editProgram?.isLoa
 export const getErrorProgramInfo = (state: StateSchema) => state.editProgram?.errorProgramInfo;
 export const getErrorDays = (state: StateSchema) => state.editProgram?.errorDays;
 export const getSelectedExerciseIds = (state: StateSchema) => state.editProgram?.selectedExerciseIds;
+export const getSaveError = (state: StateSchema) => state.editProgram?.saveError;

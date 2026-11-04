@@ -1,4 +1,4 @@
-.Input {
+.primary {
     padding: var(--spacing-sm) var(--spacing-md);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -7,12 +7,33 @@
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.Input:focus {
+.primary:focus {
     outline: none;
     border-color: var(--color-accent);
     box-shadow: 0 0 0 3px var(--color-accent-light);
 }
 
-.Input::placeholder {
+.primary::placeholder {
     color: var(--color-text-muted);
+}
+
+.ghost {
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    border: 1px solid transparent;
+    background: transparent;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    color: var(--color-text-primary);
+}
+
+.ghost:hover {
+    background: var(--color-bg-secondary);
+}
+
+.ghost:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background: var(--color-bg);
 }

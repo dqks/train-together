@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation, useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import cls from './ExerciseRow.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Cross from '@/shared/assets/icons/cross.svg?react';
@@ -40,16 +40,16 @@ export const ExerciseRow = (props : ExerciseRowProps) => {
         onDeleteExercise,
         // primaryMuscleEng,
     } = props;
-    const params = useParams()
+    const params = useParams();
 
     if (!params.id) {
-        return null
+        return null;
     }
 
     const state: ExerciseLinkState = {
-        from:"edit", 
-        programId: params.id
-    }
+        from: 'edit',
+        programId: params.id,
+    };
 
     return (
         <div className={classNames(cls.exerciseRow, {}, ['editable'])}>
@@ -88,8 +88,8 @@ export const ExerciseRow = (props : ExerciseRowProps) => {
             <div className={cls.exerciseMuscleTag}>{t(primaryMuscle)}</div>
             <div className={cls.exerciseActions}>
                 <Button theme={ThemeButton.GHOST} type="button">
-                    <Link 
-                        state={state} 
+                    <Link
+                        state={state}
                         to={`${AuthRoutePath.exercise_details}${exerciseId}`}
                     >
                         <ToDetails className={cls.toDetailsIcon} />

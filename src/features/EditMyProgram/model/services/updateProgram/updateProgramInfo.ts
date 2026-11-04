@@ -8,7 +8,7 @@ type UpdateProgramInfoBody = {
     name?: string
     description?: string
     publicSetting?: 'true' | 'false',
-    image?: File | undefined
+    image: File | string | undefined
     closeModal?: () => void
     diffId?: string
     goalId?: string
@@ -45,6 +45,8 @@ export const updateProgramInfo = createAsyncThunk<
 
                 if (description) {
                     fd.append('description', description);
+                } else {
+                    fd.append('description', '');
                 }
 
                 if (publicSetting) {
@@ -59,7 +61,11 @@ export const updateProgramInfo = createAsyncThunk<
                     fd.append('diffId', diffId);
                 }
 
-                fd.append('image', image || '');
+                if (image instanceof File) {
+                    fd.append('image', image);
+                } else if (!image) {
+                    fd.append('image', '');
+                }
 
                 const response = await $api.patch(`/training-programs/${id}`, fd);
                 return response.data;

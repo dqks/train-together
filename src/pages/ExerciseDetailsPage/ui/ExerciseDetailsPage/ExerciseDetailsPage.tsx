@@ -1,4 +1,4 @@
-import React, { useEffect, type ReactNode } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
@@ -35,13 +35,12 @@ const ExerciseDetailsPage = () => {
     const isOwner = userId === exerciseDetails?.userId;
     const params = useParams();
 
-    const location = useLocation()
-    const state = location.state as ExerciseLinkState
-    
+    const location = useLocation();
+    const state = location.state as ExerciseLinkState;
 
     useEffect(() => {
         dispatch(fetchExerciseDetails(Number(params.id)));
-    }, [dispatch]);
+    }, [dispatch, params.id]);
 
     if (isLoading) {
         return <PageLoader />;
@@ -52,19 +51,19 @@ const ExerciseDetailsPage = () => {
     }
 
     let returnLink = (
-            <AppLink className={cls.backLink} to={AuthRoutePath.exercises}>
-                <LeftArrow className={cls.backLinkSvg} />
-                {t('К списку упражнений')}
-            </AppLink>
-    )
-    
-    if (state.programId &&  state.from == 'edit') {
-           returnLink = (
-           <AppLink className={cls.backLink} to={`${AuthRoutePath.program_details}${state.programId}/edit`}>
+        <AppLink className={cls.backLink} to={AuthRoutePath.exercises}>
+            <LeftArrow className={cls.backLinkSvg} />
+            {t('К списку упражнений')}
+        </AppLink>
+    );
+
+    if (state.programId && state.from === 'edit') {
+        returnLink = (
+            <AppLink className={cls.backLink} to={`${AuthRoutePath.program_details}${state.programId}/edit`}>
                 <LeftArrow className={cls.backLinkSvg} />
                 {t('Обратно к программе')}
             </AppLink>
-        )
+        );
     }
 
     return (

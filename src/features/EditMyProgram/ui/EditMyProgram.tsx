@@ -1,16 +1,20 @@
-import { useCallback, useEffect, useState } from 'react';
+import {
+    type ReactNode, useCallback, useEffect, useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from './EditMyProgram.module.scss';
 import { Sidebar } from './Sidebar/Sidebar';
 import { MainInfo } from './MainInfo/MainInfo';
 import {
-    type Day,
     fetchCreateInfo,
+    fetchDaysOfWeek,
     fetchProgramDetails,
+    getDaysOfWeek,
     getProgramDetails,
     getProgramDifficulties,
     getProgramGoals,
     getProgramIsLoading,
+    type TrainingDay,
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
 import { ExerciseSelection } from './ExerciseSelection/ExerciseSelection.tsx';
@@ -25,14 +29,16 @@ import {
     getIsLoadingPrograms,
     getIsPublic,
     getName,
+    getSaveError,
     getSelectedDiffId,
     getSelectedGoalId,
     getSendUpdateDays,
     getSendUpdateProgramInfo,
     getTrainingDays,
-} from '../model/selectors/editFormSelectors.ts';
+} from '../model/selectors/editProgramSelectors.ts';
 import { updateProgramInfo } from '../model/services/updateProgram/updateProgramInfo.ts';
 import { updateDays } from '../model/services/updateDays/updateDays.ts';
+import { getUserId } from '@/entities/User';
 
 interface EditMyProgramProps {
     programId: number | undefined
@@ -43,12 +49,15 @@ const reducers: ReducerList = {
     editProgram: editProgramReducer,
 };
 
+const forbiddenImageTypes = ['image/gif'];
+
 export const EditMyProgram = (props: EditMyProgramProps) => {
     const {
         programId,
         onCancel,
     } = props;
     const dispatch = useDispatch();
+    const userId = useSelector(getUserId);
     const sendUpdateDays = useSelector(getSendUpdateDays);
     const sendUpdateProgramInfo = useSelector(getSendUpdateProgramInfo);
     const disableEdit = useSelector(getDisableEdit);
@@ -63,15 +72,17 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const selectedDiffId = useSelector(getSelectedDiffId);
     const trainingDays = useSelector(getTrainingDays);
     const errorProgramInfo = useSelector(getErrorProgramInfo);
+    const daysOfWeek = useSelector(getDaysOfWeek);
     // const errorDays = useSelector(getErrorDays);
+    const saveError = useSelector(getSaveError);
     const [image, setImage] = useState<File | string | undefined>(undefined);
     const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false);
 
     useEffect(() => {
-        if (programId) {
+        if (programId && !programDetails) {
             dispatch(fetchProgramDetails(programId));
         }
-    }, [programId]);
+    }, [dispatch, programDetails, programId, userId]);
 
     useEffect(() => {
         if (programDetails) {
@@ -80,6 +91,12 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         }
     }, [dispatch, programDetails]);
 
+    useEffect(() => {
+        if (!daysOfWeek) {
+            dispatch(fetchDaysOfWeek());
+        }
+    }, [daysOfWeek, dispatch]);
+
     const programGoals = useSelector(getProgramGoals);
     const programDifficulties = useSelector(getProgramDifficulties);
 
@@ -87,38 +104,51 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         if (!programGoals && !programDifficulties) {
             dispatch(fetchCreateInfo());
         }
-    }, [dispatch]);
+    }, [dispatch, programDifficulties, programGoals]);
 
     const onChangeName = useCallback((value: string) => {
         dispatch(editProgramActions.setName(value));
-    }, []);
+    }, [dispatch]);
 
     const onChangeDescription = useCallback((value: string) => {
         dispatch(editProgramActions.setDescription(value));
-    }, []);
+    }, [dispatch]);
 
     const onChangeIsPublic = useCallback((value: boolean) => {
         dispatch(editProgramActions.setIsPublic(value));
-    }, []);
+    }, [dispatch]);
 
     const onChangeImage = useCallback((file: File | undefined) => {
+        if (file) {
+            if (forbiddenImageTypes.includes(file?.type)) {
+                dispatch(editProgramActions.setErrorProgramInfo({
+                    image: ['Неверный тип изображения'],
+                }));
+                return;
+            }
+        }
         setImage(file);
+        if (errorProgramInfo?.image) {
+            // становится не undefined а {}
+            const error = { ...errorProgramInfo };
+            delete error.image;
+            dispatch(editProgramActions.setErrorProgramInfo(error));
+        }
         dispatch(editProgramActions.setDiableEdit(false));
         dispatch(editProgramActions.setSendUpdateProgramInfo(true));
-    }, []);
+    }, [dispatch, errorProgramInfo]);
 
     const onChangeGoal = useCallback((id: string) => {
         dispatch(editProgramActions.setSelectedGoalId(Number(id)));
-    }, []);
+    }, [dispatch]);
 
     const onChangeDiff = useCallback((id: string) => {
         dispatch(editProgramActions.setSelectedDiffId(Number(id)));
-    }, []);
+    }, [dispatch]);
 
-    const onChangeTrainingDays = useCallback((days: Day[] | undefined) => {
-        console.log(days);
+    const onChangeTrainingDays = useCallback((days: TrainingDay[] | undefined) => {
         dispatch(editProgramActions.setTrainingDays(days ?? []));
-    }, []);
+    }, [dispatch]);
 
     const onSave = useCallback(async () => {
         if (sendUpdateProgramInfo) {
@@ -127,7 +157,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                 name,
                 description,
                 publicSetting: isPublic ? 'true' : 'false',
-                image: image instanceof File ? image : undefined,
+                image,
                 diffId: selectedDiffId?.toString(),
                 goalId: selectedGoalId?.toString(),
             }));
@@ -153,16 +183,17 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
             }));
         }
     }, [
-        image,
+        sendUpdateProgramInfo,
+        sendUpdateDays,
+        dispatch,
+        programId,
         name,
         description,
         isPublic,
-        selectedGoalId,
+        image,
         selectedDiffId,
+        selectedGoalId,
         trainingDays,
-        sendUpdateProgramInfo,
-        sendUpdateDays,
-        onCancel,
     ]);
 
     const onBack = useCallback(() => {
@@ -177,58 +208,66 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         setIsAddingExercise(true);
     }, []);
 
+    let EditMyProgramContent: ReactNode = (
+        isAddingExercise
+            ? (
+                <ExerciseSelection
+                    onBack={onBack}
+                    onAddExercise={onAddExerciseToProgram}
+                />
+            )
+            : (
+                <div className={cls.programContainer}>
+                    <div className={cls.programGrid}>
+                        <div className={cls.programMain}>
+                            <MainInfo
+                                errorProgramInfo={errorProgramInfo}
+                                onChangeDescription={onChangeDescription}
+                                onChangeName={onChangeName}
+                                image={image}
+                                onChangeImage={onChangeImage}
+                                name={name || ''}
+                                description={description}
+                            />
+                            <TrainingDays
+                                daysOfWeek={daysOfWeek}
+                                onSelectExercise={onSelectExercise}
+                                trainingDays={trainingDays}
+                                onChangeTrainingDays={onChangeTrainingDays}
+                            />
+                        </div>
+                        <Sidebar
+                            saveError={saveError || false}
+                            disableEdit={disableEdit}
+                            daysAmount={trainingDays?.length}
+                            onChangeDiff={onChangeDiff}
+                            onChangeGoal={onChangeGoal}
+                            selectedProgramDifficultyId={selectedDiffId}
+                            selectedProgramGoalId={selectedGoalId}
+                            programGoals={programGoals}
+                            programDifficulties={programDifficulties}
+                            isLoading={(isLoadingPrograms || isLoadingDays) || false}
+                            onCancel={onCancel}
+                            onChangeIsPublic={onChangeIsPublic}
+                            isPublic={isPublic}
+                            onSave={onSave}
+                        />
+                    </div>
+                </div>
+            )
+    );
+
     if (isLoading) {
-        return <PageLoader />;
+        EditMyProgramContent = (<PageLoader />);
+    }
+
+    if (programDetails?.user.id !== userId && programDetails?.user.id !== undefined) {
+        return null;
     }
 
     return (
         <DynamicModuleLoader reducers={reducers}>
-            {
-                isAddingExercise
-                    ? (
-                        <ExerciseSelection
-                            onBack={onBack}
-                            onAddExercise={onAddExerciseToProgram}
-                        />
-                    )
-                    : (
-                        <div className={cls.programContainer}>
-                            <div className={cls.programGrid}>
-                                <div className={cls.programMain}>
-                                    <MainInfo
-                                        errorProgramInfo={errorProgramInfo}
-                                        onChangeDescription={onChangeDescription}
-                                        onChangeName={onChangeName}
-                                        image={image}
-                                        onChangeImage={onChangeImage}
-                                        name={name || ''}
-                                        description={description}
-                                    />
-                                    <TrainingDays
-                                        onSelectExercise={onSelectExercise}
-                                        trainingDays={trainingDays}
-                                        onChangeTrainingDays={onChangeTrainingDays}
-                                    />
-                                </div>
-                                <Sidebar
-                                    disableEdit={disableEdit}
-                                    daysAmount={trainingDays?.length}
-                                    onChangeDiff={onChangeDiff}
-                                    onChangeGoal={onChangeGoal}
-                                    selectedProgramDifficultyId={selectedDiffId}
-                                    selectedProgramGoalId={selectedGoalId}
-                                    programGoals={programGoals}
-                                    programDifficulties={programDifficulties}
-                                    isLoading={(isLoadingPrograms || isLoadingDays) || false}
-                                    onCancel={onCancel}
-                                    onChangeIsPublic={onChangeIsPublic}
-                                    isPublic={isPublic}
-                                    onSave={onSave}
-                                />
-                            </div>
-                        </div>
-                    )
-            }
+            {EditMyProgramContent}
         </DynamicModuleLoader>
     );
 };

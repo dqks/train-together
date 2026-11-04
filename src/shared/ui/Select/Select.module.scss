@@ -1,4 +1,4 @@
-.Select {
+.primary {
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236C757D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -13,12 +13,34 @@
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.Select:focus {
+.primary:focus {
     outline: none;
     border-color: var(--color-accent);
     box-shadow: 0 0 0 3px var(--color-accent-light);
 }
 
-.Select::placeholder {
+.primary::placeholder {
     color: var(--color-text-muted);
+}
+
+.ghost {
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    border: 1px solid transparent;
+    background: transparent;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    color: var(--color-text-primary);
+}
+
+.ghost:hover {
+    background: var(--color-text-muted);
+}
+
+.ghost:focus {
+    outline: none;
+    border-color: var(--color-text-muted);
+    background: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
 }

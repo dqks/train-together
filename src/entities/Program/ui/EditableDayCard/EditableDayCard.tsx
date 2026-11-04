@@ -4,41 +4,49 @@ import cls from './EditableDayCard.module.scss';
 import { DayHeader } from './DayHeader/DayHeader';
 import { ExerciseRow } from './ExerciseRow/ExerciseRow';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
-import type { Day } from '../../model/types/programSchema';
+import type { DayOfWeek, TrainingDay } from '../../model/types/programSchema';
 
 interface DayCardProps {
-    trainingDay: Day | undefined
+    trainingDay: TrainingDay | undefined
     className?: string;
     dayNumber: number;
-    dayName: string;
     dayIndex: number;
     onChangeExerciseReps: (dayId: number, exId: number, reps: number) => void
     onChangeExerciseSets: (dayId: number, exId: number, sets: number) => void
     onDeleteExercise: (dayId: number, exId: number) => void
     onDeleteDay: (dayIndex: number) => void
     onSelectExercise: () => void
+    onChangeDayName: (name: string, dayId: number) => void
+    daysOfWeek: DayOfWeek[] | null
+    selectedDayOfWeekId: number | null
 }
 
 export const EditableDayCard = (props : DayCardProps) => {
     const { t } = useTranslation();
-    const { 
+    const {
         trainingDay,
         className,
-        dayIndex, 
-        dayName,
+        dayIndex,
         dayNumber,
+        daysOfWeek,
+        selectedDayOfWeekId,
         onChangeExerciseReps,
         onChangeExerciseSets,
         onDeleteDay,
         onDeleteExercise,
         onSelectExercise,
-     } = props
+        onChangeDayName,
+    } = props;
 
     return (
-        <div className={classNames(cls.trainingDayCard, {}, ['editable', className])} >
+        <div className={classNames(cls.trainingDayCard, {}, ['editable', className])}>
             <DayHeader
+                selectedDayOfWeekId={selectedDayOfWeekId}
+                daysOfWeek={daysOfWeek}
+                dayId={trainingDay?.id}
+                onChangeDayName={onChangeDayName}
                 onDeleteDay={onDeleteDay}
-                dayName={dayName}
+                dayName={trainingDay?.name || ''}
                 dayNumber={dayNumber}
             />
             <div className={cls.dayExercises}>

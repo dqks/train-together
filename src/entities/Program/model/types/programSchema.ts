@@ -49,14 +49,17 @@ export type ExerciseDay = {
     }
 }
 
-export type Day = {
+export type DayOfWeek = {
+    id: number
+    name: string
+    sortOrder: number
+}
+
+export type TrainingDay = {
     id: number
     name: string
     description: string | undefined
-    day: {
-        id: number
-        name: string
-    },
+    day: DayOfWeek,
     exercises: ExerciseDay[]
 }
 
@@ -82,7 +85,7 @@ export type ProgramDetails = {
         programsCount: number
         avatarUrl: string | undefined
     }
-    days: Day[]
+    days: TrainingDay[]
 }
 
 export type ProgramError = Record<string, string[]>
@@ -96,4 +99,5 @@ export interface ProgramSchema {
     isLoading: boolean
     goals: Goal[] | undefined
     difficulties: Difficulty[] | undefined
+    daysOfWeek: DayOfWeek[] | null
 }

@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { EditProgramSchema } from '../types/editProgramSchema';
-import type { Day, ProgramDetails } from '@/entities/Program';
+import type { EditProgramSchema, EditProgramErrorInfo } from '../types/editProgramSchema';
+import type { TrainingDay, ProgramDetails } from '@/entities/Program';
 import { updateDays } from '../services/updateDays/updateDays.ts';
 import { updateProgramInfo } from '../services/updateProgram/updateProgramInfo.ts';
 
@@ -14,12 +14,13 @@ const initialState: EditProgramSchema = {
     selectedGoalId: 0,
     trainingDays: [],
     errorDays: undefined,
-    errorProgramInfo: undefined,
+    errorProgramInfo: null,
     isLoadingDays: false,
     isLoadingPrograms: false,
     sendUpdateDays: false,
     sendUpdateProgramInfo: false,
-    selectedExerciseIds: []
+    selectedExerciseIds: [],
+    saveError: false,
 };
 
 export const programsSlice = createSlice({
@@ -59,7 +60,7 @@ export const programsSlice = createSlice({
             state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
-        setTrainingDays: (state, action: PayloadAction<Day[]>) => {
+        setTrainingDays: (state, action: PayloadAction<TrainingDay[]>) => {
             state.trainingDays = action.payload;
             state.disableEdit = false;
             state.sendUpdateDays = true;
@@ -71,34 +72,41 @@ export const programsSlice = createSlice({
             state.sendUpdateProgramInfo = action.payload;
         },
         setSelectedExerciseIds: (state, action: PayloadAction<number[]>) => {
-            console.log(action.payload);
-            
-            state.selectedExerciseIds = action.payload
-        }
+            state.selectedExerciseIds = action.payload;
+        },
+        setErrorProgramInfo: (state, action: PayloadAction<EditProgramErrorInfo>) => {
+            state.errorProgramInfo = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(updateDays.pending, (state) => {
                 state.errorDays = undefined;
                 state.isLoadingDays = true;
+                state.saveError = false;
             })
             .addCase(updateDays.fulfilled, (state) => {
                 state.isLoadingDays = false;
+                state.saveError = false;
             })
             .addCase(updateDays.rejected, (state, action) => {
                 state.isLoadingDays = false;
                 state.errorDays = action.payload;
+                state.saveError = true;
             })
             .addCase(updateProgramInfo.pending, (state) => {
-                state.errorProgramInfo = undefined;
+                state.errorProgramInfo = null;
                 state.isLoadingPrograms = true;
+                state.saveError = false;
             })
             .addCase(updateProgramInfo.fulfilled, (state) => {
                 state.isLoadingPrograms = false;
+                state.saveError = false;
             })
             .addCase(updateProgramInfo.rejected, (state, action) => {
                 state.isLoadingPrograms = false;
                 state.errorProgramInfo = action.payload;
+                state.saveError = true;
             });
     },
 });

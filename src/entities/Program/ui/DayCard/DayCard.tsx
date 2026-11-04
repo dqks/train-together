@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './DayCard.module.scss';
-import type { Day } from '@/entities/Program';
+import type { TrainingDay } from '@/entities/Program';
 
 interface DayCardProps {
     className?: string;
-    day: Day | undefined
+    day: TrainingDay | undefined
     dayNumber: number
 }
 
@@ -13,11 +13,11 @@ export const DayCard = ({ className, day, dayNumber } : DayCardProps) => {
     const { t } = useTranslation();
 
     if (!day) {
-        return null
+        return null;
     }
 
     return (
-        <div className={classNames(cls.trainingDayCard, {}, [className])} >
+        <div className={classNames(cls.trainingDayCard, {}, [className])}>
             <div className={cls.dayHeader}>
                 <div className={cls.dayBadge}>
                     <span className={cls.dayNumber}>{dayNumber}</span>

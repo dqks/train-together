@@ -40,6 +40,7 @@ export const MainInfo = (props : MainInfoProps) => {
                     onChangeImage={onChangeImage}
                     value={image}
                 />
+                <ErrorMessage messages={errorProgramInfo?.image} />
             </div>
             <div className={cls.formGroup}>
                 <label

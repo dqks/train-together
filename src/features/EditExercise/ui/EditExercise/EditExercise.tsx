@@ -45,16 +45,22 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
     const secondaryMuscleIds = useSelector(getSecondaryMusleIds);
     const [image, setImage] = useState<File | string | undefined>(exerciseDetails?.image);
     const errors = useSelector(getErrors);
-    const navigate = useNavigate();    
+    const navigate = useNavigate();
 
-    useEffect(() => {        
+    useEffect(() => {
         dispatch(editExerciseActions.init({
             name: exerciseDetails?.name || '',
             equipmentId: exerciseDetails?.equipment.id.toString() || '',
             primaryMuscleId: exerciseDetails?.primaryMuscle.id.toString() || '',
             secondaryMuscleIds: exerciseDetails?.secondaryMuscles?.map((m) => m.id.toString()) || [],
         }));
-    }, [dispatch]);
+    }, [
+        dispatch,
+        exerciseDetails?.equipment.id,
+        exerciseDetails?.name,
+        exerciseDetails?.primaryMuscle.id,
+        exerciseDetails?.secondaryMuscles,
+    ]);
 
     const onChangeName = useCallback((name: string) => {
         dispatch(editExerciseActions.setName(name));

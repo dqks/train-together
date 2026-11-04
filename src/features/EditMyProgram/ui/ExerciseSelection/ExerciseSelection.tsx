@@ -8,7 +8,7 @@ import {
     SelectableExerciseCard,
 } from '@/features/EditMyProgram/ui/ExerciseSelection/SelectableExerciseCard/SelectableExerciseCard.tsx';
 import { fetchExerciseCards, getExerciseCards } from '@/entities/Exercise';
-import { getSelectedExerciseIds } from '../../model/selectors/editFormSelectors';
+import { getSelectedExerciseIds } from '../../model/selectors/editProgramSelectors.ts';
 import { editExerciseActions } from '@/features/EditExercise/model/slice/editExerciseSice';
 import { editProgramActions } from '../../model/slice/editProgramSlice';
 
@@ -66,7 +66,7 @@ export const ExerciseSelection = ({
     onAddExercise,
 }: ExerciseSelectionProps) => {
     const { t } = useTranslation();
-    const selectedExerciseIds = useSelector(getSelectedExerciseIds)
+    const selectedExerciseIds = useSelector(getSelectedExerciseIds);
     const exercises = useSelector(getExerciseCards);
     const dispatch = useDispatch();
 
@@ -102,12 +102,12 @@ export const ExerciseSelection = ({
 
     const toggleSelected = (id: number | undefined) => {
         if (!selectedExerciseIds || !id) {
-            return 
+            return;
         }
-    
+
         if (selectedExerciseIds.includes(id)) {
-            dispatch(editProgramActions.setSelectedExerciseIds(selectedExerciseIds.filter((x) => x !== id)))
-            return
+            dispatch(editProgramActions.setSelectedExerciseIds(selectedExerciseIds.filter((x) => x !== id)));
+            return;
         }
         dispatch(editProgramActions.setSelectedExerciseIds([...selectedExerciseIds, id]));
     };

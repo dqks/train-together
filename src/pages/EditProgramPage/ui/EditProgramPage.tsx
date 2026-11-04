@@ -14,7 +14,11 @@ export const EditProgramPage = () => {
 
     const onCancel = useCallback(() => {
         navigate(AuthRoutePath.program_details + params.id);
-    }, []);
+    }, [navigate, params.id]);
+
+    if (!params.id) {
+        navigate(AuthRoutePath.program_details + params.id);
+    }
 
     return (
         <div className={classNames(cls.EditMode, {}, [])}>
