@@ -6,12 +6,15 @@ import { updateProgramInfo } from '../services/updateProgram/updateProgramInfo.t
 
 const initialState: EditProgramSchema = {
     // TODO убрать disableEdit
+    daysInfo: [],
+    programMainInfo: {
+        name: "",
+        description: "",
+        isPublic: false,
+        selectedGoalId: 0,
+        selectedDiffId: 0
+    },
     disableEdit: true,
-    description: '',
-    isPublic: false,
-    name: '',
-    selectedDiffId: 0,
-    selectedGoalId: 0,
     trainingDays: [],
     errorDays: undefined,
     errorProgramInfo: null,
@@ -28,35 +31,47 @@ export const programsSlice = createSlice({
     initialState,
     reducers: {
         initEditForm: (state, action: PayloadAction<ProgramDetails | null>) => {
-            state.name = action.payload?.name;
-            state.description = action.payload?.description;
-            state.isPublic = action.payload?.isPublic;
-            state.selectedDiffId = action.payload?.difficulty.id;
-            state.selectedGoalId = action.payload?.goal.id;
+            // main info
+            state.programMainInfo.name = action.payload?.name;
+            state.programMainInfo.description = action.payload?.description;
+            state.programMainInfo.isPublic = action.payload?.isPublic;
+            state.programMainInfo.selectedDiffId = action.payload?.difficulty.id;
+            state.programMainInfo.selectedGoalId = action.payload?.goal.id;
+            // days and exercises
             state.trainingDays = action.payload?.days;
+            state.daysInfo = action.payload?.days.map((d) => (
+                {
+                    dayId: d.day.id,
+                    description: d.description,
+                    name: d.name,
+                    exercises: d.exercises
+                }
+            ))
+            console.log(state.trainingDays);
+            
         },
         setName: (state, action: PayloadAction<string>) => {
-            state.name = action.payload;
+            state.programMainInfo.name = action.payload;
             state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
         setDescription: (state, action: PayloadAction<string>) => {
-            state.description = action.payload;
+            state.programMainInfo.description = action.payload;
             state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
         setIsPublic: (state, action: PayloadAction<boolean>) => {
-            state.isPublic = action.payload;
+            state.programMainInfo.isPublic = action.payload;
             state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
         setSelectedDiffId: (state, action: PayloadAction<number>) => {
-            state.selectedDiffId = action.payload;
+            state.programMainInfo.selectedDiffId = action.payload;
             state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
         setSelectedGoalId: (state, action: PayloadAction<number>) => {
-            state.selectedGoalId = action.payload;
+            state.programMainInfo.selectedGoalId = action.payload;
             state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },

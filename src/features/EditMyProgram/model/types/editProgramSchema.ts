@@ -3,14 +3,31 @@ import type { TrainingDay } from '@/entities/Program';
 export type EditProgramErrorKeysInfo = 'name' | 'description' | 'image'
 export type EditProgramErrorInfo = Partial<Record<EditProgramErrorKeysInfo, string[]> | null> | undefined
 
-export interface EditProgramSchema {
+export type EditDaysInfo = {
+    dayId: number
+    name: string
+    description: string
+    exercises: {
+            exerciseId: number
+            sets: number
+            reps: number
+            exerciseOrder: number
+    }[]
+}
+
+export type ProgramMainInfo = {
     name: string | undefined
-    disableEdit: boolean
     description: string | undefined
     isPublic: boolean | undefined
-    trainingDays: TrainingDay[] | undefined
     selectedGoalId: number | undefined
     selectedDiffId: number | undefined
+}
+
+export interface EditProgramSchema {
+    daysInfo: EditDaysInfo[]
+    programMainInfo: ProgramMainInfo
+    disableEdit: boolean
+    trainingDays: TrainingDay[] | undefined
     errorDays: Partial<Record<'status', string[]>> | undefined
     errorProgramInfo: EditProgramErrorInfo
     isLoadingDays: boolean
