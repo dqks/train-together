@@ -1,11 +1,11 @@
 import type { StateSchema } from '@/app/providers/StoreProvider';
 
 export const getName = (state: StateSchema) => state.editProgram?.programMainInfo.name;
-export const getDescription = (state: StateSchema) => state.editProgram?.programMainInfo.description;
+export const getDescription = (state: StateSchema) => state.editProgram?.programMainInfo.description || null;
 export const getIsPublic = (state: StateSchema) => state.editProgram?.programMainInfo.isPublic;
 export const getSelectedDiffId = (state: StateSchema) => state.editProgram?.programMainInfo.selectedDiffId;
 export const getSelectedGoalId = (state: StateSchema) => state.editProgram?.programMainInfo.selectedGoalId;
-export const getTrainingDays = (state: StateSchema) => state.editProgram?.trainingDays;
+export const getDaysInfo = (state: StateSchema) => state.editProgram?.daysInfo;
 export const getDisableEdit = (state: StateSchema) => state.editProgram?.disableEdit;
 export const getSendUpdateDays = (state: StateSchema) => state.editProgram?.sendUpdateDays;
 export const getSendUpdateProgramInfo = (state: StateSchema) => state.editProgram?.sendUpdateProgramInfo;

@@ -28,6 +28,6 @@ export { fetchDaysOfWeek } from './model/services/fetchDaysOfWeek/fetchDaysOfWee
 
 // Types
 export type { TrainingDay } from './model/types/programSchema.ts';
-export type { Goal } from './model/types/programSchema.ts';
+export type { Goal, ExerciseDay } from './model/types/programSchema.ts';
 export type { Difficulty } from './model/types/programSchema.ts';
 export type { ProgramDetails } from './model/types/programSchema.ts';

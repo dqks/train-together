@@ -14,7 +14,6 @@ import {
     getProgramDifficulties,
     getProgramGoals,
     getProgramIsLoading,
-    type TrainingDay,
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
 import { ExerciseSelection } from './ExerciseSelection/ExerciseSelection.tsx';
@@ -34,11 +33,12 @@ import {
     getSelectedGoalId,
     getSendUpdateDays,
     getSendUpdateProgramInfo,
-    getTrainingDays,
+    getDaysInfo,
 } from '../model/selectors/editProgramSelectors.ts';
 import { updateProgramInfo } from '../model/services/updateProgram/updateProgramInfo.ts';
 import { updateDays } from '../model/services/updateDays/updateDays.ts';
 import { getUserId } from '@/entities/User';
+import type { EditDaysInfo } from '../model/types/editProgramSchema.ts';
 
 interface EditMyProgramProps {
     programId: number | undefined
@@ -70,7 +70,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const isPublic = useSelector(getIsPublic);
     const selectedGoalId = useSelector(getSelectedGoalId);
     const selectedDiffId = useSelector(getSelectedDiffId);
-    const trainingDays = useSelector(getTrainingDays);
+    const daysInfo = useSelector(getDaysInfo);
     const errorProgramInfo = useSelector(getErrorProgramInfo);
     const daysOfWeek = useSelector(getDaysOfWeek);
     // const errorDays = useSelector(getErrorDays);
@@ -146,7 +146,8 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         dispatch(editProgramActions.setSelectedDiffId(Number(id)));
     }, [dispatch]);
 
-    const onChangeTrainingDays = useCallback((days: TrainingDay[] | undefined) => {
+    const onChangeTrainingDays = useCallback((days: EditDaysInfo[] | undefined) => {
+        console.log(days)
         dispatch(editProgramActions.setTrainingDays(days ?? []));
     }, [dispatch]);
 
@@ -155,7 +156,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
             dispatch(updateProgramInfo({
                 id: programId,
                 name,
-                description,
+                description ,
                 publicSetting: isPublic ? 'true' : 'false',
                 image,
                 diffId: selectedDiffId?.toString(),
@@ -163,20 +164,20 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
             }));
         }
         if (sendUpdateDays) {
-            const details = trainingDays?.map((td) => ({
-                dayId: td.day.id,
+            // Бекенд возвращает exericseId в виде string
+            const details = daysInfo?.map((td) => ({
+                dayId: td.dayOfWeekId,
                 name: td.name,
                 description: td.description,
                 exercises: [
                     ...td.exercises.map((ex) => ({
-                        exerciseId: ex.exercise.id,
+                        exerciseId: Number(ex.exercise.id),
                         sets: ex.sets,
                         reps: ex.reps,
                         exerciseOrder: ex.exerciseOrder,
                     })),
                 ],
             }));
-
             dispatch(updateDays({
                 programId,
                 details,
@@ -193,7 +194,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         image,
         selectedDiffId,
         selectedGoalId,
-        trainingDays,
+        daysInfo,
     ]);
 
     const onBack = useCallback(() => {
@@ -230,16 +231,17 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                                 description={description}
                             />
                             <TrainingDays
+                                trainingDays={programDetails?.days}
                                 daysOfWeek={daysOfWeek}
                                 onSelectExercise={onSelectExercise}
-                                trainingDays={trainingDays}
+                                editDaysInfo={daysInfo}
                                 onChangeTrainingDays={onChangeTrainingDays}
                             />
                         </div>
                         <Sidebar
                             saveError={saveError || false}
                             disableEdit={disableEdit}
-                            daysAmount={trainingDays?.length}
+                            daysAmount={daysInfo?.length}
                             onChangeDiff={onChangeDiff}
                             onChangeGoal={onChangeGoal}
                             selectedProgramDifficultyId={selectedDiffId}

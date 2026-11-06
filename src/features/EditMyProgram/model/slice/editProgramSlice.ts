@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { EditProgramSchema, EditProgramErrorInfo } from '../types/editProgramSchema';
-import type { TrainingDay, ProgramDetails } from '@/entities/Program';
+import type { EditProgramSchema, EditProgramErrorInfo, EditDaysInfo } from '../types/editProgramSchema';
+import type {  ProgramDetails } from '@/entities/Program';
 import { updateDays } from '../services/updateDays/updateDays.ts';
 import { updateProgramInfo } from '../services/updateProgram/updateProgramInfo.ts';
 
@@ -15,7 +15,6 @@ const initialState: EditProgramSchema = {
         selectedDiffId: 0
     },
     disableEdit: true,
-    trainingDays: [],
     errorDays: undefined,
     errorProgramInfo: null,
     isLoadingDays: false,
@@ -33,22 +32,20 @@ export const programsSlice = createSlice({
         initEditForm: (state, action: PayloadAction<ProgramDetails | null>) => {
             // main info
             state.programMainInfo.name = action.payload?.name;
-            state.programMainInfo.description = action.payload?.description;
+            state.programMainInfo.description = action.payload?.description || "";
             state.programMainInfo.isPublic = action.payload?.isPublic;
             state.programMainInfo.selectedDiffId = action.payload?.difficulty.id;
             state.programMainInfo.selectedGoalId = action.payload?.goal.id;
             // days and exercises
-            state.trainingDays = action.payload?.days;
             state.daysInfo = action.payload?.days.map((d) => (
                 {
-                    dayId: d.day.id,
+                    dayId: d.id,
+                    dayOfWeekId: d.day.id,
                     description: d.description,
                     name: d.name,
                     exercises: d.exercises
-                }
+                } 
             ))
-            console.log(state.trainingDays);
-            
         },
         setName: (state, action: PayloadAction<string>) => {
             state.programMainInfo.name = action.payload;
@@ -75,8 +72,8 @@ export const programsSlice = createSlice({
             state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
-        setTrainingDays: (state, action: PayloadAction<TrainingDay[]>) => {
-            state.trainingDays = action.payload;
+        setTrainingDays: (state, action: PayloadAction<EditDaysInfo[]>) => {
+            state.daysInfo = action.payload;
             state.disableEdit = false;
             state.sendUpdateDays = true;
         },

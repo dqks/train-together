@@ -4,38 +4,46 @@ import cls from './EditableDayCard.module.scss';
 import { DayHeader } from './DayHeader/DayHeader';
 import { ExerciseRow } from './ExerciseRow/ExerciseRow';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
-import type { DayOfWeek, TrainingDay } from '../../model/types/programSchema';
+import type { DayOfWeek, ExerciseDay } from '../../model/types/programSchema';
 
 interface DayCardProps {
-    trainingDay: TrainingDay | undefined
+    // trainingDay: TrainingDay | undefined
+    dayId: number | undefined
+    dayName: string | undefined
+    exercises: ExerciseDay[]
     className?: string;
     dayNumber: number;
     dayIndex: number;
+    daysOfWeek: DayOfWeek[] | null
+    selectedDayOfWeekId: number | null
     onChangeExerciseReps: (dayId: number, exId: number, reps: number) => void
     onChangeExerciseSets: (dayId: number, exId: number, sets: number) => void
     onDeleteExercise: (dayId: number, exId: number) => void
     onDeleteDay: (dayIndex: number) => void
     onSelectExercise: () => void
     onChangeDayName: (name: string, dayId: number) => void
-    daysOfWeek: DayOfWeek[] | null
-    selectedDayOfWeekId: number | null
+    onChangeDayOfWeek: (dayOfWeekId: number, dayId: number) => void
 }
 
 export const EditableDayCard = (props : DayCardProps) => {
     const { t } = useTranslation();
     const {
-        trainingDay,
+        // trainingDay,
         className,
         dayIndex,
         dayNumber,
         daysOfWeek,
         selectedDayOfWeekId,
+        dayId,
+        dayName,
+        exercises,
         onChangeExerciseReps,
         onChangeExerciseSets,
         onDeleteDay,
         onDeleteExercise,
         onSelectExercise,
         onChangeDayName,
+        onChangeDayOfWeek,
     } = props;
 
     return (
@@ -43,14 +51,15 @@ export const EditableDayCard = (props : DayCardProps) => {
             <DayHeader
                 selectedDayOfWeekId={selectedDayOfWeekId}
                 daysOfWeek={daysOfWeek}
-                dayId={trainingDay?.id}
+                dayId={dayId}
                 onChangeDayName={onChangeDayName}
                 onDeleteDay={onDeleteDay}
-                dayName={trainingDay?.name || ''}
+                onChangeDayOfWeek={onChangeDayOfWeek}
+                dayName={dayName || ''}
                 dayNumber={dayNumber}
             />
             <div className={cls.dayExercises}>
-                {trainingDay?.exercises.map((exercise, exerciseIndex) => (
+                {exercises.map((exercise, exerciseIndex) => (
                     <ExerciseRow
                         key={exercise.id}
                         exerciseNumber={exerciseIndex + 1}

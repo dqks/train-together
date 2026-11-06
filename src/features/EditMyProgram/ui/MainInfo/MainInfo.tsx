@@ -10,7 +10,7 @@ interface MainInfoProps {
     image: File | string | undefined
     onChangeImage: (file: File | undefined) => void
     name: string
-    description: string | undefined
+    description: string | null
     onChangeName: (value: string) => void
     onChangeDescription: (value: string) => void
     errorProgramInfo: EditProgramErrorInfo

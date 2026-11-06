@@ -2,13 +2,14 @@ import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import cls from './TrainingDays.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
-import type { TrainingDay } from '@/entities/Program';
 import { EditableDayCard } from '@/entities/Program';
-import type { DayOfWeek } from '@/entities/Program/model/types/programSchema.ts';
+import type { DayOfWeek, TrainingDay } from '@/entities/Program/model/types/programSchema.ts';
+import type { EditDaysInfo } from '../../model/types/editProgramSchema';
 
 interface TrainingDaysProps {
+    editDaysInfo: EditDaysInfo[] | undefined
     trainingDays: TrainingDay[] | undefined
-    onChangeTrainingDays: (days: TrainingDay[] | undefined) => void
+    onChangeTrainingDays: (days: EditDaysInfo[] | undefined) => void
     onSelectExercise: () => void
     daysOfWeek: DayOfWeek[] | null
 }
@@ -16,14 +17,15 @@ interface TrainingDaysProps {
 export const TrainingDays = (props : TrainingDaysProps) => {
     const { t } = useTranslation();
     const {
+        editDaysInfo,
         trainingDays,
+        daysOfWeek,
         onChangeTrainingDays,
         onSelectExercise,
-        daysOfWeek,
     } = props;
 
     const onChangeExerciseReps = (dayIndex: number, exIndex: number, reps: number) => {
-        onChangeTrainingDays(trainingDays?.map((td, index) => (index === dayIndex
+        onChangeTrainingDays(editDaysInfo?.map((td, index) => (index === dayIndex
             ? {
                 ...td,
                 exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, reps } : ex)),
@@ -32,7 +34,7 @@ export const TrainingDays = (props : TrainingDaysProps) => {
     };
 
     const onChangeExerciseSets = (dayIndex: number, exIndex: number, sets: number) => {
-        onChangeTrainingDays(trainingDays?.map((td, index) => (index === dayIndex
+        onChangeTrainingDays(editDaysInfo?.map((td, index) => (index === dayIndex
             ? {
                 ...td,
                 exercises: td.exercises.map((ex, eIndex) => (eIndex === exIndex ? { ...ex, sets } : ex)),
@@ -42,7 +44,7 @@ export const TrainingDays = (props : TrainingDaysProps) => {
 
     const onDeleteExercise = (dayIndex: number, exIndex: number) => {
         onChangeTrainingDays(
-            trainingDays?.map((td, index) => (index === dayIndex
+            editDaysInfo?.map((td, index) => (index === dayIndex
                 ? {
                     ...td,
                     exercises: td.exercises.filter((_rs, eIndex) => eIndex !== exIndex),
@@ -52,19 +54,16 @@ export const TrainingDays = (props : TrainingDaysProps) => {
     };
 
     const onDeleteDay = (dayIndex: number) => {
-        onChangeTrainingDays(trainingDays?.filter((_, index) => (index !== dayIndex)));
+        onChangeTrainingDays(editDaysInfo?.filter((_, index) => (index !== dayIndex)));
     };
 
     const onAddTrainingDay = () => {
-        if (trainingDays && trainingDays.length < 7) {
-            const days = [...trainingDays, {
-                id: 100,
+        if (editDaysInfo && editDaysInfo.length < 7) {
+            const days = [...editDaysInfo, {
+                dayId: 100,
+                dayOfWeekId: 1,
                 name: '',
                 description: '',
-                day: {
-                    id: 1,
-                    name: '',
-                },
                 exercises: [],
             }];
             onChangeTrainingDays(days);
@@ -72,51 +71,55 @@ export const TrainingDays = (props : TrainingDaysProps) => {
     };
 
     const onChangeDayName = useCallback((dayName: string, dayId: number) => {
-        const days = trainingDays?.map((td) => {
-            if (td.id !== dayId) {
+        const days = editDaysInfo?.map((td) => {
+            if (td.dayId !== dayId) {
                 return td;
             }
-            // changed
             return {
                 ...td,
                 name: dayName,
             };
         });
+        
         onChangeTrainingDays(days);
-    }, [onChangeTrainingDays, trainingDays]);
+    }, [onChangeTrainingDays, editDaysInfo]);
 
-    console.log(trainingDays);
+    const onChangeDayOfWeek = useCallback((dayOfWeekId: number, dayId: number) => {
+        // const days = trainingDays?.map((td) => {
+        //     if (td.id !== dayId) {
+        //         return td;
+        //     }
+        //     // changed
+        //     return {
+        //         ...td,
+        //         name: dayName,
+        //     };
+        // });
+        // onChangeTrainingDays(days);
+        console.log(dayOfWeekId, "dayOfWeekId");
+        console.log(dayId, "dayId");
+    }, [onChangeTrainingDays, editDaysInfo]);
 
-    // const onChangeDayOfWeek = useCallback((dayOfWeekId: number, dayId: number) => {
-    //     const days = trainingDays?.map((td) => {
-    //         if (td.id !== dayId) {
-    //             return td;
-    //         }
-    //         // changed
-    //         return {
-    //             ...td,
-    //             name: dayName,
-    //         };
-    //     });
-    //     onChangeTrainingDays(days);
-    // }, [onChangeTrainingDays, trainingDays]);
-
-    const trainingDaysCards = trainingDays?.map((td, dayIndex) => (
+    const trainingDaysCards = editDaysInfo?.map((td, dayIndex) =>{ 
+        return (
         <EditableDayCard
-            selectedDayOfWeekId={td.day.id}
+            selectedDayOfWeekId={td.dayOfWeekId}
             daysOfWeek={daysOfWeek}
-            onChangeDayName={onChangeDayName}
             dayIndex={dayIndex}
             dayNumber={dayIndex + 1}
+            dayId={td.dayId}
+            dayName={td.name}
+            exercises={td.exercises ?? []}
+            key={td.dayId}
             onChangeExerciseReps={onChangeExerciseReps}
             onChangeExerciseSets={onChangeExerciseSets}
             onDeleteDay={onDeleteDay}
             onDeleteExercise={onDeleteExercise}
             onSelectExercise={onSelectExercise}
-            trainingDay={td}
-            key={td.id}
+            onChangeDayName={onChangeDayName}
+            onChangeDayOfWeek={onChangeDayOfWeek}
         />
-    ));
+    )});
 
     return (
         <section className={cls.programSection}>

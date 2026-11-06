@@ -6,15 +6,16 @@ import type { LoginErrors } from '@/features/LoginForm/model/types/loginSchema.t
 type UpdateDaysRequest = {
     programId: number | undefined;
     details: {
+        // Day of week id
         dayId: number;
         name: string;
-        description: string | undefined;
-        exercises: Array<{
+        description: string | null;
+        exercises: {
             exerciseId: number
             sets: number
             reps: number
             exerciseOrder: number
-        }>
+        }[]
     }[] | undefined
 }
 

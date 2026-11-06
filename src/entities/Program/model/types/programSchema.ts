@@ -58,7 +58,7 @@ export type DayOfWeek = {
 export type TrainingDay = {
     id: number
     name: string
-    description: string | undefined
+    description: string | null
     day: DayOfWeek,
     exercises: ExerciseDay[]
 }
@@ -72,7 +72,7 @@ export type ProgramDetails = {
     id: number
     name: string
     isPublic: boolean
-    description: string | undefined
+    description: string | null
     imageUrl: string | undefined
     createdAt: string
     followsCount: number

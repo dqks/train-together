@@ -6,7 +6,7 @@ import type { EditProgramErrorInfo } from '../../types/editProgramSchema';
 type UpdateProgramInfoBody = {
     id?: number | undefined
     name?: string
-    description?: string
+    description: string | null
     publicSetting?: 'true' | 'false',
     image: File | string | undefined
     closeModal?: () => void

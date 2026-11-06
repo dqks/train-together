@@ -16,6 +16,7 @@ interface DayHeaderProps {
     selectedDayOfWeekId: number | null
     onDeleteDay: (dayIndex: number) => void
     onChangeDayName: (name: string, dayId: number) => void
+    onChangeDayOfWeek: (dayOfWeekId: number, dayId: number) => void
 }
 
 const shortDayNames: Record<string, string> = {
@@ -38,6 +39,7 @@ export const DayHeader = (props : DayHeaderProps) => {
         selectedDayOfWeekId,
         onDeleteDay,
         onChangeDayName,
+        onChangeDayOfWeek,
     } = props;
 
     const changeNameHandler = useCallback((name: string) => {
@@ -45,6 +47,16 @@ export const DayHeader = (props : DayHeaderProps) => {
             onChangeDayName(name, dayId);
         }
     }, [dayId, onChangeDayName]);
+
+    const deleteDayHandler = useCallback(() => {
+        onDeleteDay(dayNumber - 1)
+    }, [dayNumber, onDeleteDay])
+
+    const changeDayOfWeekHandler = useCallback((id: string) => {
+        if (dayId) {
+            onChangeDayOfWeek(Number(id) , dayId)
+        }
+    }, [dayNumber, onDeleteDay])
 
     return (
         <div className={cls.dayHeader}>
@@ -54,9 +66,14 @@ export const DayHeader = (props : DayHeaderProps) => {
                 {/* </div> */}
                 <div className={cls.dayBadge}>
                     {/* <span className={cls.dayOfWeek}>{dayNumber}</span> */}
-                    <Select value={String(selectedDayOfWeekId)} theme="ghost" className={cls.dayOfWeek}>
+                    <Select 
+                        value={String(selectedDayOfWeekId)} 
+                        theme="ghost"
+                        className={cls.dayOfWeek}
+                        onChange={changeDayOfWeekHandler}
+                    >
                         {daysOfWeek?.map((day) => (
-                            <option value={day.id}>{shortDayNames[day.name]}</option>
+                            <option key={day.id} value={day.id}>{shortDayNames[day.name]}</option>
                         ))}
                     </Select>
                     <Input
@@ -72,7 +89,7 @@ export const DayHeader = (props : DayHeaderProps) => {
                 <Button theme={ThemeButton.GHOST} type="button">
                     <Show />
                 </Button>
-                <Button onClick={() => onDeleteDay(dayNumber - 1)} theme={ThemeButton.GHOST} type="button">
+                <Button onClick={deleteDayHandler} theme={ThemeButton.GHOST} type="button">
                     <TrashCan />
                 </Button>
             </div>
