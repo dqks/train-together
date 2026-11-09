@@ -3,6 +3,8 @@ import type { ExerciseDay } from '@/entities/Program';
 export type EditProgramErrorKeysInfo = 'name' | 'description' | 'image'
 export type EditProgramErrorInfo = Partial<Record<EditProgramErrorKeysInfo, string[]> | null> | undefined
 
+export type EditProgramErrorDays = Partial<Record<string, string[]>> | undefined
+
 export type EditDaysInfo = {
     dayId: number
     dayOfWeekId: number
@@ -19,17 +21,22 @@ export type ProgramMainInfo = {
     selectedDiffId: number | undefined
 }
 
+export type ExerciseSelection = {
+    selectedExerciseIds: ExerciseDay[]
+    selectedDayId: number | undefined
+}
+
 export interface EditProgramSchema {
     daysInfo: EditDaysInfo[] | undefined
     programMainInfo: ProgramMainInfo 
+    exerciseSelection: ExerciseSelection
     disableEdit: boolean
-    errorDays: Partial<Record<'status', string[]>> | undefined
+    errorDays: EditProgramErrorDays
     errorProgramInfo: EditProgramErrorInfo
     isLoadingDays: boolean
     isLoadingPrograms: boolean
     sendUpdateDays: boolean
     sendUpdateProgramInfo: boolean
-    selectedExerciseIds: number[]
-    saveError: boolean
+    savingResult: 'success' | 'error' | 'editing'
 }
 

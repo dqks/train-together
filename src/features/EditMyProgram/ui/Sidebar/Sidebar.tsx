@@ -16,13 +16,14 @@ interface SidebarProps {
     programDifficulties: Difficulty[] | undefined
     selectedProgramGoalId: number | undefined
     selectedProgramDifficultyId: number | undefined
+    errorStatus: string[] | undefined
     onCancel: () => void;
     onChangeIsPublic: (isPublic: boolean) => void;
     onChangeGoal: (id: string) => void;
     onChangeDiff: (id: string) => void;
     onSave: () => void;
     disableEdit: boolean | undefined;
-    saveError: boolean
+    savingResult: 'success' | 'error' | 'editing'
 }
 
 export const Sidebar = (props : SidebarProps) => {
@@ -37,7 +38,8 @@ export const Sidebar = (props : SidebarProps) => {
         selectedProgramDifficultyId,
         daysAmount,
         disableEdit,
-        saveError,
+        savingResult,
+        errorStatus,
         onSave,
         onCancel,
         onChangeIsPublic,
@@ -147,14 +149,22 @@ export const Sidebar = (props : SidebarProps) => {
                 </Button>
             </div>
             {
-                saveError
+                savingResult == "error"
                     ? (
-                        <ErrorMessage
-                            messages={t('Произошла ошибка при сохранении')}
-                            textSize={TextSize.BASE}
-                        />
+                        <>
+                            <ErrorMessage
+                                messages={t('Произошла ошибка при сохранении')}
+                                textSize={TextSize.BASE}
+                            />
+                            <ErrorMessage
+                                messages={errorStatus}
+                                textSize={TextSize.BASE}
+                            />
+                        </>
                     )
-                    : null
+                    : savingResult == "success" && (
+                        <p>Редактирование прошло успешно</p>
+                    )
             }
         </aside>
     );

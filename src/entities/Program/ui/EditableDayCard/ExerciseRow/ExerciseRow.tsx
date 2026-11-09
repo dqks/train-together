@@ -7,9 +7,11 @@ import ToDetails from '@/shared/assets/icons/to-details.svg?react';
 // import Burger from '@/shared/assets/icons/burger.svg?react';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
-import type { ExerciseLinkState } from '../../../../../features/EditMyProgram/model/types/editProgramSchema';
+import type { ExerciseLinkState } from '@/features/EditMyProgram';
+import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage';
 
 interface ExerciseRowProps {
+    error: Partial<Record<string, string[]>> | undefined
     exerciseName: string;
     exerciseNumber: number;
     sets: number;
@@ -35,6 +37,7 @@ export const ExerciseRow = (props : ExerciseRowProps) => {
         primaryMuscle,
         exerciseIndex,
         dayIndex,
+        error: errors,
         onChangeExerciseReps,
         onChangeExerciseSets,
         onDeleteExercise,
@@ -84,6 +87,14 @@ export const ExerciseRow = (props : ExerciseRowProps) => {
                         placeholder={t('Повторения')}
                     />
                 </div>
+                {
+                    errors && (
+                    <div>
+                        <ErrorMessage messages={errors[`details.${dayIndex}.exercises.${exerciseIndex}.reps`]} />
+                        <ErrorMessage messages={errors[`details.${dayIndex}.exercises.${exerciseIndex}.sets`]} />
+                    </div>
+                    )
+                }
             </div>
             <div className={cls.exerciseMuscleTag}>{t(primaryMuscle)}</div>
             <div className={cls.exerciseActions}>

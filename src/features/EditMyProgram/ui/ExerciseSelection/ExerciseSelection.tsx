@@ -11,6 +11,7 @@ import { fetchExerciseCards, getExerciseCards } from '@/entities/Exercise';
 import { getSelectedExerciseIds } from '../../model/selectors/editProgramSelectors.ts';
 import { editExerciseActions } from '@/features/EditExercise/model/slice/editExerciseSice';
 import { editProgramActions } from '../../model/slice/editProgramSlice';
+import type { ExerciseDay } from '@/entities/Program/index.ts';
 
 export type ExerciseSelectionExercise = {
     id: number;
@@ -66,10 +67,13 @@ export const ExerciseSelection = ({
     onAddExercise,
 }: ExerciseSelectionProps) => {
     const { t } = useTranslation();
-    const selectedExerciseIds = useSelector(getSelectedExerciseIds);
+    const selectedExercises = useSelector(getSelectedExerciseIds);
+    // В будущем хранить в entity adapter
     const exercises = useSelector(getExerciseCards);
     const dispatch = useDispatch();
 
+    console.log(selectedExercises);
+    
     useEffect(() => {
         if (!exercises) dispatch(fetchExerciseCards());
     }, [dispatch]);
@@ -86,7 +90,7 @@ export const ExerciseSelection = ({
         setSelectedIdsToStorage(selectedIds);
     }, [selectedIds]);
 
-    const selectedCount = selectedIds.length;
+    const selectedCount = selectedExercises?.length;
 
     const visibleExercises = useMemo(() => {
         const q = query.trim().toLowerCase();
@@ -101,15 +105,26 @@ export const ExerciseSelection = ({
     const allMuscles = useMemo(() => Array.from(new Set(exercises?.flatMap((e) => e.primaryMuscle))), [exercises]);
 
     const toggleSelected = (id: number | undefined) => {
-        if (!selectedExerciseIds || !id) {
+        if (!selectedExercises || !id) {
             return;
         }
 
-        if (selectedExerciseIds.includes(id)) {
-            dispatch(editProgramActions.setSelectedExerciseIds(selectedExerciseIds.filter((x) => x !== id)));
+        const exercise = {
+            sets: 1,
+            reps: 1,
+            exerciseOrder: 0,
+            exercise: exercises?.find(e => e.id == id)
+        } as ExerciseDay
+
+        if (selectedExercises.find(e => e.exercise.id == id)) {
+            dispatch(
+                editProgramActions
+                    .setSelectedExerciseIds(selectedExercises.filter((e) => e.exercise.id !== id)
+                )
+            );
             return;
         }
-        dispatch(editProgramActions.setSelectedExerciseIds([...selectedExerciseIds, id]));
+        dispatch(editProgramActions.setSelectedExerciseIds([...selectedExercises, exercise]));
     };
 
     const clearSelected = () => setSelectedIds([]);
@@ -238,12 +253,12 @@ export const ExerciseSelection = ({
             {/* Exercise Cards Grid */}
             <div className={cls.selectGrid}>
                 {exercises?.map((ex) => {
-                    const isSelected = selectedExerciseIds?.includes(ex.id);
+                    const isSelected = selectedExercises?.find(e => e.exercise.id == ex.id);
                     return (
                         <SelectableExerciseCard
                             key={ex.id}
                             toggleSelected={toggleSelected}
-                            isSelected={isSelected}
+                            isSelected={!!isSelected}
                             exercise={ex}
                         />
                     );

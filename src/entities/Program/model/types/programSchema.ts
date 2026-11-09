@@ -37,7 +37,7 @@ export type ProgramCard = {
 }
 
 export type ExerciseDay = {
-    id: number,
+    id?: number,
     sets: number,
     reps: number,
     exerciseOrder: number,

@@ -4,14 +4,16 @@ import cls from './TrainingDays.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { EditableDayCard } from '@/entities/Program';
 import type { DayOfWeek, TrainingDay } from '@/entities/Program/model/types/programSchema.ts';
-import type { EditDaysInfo } from '../../model/types/editProgramSchema';
+import type { EditDaysInfo, EditProgramErrorDays } from '../../model/types/editProgramSchema';
 
 interface TrainingDaysProps {
     editDaysInfo: EditDaysInfo[] | undefined
+    // TODO избавиться
     trainingDays: TrainingDay[] | undefined
     onChangeTrainingDays: (days: EditDaysInfo[] | undefined) => void
-    onSelectExercise: () => void
+    onSelectExercise: (dayId: number) => void
     daysOfWeek: DayOfWeek[] | null
+    errorDays: EditProgramErrorDays
 }
 
 export const TrainingDays = (props : TrainingDaysProps) => {
@@ -20,6 +22,7 @@ export const TrainingDays = (props : TrainingDaysProps) => {
         editDaysInfo,
         trainingDays,
         daysOfWeek,
+        errorDays,
         onChangeTrainingDays,
         onSelectExercise,
     } = props;
@@ -84,25 +87,24 @@ export const TrainingDays = (props : TrainingDaysProps) => {
         onChangeTrainingDays(days);
     }, [onChangeTrainingDays, editDaysInfo]);
 
-    const onChangeDayOfWeek = useCallback((dayOfWeekId: number, dayId: number) => {
-        // const days = trainingDays?.map((td) => {
-        //     if (td.id !== dayId) {
-        //         return td;
-        //     }
-        //     // changed
-        //     return {
-        //         ...td,
-        //         name: dayName,
-        //     };
-        // });
-        // onChangeTrainingDays(days);
-        console.log(dayOfWeekId, "dayOfWeekId");
-        console.log(dayId, "dayId");
+    const onChangeDayOfWeek = useCallback((dayOfWeekIdNew: number, dayId: number) => {
+        const days = editDaysInfo?.map((td) => {
+            if (td.dayId !== dayId) {
+                return td;
+            }
+            // changed
+            return {
+                ...td,
+                dayOfWeekId: dayOfWeekIdNew,
+            };
+        });
+        onChangeTrainingDays(days);
     }, [onChangeTrainingDays, editDaysInfo]);
 
     const trainingDaysCards = editDaysInfo?.map((td, dayIndex) =>{ 
         return (
         <EditableDayCard
+            errors={errorDays}
             selectedDayOfWeekId={td.dayOfWeekId}
             daysOfWeek={daysOfWeek}
             dayIndex={dayIndex}

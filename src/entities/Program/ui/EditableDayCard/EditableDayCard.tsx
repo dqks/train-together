@@ -5,9 +5,12 @@ import { DayHeader } from './DayHeader/DayHeader';
 import { ExerciseRow } from './ExerciseRow/ExerciseRow';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 import type { DayOfWeek, ExerciseDay } from '../../model/types/programSchema';
+import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage';
+import { useCallback } from 'react';
 
 interface DayCardProps {
-    // trainingDay: TrainingDay | undefined
+    // TODO возможно что-то придумать, т.е. тип равен EditProgramErrorDays
+    errors: Partial<Record<string, string[]>> | undefined
     dayId: number | undefined
     dayName: string | undefined
     exercises: ExerciseDay[]
@@ -20,7 +23,7 @@ interface DayCardProps {
     onChangeExerciseSets: (dayId: number, exId: number, sets: number) => void
     onDeleteExercise: (dayId: number, exId: number) => void
     onDeleteDay: (dayIndex: number) => void
-    onSelectExercise: () => void
+    onSelectExercise: (dayId: number) => void
     onChangeDayName: (name: string, dayId: number) => void
     onChangeDayOfWeek: (dayOfWeekId: number, dayId: number) => void
 }
@@ -28,7 +31,6 @@ interface DayCardProps {
 export const EditableDayCard = (props : DayCardProps) => {
     const { t } = useTranslation();
     const {
-        // trainingDay,
         className,
         dayIndex,
         dayNumber,
@@ -37,6 +39,7 @@ export const EditableDayCard = (props : DayCardProps) => {
         dayId,
         dayName,
         exercises,
+        errors,
         onChangeExerciseReps,
         onChangeExerciseSets,
         onDeleteDay,
@@ -45,6 +48,12 @@ export const EditableDayCard = (props : DayCardProps) => {
         onChangeDayName,
         onChangeDayOfWeek,
     } = props;
+
+    const selectExerciseHandler = useCallback(() => {
+        if (dayId) {
+            onSelectExercise(dayId)
+        }
+    }, [onSelectExercise])
 
     return (
         <div className={classNames(cls.trainingDayCard, {}, ['editable', className])}>
@@ -61,6 +70,7 @@ export const EditableDayCard = (props : DayCardProps) => {
             <div className={cls.dayExercises}>
                 {exercises.map((exercise, exerciseIndex) => (
                     <ExerciseRow
+                        error={errors}
                         key={exercise.id}
                         exerciseNumber={exerciseIndex + 1}
                         exerciseName={exercise.exercise.name}
@@ -80,7 +90,7 @@ export const EditableDayCard = (props : DayCardProps) => {
                     theme={ThemeButton.OUTLINE}
                     type="button"
                     className={cls.addExerciseBtn}
-                    onClick={onSelectExercise}
+                    onClick={selectExerciseHandler}
                 >
                     {t('+ Добавить упражнение')}
                 </Button>

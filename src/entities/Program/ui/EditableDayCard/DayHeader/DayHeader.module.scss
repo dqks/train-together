@@ -55,16 +55,6 @@
     color: var(--color-text-primary);
 }
 
-.dayNameInput:hover {
-    background: var(--color-bg-secondary);
-}
-
-.dayNameInput:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    background: var(--color-bg);
-}
-
 .dayHeaderActions {
     display: flex;
     gap: var(--spacing-xs);

@@ -14,6 +14,7 @@ import {
     getProgramDifficulties,
     getProgramGoals,
     getProgramIsLoading,
+    type ExerciseDay,
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
 import { ExerciseSelection } from './ExerciseSelection/ExerciseSelection.tsx';
@@ -28,12 +29,15 @@ import {
     getIsLoadingPrograms,
     getIsPublic,
     getName,
-    getSaveError,
+    getSavingResult,
     getSelectedDiffId,
     getSelectedGoalId,
     getSendUpdateDays,
     getSendUpdateProgramInfo,
     getDaysInfo,
+    getErrorDays,
+    getSelectedDayId,
+    getSelectedExerciseIds,
 } from '../model/selectors/editProgramSelectors.ts';
 import { updateProgramInfo } from '../model/services/updateProgram/updateProgramInfo.ts';
 import { updateDays } from '../model/services/updateDays/updateDays.ts';
@@ -73,8 +77,11 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const daysInfo = useSelector(getDaysInfo);
     const errorProgramInfo = useSelector(getErrorProgramInfo);
     const daysOfWeek = useSelector(getDaysOfWeek);
-    // const errorDays = useSelector(getErrorDays);
-    const saveError = useSelector(getSaveError);
+    const errorDays = useSelector(getErrorDays);
+    const savingResult = useSelector(getSavingResult);
+    const selectedDayId = useSelector(getSelectedDayId);
+    const selectedExercises = useSelector(getSelectedExerciseIds);
+
     const [image, setImage] = useState<File | string | undefined>(undefined);
     const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false);
 
@@ -203,11 +210,32 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
 
     const onAddExerciseToProgram = useCallback(() => {
         setIsAddingExercise(false);
-    }, []);
+        const exercises = daysInfo
+            ?.find(d => d.dayId == selectedDayId)
+            ?.exercises
 
-    const onSelectExercise = useCallback(() => {
+        if (exercises) {
+            let exerciseLastOrder = exercises?.length - 1
+            console.log(exerciseLastOrder);
+            
+            const days = daysInfo?.map(d => {
+                if (d.dayId != selectedDayId) {
+                    return d
+                }
+                return {
+                    ...d,
+                    exercises: [...d.exercises, selectedExercises],
+                } as EditDaysInfo
+            })
+            dispatch(editProgramActions.setTrainingDays(days))
+        }
+    }, [selectedDayId, dispatch]);
+
+    const onSelectExercise = useCallback((dayId: number) => {
+        dispatch(editProgramActions.setSelectedDayId(dayId))
         setIsAddingExercise(true);
-    }, []);
+    }, [dispatch]);
+    
 
     let EditMyProgramContent: ReactNode = (
         isAddingExercise
@@ -231,6 +259,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                                 description={description}
                             />
                             <TrainingDays
+                                errorDays={errorDays}
                                 trainingDays={programDetails?.days}
                                 daysOfWeek={daysOfWeek}
                                 onSelectExercise={onSelectExercise}
@@ -239,7 +268,8 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                             />
                         </div>
                         <Sidebar
-                            saveError={saveError || false}
+                            savingResult={savingResult}
+                            errorStatus={errorDays?.status}
                             disableEdit={disableEdit}
                             daysAmount={daysInfo?.length}
                             onChangeDiff={onChangeDiff}
@@ -258,7 +288,6 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                 </div>
             )
     );
-
     if (isLoading) {
         EditMyProgramContent = (<PageLoader />);
     }
