@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userActions } from '@/entities/User';
 import { USER_LOCAL_STORAGE_KEY } from '@/shared/const/userKey.ts';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
-import type { LoginErrors } from '@/features/LoginForm/model/types/loginSchema.ts';
+import type { LoginErrors } from '../../types/loginSchema.ts';
 
 type LoginData = {
     email: string

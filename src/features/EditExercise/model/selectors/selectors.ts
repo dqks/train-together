@@ -6,7 +6,7 @@ export const getEquipmentId = (state: StateSchema) => state.editExercise?.equipm
 
 export const getErrors = (state: StateSchema) => state.editExercise?.errors
 
-export const getImage = (state: StateSchema) => state.editExercise?.image
+export const getStatus = (state: StateSchema) => state.editExercise?.status
 
 export const getPrimaryMuscleId = (state: StateSchema) => state.editExercise?.primaryMuscleId 
 

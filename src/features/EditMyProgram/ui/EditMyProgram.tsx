@@ -1,5 +1,5 @@
 import {
-    type ReactNode, useCallback, useEffect, useMemo, useState,
+    type ReactNode, useCallback, useEffect, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from './EditMyProgram.module.scss';
@@ -14,7 +14,6 @@ import {
     getProgramDifficulties,
     getProgramGoals,
     getProgramIsLoading,
-    type ExerciseDay,
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
 import { ExerciseSelection } from './ExerciseSelection/ExerciseSelection.tsx';
@@ -227,7 +226,6 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                     exercises: [...d.exercises, ...exercsises],
                 } as EditDaysInfo
             })
-            console.log(days, "days");
             dispatch(editProgramActions.setTrainingDays(days))
             dispatch(editProgramActions.setSelectedExercises([]))
         }
@@ -261,7 +259,8 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                             />
                             <TrainingDays
                                 errorDays={errorDays}
-                                trainingDays={programDetails?.days}
+                                // trainingDays={programDetails?.days}
+                                disableAddDayButton={programDetails?.days ? programDetails?.days.length >= 7 : true}
                                 daysOfWeek={daysOfWeek}
                                 onSelectExercise={onSelectExercise}
                                 editDaysInfo={daysInfo}

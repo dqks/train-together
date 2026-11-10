@@ -126,7 +126,6 @@ export const Sidebar = (props : SidebarProps) => {
                     </div>
                     <div className={cls.statsPreviewItem}>
                         <span className={cls.statsPreviewLabel}>{t('Упражнений')}</span>
-                        {/* TODO */}
                         <span className={cls.statsPreviewValue}>{exerciseAmount}</span>
                     </div>
                 </div>

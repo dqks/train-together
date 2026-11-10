@@ -7,6 +7,8 @@ interface ConfirmModalProps {
     isOpen: boolean
     onOutsideClick: () => void
     callback: () => void
+    title?: string
+    text: string
 }
 
 export const ConfirmModal = (props: ConfirmModalProps) => {
@@ -14,17 +16,19 @@ export const ConfirmModal = (props: ConfirmModalProps) => {
 
     const {
         isOpen,
+        title = "Подтверждение",
+        text,
         onOutsideClick,
         callback,
     } = props;
 
     return (
         <Modal
-            modalTitle="Подтверждение"
+            modalTitle={title}
             onOutsideClick={onOutsideClick}
             isOpen={isOpen}
         >
-            <h2 className={cls.title}>{t('Вы уверены, что хотите удалить упражнение?')}</h2>
+            <h2 className={cls.title}>{t(text)}</h2>
             <div className={cls.buttonWrapper}>
                 <Button
                     onClick={callback}

@@ -56,16 +56,18 @@ const ExerciseDetailsPage = () => {
             {t('К списку упражнений')}
         </AppLink>
     );
-
-    if (state.programId && state.from === 'edit') {
-        returnLink = (
-            <AppLink className={cls.backLink} to={`${AuthRoutePath.program_details}${state.programId}/edit`}>
-                <LeftArrow className={cls.backLinkSvg} />
-                {t('Обратно к программе')}
-            </AppLink>
-        );
+    
+    if (state) {
+        if (state.programId && state.from === 'edit') {
+                returnLink = (
+                    <AppLink className={cls.backLink} to={`${AuthRoutePath.program_details}${state.programId}/edit`}>
+                        <LeftArrow className={cls.backLinkSvg} />
+                        {t('Обратно к программе')}
+                    </AppLink>
+                );
+            }
     }
-
+  
     return (
         <>
             {returnLink}

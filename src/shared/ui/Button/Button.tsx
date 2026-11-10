@@ -21,7 +21,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     children: ReactNode;
     theme?: ThemeButton;
-    type: ButtonType
+    type?: ButtonType
     disabled?: boolean
     isIcon?: boolean
     size?: SizeButton

@@ -1,15 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import cls from './TrainingDays.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { EditableDayCard } from '@/entities/Program';
-import type { DayOfWeek, TrainingDay } from '@/entities/Program/model/types/programSchema.ts';
+import type { DayOfWeek } from '@/entities/Program/model/types/programSchema.ts';
 import type { EditDaysInfo, EditProgramErrorDays } from '../../model/types/editProgramSchema';
 
 interface TrainingDaysProps {
     editDaysInfo: EditDaysInfo[] | undefined
-    // TODO избавиться
-    trainingDays: TrainingDay[] | undefined
+    disableAddDayButton: boolean
     onChangeTrainingDays: (days: EditDaysInfo[] | undefined) => void
     onSelectExercise: (dayId: number) => void
     daysOfWeek: DayOfWeek[] | null
@@ -20,9 +19,9 @@ export const TrainingDays = (props : TrainingDaysProps) => {
     const { t } = useTranslation();
     const {
         editDaysInfo,
-        trainingDays,
         daysOfWeek,
         errorDays,
+        disableAddDayButton,
         onChangeTrainingDays,
         onSelectExercise,
     } = props;
@@ -99,29 +98,46 @@ export const TrainingDays = (props : TrainingDaysProps) => {
             };
         });
         onChangeTrainingDays(days);
-    }, [onChangeTrainingDays, editDaysInfo]);
+    }, [onChangeTrainingDays, editDaysInfo])
+       
+    const daySort = useMemo(() => {
+        if (daysOfWeek) {
+            const sort : Record<number, number> = {}
+            for (const d of daysOfWeek) {
+                sort[d.id] = d.sortOrder
+            }
+            return sort
+        }
+    }, [daysOfWeek])    
 
-    const trainingDaysCards = editDaysInfo?.map((td, dayIndex) =>{ 
-        return (
-        <EditableDayCard
-            errors={errorDays}
-            selectedDayOfWeekId={td.dayOfWeekId}
-            daysOfWeek={daysOfWeek}
-            dayIndex={dayIndex}
-            dayNumber={dayIndex + 1}
-            dayId={td.dayId}
-            dayName={td.name}
-            exercises={td.exercises ?? []}
-            key={td.dayId}
-            onChangeExerciseReps={onChangeExerciseReps}
-            onChangeExerciseSets={onChangeExerciseSets}
-            onDeleteDay={onDeleteDay}
-            onDeleteExercise={onDeleteExercise}
-            onSelectExercise={onSelectExercise}
-            onChangeDayName={onChangeDayName}
-            onChangeDayOfWeek={onChangeDayOfWeek}
-        />
-    )});
+    if (!daySort) {
+        return null
+    }
+
+    const trainingDaysCards = editDaysInfo
+    ?  [...editDaysInfo]
+        ?.sort((t1, t2) => daySort[t1.dayOfWeekId] - daySort[t2.dayOfWeekId])
+        ?.map((td, dayIndex) =>{ 
+            return (
+            <EditableDayCard
+                errors={errorDays}
+                selectedDayOfWeekId={td.dayOfWeekId}
+                daysOfWeek={daysOfWeek}
+                dayIndex={dayIndex}
+                dayNumber={dayIndex + 1}
+                dayId={td.dayId}
+                dayName={td.name}
+                exercises={td.exercises ?? []}
+                key={td.dayId}
+                onChangeExerciseReps={onChangeExerciseReps}
+                onChangeExerciseSets={onChangeExerciseSets}
+                onDeleteDay={onDeleteDay}
+                onDeleteExercise={onDeleteExercise}
+                onSelectExercise={onSelectExercise}
+                onChangeDayName={onChangeDayName}
+                onChangeDayOfWeek={onChangeDayOfWeek}
+            />
+    )}) : null
 
     return (
         <section className={cls.programSection}>
@@ -129,9 +145,8 @@ export const TrainingDays = (props : TrainingDaysProps) => {
                 <h2 className={cls.sectionTitle}>{t('Дни тренировок')}</h2>
                 <Button
                     theme={ThemeButton.OUTLINE}
-                    type="button"
                     onClick={onAddTrainingDay}
-                    disabled={trainingDays ? trainingDays.length >= 7 : true}
+                    disabled={disableAddDayButton}
                 >
                     {t('Добавить день')}
                 </Button>

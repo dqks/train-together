@@ -1,11 +1,13 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { EditExerciseInit, EditExerciseSchema, ErrorObjectState } from "../types/editExerciseSchema"
+import { updateExerciseThunk } from "../services/updateExercise/updateExercise";
 
 const initialState: EditExerciseSchema = {
     name: "",
     equipmentId: "",
     errors: {},
     primaryMuscleId: "",
+    status: 'editing',
     secondaryMuscleIds: []
 }
 
@@ -31,9 +33,7 @@ export const editExerciseSlice = createSlice({
         },
         setSecondaryMuscleIds: (state, action: PayloadAction<string>) => {
             const id = action.payload
-
             const isChecked = state.secondaryMuscleIds.indexOf(id, 0);
-
             if (isChecked !== -1) {
                 state.secondaryMuscleIds.splice(isChecked, 1);
             } else {
@@ -44,9 +44,20 @@ export const editExerciseSlice = createSlice({
             state.errors = action.payload
         }
     },
-    // extraReducers(builder) {
-        // builder.addCase
-    // },
+    extraReducers(builder) {
+        builder
+            .addCase(updateExerciseThunk.pending, (state) => {
+                state.status = "loading"
+            })
+            .addCase(updateExerciseThunk.rejected, (state, action) => {
+                state.status = "editing"
+                state.errors = action.payload
+            })
+            .addCase(updateExerciseThunk.fulfilled, (state) => {
+                state.status = "success"
+                state.errors = undefined
+            })
+    },
 })
 
 export const { reducer: editExerciseReducer } = editExerciseSlice

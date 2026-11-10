@@ -22,6 +22,7 @@ import {
     getName,
     getPrimaryMuscleId,
     getSecondaryMusleIds,
+    getStatus,
 } from '../../model/selectors/selectors';
 import { editExerciseActions, editExerciseReducer } from '../../model/slice/editExerciseSice';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
@@ -43,6 +44,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
     const equipmentId = useSelector(getEquipmentId);
     const primaryMuscleId = useSelector(getPrimaryMuscleId);
     const secondaryMuscleIds = useSelector(getSecondaryMusleIds);
+    const status = useSelector(getStatus);
     const [image, setImage] = useState<File | string | undefined>(exerciseDetails?.image);
     const errors = useSelector(getErrors);
     const navigate = useNavigate();
@@ -74,8 +76,12 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
         dispatch(editExerciseActions.setPrimaryMuscleId(value));
     }, [dispatch]);
 
-    const onChangeImage = useCallback((file : File | undefined) => {
-        setImage(file);
+    const onChangeImage = useCallback((file : File | undefined | null) => {
+        if (file === null) {
+            dispatch(editExerciseActions.setErrors({image: ["Изображение должно быть не более 3 МБ"]}))
+        } else {
+            setImage(file);
+        }
     }, [setImage]);
 
     const onChangeSecondaryMuscle = useCallback((id : string) => {
@@ -83,7 +89,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
     }, [dispatch]);
 
     const onCancel = useCallback(() => {
-        navigate(AuthRoutePath.my_exercises);
+        navigate(`${AuthRoutePath.exercise_details}${exerciseDetails?.id}`);
     }, [navigate]);
 
     const onEdit = async () => {
@@ -169,6 +175,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
                         value={image}
                         onChangeImage={onChangeImage}
                     />
+                    <ErrorMessage messages={errors?.image} />
                 </Form.Group>
                 <div className={cls.buttonWrapper}>
                     <Button
@@ -181,11 +188,17 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
                     <Button
                         type="button"
                         onClick={onEdit}
+                        disabled={status === 'loading'}
                     >
                         <Save className={cls.saveIcon} />
                         {t('Сохранить')}
                     </Button>
                 </div>
+                {
+                    status === "success" && (
+                        <p className={cls.success}>Редактирование выполнено успешно</p>
+                    )
+                }
             </Form>
         </DynamicModuleLoader>
     );

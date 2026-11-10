@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import cls from './DayHeader.module.scss';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Show from '@/shared/assets/icons/show.svg?react';
@@ -7,7 +7,6 @@ import TrashCan from '@/shared/assets/icons/trash-can.svg?react';
 import { Input } from '@/shared/ui/Input/Input.tsx';
 import { Select } from '@/shared/ui/Select/Select.tsx';
 import type { DayOfWeek } from '@/entities/Program/model/types/programSchema.ts';
-import {classNames}  from '@/shared/lib/classNames/classNames';
 
 interface DayHeaderProps {
     dayNumber: number;

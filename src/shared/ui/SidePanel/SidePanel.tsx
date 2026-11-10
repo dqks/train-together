@@ -24,7 +24,6 @@ export const SidePanel = (props : SidePanelProps) => {
     } = props;
     const { componentRef } = useOutsideClick(onOutsideClick, isOpen);
 
-    // TODO порешать, убрав isOpen, но в таком случае пропсы замыкаются
     return isOpen && (
         <Portal>
             <div
