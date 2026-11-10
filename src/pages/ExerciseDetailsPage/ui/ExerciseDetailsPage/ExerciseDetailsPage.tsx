@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import {
     fetchExerciseDetails,
     getExerciseDetails,
-    getExerciseErrors,
-    getExerciseIsLoading,
+    getExerciseDetailsError,
+    getExerciseDetailsIsLoading,
 } from '@/entities/Exercise';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { getUserId } from '@/entities/User';
@@ -29,9 +29,9 @@ const ExerciseDetailsPage = () => {
     const dispatch = useDispatch();
 
     const exerciseDetails = useSelector(getExerciseDetails);
-    const isLoading = useSelector(getExerciseIsLoading);
+    const isLoading = useSelector(getExerciseDetailsIsLoading);
     const userId = useSelector(getUserId);
-    const errors = useSelector(getExerciseErrors);
+    const errors = useSelector(getExerciseDetailsError);
     const isOwner = userId === exerciseDetails?.userId;
     const params = useParams();
 

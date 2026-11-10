@@ -11,8 +11,8 @@ import { EditExercise } from '@/features/EditExercise';
 import {
     fetchExerciseDetails,
     getExerciseDetails,
-    getExerciseErrors,
-    getExerciseIsLoading,
+    getExerciseDetailsError,
+    getExerciseDetailsIsLoading,
 } from '@/entities/Exercise';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
@@ -23,8 +23,8 @@ export const EditExercisePage = () => {
     const dispatch = useDispatch();
     const userId = useSelector(getUserId);
     const exerciseDetails = useSelector(getExerciseDetails);
-    const isLoading = useSelector(getExerciseIsLoading);
-    const errors = useSelector(getExerciseErrors);
+    const isLoading = useSelector(getExerciseDetailsIsLoading);
+    const errors = useSelector(getExerciseDetailsError);
     const params = useParams();
 
     useEffect(() => {

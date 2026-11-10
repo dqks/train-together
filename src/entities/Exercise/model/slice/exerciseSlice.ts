@@ -1,23 +1,30 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Exercise, ExerciseSchema } from '../types/exerciseSchema.ts';
 import { fetchExerciseCards } from '../services/fetchExerciseCards/fetchExerciseCards.ts';
-import { fetchExerciseDetails } from '../services/fetchExerciseDetails/fetchExerciseDetails.ts';
-import { fetchMyExercises } from '@/entities/Exercise/model/services/fecthMyExercises/fecthMyExercises.ts';
+import type { StateSchema } from '@/app/providers/StoreProvider/index.ts';
 
-const initialState: ExerciseSchema = {
-    exercises: undefined,
-    exerciseDetails: null,
-    myExercises: undefined,
-    error: undefined,
-    isLoading: false,
-};
+const exercisesAdapter = createEntityAdapter<Exercise>({
+    selectId: (e: Exercise) => e.id
+})
+
+export const {
+  selectAll: getAllExercises,
+  selectById: getExerciseById,
+  selectTotal: getTotalExercises,
+} = exercisesAdapter.getSelectors((state: StateSchema) => state.exercise);
 
 export const exerciseSlice = createSlice({
     name: 'exercise',
-    initialState,
+    initialState: exercisesAdapter.getInitialState<ExerciseSchema>({
+            error: undefined,
+            isLoading: false,
+            ids: [],
+            entities: {},
+        }
+    ),
     reducers: {
         setExerciseCards: (state, action: PayloadAction<Exercise[]>) => {
-            state.exercises = action.payload;
+            exercisesAdapter.setAll(state, action.payload);
         },
     },
     extraReducers: (builder) => {
@@ -28,36 +35,12 @@ export const exerciseSlice = createSlice({
             })
             .addCase(fetchExerciseCards.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.exercises = action.payload;
+                exercisesAdapter.setAll(state, action.payload);
             })
             .addCase(fetchExerciseCards.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })
-            .addCase(fetchExerciseDetails.pending, (state) => {
-                state.error = undefined;
-                state.isLoading = true;
-            })
-            .addCase(fetchExerciseDetails.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.exerciseDetails = action.payload;
-            })
-            .addCase(fetchExerciseDetails.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-            })
-            .addCase(fetchMyExercises.pending, (state) => {
-                state.error = undefined;
-                state.isLoading = true;
-            })
-            .addCase(fetchMyExercises.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.myExercises = action.payload;
-            })
-            .addCase(fetchMyExercises.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-            });
     },
 });
 

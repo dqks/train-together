@@ -7,7 +7,7 @@ type ResponseType = {
 }
 
 export const fetchExerciseDetails = createAsyncThunk<ExerciseDetails, number, ThunkConfig<ExerciseError>>(
-    'exercise/fetchExerciseDetails',
+    'exerciseDetails/fetchExerciseDetails',
     async (id, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
 

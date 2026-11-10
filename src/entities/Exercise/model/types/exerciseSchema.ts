@@ -1,5 +1,6 @@
 import type { Muscle } from '@/entities/Muscle/model/types/muscleSchema.ts';
 import type { Equipment } from '@/entities/Equipment/model/types/equipmentSchema.ts';
+import type { EntityState } from '@reduxjs/toolkit';
 
 export type Exercise = {
     id: number,
@@ -29,10 +30,20 @@ export type ExerciseDetails = {
 
 export type ExerciseError = Record<string, string[]>
 
-export interface ExerciseSchema {
-    exercises: Exercise[] | undefined
-    exerciseDetails: ExerciseDetails | null,
+export interface ExerciseSchema extends EntityState<Exercise> {
+    isLoading: boolean
+    error: ExerciseError | undefined
+}
+
+export interface MyExerciseSchema {
     myExercises: Exercise[] | undefined,
     isLoading: boolean
     error: ExerciseError | undefined
 }
+
+export interface ExerciseDetailsSchema {
+    exerciseDetails: ExerciseDetails | null,
+    isLoading: boolean
+    error: ExerciseError | undefined
+}
+

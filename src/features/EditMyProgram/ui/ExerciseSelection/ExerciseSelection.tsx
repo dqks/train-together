@@ -7,7 +7,7 @@ import { SearchInput } from '@/shared/ui/SearchInput/SearchInput.tsx';
 import {
     SelectableExerciseCard,
 } from '@/features/EditMyProgram/ui/ExerciseSelection/SelectableExerciseCard/SelectableExerciseCard.tsx';
-import { fetchExerciseCards, getExerciseCards } from '@/entities/Exercise';
+import { fetchExerciseCards, getAllExercises } from '@/entities/Exercise';
 import { getSearch, getSelectedEquipmentId, getSelectedExercises, getSelectedPrimaryMuscleId } from '../../model/selectors/editProgramSelectors.ts';
 import { editProgramActions } from '../../model/slice/editProgramSlice';
 import type { ExerciseDay } from '@/entities/Program/index.ts';
@@ -32,19 +32,21 @@ export const ExerciseSelection = ({
 }: ExerciseSelectionProps) => {
     const { t } = useTranslation();
     const selectedExercises = useSelector(getSelectedExercises);
-    // В будущем хранить в entity adapter TODO
-    const exercises = useSelector(getExerciseCards);
+    const exercises = useSelector(getAllExercises);
     const search = useSelector(getSearch);
     const selectedEquipmentId = useSelector(getSelectedEquipmentId);
     const selectedPrimaryMuscleId = useSelector(getSelectedPrimaryMuscleId);
     const dispatch = useDispatch();
+
+    console.log(exercises);
+    
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
     useEffect(() => {
-        if (!exercises) dispatch(fetchExerciseCards());
+        if (!exercises || !exercises.length) dispatch(fetchExerciseCards());
     }, [dispatch]);
 
     const selectedCount = selectedExercises?.length;

@@ -1,31 +1,38 @@
 import { ExerciseCard } from './ui/ExerciseCard/ExerciseCard.tsx';
 import { ExerciseInProgram } from './ui/ExerciseInProgram/ExerciseInProgram.tsx';
 import type {
-    ExerciseSchema, ExerciseDetails, ListItem, Exercise,
+    ExerciseSchema, ExerciseDetails, ListItem, Exercise, ExerciseDetailsSchema, MyExerciseSchema
 } from './model/types/exerciseSchema.ts';
 import { exerciseReducer, exerciseActions } from './model/slice/exerciseSlice.ts';
-import { getExerciseCards } from './model/selectors/getExerciseCards/getExerciseCards.ts';
-import {
-    getExerciseIsLoading,
-} from './model/selectors/getExerciseIsLoading/getExerciseIsLoading.ts';
-import {
-    getExerciseDetails,
-} from './model/selectors/getExerciseDetails/getExerciseDetails.ts';
+import { exerciseDetailsReducer, exerciseDetailsActions } from './model/slice/exerciseDetailsSlice.ts';
+import { myExerciseReducer, myExerciseActions } from './model/slice/myExercisesSlice.ts';
 import { fetchExerciseDetails } from './model/services/fetchExerciseDetails/fetchExerciseDetails.ts';
 import { fetchExerciseCards } from './model/services/fetchExerciseCards/fetchExerciseCards.ts';
-import { getExerciseErrors } from './model/selectors/getExerciseErrors/getExerciseErrors.ts';
+
+export {
+    getExerciseDetailsError,
+    getExerciseDetailsIsLoading,
+    getExerciseError,
+    getExerciseIsLoading,
+    getExerciseDetails,
+    getMyExerciseError,
+    getMyExerciseIsLoading,
+    getMyExercises
+} from "./model/selectors/exerciseSelectors.ts" 
+
+export { getAllExercises, getTotalExercises, getExerciseById } from "./model/slice/exerciseSlice.ts"
 
 export {
     ExerciseCard,
     ExerciseInProgram,
     exerciseReducer,
     exerciseActions,
-    getExerciseCards,
-    getExerciseIsLoading,
     fetchExerciseDetails,
-    getExerciseDetails,
     fetchExerciseCards,
-    getExerciseErrors,
+    exerciseDetailsActions,
+    exerciseDetailsReducer,
+    myExerciseActions,
+    myExerciseReducer,
 };
 
 export type {
@@ -33,4 +40,6 @@ export type {
     ExerciseDetails,
     ListItem,
     Exercise,
+    ExerciseDetailsSchema,
+    MyExerciseSchema
 };

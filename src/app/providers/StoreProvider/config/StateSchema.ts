@@ -3,7 +3,7 @@ import type {
 } from '@reduxjs/toolkit';
 import type { AxiosInstance } from 'axios';
 import type { UserSchema } from '@/entities/User/model/types/userSchema.ts';
-import type { ExerciseSchema } from '@/entities/Exercise';
+import type { ExerciseDetailsSchema, ExerciseSchema, MyExerciseSchema } from '@/entities/Exercise';
 import type { RegisterSchema } from '@/features/RegisterForm';
 import type { LoginSchema } from '@/features/LoginForm';
 import type { CreateProgramSchema } from '@/features/AddMyProgram';
@@ -25,6 +25,8 @@ export interface StateSchema {
     equipment: EquipmentSchema
     exerciseType: ExerciseTypeSchema
     exerciseProgression: ExerciseProgressionSchema
+    myExercise: MyExerciseSchema
+    exerciseDetails: ExerciseDetailsSchema
     //async
     login?: LoginSchema
     profile?: ProfileSchema

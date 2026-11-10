@@ -1,7 +1,7 @@
 import { configureStore, type CombinedState, type Reducer, type ReducersMapObject } from '@reduxjs/toolkit';
 import type { StateSchema, ThunkExtraArg } from './StateSchema';
 import { userReducer } from '@/entities/User';
-import { exerciseReducer } from '@/entities/Exercise';
+import { exerciseDetailsReducer, exerciseReducer, myExerciseReducer } from '@/entities/Exercise';
 import { muscleReducer } from '@/entities/Muscle';
 import { equipmentReducer } from '@/entities/Equipment';
 import { $api } from '@/shared/api/api.ts';
@@ -24,6 +24,8 @@ export function createReduxStore(
         equipment: equipmentReducer,
         exerciseType: exerciseTypeReducer,
         exerciseProgression: exerciseProgressionReducer,
+        myExercise: myExerciseReducer,
+        exerciseDetails: exerciseDetailsReducer
     };
 
     const reducerManager = createReducerManager(rootReducer);

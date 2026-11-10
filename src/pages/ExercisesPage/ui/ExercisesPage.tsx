@@ -6,12 +6,13 @@ import cls from './ExercisesPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ExerciseCardList } from '@/widgets/ExerciseCardList';
 import { ExercisesControl } from '@/widgets/ExercisesControl';
-import { fetchExerciseCards, getExerciseCards, getExerciseIsLoading } from '@/entities/Exercise';
+import { fetchExerciseCards, getExerciseIsLoading } from '@/entities/Exercise';
 import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
+import { getAllExercises } from '@/entities/Exercise/model/slice/exerciseSlice';
 
 const ExercisesPage = () => {
     const { t } = useTranslation();
-    const exerciseCards = useSelector(getExerciseCards);
+    const exerciseCards = useSelector(getAllExercises);
     const dispatch = useDispatch();
     const isLoading = useSelector(getExerciseIsLoading);
     const [searchParams] = useSearchParams();
