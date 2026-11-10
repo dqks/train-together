@@ -37,7 +37,7 @@ import {
     getDaysInfo,
     getErrorDays,
     getSelectedDayId,
-    getSelectedExerciseIds,
+    getSelectedExercises,
 } from '../model/selectors/editProgramSelectors.ts';
 import { updateProgramInfo } from '../model/services/updateProgram/updateProgramInfo.ts';
 import { updateDays } from '../model/services/updateDays/updateDays.ts';
@@ -80,7 +80,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const errorDays = useSelector(getErrorDays);
     const savingResult = useSelector(getSavingResult);
     const selectedDayId = useSelector(getSelectedDayId);
-    const selectedExercises = useSelector(getSelectedExerciseIds);
+    const selectedExercises = useSelector(getSelectedExercises);
 
     const [image, setImage] = useState<File | string | undefined>(undefined);
     const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false);
@@ -215,21 +215,22 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
             ?.exercises
 
         if (exercises) {
-            let exerciseLastOrder = exercises?.length - 1
-            console.log(exerciseLastOrder);
-            
             const days = daysInfo?.map(d => {
                 if (d.dayId != selectedDayId) {
                     return d
                 }
+                let exerciseLastOrder = exercises?.length - 1            
+                const exercsises = selectedExercises.map(e => ({...e, exerciseOrder: ++exerciseLastOrder}))
                 return {
                     ...d,
-                    exercises: [...d.exercises, selectedExercises],
+                    exercises: [...d.exercises, ...exercsises],
                 } as EditDaysInfo
             })
+            console.log(days, "days");
             dispatch(editProgramActions.setTrainingDays(days))
+            dispatch(editProgramActions.setSelectedExercises([]))
         }
-    }, [selectedDayId, dispatch]);
+    }, [selectedDayId, dispatch, selectedExercises]);
 
     const onSelectExercise = useCallback((dayId: number) => {
         dispatch(editProgramActions.setSelectedDayId(dayId))

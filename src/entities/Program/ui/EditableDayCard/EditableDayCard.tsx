@@ -5,8 +5,8 @@ import { DayHeader } from './DayHeader/DayHeader';
 import { ExerciseRow } from './ExerciseRow/ExerciseRow';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 import type { DayOfWeek, ExerciseDay } from '../../model/types/programSchema';
-import { ErrorMessage } from '@/shared/ui/ErrorMessage/ErrorMessage';
 import { useCallback } from 'react';
+import { nanoid } from 'nanoid';
 
 interface DayCardProps {
     // TODO возможно что-то придумать, т.е. тип равен EditProgramErrorDays
@@ -55,6 +55,9 @@ export const EditableDayCard = (props : DayCardProps) => {
         }
     }, [onSelectExercise])
 
+    console.log(exercises);
+    
+
     return (
         <div className={classNames(cls.trainingDayCard, {}, ['editable', className])}>
             <DayHeader
@@ -71,7 +74,7 @@ export const EditableDayCard = (props : DayCardProps) => {
                 {exercises.map((exercise, exerciseIndex) => (
                     <ExerciseRow
                         error={errors}
-                        key={exercise.id}
+                        key={nanoid()}
                         exerciseNumber={exerciseIndex + 1}
                         exerciseName={exercise.exercise.name}
                         reps={exercise.reps}

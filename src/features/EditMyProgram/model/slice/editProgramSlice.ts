@@ -15,7 +15,7 @@ const initialState: EditProgramSchema = {
         selectedDiffId: 0
     },
     exerciseSelection: {
-        selectedExerciseIds: [],
+        selectedExercises: [],
         selectedDayId: undefined
     },
     disableEdit: true,
@@ -86,8 +86,8 @@ export const programsSlice = createSlice({
         setSendUpdateProgramInfo: (state, action: PayloadAction<boolean>) => {
             state.sendUpdateProgramInfo = action.payload;
         },
-        setSelectedExerciseIds: (state, action: PayloadAction<ExerciseDay[]>) => {
-            state.exerciseSelection.selectedExerciseIds = action.payload;
+        setSelectedExercises: (state, action: PayloadAction<ExerciseDay[]>) => {
+            state.exerciseSelection.selectedExercises = action.payload;
         },
         setErrorProgramInfo: (state, action: PayloadAction<EditProgramErrorInfo>) => {
             state.errorProgramInfo = action.payload;

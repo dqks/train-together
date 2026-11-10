@@ -8,7 +8,7 @@ import {
     SelectableExerciseCard,
 } from '@/features/EditMyProgram/ui/ExerciseSelection/SelectableExerciseCard/SelectableExerciseCard.tsx';
 import { fetchExerciseCards, getExerciseCards } from '@/entities/Exercise';
-import { getSelectedExerciseIds } from '../../model/selectors/editProgramSelectors.ts';
+import { getSelectedExercises } from '../../model/selectors/editProgramSelectors.ts';
 import { editExerciseActions } from '@/features/EditExercise/model/slice/editExerciseSice';
 import { editProgramActions } from '../../model/slice/editProgramSlice';
 import type { ExerciseDay } from '@/entities/Program/index.ts';
@@ -67,13 +67,11 @@ export const ExerciseSelection = ({
     onAddExercise,
 }: ExerciseSelectionProps) => {
     const { t } = useTranslation();
-    const selectedExercises = useSelector(getSelectedExerciseIds);
+    const selectedExercises = useSelector(getSelectedExercises);
     // В будущем хранить в entity adapter
     const exercises = useSelector(getExerciseCards);
     const dispatch = useDispatch();
 
-    console.log(selectedExercises);
-    
     useEffect(() => {
         if (!exercises) dispatch(fetchExerciseCards());
     }, [dispatch]);
@@ -119,12 +117,12 @@ export const ExerciseSelection = ({
         if (selectedExercises.find(e => e.exercise.id == id)) {
             dispatch(
                 editProgramActions
-                    .setSelectedExerciseIds(selectedExercises.filter((e) => e.exercise.id !== id)
+                    .setSelectedExercises(selectedExercises.filter((e) => e.exercise.id !== id)
                 )
             );
             return;
         }
-        dispatch(editProgramActions.setSelectedExerciseIds([...selectedExercises, exercise]));
+        dispatch(editProgramActions.setSelectedExercises([...selectedExercises, exercise]));
     };
 
     const clearSelected = () => setSelectedIds([]);

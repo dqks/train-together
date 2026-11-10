@@ -13,6 +13,6 @@ export const getIsLoadingPrograms = (state: StateSchema) => state.editProgram?.i
 export const getIsLoadingDays = (state: StateSchema) => state.editProgram?.isLoadingDays;
 export const getErrorProgramInfo = (state: StateSchema) => state.editProgram?.errorProgramInfo;
 export const getErrorDays = (state: StateSchema) => state.editProgram?.errorDays;
-export const getSelectedExerciseIds = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedExerciseIds;
+export const getSelectedExercises = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedExercises || [];
 export const getSavingResult = (state: StateSchema) => state.editProgram?.savingResult || 'editing';
 export const getSelectedDayId = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedDayId;

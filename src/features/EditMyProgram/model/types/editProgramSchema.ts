@@ -22,7 +22,7 @@ export type ProgramMainInfo = {
 }
 
 export type ExerciseSelection = {
-    selectedExerciseIds: ExerciseDay[]
+    selectedExercises: ExerciseDay[]
     selectedDayId: number | undefined
 }
 
