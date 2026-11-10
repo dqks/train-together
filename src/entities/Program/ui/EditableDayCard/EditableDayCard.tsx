@@ -55,9 +55,6 @@ export const EditableDayCard = (props : DayCardProps) => {
         }
     }, [onSelectExercise])
 
-    console.log(exercises);
-    
-
     return (
         <div className={classNames(cls.trainingDayCard, {}, ['editable', className])}>
             <DayHeader

@@ -11,7 +11,7 @@ interface SidebarProps {
     isPublic: boolean | undefined;
     isLoading: boolean
     daysAmount: number | undefined;
-    // exerciseAmount: number;
+    exerciseAmount: number | undefined;
     programGoals: Goal[] | undefined
     programDifficulties: Difficulty[] | undefined
     selectedProgramGoalId: number | undefined
@@ -40,6 +40,7 @@ export const Sidebar = (props : SidebarProps) => {
         disableEdit,
         savingResult,
         errorStatus,
+        exerciseAmount,
         onSave,
         onCancel,
         onChangeIsPublic,
@@ -126,7 +127,7 @@ export const Sidebar = (props : SidebarProps) => {
                     <div className={cls.statsPreviewItem}>
                         <span className={cls.statsPreviewLabel}>{t('Упражнений')}</span>
                         {/* TODO */}
-                        <span className={cls.statsPreviewValue}>2</span>
+                        <span className={cls.statsPreviewValue}>{exerciseAmount}</span>
                     </div>
                 </div>
             </div>

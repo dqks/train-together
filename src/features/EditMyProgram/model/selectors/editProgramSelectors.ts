@@ -1,4 +1,5 @@
 import type { StateSchema } from '@/app/providers/StoreProvider';
+import { createSelector } from '@reduxjs/toolkit';
 
 export const getName = (state: StateSchema) => state.editProgram?.programMainInfo.name;
 export const getDescription = (state: StateSchema) => state.editProgram?.programMainInfo.description || null;
@@ -16,3 +17,10 @@ export const getErrorDays = (state: StateSchema) => state.editProgram?.errorDays
 export const getSelectedExercises = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedExercises || [];
 export const getSavingResult = (state: StateSchema) => state.editProgram?.savingResult || 'editing';
 export const getSelectedDayId = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedDayId;
+export const getSearch = (state: StateSchema) => state.editProgram?.exerciseSelection.search;
+export const getSelectedEquipmentId = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedEquipmentId;
+export const getSelectedPrimaryMuscleId = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedPrimaryMuscleId;
+
+export const getExercisesAmount = createSelector(getDaysInfo, (daysInfo) => {     
+     return daysInfo?.reduce((acc, d) => acc + d.exercises.length, 0)
+})

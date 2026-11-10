@@ -24,6 +24,9 @@ export type ProgramMainInfo = {
 export type ExerciseSelection = {
     selectedExercises: ExerciseDay[]
     selectedDayId: number | undefined
+    search: string
+    selectedEquipmentId: string
+    selectedPrimaryMuscleId: string
 }
 
 export interface EditProgramSchema {

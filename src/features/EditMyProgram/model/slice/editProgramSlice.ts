@@ -16,7 +16,10 @@ const initialState: EditProgramSchema = {
     },
     exerciseSelection: {
         selectedExercises: [],
-        selectedDayId: undefined
+        selectedDayId: undefined,
+        search: "",
+        selectedEquipmentId: "",
+        selectedPrimaryMuscleId: "",
     },
     disableEdit: true,
     errorDays: undefined,
@@ -94,6 +97,15 @@ export const programsSlice = createSlice({
         },
         setSelectedDayId: (state, action: PayloadAction<number>) => {
             state.exerciseSelection.selectedDayId = action.payload;
+        },
+        setSearch: (state, action: PayloadAction<string>) => {
+            state.exerciseSelection.search = action.payload;
+        },
+        setSelectedPrimaryMuscleId: (state, action: PayloadAction<string>) => {
+            state.exerciseSelection.selectedPrimaryMuscleId = action.payload;
+        },
+        setSelectedEquipmentId: (state, action: PayloadAction<string>) => {
+            state.exerciseSelection.selectedEquipmentId = action.payload;
         },
     },
     extraReducers: (builder) => {

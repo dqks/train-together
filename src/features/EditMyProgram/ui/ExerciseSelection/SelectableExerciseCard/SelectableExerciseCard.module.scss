@@ -77,12 +77,3 @@
     gap: var(--spacing-xs);
     flex-wrap: wrap;
 }
-
-.tag {
-    font-size: var(--font-size-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--radius-lg);
-    background: var(--color-bg-secondary);
-    color: var(--color-text-secondary);
-    border: 1px solid var(--color-border-light);
-}

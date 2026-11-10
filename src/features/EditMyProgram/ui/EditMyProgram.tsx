@@ -1,5 +1,5 @@
 import {
-    type ReactNode, useCallback, useEffect, useState,
+    type ReactNode, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cls from './EditMyProgram.module.scss';
@@ -38,6 +38,7 @@ import {
     getErrorDays,
     getSelectedDayId,
     getSelectedExercises,
+    getExercisesAmount,
 } from '../model/selectors/editProgramSelectors.ts';
 import { updateProgramInfo } from '../model/services/updateProgram/updateProgramInfo.ts';
 import { updateDays } from '../model/services/updateDays/updateDays.ts';
@@ -81,6 +82,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const savingResult = useSelector(getSavingResult);
     const selectedDayId = useSelector(getSelectedDayId);
     const selectedExercises = useSelector(getSelectedExercises);
+    const exerciseAmount = useSelector(getExercisesAmount)
 
     const [image, setImage] = useState<File | string | undefined>(undefined);
     const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false);
@@ -206,7 +208,8 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
 
     const onBack = useCallback(() => {
         setIsAddingExercise(false);
-    }, []);
+        dispatch(editProgramActions.setSelectedExercises([]))
+    }, [dispatch]);
 
     const onAddExerciseToProgram = useCallback(() => {
         setIsAddingExercise(false);
@@ -236,7 +239,6 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         dispatch(editProgramActions.setSelectedDayId(dayId))
         setIsAddingExercise(true);
     }, [dispatch]);
-    
 
     let EditMyProgramContent: ReactNode = (
         isAddingExercise
@@ -269,6 +271,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                             />
                         </div>
                         <Sidebar
+                            exerciseAmount={exerciseAmount}
                             savingResult={savingResult}
                             errorStatus={errorDays?.status}
                             disableEdit={disableEdit}

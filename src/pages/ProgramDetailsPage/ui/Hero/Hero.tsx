@@ -6,7 +6,6 @@ import Edit from '@/shared/assets/icons/edit.svg?react';
 import userPicture from '@/shared/assets/images/userPicture.jpg';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { BackLink } from '@/shared/ui/BackLink/BackLink.tsx';
-import { AppLink } from '@/shared/ui/AppLink/AppLink.tsx';
 
 interface HeroProps {
     className?: string;
@@ -30,7 +29,6 @@ export const Hero = (props: HeroProps) => {
         formattedDate,
         authorImage,
         isOwner,
-        programId,
         onEditButtonClick,
     } = props;
 

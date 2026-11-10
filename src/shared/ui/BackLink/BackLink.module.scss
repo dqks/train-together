@@ -6,6 +6,7 @@
     color: rgb(255 255 255 / 80%);
     margin-bottom: var(--spacing-lg);
     transition: color var(--transition-fast);
+    width: max-content;
 }
 
 .backLink:hover {
