@@ -16,14 +16,9 @@ export const StoreProvider = (props : StoreProviderProps) => {
         initialState,
         asyncReducers,
     } = props;
-
-    // TODO: починить, когда внутри санки понадобится редирект, т.к. пока что вызывает на каждом ререндере пересоздание стора
-    // const navigate = useNavigate();
-
     const store = createReduxStore(
         initialState as StateSchema,
         asyncReducers as ReducersMapObject<StateSchema>,
-        // navigate,
     );
 
     return (

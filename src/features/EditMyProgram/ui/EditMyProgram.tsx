@@ -23,7 +23,6 @@ import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader.tsx';
 import {
     getDescription,
-    getDisableEdit,
     getErrorProgramInfo,
     getIsLoadingDays,
     getIsLoadingPrograms,
@@ -65,7 +64,6 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const userId = useSelector(getUserId);
     const sendUpdateDays = useSelector(getSendUpdateDays);
     const sendUpdateProgramInfo = useSelector(getSendUpdateProgramInfo);
-    const disableEdit = useSelector(getDisableEdit);
     const programDetails = useSelector(getProgramDetails);
     const isLoading = useSelector(getProgramIsLoading);
     const isLoadingPrograms = useSelector(getIsLoadingPrograms);
@@ -274,7 +272,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                             exerciseAmount={exerciseAmount}
                             savingResult={savingResult}
                             errorStatus={errorDays?.status}
-                            disableEdit={disableEdit}
+                            disableEdit={!sendUpdateDays && !sendUpdateProgramInfo}
                             daysAmount={daysInfo?.length}
                             onChangeDiff={onChangeDiff}
                             onChangeGoal={onChangeGoal}

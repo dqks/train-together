@@ -7,39 +7,51 @@ interface ProfileTabsProps {
     className?: string;
 }
 
-// TODO вынести в отдельный объект и мапить объект
+type Tab = {
+    name: string
+    search: string
+    content: string
+}
+
+const tabs : Tab[] = [
+    {
+        name: "overview",
+        search: 'overview',
+        content: "Общее",
+    },
+    {
+        name: "programs",
+        search: 'programs',
+        content: "Программы",
+    },
+    {
+        name: "ratings",
+        search: 'ratings',
+        content: "Звезды",
+    },
+]
 
 export const ProfileTabs = ({ className } : ProfileTabsProps) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
-    const tab = searchParams.get('tab');
+    const tabParam = searchParams.get('tab');
+
 
     return (
         <div className={classNames(cls.ProfileTabs, {}, [className])}>
-            <NavLink
-                className={tab === 'overview' ? cls.tabActive : cls.tab}
-                to={{
-                    search: '?tab=overview',
-                }}
-            >
-                {t('Общее')}
-            </NavLink>
-            <NavLink
-                className={tab === 'programs' ? cls.tabActive : cls.tab}
-                to={{
-                    search: '?tab=programs',
-                }}
-            >
-                {t('Программы')}
-            </NavLink>
-            <NavLink
-                className={tab === 'ratings' ? cls.tabActive : cls.tab}
-                to={{
-                    search: '?tab=ratings',
-                }}
-            >
-                {t('Звезды')}
-            </NavLink>
+            {
+                tabs.map((tab) => (
+                    <NavLink
+                        key={tab.name}
+                        className={tabParam === tab.name ? cls.tabActive : cls.tab}
+                        to={{
+                            search: '?tab=' + tab.search,
+                        }}
+                    >
+                        {t(tab.content)}
+                    </NavLink>
+                ))
+            }
         </div>
     );
 };

@@ -9,7 +9,6 @@ import { useCallback } from 'react';
 import { nanoid } from 'nanoid';
 
 interface DayCardProps {
-    // TODO возможно что-то придумать, т.е. тип равен EditProgramErrorDays
     errors: Partial<Record<string, string[]>> | undefined
     dayId: number | undefined
     dayName: string | undefined

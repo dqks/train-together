@@ -7,7 +7,6 @@ export const getIsPublic = (state: StateSchema) => state.editProgram?.programMai
 export const getSelectedDiffId = (state: StateSchema) => state.editProgram?.programMainInfo.selectedDiffId;
 export const getSelectedGoalId = (state: StateSchema) => state.editProgram?.programMainInfo.selectedGoalId;
 export const getDaysInfo = (state: StateSchema) => state.editProgram?.daysInfo;
-export const getDisableEdit = (state: StateSchema) => state.editProgram?.disableEdit;
 export const getSendUpdateDays = (state: StateSchema) => state.editProgram?.sendUpdateDays;
 export const getSendUpdateProgramInfo = (state: StateSchema) => state.editProgram?.sendUpdateProgramInfo;
 export const getIsLoadingPrograms = (state: StateSchema) => state.editProgram?.isLoadingPrograms;

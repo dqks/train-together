@@ -13,7 +13,7 @@ export const LandingProgramCard = ({
     className,
 } : LandingTrainingProgramCardProps) => (
     <div className={classNames(
-        cls.LandingTrainingProgramCardProps,
+        cls.LandingTrainingProgramCard,
         {},
         [className],
     )}

@@ -27,6 +27,7 @@
     "react-router": "^7.9.4"
   },
   "devDependencies": {
+    "@castlenine/vite-plugin-remove-attribute": "^2.1.0",
     "@eslint/js": "^9.39.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",

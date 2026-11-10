@@ -2,7 +2,8 @@ type ErrorKeys = 'name' |
     'selectedProgressionType' |
     'selectedPrimaryMuscleId' |
     'selectedEquipmentId' |
-    'status'
+    'status' |
+    'image'
 
 export type AddExerciseErrorObject = Partial<Record<ErrorKeys, string[]>>
 

@@ -1,4 +1,4 @@
-.LandingTrainingProgramCardProps {
+.LandingTrainingProgramCard {
     min-width: 346px;
     width: 100%;
     min-height: 564px;
@@ -6,7 +6,7 @@
     border: var(--border-style);
     border-radius: var(--border-radius);
     padding: 15px;
-    margin: 30px; //TODO удалить
+    margin: 30px;
     display: flex;
     flex-direction: column;
     gap: 15px;

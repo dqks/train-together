@@ -2,10 +2,18 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import path from 'path';
+import removeAttr from '@castlenine/vite-plugin-remove-attribute';
 
 export default defineConfig({
-    //TODO добавить удаление аттрибуа data-id data-testid
-    plugins: [react(), svgr()],
+    plugins: [
+        react(), 
+        svgr(),
+        removeAttr({
+            attributes: ['data-testid'], 
+            extensions: ['tsx'],
+        }),
+    ],
+    
     resolve: {
         alias: {
             '@': path.resolve(__dirname, 'src'),

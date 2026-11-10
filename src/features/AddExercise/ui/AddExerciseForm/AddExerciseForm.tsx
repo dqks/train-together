@@ -63,8 +63,12 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
         dispatch(addExerciseActions.setPrimaryMuscleId(Number(value)));
     };
 
-    const onChangeImage = (file: File | undefined) => {
-        setImage(file);
+    const onChangeImage = (file: File | undefined | null) => {
+        if (file === null) {
+            dispatch(addExerciseActions.setErrors({ image: ['Максимум 3 мегабайта'] }));
+        } else {
+            setImage(file)
+        }
     };
 
     const createHandler = (e: MouseEvent<HTMLButtonElement>) => {
@@ -165,6 +169,7 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
 
                 <div className={classNames(cls.groupGap, {}, ['form-group'])}>
                     <FileInput onChangeImage={onChangeImage} value={image} />
+                    <ErrorMessage messages={errors?.image} />
                 </div>
 
                 <div className={classNames(cls.groupGap, {}, ['form-group'])}>

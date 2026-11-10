@@ -6,10 +6,13 @@ import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 
 interface FileInputProps {
-    onChangeImage: (file: File | undefined) => void;
+    onChangeImage: (file: File | undefined | null) => void;
     value: string | File | undefined;
     className?: string;
 }
+
+// 3 MB
+const fileSizeLimit = 3 * 1024 * 1024;
 
 export const FileInput = ({ onChangeImage, value, className }: FileInputProps) => {
     const { t } = useTranslation();
@@ -30,6 +33,11 @@ export const FileInput = ({ onChangeImage, value, className }: FileInputProps) =
 
     const onChange = (e : ChangeEvent<HTMLInputElement>) => {
         if (e?.target?.files) {
+            
+            if (e.target.files[0].size > fileSizeLimit) {
+                onChangeImage(null);
+                return
+            } 
             onChangeImage(e?.target?.files[0]);
             resetInput();
         }

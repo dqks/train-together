@@ -33,7 +33,6 @@ export interface EditProgramSchema {
     daysInfo: EditDaysInfo[] | undefined
     programMainInfo: ProgramMainInfo 
     exerciseSelection: ExerciseSelection
-    disableEdit: boolean
     errorDays: EditProgramErrorDays
     errorProgramInfo: EditProgramErrorInfo
     isLoadingDays: boolean

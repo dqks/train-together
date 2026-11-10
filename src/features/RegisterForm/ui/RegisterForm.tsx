@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { type ChangeEvent, useCallback } from 'react';
+import { useCallback } from 'react';
 import { Link, useNavigate } from 'react-router';
 import cls from './RegisterForm.module.scss';
 import { Input } from '@/shared/ui/Input/Input.tsx';
@@ -19,6 +19,9 @@ import { getRegisterConsent } from '../model/selectors/getRegisterConsent/getReg
 import { DynamicModuleLoader } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader.tsx';
 import { createErrorObject, type ErrorObject } from '@/shared/lib/createErrorObject/createErrorObject.ts';
 import type { RegisterErrorsObject } from '../model/types/registerSchema.ts';
+import { Checkbox } from '@/shared/ui/Checkbox/Checkbox.tsx';
+import { Form } from '@/shared/ui/Form/Form.tsx';
+import { Card } from '@/shared/ui/Card/Card.tsx';
 
 const reducers = {
     register: registerReducer,
@@ -51,8 +54,8 @@ export const RegisterForm = () => {
         dispatch(registerActions.setEmail(value));
     }, [dispatch]);
 
-    const onChangeConsent = useCallback((value: ChangeEvent<HTMLInputElement>) => {
-        dispatch(registerActions.setConsent(value.currentTarget.checked));
+    const onChangeConsent = useCallback((checked: boolean) => {
+        dispatch(registerActions.setConsent(checked));
     }, [dispatch]);
 
     const onRegisterClick = () => {
@@ -105,15 +108,15 @@ export const RegisterForm = () => {
 
     return (
         <DynamicModuleLoader reducers={reducers}>
-            <div className={cls.LoginForm}>
+            <div className={cls.RegisterForm}>
                 <Link to={PublicRoutePath.landing} className={cls.logo}>TrainTogether</Link>
-                <div className={cls.authCard}>
+                <Card className={cls.authCard}>
                     <h1 className={cls.authTitle}>{t('Регистрация')}</h1>
                     <p className={cls.authSubtitle}>
                         {t('Зарегистрируйтесь для доступа к программа')}
                     </p>
-                    <form className={cls.authForm}>
-                        <div className="form-group">
+                    <Form className={cls.authForm}>
+                        <Form.Group>
                             <label htmlFor="email" className="form-label">{t('Email')}</label>
                             <Input
                                 onChange={onChangeEmail}
@@ -124,8 +127,8 @@ export const RegisterForm = () => {
                                 placeholder={t('Ваш email')}
                             />
                             <ErrorMessage messages={errors?.email} textSize={TextSize.SMALL} />
-                        </div>
-                        <div className="form-group">
+                        </Form.Group>
+                        <Form.Group>
                             <label htmlFor="password" className="form-label">{t('Пароль')}</label>
                             <Input
                                 value={password}
@@ -139,8 +142,8 @@ export const RegisterForm = () => {
                                 {t('Пароль должен состоять минимум из 6 символов')}
                             </p>
                             <ErrorMessage messages={errors?.password} textSize={TextSize.SMALL} />
-                        </div>
-                        <div className="form-group">
+                        </Form.Group>
+                        <Form.Group>
                             <label className="form-label" htmlFor="nickname">{t('Никнейм')}</label>
                             <Input
                                 onChange={onChangeNickname}
@@ -155,21 +158,21 @@ export const RegisterForm = () => {
                                         + ' из алфавитных символов и цифр')}
                             </p>
                             <ErrorMessage messages={errors?.nickname} />
-                        </div>
-                        <div className="form-group">
-                            {/* TODO: вынести в компонент Checkbox */}
+                        </Form.Group>
+                        <Form.Group>
                             <div className={cls.checkboxWrapper}>
-                                <input
-                                    onChange={onChangeConsent}
-                                    checked={consent}
-                                    type="checkbox"
-                                    id="consent"
+                                <Checkbox 
+                                    id='consent'
                                     name="consent"
+                                    checked={consent} 
+                                    onChange={onChangeConsent} 
                                 />
-                                <label htmlFor="consent">{t('Согласие на обработку персональных данных')}</label>
+                                <label htmlFor="consent">
+                                    {t('Согласие на обработку персональных данных')}
+                                </label>
                             </div>
                             <ErrorMessage messages={errors?.consent} />
-                        </div>
+                        </Form.Group>
                         <Button
                             disabled={isLoading}
                             size={SizeButton.LARGE}
@@ -179,12 +182,12 @@ export const RegisterForm = () => {
                         >
                             {t('Создать аккаунт')}
                         </Button>
-                    </form>
+                    </Form>
                     <p className={cls.authFooterText}>
                         {t('Уже есть аккаунт? ')}
                         <AppLink className={cls.login} to={PublicRoutePath.login}>{t('Войдите')}</AppLink>
                     </p>
-                </div>
+                </Card>
             </div>
         </DynamicModuleLoader>
     );

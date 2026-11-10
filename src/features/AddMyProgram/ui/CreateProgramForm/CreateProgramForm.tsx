@@ -33,8 +33,7 @@ interface CreateProgramFormProps {
     className?: string;
 }
 
-// 3 MB
-// const fileSizeLimit = 3 * 1024 * 1024;
+
 
 const reducers: ReducerList = {
     createProgram: createProgramReducer,
@@ -43,7 +42,6 @@ const reducers: ReducerList = {
 export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-
     const name = useSelector(getProgramName);
     const description = useSelector(getProgramDescription);
     const publicSetting = useSelector(getProgramPublicSetting);
@@ -88,16 +86,13 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
         dispatch(createProgramActions.setSelectedDifficulty(value));
     }, [dispatch]);
 
-    // TODO добавить в FileInput проверку на размер
-    // const onChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
-    //     if (event?.target?.files) {
-    //         if (event.target.files[0].size > fileSizeLimit) {
-    //             dispatch(createProgramActions.setErrors({ image: ['Максимум 3 мегабайта'] }));
-    //         } else {
-    //             setImage(event?.target?.files[0]);
-    //         }
-    //     }
-    // };
+    const onChangeImage = useCallback((file: File | undefined | null) => {
+        if (file === null) {
+            dispatch(createProgramActions.setErrors({ image: ['Максимум 3 мегабайта'] }));
+        } else {
+            setImage(file)
+        }
+    }, [dispatch]);
 
     const onCreateClick = () => {
         const errorObject: ErrorObject = {
@@ -209,7 +204,8 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
                     <ErrorMessage messages={errors?.diffId} />
                 </div>
                 <div className={cls.inputWrapper}>
-                    <FileInput onChangeImage={setImage} value={image} />
+                    <FileInput onChangeImage={onChangeImage} value={image} />
+                    <ErrorMessage messages={errors?.image} />
                 </div>
                 <Button
                     disabled={isLoading}

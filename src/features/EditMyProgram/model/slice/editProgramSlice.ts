@@ -5,7 +5,6 @@ import { updateDays } from '../services/updateDays/updateDays.ts';
 import { updateProgramInfo } from '../services/updateProgram/updateProgramInfo.ts';
 
 const initialState: EditProgramSchema = {
-    // TODO убрать disableEdit
     daysInfo: [],
     programMainInfo: {
         name: "",
@@ -21,7 +20,6 @@ const initialState: EditProgramSchema = {
         selectedEquipmentId: "",
         selectedPrimaryMuscleId: "",
     },
-    disableEdit: true,
     errorDays: undefined,
     errorProgramInfo: null,
     isLoadingDays: false,
@@ -55,36 +53,29 @@ export const programsSlice = createSlice({
         },
         setName: (state, action: PayloadAction<string>) => {
             state.programMainInfo.name = action.payload;
-            state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
         setDescription: (state, action: PayloadAction<string>) => {
             state.programMainInfo.description = action.payload;
-            state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
         setIsPublic: (state, action: PayloadAction<boolean>) => {
             state.programMainInfo.isPublic = action.payload;
-            state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
         setSelectedDiffId: (state, action: PayloadAction<number>) => {
             state.programMainInfo.selectedDiffId = action.payload;
-            state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
         setSelectedGoalId: (state, action: PayloadAction<number>) => {
             state.programMainInfo.selectedGoalId = action.payload;
-            state.disableEdit = false;
             state.sendUpdateProgramInfo = true;
         },
         setTrainingDays: (state, action: PayloadAction<EditDaysInfo[]>) => {
             state.daysInfo = action.payload;
-            state.disableEdit = false;
             state.sendUpdateDays = true;
         },
         setDiableEdit: (state, action: PayloadAction<boolean>) => {
-            state.disableEdit = action.payload;
         },
         setSendUpdateProgramInfo: (state, action: PayloadAction<boolean>) => {
             state.sendUpdateProgramInfo = action.payload;
@@ -123,7 +114,6 @@ export const programsSlice = createSlice({
                 state.isLoadingDays = false;
                 state.errorDays = action.payload;
                 state.savingResult = 'error';
-                state.disableEdit = true;
             })
             .addCase(updateProgramInfo.pending, (state) => {
                 state.errorProgramInfo = null;
@@ -138,7 +128,6 @@ export const programsSlice = createSlice({
                 state.isLoadingPrograms = false;
                 state.errorProgramInfo = action.payload;
                 state.savingResult = 'error';
-                state.disableEdit = true;
             });
     },
 });
