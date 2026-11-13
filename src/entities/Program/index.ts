@@ -7,16 +7,28 @@ export { DayCard } from './ui/DayCard/DayCard.tsx';
 export { EditableDayCard } from './ui/EditableDayCard/EditableDayCard.tsx';
 
 // Selectors
-export { getProgramDetails } from './model/selectors/getProgramDetails/getProgramDetails.ts';
-export { getPublicPrograms } from './model/selectors/getProgramList/getPublicPrograms.ts';
+export { 
+    getPublicPrograms, 
+    getPublicProgramsIsLoading, 
+    getUserPrograms, 
+    getUserProgramsIsLoading,
+    getFavouritePrograms,
+    getFavouriteProgramsIsLoading,
+    getProgramDetails,
+    getProgramDetailsIsLoading,
+    getDaysOfWeek,
+    getDaysOfWeekIsLoading
+} from './model/selectors/programSelectors.ts';
 export { getProgramIsLoading } from './model/selectors/getProgramIsLoading/getProgramIsLoading.ts';
-export { getFavouritePrograms } from './model/selectors/getFavouritePrograms/getFavouritePrograms.ts';
 export { getProgramGoals } from './model/selectors/getProgramGoals/getProgramGoals.ts';
 export { getProgramDifficulties } from './model/selectors/getProgramDifficulties/getProgramDifficulties.ts';
-export { getDaysOfWeek } from './model/selectors/getDaysOfWeek/getDaysOfWeek.ts';
 
 // Redux
 export { programsReducer, programsActions } from './model/slice/programsSlice.ts';
+export { publicProgramsReducer, publicProgramsActions } from './model/slice/publicProgramsSlice.ts';
+export { userProgramsReducer, userProgramsActions } from './model/slice/userProgramsSlice.ts';
+export { favouriteProgramsReducer, favouriteProgramsActions } from './model/slice/favouriteProgramsSlice.ts';
+export { programsDetailsReducer, programsDetailsActions } from './model/slice/programDetailsSlice.ts';
 export type { ProgramSchema } from './model/types/programSchema.ts';
 
 // Redux thunks
@@ -31,3 +43,8 @@ export type { TrainingDay } from './model/types/programSchema.ts';
 export type { Goal, ExerciseDay } from './model/types/programSchema.ts';
 export type { Difficulty } from './model/types/programSchema.ts';
 export type { ProgramDetails } from './model/types/programSchema.ts';
+export type { PublicProramSchema } from "./model/types/publicProgramsSchema.ts"
+export type { UserProgramsSchema } from "./model/types/userProgramsSchema.ts"
+export type { FavouriteProgramSchema } from "./model/types/favouriteProgramsSchema.ts"
+export type { ProgramDetailsSchema } from "./model/types/programDetailsSchema.ts"
+export type { DaysOfWeekSchema } from "./model/types/daysOfWeekSchema.ts"

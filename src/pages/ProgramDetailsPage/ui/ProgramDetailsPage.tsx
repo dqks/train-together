@@ -5,7 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import cls from './ProgramDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import {
-    fetchProgramDetails, getProgramDetails, getProgramIsLoading, programsActions,
+    fetchProgramDetails, 
+    getProgramDetails, 
+    getProgramDetailsIsLoading, 
+    programsDetailsActions,
+    programsDetailsReducer,
 } from '@/entities/Program';
 import { getUserId } from '@/entities/User';
 import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
@@ -17,9 +21,14 @@ import { Sidebar } from './Sidebar/Sidebar.tsx';
 import { Description } from './Description/Description.tsx';
 import { Days } from './Days/Days.tsx';
 import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
+import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader.tsx';
 
 interface ProgramDetailsPageProps {
     className?: string;
+}
+
+const reducers: ReducerList = {
+    programDetails: programsDetailsReducer
 }
 
 const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
@@ -27,7 +36,7 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
 
     const userId = useSelector(getUserId);
     const programDetails = useSelector(getProgramDetails);
-    const isLoading = useSelector(getProgramIsLoading);
+    const isLoading = useSelector(getProgramDetailsIsLoading);
     const errors = useSelector(getProgramErrors);
     const isOwner = userId === programDetails?.user.id;
 
@@ -38,7 +47,7 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
     useEffect(() => {
         dispatch(fetchProgramDetails(Number(params.id)));
         return () => {
-            dispatch(programsActions.setProgramDetails(null));
+            dispatch(programsDetailsActions.setProgramDetails(null));
         };
     }, [dispatch]);
 
@@ -49,15 +58,6 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
         );
     }, [programDetails]);
 
-    if (isLoading) {
-        return <PageLoader />;
-    }
-
-    if (errors) {
-        return (
-            <CenterText text={t('Программа не найдена')} />
-        );
-    }
     let formattedDate;
 
     if (programDetails?.createdAt) {
@@ -82,8 +82,8 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
         day,
     ) => acc + day.exercises.length, 0);
 
-    return (
-        <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
+    let content = (
+        <>
             <Hero
                 programId={programDetails?.id}
                 authorImage={programDetails?.user.avatarUrl}
@@ -122,7 +122,26 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
                     />
                 </div>
             </div>
-        </div>
+        </>
+    )
+
+    if (isLoading) {
+        content = <PageLoader />;
+    }
+
+    if (errors) {
+        content = (
+            <CenterText text={t('Программа не найдена')} />
+        );
+    }
+
+    return (
+        <DynamicModuleLoader reducers={reducers}>
+            <div className={classNames(cls.ProgramDetailsPage, {}, [className])}>
+                {content}
+            </div>
+        </DynamicModuleLoader>
+        
     );
 };
 

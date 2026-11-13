@@ -12,7 +12,14 @@ import type { EquipmentSchema } from '@/entities/Equipment';
 import type { AddExerciseSchema } from '@/features/AddExercise/model/types/addExerciseSchema.ts';
 import type { ExerciseTypeSchema } from '@/entities/ExerciseType';
 import type { ExerciseProgressionSchema } from '@/entities/ExerciseProgression';
-import type { ProgramSchema } from '@/entities/Program';
+import type { 
+    DaysOfWeekSchema,
+    FavouriteProgramSchema,
+    ProgramDetailsSchema,
+    ProgramSchema,
+    PublicProramSchema, 
+    UserProgramsSchema 
+} from '@/entities/Program';
 import type { ProfileSchema } from '@/pages/ProfilePage';
 import type { EditExerciseSchema } from '@/features/EditExercise';
 import type { EditProgramSchema } from '@/features/EditMyProgram';
@@ -35,6 +42,11 @@ export interface StateSchema {
     exerciseProgression?: ExerciseProgressionSchema
     exercise?: ExerciseSchema
     exerciseType?: ExerciseTypeSchema
+    publicProgram?: PublicProramSchema
+    userPrograms?: UserProgramsSchema
+    favouritePrograms?: FavouriteProgramSchema
+    programDetails?: ProgramDetailsSchema
+    daysOfWeek?: DaysOfWeekSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

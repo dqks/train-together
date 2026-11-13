@@ -24,8 +24,6 @@ export const DynamicModuleLoader = (props: DynamicModuleLoaderProps) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("id");
-
         const mountedReducers = store.reducerManager.getReducerMap();
 
         Object.entries(reducers).forEach(([name, reducer]) => {

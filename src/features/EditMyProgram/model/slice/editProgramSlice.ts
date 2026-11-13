@@ -35,6 +35,7 @@ export const programsSlice = createSlice({
     reducers: {
         initEditForm: (state, action: PayloadAction<ProgramDetails | null>) => {
             // main info
+            console.log(action.payload);
             state.programMainInfo.name = action.payload?.name;
             state.programMainInfo.description = action.payload?.description || "";
             state.programMainInfo.isPublic = action.payload?.isPublic;

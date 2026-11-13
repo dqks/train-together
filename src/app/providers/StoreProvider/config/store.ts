@@ -13,7 +13,6 @@ export function createReduxStore(
     const rootReducer: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         user: userReducer,
-        // exercise: exerciseReducer,
         program: programsReducer,
     };
 

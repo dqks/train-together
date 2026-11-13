@@ -137,7 +137,7 @@ export const TrainingDays = (props : TrainingDaysProps) => {
                 onChangeDayName={onChangeDayName}
                 onChangeDayOfWeek={onChangeDayOfWeek}
             />
-    )}) : null
+    )}) : null    
 
     return (
         <section className={cls.programSection}>

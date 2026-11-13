@@ -14,6 +14,7 @@ import {
     getProgramDifficulties,
     getProgramGoals,
     getProgramIsLoading,
+    programsDetailsReducer,
 } from '@/entities/Program';
 import { TrainingDays } from './TrainingDays/TrainingDays.tsx';
 import { ExerciseSelection } from './ExerciseSelection/ExerciseSelection.tsx';
@@ -42,6 +43,7 @@ import { updateProgramInfo } from '../model/services/updateProgram/updateProgram
 import { updateDays } from '../model/services/updateDays/updateDays.ts';
 import { getUserId } from '@/entities/User';
 import type { EditDaysInfo } from '../model/types/editProgramSchema.ts';
+import { daysOfWeekReducer } from '@/entities/Program/model/slice/daysOfWeekSlice.ts';
 
 interface EditMyProgramProps {
     programId: number | undefined
@@ -50,6 +52,9 @@ interface EditMyProgramProps {
 
 const reducers: ReducerList = {
     editProgram: editProgramReducer,
+    daysOfWeek: daysOfWeekReducer,
+    // TODO перевести EditMyProgram на использование только своего внутреннего стейта
+    programDetails: programsDetailsReducer
 };
 
 const forbiddenImageTypes = ['image/gif'];
@@ -80,7 +85,6 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const selectedDayId = useSelector(getSelectedDayId);
     const selectedExercises = useSelector(getSelectedExercises);
     const exerciseAmount = useSelector(getExercisesAmount)
-
     const [image, setImage] = useState<File | string | undefined>(undefined);
     const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false);
 
@@ -236,6 +240,8 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         setIsAddingExercise(true);
     }, [dispatch]);
 
+
+
     let EditMyProgramContent: ReactNode = (
         isAddingExercise
             ? (
@@ -289,12 +295,13 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                 </div>
             )
     );
+
     if (isLoading) {
         EditMyProgramContent = (<PageLoader />);
     }
 
     if (programDetails?.user.id !== userId && programDetails?.user.id !== undefined) {
-        return null;
+        EditMyProgramContent = null;
     }
 
     return (
