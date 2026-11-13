@@ -10,6 +10,6 @@ export const getMyExerciseError = (state: StateSchema) => state.myExercise.error
 export const getMyExercises = (state: StateSchema) => state.myExercise.myExercises
 
 // exerciseDetails
-export const getExerciseDetailsIsLoading = (state: StateSchema) => state.exerciseDetails.isLoading
-export const getExerciseDetailsError = (state: StateSchema) => state.exerciseDetails.error
-export const getExerciseDetails = (state: StateSchema) => state.exerciseDetails.exerciseDetails
+export const getExerciseDetailsIsLoading = (state: StateSchema) => state.exerciseDetails?.isLoading
+export const getExerciseDetailsError = (state: StateSchema) => state.exerciseDetails?.error
+export const getExerciseDetails = (state: StateSchema) => state.exerciseDetails?.exerciseDetails

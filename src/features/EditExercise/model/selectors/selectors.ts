@@ -11,3 +11,7 @@ export const getStatus = (state: StateSchema) => state.editExercise?.status
 export const getPrimaryMuscleId = (state: StateSchema) => state.editExercise?.primaryMuscleId 
 
 export const getSecondaryMusleIds = (state: StateSchema) => state.editExercise?.secondaryMuscleIds 
+
+export const getExerciseUserId = (state: StateSchema) => state.editExercise?.userId 
+
+export const getImageUrl = (state: StateSchema) => state.editExercise?.imageUrl 

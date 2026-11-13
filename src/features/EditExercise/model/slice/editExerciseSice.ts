@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { EditExerciseInit, EditExerciseSchema, ErrorObjectState } from "../types/editExerciseSchema"
+import type { EditExerciseSchema, ErrorObjectState } from "../types/editExerciseSchema"
 import { updateExerciseThunk } from "../services/updateExercise/updateExercise";
+import { fetchExerciseDetails } from "@/entities/Exercise";
 
 const initialState: EditExerciseSchema = {
     name: "",
@@ -8,20 +9,15 @@ const initialState: EditExerciseSchema = {
     errors: {},
     primaryMuscleId: "",
     status: 'editing',
+    userId: 0,
+    imageUrl: "",
     secondaryMuscleIds: []
 }
-
 
 export const editExerciseSlice = createSlice({
     initialState: initialState,
     name: "editExercice",
     reducers: {
-        init: (state, action: PayloadAction<EditExerciseInit>) => {
-            state.name = action.payload.name
-            state.equipmentId = action.payload.equipmentId
-            state.primaryMuscleId = action.payload.primaryMuscleId
-            state.secondaryMuscleIds = action.payload.secondaryMuscleIds
-        },
         setName: (state, action: PayloadAction<string>) => {
             state.name = action.payload
         },
@@ -56,6 +52,23 @@ export const editExerciseSlice = createSlice({
             .addCase(updateExerciseThunk.fulfilled, (state) => {
                 state.status = "success"
                 state.errors = undefined
+            })
+            .addCase(fetchExerciseDetails.pending, (state) => {
+                state.status = "loading"
+                console.log("editExercice pending");
+            })
+            .addCase(fetchExerciseDetails.rejected, (state, action) => {
+                state.errors = action.payload
+                console.log("editExercice rejected");
+            })
+            .addCase(fetchExerciseDetails.fulfilled, (state, action) => {
+                state.status = "editing"
+                state.userId = action.payload.userId || 0
+                state.name = action.payload.name || ''
+                state.equipmentId = action.payload.equipment.id.toString()
+                state.primaryMuscleId = action.payload.primaryMuscle.id.toString()
+                state.secondaryMuscleIds = action.payload.secondaryMuscles.map(s => s.id.toString()) || []
+                state.imageUrl = action.payload.image
             })
     },
 })

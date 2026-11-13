@@ -13,12 +13,7 @@ export interface EditExerciseSchema {
     primaryMuscleId: string
     secondaryMuscleIds: string[]
     errors: ErrorObjectState
+    userId: number
+    imageUrl: string
     status: 'loading' | 'success' | 'editing'
-}
-
-export interface EditExerciseInit {
-    name: string
-    equipmentId: string
-    primaryMuscleId: string
-    secondaryMuscleIds: string[]
 }

@@ -26,7 +26,6 @@ export interface StateSchema {
     exerciseType: ExerciseTypeSchema
     exerciseProgression: ExerciseProgressionSchema
     myExercise: MyExerciseSchema
-    exerciseDetails: ExerciseDetailsSchema
     //async
     login?: LoginSchema
     profile?: ProfileSchema
@@ -35,6 +34,7 @@ export interface StateSchema {
     createProgram?: CreateProgramSchema
     editExercise?: EditExerciseSchema
     editProgram?: EditProgramSchema
+    exerciseDetails?: ExerciseDetailsSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

@@ -25,7 +25,7 @@ export function createReduxStore(
         exerciseType: exerciseTypeReducer,
         exerciseProgression: exerciseProgressionReducer,
         myExercise: myExerciseReducer,
-        exerciseDetails: exerciseDetailsReducer
+        // exerciseDetails: exerciseDetailsReducer
     };
 
     const reducerManager = createReducerManager(rootReducer);
@@ -53,3 +53,5 @@ export function createReduxStore(
 
     return store;
 }
+
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch']

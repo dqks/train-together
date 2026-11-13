@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -7,7 +7,7 @@ import cls from './EditExercise.module.scss';
 import { Input } from '@/shared/ui/Input/Input.tsx';
 import { EquipmentCardList } from '@/entities/Equipment';
 import { PrimaryMuscleCardList, SecondaryMuscleCardList } from '@/entities/Muscle';
-import type { ExerciseDetails } from '@/entities/Exercise';
+import { fetchExerciseDetails, getExerciseDetailsError, getExerciseDetailsIsLoading } from '@/entities/Exercise';
 import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 import { updateExerciseThunk } from '../../model/services/updateExercise/updateExercise';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
@@ -19,6 +19,8 @@ import type { ErrorObjectState } from '../../model/types/editExerciseSchema';
 import {
     getEquipmentId,
     getErrors,
+    getExerciseUserId,
+    getImageUrl,
     getName,
     getPrimaryMuscleId,
     getSecondaryMusleIds,
@@ -27,17 +29,20 @@ import {
 import { editExerciseActions, editExerciseReducer } from '../../model/slice/editExerciseSice';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { Form } from '@/shared/ui/Form/Form';
+import { getUserId } from '@/entities/User';
+import { PageLoader } from '@/shared/ui/PageLoader/PageLoader.tsx';
+import { CenterText } from '@/shared/ui/CenterText/CenterText.tsx';
 
 interface EditExerciseProps {
     className?: string;
-    exerciseDetails: ExerciseDetails | null
+    id: number
 }
 
 const reducers: ReducerList = {
     editExercise: editExerciseReducer,
 };
 
-export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps) => {
+export const EditExercise = ({ className, id } : EditExerciseProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const name = useSelector(getName);
@@ -45,24 +50,24 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
     const primaryMuscleId = useSelector(getPrimaryMuscleId);
     const secondaryMuscleIds = useSelector(getSecondaryMusleIds);
     const status = useSelector(getStatus);
-    const [image, setImage] = useState<File | string | undefined>(exerciseDetails?.image);
+    const imageUrl = useSelector(getImageUrl);
+    const [image, setImage] = useState<File | string | undefined>(imageUrl);
     const errors = useSelector(getErrors);
     const navigate = useNavigate();
+    const userId = useSelector(getUserId);
+    const exerciseUserId = useSelector(getExerciseUserId);
+    const isLoading = useSelector(getExerciseDetailsIsLoading);
+    const errorsExerciseDetails = useSelector(getExerciseDetailsError);
+    
+    useEffect(() => {
+        dispatch(fetchExerciseDetails(Number(id)));
+    }, [dispatch, id, userId]);
 
     useEffect(() => {
-        dispatch(editExerciseActions.init({
-            name: exerciseDetails?.name || '',
-            equipmentId: exerciseDetails?.equipment.id.toString() || '',
-            primaryMuscleId: exerciseDetails?.primaryMuscle.id.toString() || '',
-            secondaryMuscleIds: exerciseDetails?.secondaryMuscles?.map((m) => m.id.toString()) || [],
-        }));
-    }, [
-        dispatch,
-        exerciseDetails?.equipment.id,
-        exerciseDetails?.name,
-        exerciseDetails?.primaryMuscle.id,
-        exerciseDetails?.secondaryMuscles,
-    ]);
+        if (imageUrl) {
+            setImage(imageUrl)
+        }
+    }, [imageUrl]);
 
     const onChangeName = useCallback((name: string) => {
         dispatch(editExerciseActions.setName(name));
@@ -89,10 +94,12 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
     }, [dispatch]);
 
     const onCancel = useCallback(() => {
-        navigate(`${AuthRoutePath.exercise_details}${exerciseDetails?.id}`);
+        navigate(`${AuthRoutePath.exercise_details}${id}`);
     }, [navigate]);
 
-    const onEdit = async () => {
+
+
+     const onEdit = async () => {
         const errorObject: ErrorObject = {
             name: [
                 {
@@ -120,7 +127,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
         }
 
         dispatch(updateExerciseThunk({
-            id: exerciseDetails?.id,
+            id,
             image: typeof image === 'object' ? image : undefined,
             name,
             equipmentId,
@@ -130,8 +137,7 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
         }));
     };
 
-    return (
-        <DynamicModuleLoader reducers={reducers}>
+    let content: ReactNode = (
             <Form className={classNames(cls.EditExercise, {}, [className])}>
                 <Form.Group className={cls.formGroup}>
                     <Form.Label className="form-label" htmlFor="exerciseName">{t('Название упражнения')}</Form.Label>
@@ -200,6 +206,23 @@ export const EditExercise = ({ className, exerciseDetails } : EditExerciseProps)
                     )
                 }
             </Form>
+    )
+
+    if (isLoading) {
+        content = <PageLoader />;
+    }
+
+    if (errorsExerciseDetails) {
+        content = <CenterText text={errorsExerciseDetails?.status[0]} />;
+    }
+
+    if (exerciseUserId !== userId && exerciseUserId !== undefined) {
+        content = null;
+    }
+
+    return (
+        <DynamicModuleLoader reducers={reducers}>
+            {content}
         </DynamicModuleLoader>
     );
 };

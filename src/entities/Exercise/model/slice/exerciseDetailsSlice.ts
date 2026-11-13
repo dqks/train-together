@@ -17,8 +17,12 @@ export const exerciseDetailsSlice = createSlice({
             .addCase(fetchExerciseDetails.pending, (state) => {
                 state.error = undefined;
                 state.isLoading = true;
+                console.log("exerciseDetails pending");
+                
             })
             .addCase(fetchExerciseDetails.fulfilled, (state, action) => {
+                console.log("exerciseDetails fulfilled");
+
                 state.isLoading = false;
                 state.exerciseDetails = action.payload;
             })

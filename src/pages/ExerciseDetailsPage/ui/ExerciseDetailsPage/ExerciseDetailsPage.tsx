@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
+    exerciseDetailsReducer,
     fetchExerciseDetails,
     getExerciseDetails,
     getExerciseDetailsError,
@@ -23,6 +24,11 @@ import { ActiveMuscles } from '@/pages/ExerciseDetailsPage/ui/ActiveMuscles/Acti
 import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import { DeleteExerciseButton } from '@/features/DeleteExercise';
 import type { ExerciseLinkState } from '@/features/EditMyProgram';
+import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+
+const reducers: ReducerList = {
+    exerciseDetails: exerciseDetailsReducer
+}
 
 const ExerciseDetailsPage = () => {
     const { t, i18n } = useTranslation();
@@ -42,14 +48,6 @@ const ExerciseDetailsPage = () => {
         dispatch(fetchExerciseDetails(Number(params.id)));
     }, [dispatch, params.id]);
 
-    if (isLoading) {
-        return <PageLoader />;
-    }
-
-    if (errors) {
-        return <CenterText text={errors.status[0]} />;
-    }
-
     let returnLink = (
         <AppLink className={cls.backLink} to={AuthRoutePath.exercises}>
             <LeftArrow className={cls.backLinkSvg} />
@@ -67,10 +65,10 @@ const ExerciseDetailsPage = () => {
                 );
             }
     }
-  
-    return (
+
+    let content: ReactNode = (
         <>
-            {returnLink}
+         {returnLink}
             <div className={classNames(cls.DisplayMode, {}, [])}>
                 <div className={cls.exerciseHero}>
                     {
@@ -143,6 +141,20 @@ const ExerciseDetailsPage = () => {
                 }
             </div>
         </>
+    )
+
+    if (isLoading) {
+        content = <PageLoader />;
+    }
+
+    if (errors) {
+        content = <CenterText text={errors.status[0]} />;
+    }
+
+    return (
+        <DynamicModuleLoader reducers={reducers}>
+            {content}
+        </DynamicModuleLoader>
     );
 };
 
