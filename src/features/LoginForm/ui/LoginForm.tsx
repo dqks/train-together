@@ -84,6 +84,7 @@ export const LoginForm = () => {
                         <Form.Group>
                             <label htmlFor="email" className="form-label">{t('Email')}</label>
                             <Input
+                                role='loginInput'
                                 onChange={onChangeEmail}
                                 value={email}
                                 name="email"
@@ -101,12 +102,16 @@ export const LoginForm = () => {
                                 placeholder={t('Ваш пароль')}
                             />
                         </Form.Group>
-                        <ErrorMessage messages={error?.status} textSize={TextSize.SMALL} />
+                        <ErrorMessage 
+                            messages={error?.status} 
+                            textSize={TextSize.SMALL} 
+                        />
                         <Button
                             disabled={isLoading}
                             size={SizeButton.LARGE}
                             theme={ThemeButton.PRIMARY}
                             type="button"
+                            role="login"
                             onClick={onLoginClick}
                         >
                             {t('Войти')}

@@ -6,7 +6,7 @@ import { Chip } from './Chip.tsx';
 describe('button', () => {
     test('render', () => {
         render(<Chip text="Test" />);
-        expect(screen.getByTestId('Test')).toBeInTheDocument();
+        expect(screen.getByTestId('chip')).toBeInTheDocument();
     });
 
     test('selects by click', () => {
