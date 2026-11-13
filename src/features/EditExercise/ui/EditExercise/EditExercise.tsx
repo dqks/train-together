@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './EditExercise.module.scss';
 import { Input } from '@/shared/ui/Input/Input.tsx';
-import { EquipmentCardList } from '@/entities/Equipment';
-import { PrimaryMuscleCardList, SecondaryMuscleCardList } from '@/entities/Muscle';
+import { EquipmentCardList, equipmentReducer } from '@/entities/Equipment';
+import { muscleReducer, PrimaryMuscleCardList, SecondaryMuscleCardList } from '@/entities/Muscle';
 import { fetchExerciseDetails, getExerciseDetailsError, getExerciseDetailsIsLoading } from '@/entities/Exercise';
 import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 import { updateExerciseThunk } from '../../model/services/updateExercise/updateExercise';
@@ -40,6 +40,8 @@ interface EditExerciseProps {
 
 const reducers: ReducerList = {
     editExercise: editExerciseReducer,
+    muscle: muscleReducer,
+    equipment: equipmentReducer
 };
 
 export const EditExercise = ({ className, id } : EditExerciseProps) => {

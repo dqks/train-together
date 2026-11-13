@@ -11,8 +11,6 @@ interface ExerciseCardListProps {
     isLoading: boolean;
     error?: string
     className?: string
-    showActions?: boolean
-
 }
 
 export const ExerciseCardList = (props: ExerciseCardListProps) => {
@@ -22,7 +20,6 @@ export const ExerciseCardList = (props: ExerciseCardListProps) => {
         exercises,
         error = 'У вас нет упражнений',
         className,
-        showActions = false,
     } = props;
 
     if (isLoading) {

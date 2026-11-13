@@ -5,12 +5,17 @@ import cls from './MyExercisesPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { AddExerciseButton } from '@/features/AddExercise';
 import { ExerciseCardList } from '@/widgets/ExerciseCardList';
-import { getExerciseIsLoading, getMyExercises } from '@/entities/Exercise';
+import { getExerciseIsLoading, getMyExercises, myExerciseReducer } from '@/entities/Exercise';
 import { fetchMyExercises } from '@/entities/Exercise/model/services/fecthMyExercises/fecthMyExercises.ts';
 import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
+import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 
 interface ExercisesPageProps {
     className?: string;
+}
+
+const reducers: ReducerList = {
+    myExercise: myExerciseReducer,
 }
 
 const MyExercisesPage = ({ className } : ExercisesPageProps) => {
@@ -27,18 +32,21 @@ const MyExercisesPage = ({ className } : ExercisesPageProps) => {
     useTabTitle('Мои упражнения');
 
     return (
-        <div className={classNames(cls.ExercisesPage, {}, [className])}>
-            <div className={cls.pageHeaderContent}>
-                <div>
-                    <h1 className="page-title">{t('Ваши упражнения')}</h1>
-                    <p className="page-subtitle">
-                        {t('Создавайте и управляйте своими упражнениями')}
-                    </p>
+        <DynamicModuleLoader reducers={reducers}>
+            <div className={classNames(cls.ExercisesPage, {}, [className])}>
+                <div className={cls.pageHeaderContent}>
+                    <div>
+                        <h1 className="page-title">{t('Ваши упражнения')}</h1>
+                        <p className="page-subtitle">
+                            {t('Создавайте и управляйте своими упражнениями')}
+                        </p>
+                    </div>
+                    <AddExerciseButton />
                 </div>
-                <AddExerciseButton />
+                <ExerciseCardList exercises={myExercises} isLoading={isLoading} showActions />
             </div>
-            <ExerciseCardList exercises={myExercises} isLoading={isLoading} showActions />
-        </div>
+        </DynamicModuleLoader>
+        
     );
 };
 

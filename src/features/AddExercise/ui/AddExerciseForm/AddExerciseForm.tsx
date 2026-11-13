@@ -10,7 +10,7 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { getExerciseName } from '../../model/selectors/getExerciseName/getExerciseName.ts';
 import { addExerciseActions, addExerciseReducer } from '../../model/slice/createExerciseSlice.ts';
 import { createUserExercise } from '../../model/services/createExercise/createUserExercise.ts';
-import { fetchProgressionTypes, getExerciseProgressionTypes } from '@/entities/ExerciseProgression';
+import { exerciseProgressionReducer, fetchProgressionTypes, getExerciseProgressionTypes } from '@/entities/ExerciseProgression';
 import { Select } from '@/shared/ui/Select/Select.tsx';
 import { getProgressionType } from '../../model/selectors/getProgressionType/getProgressionType.ts';
 import { getPrimaryMuscleId } from '../../model/selectors/getPrimaryMuscleId/getPrimaryMuscleId.ts';
@@ -22,6 +22,8 @@ import { FileInput } from '@/shared/ui/FileInput/FileInput.tsx';
 import { createErrorObject, type ErrorObject } from '@/shared/lib/createErrorObject/createErrorObject.ts';
 import type { AddExerciseErrorObject } from '../../model/types/addExerciseSchema.ts';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader.tsx';
+import { muscleReducer } from '@/entities/Muscle';
+import { equipmentReducer } from '@/entities/Equipment';
 
 interface AddExerciseFormProps {
     closeHandler?: () => void
@@ -29,6 +31,9 @@ interface AddExerciseFormProps {
 
 const reducers: ReducerList = {
     addExercise: addExerciseReducer,
+    muscle: muscleReducer,
+    equipment: equipmentReducer,
+    exerciseProgression: exerciseProgressionReducer
 };
 
 const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {

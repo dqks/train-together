@@ -19,13 +19,7 @@ import type { EditProgramSchema } from '@/features/EditMyProgram';
 
 export interface StateSchema {
     user: UserSchema
-    exercise: ExerciseSchema
     program: ProgramSchema
-    muscle: MuscleSchema
-    equipment: EquipmentSchema
-    exerciseType: ExerciseTypeSchema
-    exerciseProgression: ExerciseProgressionSchema
-    myExercise: MyExerciseSchema
     //async
     login?: LoginSchema
     profile?: ProfileSchema
@@ -35,6 +29,12 @@ export interface StateSchema {
     editExercise?: EditExerciseSchema
     editProgram?: EditProgramSchema
     exerciseDetails?: ExerciseDetailsSchema
+    myExercise?: MyExerciseSchema
+    muscle?: MuscleSchema
+    equipment?: EquipmentSchema
+    exerciseProgression?: ExerciseProgressionSchema
+    exercise?: ExerciseSchema
+    exerciseType?: ExerciseTypeSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

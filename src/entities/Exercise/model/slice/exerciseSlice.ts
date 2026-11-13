@@ -11,7 +11,7 @@ export const {
   selectAll: getAllExercises,
   selectById: getExerciseById,
   selectTotal: getTotalExercises,
-} = exercisesAdapter.getSelectors((state: StateSchema) => state.exercise);
+} = exercisesAdapter.getSelectors((state: StateSchema) => state.exercise || {ids: [], entities: {}});
 
 export const exerciseSlice = createSlice({
     name: 'exercise',
