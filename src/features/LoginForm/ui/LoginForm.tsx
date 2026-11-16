@@ -98,6 +98,7 @@ export const LoginForm = () => {
                                 value={password}
                                 onChange={onChangePassword}
                                 name="password"
+                                role='password'
                                 type="password"
                                 placeholder={t('Ваш пароль')}
                             />
@@ -105,6 +106,7 @@ export const LoginForm = () => {
                         <ErrorMessage 
                             messages={error?.status} 
                             textSize={TextSize.SMALL} 
+                            role='loginError'
                         />
                         <Button
                             disabled={isLoading}

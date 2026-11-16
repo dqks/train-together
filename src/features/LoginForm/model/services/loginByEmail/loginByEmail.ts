@@ -31,7 +31,7 @@ export const loginByEmail = createAsyncThunk<Return, LoginData, ThunkConfig<Logi
                 );
 
             const { data } = response.data;
-
+            
             if (!data) {
                 throw new Error('Error occurred');
             }

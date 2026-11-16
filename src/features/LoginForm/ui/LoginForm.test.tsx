@@ -1,70 +1,33 @@
 import { describe, expect, test } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { LoginForm } from './LoginForm';
 import userEvent from "@testing-library/user-event"
 import { BrowserRouter } from 'react-router';
 import { Provider } from 'react-redux';
-import { configureStore, type CombinedState, type Reducer, type ReducersMapObject } from '@reduxjs/toolkit';
-import { userReducer } from '@/entities/User';
-import type { StateSchema } from '@/app/providers/StoreProvider';
-import { createReducerManager } from '@/app/providers/StoreProvider/config/reducerManager';
-import { setupServer } from 'msw/node';
-import {
-    http,
-    HttpResponse,
-} from 'msw';
+import { createReduxStore } from '@/app/providers/StoreProvider';
+import { server } from "../../../../config/vitest/server"
+import { http, HttpResponse } from 'msw';
 import * as loginByEmail from '../model/services/loginByEmail/loginByEmail';
 
-const handlers = [
-    http.post('http://localhost:3000/auth/login', () => {
-        return new HttpResponse({
-            "resultCode": 400,
-            "messages": {
-                "status": [
-                    "Неверная почта или пароль"
-                ]
-            },
-        },
-        {
-            status: 400
-        }
-        );
-    }),
-];
-
-
-const reducerManager = createReducerManager({
-    user: userReducer
-} as  ReducersMapObject<StateSchema>);
-
-const store = configureStore({
-    reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>
-})
-
-// @ts-ignore
-store.reducerManager = reducerManager;
-const server = setupServer(...handlers)
 
 describe('button', () => {
-    beforeAll(() => server.listen())
-    afterEach(() => server.resetHandlers())
-    afterAll(() => server.close())
+    test('all fields are empty', async () => {
+        const store = createReduxStore()
 
-     test('all fields are empty', async () => {
         // arrange
         const user = userEvent.setup()
         const loginSpy = vi.spyOn(loginByEmail, 'loginByEmail')
         render(
             <BrowserRouter>
                 <Provider store={store}>
-                    <LoginForm/>
+                    <LoginForm />
                 </Provider>
             </BrowserRouter>
         );
         const loginButton = screen.getByRole("login")
 
         // act
-        user.click(loginButton)
+        await user.click(loginButton)
 
         // assert
         const errorEmptyFields = await screen.findByText("Все поля должны быть заполнены")
@@ -72,27 +35,51 @@ describe('button', () => {
         expect(errorEmptyFields).toBeInTheDocument();
         expect(errorEmail).toBeInTheDocument();
         expect(loginSpy).not.toHaveBeenCalled()
-        screen.debug();
     });
 
     test('password field is empty', async () => {
+        const store = createReduxStore()
+
         // arrange
         const user = userEvent.setup()
         const loginSpy = vi.spyOn(loginByEmail, 'loginByEmail')
         render(
             <BrowserRouter>
                 <Provider store={store}>
-                    <LoginForm/>
+                    <LoginForm />
                 </Provider>
             </BrowserRouter>
         );
         const loginButton = screen.getByRole("login")
         const emailInput = screen.getByRole("email")
 
-
         // act
-        user.type(emailInput, "test@mail.ru")
-        user.click(loginButton)
+        await user.type(emailInput, "test@mail.ru")
+        await user.click(loginButton)
+
+        // assert
+        const errorEmptyFields = await screen.findByText("Все поля должны быть заполнены")
+        expect(errorEmptyFields).toBeInTheDocument();
+        expect(loginSpy).not.toHaveBeenCalled()
+    });
+
+    test('email field is empty', async () => {
+        const store = createReduxStore()
+        // arrange
+        const user = userEvent.setup()
+        const loginSpy = vi.spyOn(loginByEmail, 'loginByEmail')
+        render(
+            <BrowserRouter>
+                <Provider store={store}>
+                    <LoginForm />
+                </Provider>
+            </BrowserRouter>
+        );
+        const loginButton = screen.getByRole("login")
+        const passwordField = screen.getByRole("password")
+        // act
+        await user.type(passwordField, "password")
+        await user.click(loginButton)
 
         // assert
         const errorEmptyFields = await screen.findByText("Все поля должны быть заполнены")
@@ -100,6 +87,152 @@ describe('button', () => {
         expect(errorEmptyFields).toBeInTheDocument();
         expect(errorEmail).toBeInTheDocument();
         expect(loginSpy).not.toHaveBeenCalled()
-        screen.debug();
     });
+
+
+    test('failed request', async () => {
+        const store = createReduxStore()
+        let resolveRequest!: () => void
+        const requestPaused = new Promise<void>((resolve) => {
+            resolveRequest = resolve
+        })
+        // arrange
+        const user = userEvent.setup()
+        render(
+            <BrowserRouter>
+                <Provider store={store}>
+                    <LoginForm />
+                </Provider>
+            </BrowserRouter>
+        );
+        const loginButton = screen.getByRole("login")
+        const emailField = screen.getByRole("email")
+        const passwordField = screen.getByRole("password")
+        // act
+        await user.type(emailField, "test@mail.ru")
+        await user.type(passwordField, "password")
+
+
+        server.use(
+            http.post('*/auth/login', async () => {
+                await requestPaused
+                return HttpResponse.json({
+                    "resultCode": 400,
+                    messages: {
+                        "status": [
+                            "Неверная почта или пароль"
+                        ]
+                    }
+                },
+                    {
+                        status: 400
+                    }
+                );
+            }),
+        )
+
+        await user.click(loginButton)
+
+        // assert
+        expect(loginButton).toHaveAttribute("disabled")
+        resolveRequest()
+
+        const error = await screen.findByRole("ErrorMessage.loginError")
+        expect(error).toBeInTheDocument()
+    });
+
+    test('success request', async () => {
+        const store = createReduxStore()        
+        let resolveRequest!: () => void
+        const requestPaused = new Promise<void>((resolve) => {
+            resolveRequest = resolve
+        })
+        // arrange
+        const user = userEvent.setup()
+        render(
+            <BrowserRouter>
+                <Provider store={store}>
+                    <LoginForm />
+                </Provider>
+            </BrowserRouter>
+        );
+        const loginButton = screen.getByRole("login")
+        const emailField = screen.getByRole("email")
+        const passwordField = screen.getByRole("password")
+        // act
+        await user.type(emailField, "test@mail.ru")
+        await user.type(passwordField, "password")
+
+        server.use(
+            http.post('*/auth/login', async () => {
+                await requestPaused
+                return HttpResponse.json({
+                    "resultCode": 200,
+                    messages: {},
+                    data: {
+                        id: 1,
+                        nickname: "testnickname",
+                        email: "test@mail.ru"
+                    }
+                },
+                    {
+                        status: 200
+                    }
+                );
+            }),
+        )
+        await user.click(loginButton)
+
+        // assert
+        expect(loginButton).toHaveAttribute("disabled")
+
+        resolveRequest()
+
+        await waitFor(() => {
+            expect(store.getState().user.id).toBe(1)
+            expect(store.getState().user.nickname).toBe('testnickname')
+        })
+
+        const error = screen.queryByRole("ErrorMessage.loginError")
+        expect(error).not.toBeInTheDocument()
+    });
+
+    // test('internal server error', async () => {
+    //     const store = createReduxStore()        
+    //     let resolveRequest!: () => void
+    //     const requestPaused = new Promise<void>((resolve) => {
+    //         resolveRequest = resolve
+    //     })
+    //     // arrange
+    //     const user = userEvent.setup()
+    //     render(
+    //         <BrowserRouter>
+    //             <Provider store={store}>
+    //                 <LoginForm />
+    //             </Provider>
+    //         </BrowserRouter>
+    //     );
+    //     const loginButton = screen.getByRole("login")
+    //     const emailField = screen.getByRole("email")
+    //     const passwordField = screen.getByRole("password")
+    //     // act
+    //     await user.type(emailField, "test@mail.ru")
+    //     await user.type(passwordField, "password")
+
+    //     server.use(
+    //         http.post('*/auth/login', async () => {
+    //             // await requestPaused
+    //             return HttpResponse.json({
+    //             },
+    //                 {
+    //                     status: 500
+    //                 }
+    //             );
+    //         }),
+    //     )
+    //     await user.click(loginButton)
+
+    //     screen.debug()
+    //     console.log(store.getState())
+    // });
 });

@@ -14,15 +14,21 @@ interface ErrorMessageProps {
     className?: string;
     textSize?: TextSize;
     messages: string[] | string | undefined;
+    role?: string
 }
 
 export const ErrorMessage = (props : ErrorMessageProps) => {
-    const { messages, className, textSize = TextSize.TINY } = props;
+    const { 
+        messages, 
+        className, 
+        textSize = TextSize.TINY,
+        role, 
+    } = props;
     const { t } = useTranslation();
     return (
         messages
         && (
-            <div className={cls.ErrorMessage}>
+            <div className={cls.ErrorMessage} role={`ErrorMessage.${role}`}>
                 {
                     Array.isArray(messages)
                         ? messages.map((message) => (
