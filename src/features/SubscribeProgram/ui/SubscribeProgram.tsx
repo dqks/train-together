@@ -5,8 +5,8 @@ import { Button } from '@/shared/ui/Button/Button.tsx';
 import cls from './SubscribeProgram.module.scss';
 import { subscribeProgram } from '../model/services/subscribeProgram/subscribeProgram.ts';
 import { unsubscribeProgram } from '../model/services/unsubscribeProgram/unsubscribeProgram.ts';
-import { programsActions } from '@/entities/Program';
 import Phone from '@/shared/assets/icons/phone.svg?react';
+import { programsDetailsActions } from '@/entities/Program';
 
 interface SubscribeProgramProps {
     isSubscribed: boolean | undefined;
@@ -22,7 +22,7 @@ export const SubscribeProgram = (props: SubscribeProgramProps) => {
         if (programId) {
             const response = await subscribeProgram(programId);
             if (response.data.success) {
-                dispatch(programsActions.setProgramDetailsIsFollowed(true));
+                dispatch(programsDetailsActions.setProgramDetailsIsFollowed(true));
             }
         }
     };
@@ -31,7 +31,7 @@ export const SubscribeProgram = (props: SubscribeProgramProps) => {
         if (programId) {
             const response = await unsubscribeProgram(programId);
             if (response.data.success) {
-                dispatch(programsActions.setProgramDetailsIsFollowed(false));
+                dispatch(programsDetailsActions.setProgramDetailsIsFollowed(false));
             }
         }
     };
