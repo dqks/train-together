@@ -13,6 +13,7 @@ import {
     http,
     HttpResponse,
 } from 'msw';
+import * as loginByEmail from '../model/services/loginByEmail/loginByEmail';
 
 const handlers = [
     http.post('http://localhost:3000/auth/login', () => {
@@ -45,15 +46,14 @@ store.reducerManager = reducerManager;
 const server = setupServer(...handlers)
 
 describe('button', () => {
-
     beforeAll(() => server.listen())
     afterEach(() => server.resetHandlers())
     afterAll(() => server.close())
 
-     test('render', async () => {
+     test('all fields are empty', async () => {
         // arrange
         const user = userEvent.setup()
-
+        const loginSpy = vi.spyOn(loginByEmail, 'loginByEmail')
         render(
             <BrowserRouter>
                 <Provider store={store}>
@@ -61,18 +61,45 @@ describe('button', () => {
                 </Provider>
             </BrowserRouter>
         );
-
         const loginButton = screen.getByRole("login")
-        const loginInput = screen.getByRole("loginInput")
-        
+
         // act
         user.click(loginButton)
 
         // assert
-        expect(loginInput).toHaveValue("")
+        const errorEmptyFields = await screen.findByText("Все поля должны быть заполнены")
+        const errorEmail = await screen.findByText("Почта должна быть валидной")
+        expect(errorEmptyFields).toBeInTheDocument();
+        expect(errorEmail).toBeInTheDocument();
+        expect(loginSpy).not.toHaveBeenCalled()
         screen.debug();
+    });
 
-        const error = await screen.findByText("Все поля должны быть заполнены")
-        expect(error).toBeInTheDocument();
+    test('password field is empty', async () => {
+        // arrange
+        const user = userEvent.setup()
+        const loginSpy = vi.spyOn(loginByEmail, 'loginByEmail')
+        render(
+            <BrowserRouter>
+                <Provider store={store}>
+                    <LoginForm/>
+                </Provider>
+            </BrowserRouter>
+        );
+        const loginButton = screen.getByRole("login")
+        const emailInput = screen.getByRole("email")
+
+
+        // act
+        user.type(emailInput, "test@mail.ru")
+        user.click(loginButton)
+
+        // assert
+        const errorEmptyFields = await screen.findByText("Все поля должны быть заполнены")
+        const errorEmail = await screen.findByText("Почта должна быть валидной")
+        expect(errorEmptyFields).toBeInTheDocument();
+        expect(errorEmail).toBeInTheDocument();
+        expect(loginSpy).not.toHaveBeenCalled()
+        screen.debug();
     });
 });

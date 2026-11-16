@@ -84,7 +84,7 @@ export const LoginForm = () => {
                         <Form.Group>
                             <label htmlFor="email" className="form-label">{t('Email')}</label>
                             <Input
-                                role='loginInput'
+                                role='email'
                                 onChange={onChangeEmail}
                                 value={email}
                                 name="email"
