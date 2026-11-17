@@ -87,21 +87,27 @@ export const LoginForm = () => {
                                 onChange={onChangeEmail}
                                 value={email}
                                 name="email"
+                                id="email"
                                 type="email"
                                 placeholder={t('Ваш email')}
                             />
                         </Form.Group>
                         <Form.Group>
-                            <label htmlFor="email" className="form-label">{t('Пароль')}</label>
+                            <label htmlFor="password" className="form-label">{t('Пароль')}</label>
                             <Input
                                 value={password}
                                 onChange={onChangePassword}
                                 name="password"
+                                id="password"
                                 type="password"
                                 placeholder={t('Ваш пароль')}
                             />
                         </Form.Group>
-                        <ErrorMessage messages={error?.status} textSize={TextSize.SMALL} />
+                        <ErrorMessage
+                            messages={error?.status}
+                            textSize={TextSize.SMALL}
+                            role="alert"
+                        />
                         <Button
                             disabled={isLoading}
                             size={SizeButton.LARGE}

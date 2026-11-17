@@ -54,7 +54,7 @@ const reducers: ReducerList = {
     editProgram: editProgramReducer,
     daysOfWeek: daysOfWeekReducer,
     // TODO перевести EditMyProgram на использование только своего внутреннего стейта
-    programDetails: programsDetailsReducer
+    programDetails: programsDetailsReducer,
 };
 
 const forbiddenImageTypes = ['image/gif'];
@@ -84,7 +84,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const savingResult = useSelector(getSavingResult);
     const selectedDayId = useSelector(getSelectedDayId);
     const selectedExercises = useSelector(getSelectedExercises);
-    const exerciseAmount = useSelector(getExercisesAmount)
+    const exerciseAmount = useSelector(getExercisesAmount);
     const [image, setImage] = useState<File | string | undefined>(undefined);
     const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false);
 
@@ -157,7 +157,6 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     }, [dispatch]);
 
     const onChangeTrainingDays = useCallback((days: EditDaysInfo[] | undefined) => {
-        console.log(days)
         dispatch(editProgramActions.setTrainingDays(days ?? []));
     }, [dispatch]);
 
@@ -166,7 +165,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
             dispatch(updateProgramInfo({
                 id: programId,
                 name,
-                description ,
+                description,
                 publicSetting: isPublic ? 'true' : 'false',
                 image,
                 diffId: selectedDiffId?.toString(),
@@ -209,38 +208,36 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
 
     const onBack = useCallback(() => {
         setIsAddingExercise(false);
-        dispatch(editProgramActions.setSelectedExercises([]))
+        dispatch(editProgramActions.setSelectedExercises([]));
     }, [dispatch]);
 
     const onAddExerciseToProgram = useCallback(() => {
         setIsAddingExercise(false);
         const exercises = daysInfo
-            ?.find(d => d.dayId == selectedDayId)
-            ?.exercises
+            ?.find((d) => d.dayId === selectedDayId)
+            ?.exercises;
 
         if (exercises) {
-            const days = daysInfo?.map(d => {
-                if (d.dayId != selectedDayId) {
-                    return d
+            const days = daysInfo?.map((d) => {
+                if (d.dayId !== selectedDayId) {
+                    return d;
                 }
-                let exerciseLastOrder = exercises?.length - 1            
-                const exercsises = selectedExercises.map(e => ({...e, exerciseOrder: ++exerciseLastOrder}))
+                let exerciseLastOrder = exercises.length - 1;
+                const exercsises = selectedExercises.map((e) => ({ ...e, exerciseOrder: ++exerciseLastOrder }));
                 return {
                     ...d,
                     exercises: [...d.exercises, ...exercsises],
-                } as EditDaysInfo
-            })
-            dispatch(editProgramActions.setTrainingDays(days))
-            dispatch(editProgramActions.setSelectedExercises([]))
+                } as EditDaysInfo;
+            });
+            dispatch(editProgramActions.setTrainingDays(days));
+            dispatch(editProgramActions.setSelectedExercises([]));
         }
-    }, [selectedDayId, dispatch, selectedExercises]);
+    }, [daysInfo, selectedDayId, dispatch, selectedExercises]);
 
     const onSelectExercise = useCallback((dayId: number) => {
-        dispatch(editProgramActions.setSelectedDayId(dayId))
+        dispatch(editProgramActions.setSelectedDayId(dayId));
         setIsAddingExercise(true);
     }, [dispatch]);
-
-
 
     let EditMyProgramContent: ReactNode = (
         isAddingExercise

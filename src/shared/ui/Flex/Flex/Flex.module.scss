@@ -1,0 +1,79 @@
+.Flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.xs {
+    gap: var(--spacing-xs);
+}
+
+.sm {
+    gap: var(--spacing-sm);
+}
+
+.md {
+    gap: var(--spacing-md);
+}
+
+.lg {
+    gap: var(--spacing-lg);
+}
+
+.xl {
+    gap: var(--spacing-xl);
+}
+
+.xxl {
+    gap: var(--spacing-2xl);
+}
+
+.xxxl {
+    gap: var(--spacing-3xl);
+}
+
+.justify-start {
+    justify-content: start;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-end {
+    justify-content: end;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.justify-evenly {
+    justify-content: space-evenly;
+}
+
+.align-start {
+    align-items: flex-start;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.align-end {
+    align-items: flex-end;
+}
+
+.align-stretch {
+    align-items: stretch;
+}

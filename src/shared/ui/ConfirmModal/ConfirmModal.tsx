@@ -16,7 +16,7 @@ export const ConfirmModal = (props: ConfirmModalProps) => {
 
     const {
         isOpen,
-        title = "Подтверждение",
+        title = 'Подтверждение',
         text,
         onOutsideClick,
         callback,

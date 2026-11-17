@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import {
+    useCallback, useEffect, useState, type ReactNode,
+} from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -41,7 +43,7 @@ interface EditExerciseProps {
 const reducers: ReducerList = {
     editExercise: editExerciseReducer,
     muscle: muscleReducer,
-    equipment: equipmentReducer
+    equipment: equipmentReducer,
 };
 
 export const EditExercise = ({ className, id } : EditExerciseProps) => {
@@ -60,14 +62,14 @@ export const EditExercise = ({ className, id } : EditExerciseProps) => {
     const exerciseUserId = useSelector(getExerciseUserId);
     const isLoading = useSelector(getExerciseDetailsIsLoading);
     const errorsExerciseDetails = useSelector(getExerciseDetailsError);
-    
+
     useEffect(() => {
         dispatch(fetchExerciseDetails(Number(id)));
     }, [dispatch, id, userId]);
 
     useEffect(() => {
         if (imageUrl) {
-            setImage(imageUrl)
+            setImage(imageUrl);
         }
     }, [imageUrl]);
 
@@ -85,7 +87,7 @@ export const EditExercise = ({ className, id } : EditExerciseProps) => {
 
     const onChangeImage = useCallback((file : File | undefined | null) => {
         if (file === null) {
-            dispatch(editExerciseActions.setErrors({image: ["Изображение должно быть не более 3 МБ"]}))
+            dispatch(editExerciseActions.setErrors({ image: ['Изображение должно быть не более 3 МБ'] }));
         } else {
             setImage(file);
         }
@@ -99,9 +101,7 @@ export const EditExercise = ({ className, id } : EditExerciseProps) => {
         navigate(`${AuthRoutePath.exercise_details}${id}`);
     }, [navigate]);
 
-
-
-     const onEdit = async () => {
+    const onEdit = async () => {
         const errorObject: ErrorObject = {
             name: [
                 {
@@ -140,75 +140,75 @@ export const EditExercise = ({ className, id } : EditExerciseProps) => {
     };
 
     let content: ReactNode = (
-            <Form className={classNames(cls.EditExercise, {}, [className])}>
-                <Form.Group className={cls.formGroup}>
-                    <Form.Label className="form-label" htmlFor="exerciseName">{t('Название упражнения')}</Form.Label>
-                    <Input
-                        value={name}
-                        onChange={onChangeName}
-                        type="text"
-                        id="exerciseName"
-                        name="exerciseName"
+        <Form className={classNames(cls.EditExercise, {}, [className])}>
+            <Form.Group className={cls.formGroup}>
+                <Form.Label className="form-label" htmlFor="exerciseName">{t('Название упражнения')}</Form.Label>
+                <Input
+                    value={name}
+                    onChange={onChangeName}
+                    type="text"
+                    id="exerciseName"
+                    name="exerciseName"
+                />
+                <ErrorMessage messages={errors?.name} />
+            </Form.Group>
+            <Form.Group className={cls.formGroup}>
+                <Form.Label>{t('Оборудование')}</Form.Label>
+                <div className={cls.selectorGrid}>
+                    <EquipmentCardList
+                        onChange={onChangeEquipment}
+                        selectedEquipment={equipmentId}
                     />
-                    <ErrorMessage messages={errors?.name} />
-                </Form.Group>
-                <Form.Group className={cls.formGroup}>
-                    <Form.Label>{t('Оборудование')}</Form.Label>
-                    <div className={cls.selectorGrid}>
-                        <EquipmentCardList
-                            onChange={onChangeEquipment}
-                            selectedEquipment={equipmentId}
-                        />
-                    </div>
-                </Form.Group>
-                <Form.Group className={cls.formGroup}>
-                    <Form.Label>{t('Основная мышца')}</Form.Label>
-                    <div className={cls.selectorGrid}>
-                        <PrimaryMuscleCardList
-                            onChange={onChangePrimaryMuscle}
-                            selectedMuscle={primaryMuscleId}
-                        />
-                    </div>
-                </Form.Group>
-                <Form.Group className={cls.formGroup}>
-                    <Form.Label>{t('Второстепенные мышцы')}</Form.Label>
-                    <p className={cls.hint}>{t('Выберите мышцы, которые также задействованы')}</p>
-                    <div className={cls.selectorGrid}>
-                        <SecondaryMuscleCardList values={secondaryMuscleIds} onChange={onChangeSecondaryMuscle} />
-                    </div>
-                    <ErrorMessage messages={errors?.secondaryMuscleIds} />
-                </Form.Group>
-                <Form.Group className={cls.formGroup}>
-                    <FileInput
-                        value={image}
-                        onChangeImage={onChangeImage}
-                    />
-                    <ErrorMessage messages={errors?.image} />
-                </Form.Group>
-                <div className={cls.buttonWrapper}>
-                    <Button
-                        theme={ThemeButton.OUTLINE}
-                        type="button"
-                        onClick={onCancel}
-                    >
-                        {t('Отмена')}
-                    </Button>
-                    <Button
-                        type="button"
-                        onClick={onEdit}
-                        disabled={status === 'loading'}
-                    >
-                        <Save className={cls.saveIcon} />
-                        {t('Сохранить')}
-                    </Button>
                 </div>
-                {
-                    status === "success" && (
-                        <p className={cls.success}>Редактирование выполнено успешно</p>
-                    )
-                }
-            </Form>
-    )
+            </Form.Group>
+            <Form.Group className={cls.formGroup}>
+                <Form.Label>{t('Основная мышца')}</Form.Label>
+                <div className={cls.selectorGrid}>
+                    <PrimaryMuscleCardList
+                        onChange={onChangePrimaryMuscle}
+                        selectedMuscle={primaryMuscleId}
+                    />
+                </div>
+            </Form.Group>
+            <Form.Group className={cls.formGroup}>
+                <Form.Label>{t('Второстепенные мышцы')}</Form.Label>
+                <p className={cls.hint}>{t('Выберите мышцы, которые также задействованы')}</p>
+                <div className={cls.selectorGrid}>
+                    <SecondaryMuscleCardList values={secondaryMuscleIds} onChange={onChangeSecondaryMuscle} />
+                </div>
+                <ErrorMessage messages={errors?.secondaryMuscleIds} />
+            </Form.Group>
+            <Form.Group className={cls.formGroup}>
+                <FileInput
+                    value={image}
+                    onChangeImage={onChangeImage}
+                />
+                <ErrorMessage messages={errors?.image} />
+            </Form.Group>
+            <div className={cls.buttonWrapper}>
+                <Button
+                    theme={ThemeButton.OUTLINE}
+                    type="button"
+                    onClick={onCancel}
+                >
+                    {t('Отмена')}
+                </Button>
+                <Button
+                    type="button"
+                    onClick={onEdit}
+                    disabled={status === 'loading'}
+                >
+                    <Save className={cls.saveIcon} />
+                    {t('Сохранить')}
+                </Button>
+            </div>
+            {
+                status === 'success' && (
+                    <p className={cls.success}>Редактирование выполнено успешно</p>
+                )
+            }
+        </Form>
+    );
 
     if (isLoading) {
         content = <PageLoader />;

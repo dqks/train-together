@@ -48,14 +48,14 @@ export const DayHeader = (props : DayHeaderProps) => {
     }, [dayId, onChangeDayName]);
 
     const deleteDayHandler = useCallback(() => {
-        onDeleteDay(dayNumber - 1)
-    }, [dayNumber, onDeleteDay])
+        onDeleteDay(dayNumber - 1);
+    }, [dayNumber, onDeleteDay]);
 
     const changeDayOfWeekHandler = useCallback((id: string) => {
         if (dayId) {
-            onChangeDayOfWeek(Number(id) , dayId)
+            onChangeDayOfWeek(Number(id), dayId);
         }
-    }, [dayNumber, onDeleteDay])
+    }, [dayId, onChangeDayOfWeek]);
 
     return (
         <div className={cls.dayHeader}>
@@ -64,8 +64,8 @@ export const DayHeader = (props : DayHeaderProps) => {
                 {/*    <Burger /> */}
                 {/* </div> */}
                 <div className={cls.dayBadge}>
-                    <Select 
-                        value={String(selectedDayOfWeekId)} 
+                    <Select
+                        value={String(selectedDayOfWeekId)}
                         theme="ghost"
                         className={cls.dayOfWeek}
                         onChange={changeDayOfWeekHandler}

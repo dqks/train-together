@@ -33,7 +33,7 @@ const reducers: ReducerList = {
     addExercise: addExerciseReducer,
     muscle: muscleReducer,
     equipment: equipmentReducer,
-    exerciseProgression: exerciseProgressionReducer
+    exerciseProgression: exerciseProgressionReducer,
 };
 
 const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
@@ -72,7 +72,7 @@ const AddExerciseForm = ({ closeHandler }: AddExerciseFormProps) => {
         if (file === null) {
             dispatch(addExerciseActions.setErrors({ image: ['Максимум 3 мегабайта'] }));
         } else {
-            setImage(file)
+            setImage(file);
         }
     };
 

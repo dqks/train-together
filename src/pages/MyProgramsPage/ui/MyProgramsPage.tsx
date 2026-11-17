@@ -4,15 +4,17 @@ import { useEffect } from 'react';
 import cls from './MyProgramsPage.module.scss';
 import { ProgramsList } from '@/widgets/ProgramsList';
 import type { ProgramCard as Program } from '@/entities/Program/model/types/programSchema.ts';
-import { fetchUserPrograms, getUserPrograms, getUserProgramsIsLoading, userProgramsReducer } from '@/entities/Program';
+import {
+    fetchUserPrograms, getUserPrograms, getUserProgramsIsLoading, userProgramsReducer,
+} from '@/entities/Program';
 import { SearchInput } from '@/shared/ui/SearchInput/SearchInput.tsx';
 import { AddMyProgram } from '@/features/AddMyProgram';
 import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 
 const reducers: ReducerList = {
-    userPrograms: userProgramsReducer
-}
+    userPrograms: userProgramsReducer,
+};
 
 const MyProgramsPage = () => {
     const { t } = useTranslation();

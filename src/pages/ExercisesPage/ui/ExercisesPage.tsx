@@ -6,14 +6,16 @@ import cls from './ExercisesPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ExerciseCardList } from '@/widgets/ExerciseCardList';
 import { ExercisesControl } from '@/widgets/ExercisesControl';
-import { fetchExerciseCards, getExerciseIsLoading } from '@/entities/Exercise';
+import {
+    fetchExerciseCards, getExerciseIsLoading, exerciseReducer, getAllExercises,
+} from '@/entities/Exercise';
 import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
-import { exerciseReducer, getAllExercises } from '@/entities/Exercise';
+
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 
 const reducers: ReducerList = {
     exercise: exerciseReducer,
-}
+};
 
 const ExercisesPage = () => {
     const { t } = useTranslation();
@@ -28,12 +30,12 @@ const ExercisesPage = () => {
         const equipmentId = searchParams.get('equipmentId');
         const primaryMuscleId = searchParams.get('primaryMuscles');
         dispatch(fetchExerciseCards({ equipmentId, primaryMuscles: primaryMuscleId }));
-    }, [dispatch]);
+    }, [dispatch, searchParams]);
 
     useTabTitle('Упражнения');
 
     return (
-        <DynamicModuleLoader reducers={reducers}> 
+        <DynamicModuleLoader reducers={reducers}>
             <div className={classNames(cls.ExercisesPage, {}, [])}>
                 <div className="page-header-row">
                     <div>
@@ -50,7 +52,7 @@ const ExercisesPage = () => {
                 />
             </div>
         </DynamicModuleLoader>
-        
+
     );
 };
 

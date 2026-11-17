@@ -8,7 +8,9 @@ import {
     SelectableExerciseCard,
 } from '@/features/EditMyProgram/ui/ExerciseSelection/SelectableExerciseCard/SelectableExerciseCard.tsx';
 import { exerciseReducer, fetchExerciseCards, getAllExercises } from '@/entities/Exercise';
-import { getSearch, getSelectedEquipmentId, getSelectedExercises, getSelectedPrimaryMuscleId } from '../../model/selectors/editProgramSelectors.ts';
+import {
+    getSearch, getSelectedEquipmentId, getSelectedExercises, getSelectedPrimaryMuscleId,
+} from '../../model/selectors/editProgramSelectors.ts';
 import { editProgramActions } from '../../model/slice/editProgramSlice';
 import type { ExerciseDay } from '@/entities/Program/index.ts';
 import { useDebounce } from '@/shared/lib/useDebounce/useDebounce.ts';
@@ -29,7 +31,7 @@ export type ExerciseSelectionProps = {
 
 const reducers: ReducerList = {
     exercise: exerciseReducer,
-}
+};
 
 export const ExerciseSelection = ({
     onBack,
@@ -41,7 +43,7 @@ export const ExerciseSelection = ({
     const search = useSelector(getSearch);
     const selectedEquipmentId = useSelector(getSelectedEquipmentId);
     const selectedPrimaryMuscleId = useSelector(getSelectedPrimaryMuscleId);
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -62,14 +64,13 @@ export const ExerciseSelection = ({
             sets: 1,
             reps: 1,
             exerciseOrder: 0,
-            exercise: exercises?.find(e => e.id == id)
-        } as ExerciseDay
+            exercise: exercises?.find((e) => e.id == id),
+        } as ExerciseDay;
 
-        if (selectedExercises.find(e => e.exercise.id == id)) {
+        if (selectedExercises.find((e) => e.exercise.id == id)) {
             dispatch(
                 editProgramActions
-                    .setSelectedExercises(selectedExercises.filter((e) => e.exercise.id !== id)
-                )
+                    .setSelectedExercises(selectedExercises.filter((e) => e.exercise.id !== id)),
             );
             return;
         }
@@ -77,13 +78,13 @@ export const ExerciseSelection = ({
     };
 
     const clearSelected = () => {
-        dispatch(editProgramActions.setSelectedExercises([]))
+        dispatch(editProgramActions.setSelectedExercises([]));
     };
 
     const clearFilters = () => {
-        dispatch(editProgramActions.setSelectedPrimaryMuscleId(''))
-        dispatch(editProgramActions.setSelectedEquipmentId(''))
-        dispatch(editProgramActions.setSearch(""))
+        dispatch(editProgramActions.setSelectedPrimaryMuscleId(''));
+        dispatch(editProgramActions.setSelectedEquipmentId(''));
+        dispatch(editProgramActions.setSearch(''));
         dispatch(fetchExerciseCards());
     };
 
@@ -92,21 +93,21 @@ export const ExerciseSelection = ({
     };
 
     const onSetSelectedPrimaryMuscleId = useCallback((value: string) => {
-        dispatch(editProgramActions.setSelectedPrimaryMuscleId(value))
-    }, [dispatch])
+        dispatch(editProgramActions.setSelectedPrimaryMuscleId(value));
+    }, [dispatch]);
 
     const onSetSelectedEquipmentId = useCallback((value: string) => {
-        dispatch(editProgramActions.setSelectedEquipmentId(value))
-    }, [dispatch])
+        dispatch(editProgramActions.setSelectedEquipmentId(value));
+    }, [dispatch]);
 
-    const debouncedFetchExercises = useDebounce((value: string ) => {
-        dispatch(fetchExerciseCards({name: value}));
+    const debouncedFetchExercises = useDebounce((value: string) => {
+        dispatch(fetchExerciseCards({ name: value }));
     }, 350);
 
     const applySearchHandler = useCallback((value: string) => {
-        dispatch(editProgramActions.setSearch(value))
-        debouncedFetchExercises(value)
-    }, [dispatch, fetchExerciseCards])
+        dispatch(editProgramActions.setSearch(value));
+        debouncedFetchExercises(value);
+    }, [dispatch, fetchExerciseCards]);
 
     const applyFiltersHandler = useCallback(() => {
         dispatch(fetchExerciseCards({
@@ -115,10 +116,10 @@ export const ExerciseSelection = ({
         }));
     }, [
         dispatch,
-        fetchExerciseCards, 
+        fetchExerciseCards,
         selectedEquipmentId,
         selectedPrimaryMuscleId,
-    ])
+    ]);
 
     console.log(exercises);
 
@@ -164,15 +165,15 @@ export const ExerciseSelection = ({
                             value={search}
                             onChange={applySearchHandler}
                         />
-                        <MuscleFilter 
-                            onApplyFilters={applyFiltersHandler} 
-                            setPrimaryMuscleId={onSetSelectedPrimaryMuscleId} 
+                        <MuscleFilter
+                            onApplyFilters={applyFiltersHandler}
+                            setPrimaryMuscleId={onSetSelectedPrimaryMuscleId}
                             primaryMuscleId={selectedPrimaryMuscleId}
                         />
-                        <EquipmentFilter 
-                            onApplyFilters={applyFiltersHandler} 
+                        <EquipmentFilter
+                            onApplyFilters={applyFiltersHandler}
                             setEquipmentId={onSetSelectedEquipmentId}
-                            equipmentId={selectedEquipmentId} 
+                            equipmentId={selectedEquipmentId}
                         />
                     </div>
                     <div className={cls.filtersInfo}>
@@ -210,7 +211,7 @@ export const ExerciseSelection = ({
                 {/* Exercise Cards Grid */}
                 <div className={cls.selectGrid}>
                     {exercises?.map((ex) => {
-                        const isSelected = selectedExercises?.find(e => e.exercise.id == ex.id);
+                        const isSelected = selectedExercises?.find((e) => e.exercise.id == ex.id);
                         return (
                             <SelectableExerciseCard
                                 key={ex.id}
@@ -256,6 +257,6 @@ export const ExerciseSelection = ({
                 </div>
             </div>
         </DynamicModuleLoader>
-        
+
     );
 };

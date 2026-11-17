@@ -33,11 +33,10 @@ export const FileInput = ({ onChangeImage, value, className }: FileInputProps) =
 
     const onChange = (e : ChangeEvent<HTMLInputElement>) => {
         if (e?.target?.files) {
-            
             if (e.target.files[0].size > fileSizeLimit) {
                 onChangeImage(null);
-                return
-            } 
+                return;
+            }
             onChangeImage(e?.target?.files[0]);
             resetInput();
         }

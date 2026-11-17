@@ -161,11 +161,11 @@ export const RegisterForm = () => {
                         </Form.Group>
                         <Form.Group>
                             <div className={cls.checkboxWrapper}>
-                                <Checkbox 
-                                    id='consent'
+                                <Checkbox
+                                    id="consent"
                                     name="consent"
-                                    checked={consent} 
-                                    onChange={onChangeConsent} 
+                                    checked={consent}
+                                    onChange={onChangeConsent}
                                 />
                                 <label htmlFor="consent">
                                     {t('Согласие на обработку персональных данных')}

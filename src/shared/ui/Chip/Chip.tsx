@@ -4,10 +4,10 @@ import { classNames } from '../../lib/classNames/classNames.ts';
 
 interface ChipProps {
     className?: string;
-    text: string
+    value: string
 }
 
-export const Chip = ({ className, text }: ChipProps) => {
+export const Chip = ({ className, value }: ChipProps) => {
     const [isSelected, setIsSelected] = useState(false);
 
     const onToggle = () => {
@@ -27,7 +27,7 @@ export const Chip = ({ className, text }: ChipProps) => {
                 )
             }
         >
-            {text}
+            {value}
         </button>
     );
 };

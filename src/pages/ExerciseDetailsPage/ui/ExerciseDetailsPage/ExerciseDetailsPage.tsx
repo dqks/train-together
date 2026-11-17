@@ -27,8 +27,8 @@ import type { ExerciseLinkState } from '@/features/EditMyProgram';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 
 const reducers: ReducerList = {
-    exerciseDetails: exerciseDetailsReducer
-}
+    exerciseDetails: exerciseDetailsReducer,
+};
 
 const ExerciseDetailsPage = () => {
     const { t, i18n } = useTranslation();
@@ -54,21 +54,21 @@ const ExerciseDetailsPage = () => {
             {t('К списку упражнений')}
         </AppLink>
     );
-    
+
     if (state) {
         if (state.programId && state.from === 'edit') {
-                returnLink = (
-                    <AppLink className={cls.backLink} to={`${AuthRoutePath.program_details}${state.programId}/edit`}>
-                        <LeftArrow className={cls.backLinkSvg} />
-                        {t('Обратно к программе')}
-                    </AppLink>
-                );
-            }
+            returnLink = (
+                <AppLink className={cls.backLink} to={`${AuthRoutePath.program_details}${state.programId}/edit`}>
+                    <LeftArrow className={cls.backLinkSvg} />
+                    {t('Обратно к программе')}
+                </AppLink>
+            );
+        }
     }
 
     let content: ReactNode = (
         <>
-         {returnLink}
+            {returnLink}
             <div className={classNames(cls.DisplayMode, {}, [])}>
                 <div className={cls.exerciseHero}>
                     {
@@ -141,7 +141,7 @@ const ExerciseDetailsPage = () => {
                 }
             </div>
         </>
-    )
+    );
 
     if (isLoading) {
         content = <PageLoader />;

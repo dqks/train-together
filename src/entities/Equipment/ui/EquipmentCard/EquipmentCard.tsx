@@ -18,7 +18,6 @@ export const EquipmentCard = (props : EquipmentCardProps) => {
         id,
         selectedEquipment,
     } = props;
-    
 
     const isSelected = selectedEquipment === id?.toString();
     const onEquipmentChange = (e: ChangeEvent<HTMLInputElement>) => {

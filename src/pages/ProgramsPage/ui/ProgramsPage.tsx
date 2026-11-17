@@ -6,7 +6,9 @@ import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import { ProgramsList } from '@/widgets/ProgramsList';
 import { ProgramsControl } from '@/widgets/ProgramsControl/ui/ProgramsControl/ProgramsControl.tsx';
 import { useTabTitle } from '@/shared/lib/useTabTitle/useTabTitle.ts';
-import { fetchPublicPrograms, getPublicPrograms, getPublicProgramsIsLoading, publicProgramsReducer } from '@/entities/Program';
+import {
+    fetchPublicPrograms, getPublicPrograms, getPublicProgramsIsLoading, publicProgramsReducer,
+} from '@/entities/Program';
 import { DynamicModuleLoader, type ReducerList } from '@/shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 
 interface ProgramsPageProps {
@@ -14,13 +16,13 @@ interface ProgramsPageProps {
 }
 
 const reducers: ReducerList = {
-    publicProgram: publicProgramsReducer
-}
+    publicProgram: publicProgramsReducer,
+};
 
 const ProgramsPage = ({ className } : ProgramsPageProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const programList = useSelector(getPublicPrograms); 
+    const programList = useSelector(getPublicPrograms);
     const isLoading = useSelector(getPublicProgramsIsLoading);
 
     useEffect(() => {
@@ -47,7 +49,7 @@ const ProgramsPage = ({ className } : ProgramsPageProps) => {
                 />
             </div>
         </DynamicModuleLoader>
-       
+
     );
 };
 

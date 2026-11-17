@@ -15,7 +15,7 @@ interface HeroProps {
     formattedDate: string | undefined;
     authorImage: string | undefined
     isOwner: boolean | undefined;
-    programId: number | undefined;
+    // programId: number | undefined;
     onEditButtonClick: () => void
 }
 

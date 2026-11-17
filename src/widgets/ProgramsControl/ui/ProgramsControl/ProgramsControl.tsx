@@ -16,14 +16,14 @@ export const ProgramsControl = ({ className, programCount } : ProgramsControlPro
             <SearchInput placeholder={t('Поиск по названию...')} />
             <div className={cls.filterRow}>
                 <div className={cls.filterChips}>
-                    <Chip text="🔥 Самые популярные" />
-                    <Chip text="⭐ С наивысшим рейтингом" />
-                    <Chip text="✨ Новые" />
+                    <Chip value="🔥 Самые популярные" />
+                    <Chip value="⭐ С наивысшим рейтингом" />
+                    <Chip value="✨ Новые" />
                 </div>
                 <div className={cls.filterChips}>
-                    <Chip text="Начинающим" />
-                    <Chip text="Средний" />
-                    <Chip text="Продвинутым" />
+                    <Chip value="Начинающим" />
+                    <Chip value="Средний" />
+                    <Chip value="Продвинутым" />
                 </div>
             </div>
             <span>

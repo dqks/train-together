@@ -33,8 +33,6 @@ interface CreateProgramFormProps {
     className?: string;
 }
 
-
-
 const reducers: ReducerList = {
     createProgram: createProgramReducer,
 };
@@ -59,7 +57,7 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
         if (!goals && !difficulties) {
             dispatch(fetchCreateInfo());
         }
-    }, [dispatch]);
+    }, [difficulties, dispatch, goals]);
 
     const goalOptions = goals
         ?.map((goal) => (<option key={goal.id} value={goal.id}>{goal.name}</option>));
@@ -90,7 +88,7 @@ export const CreateProgramForm = ({ className }: CreateProgramFormProps) => {
         if (file === null) {
             dispatch(createProgramActions.setErrors({ image: ['Максимум 3 мегабайта'] }));
         } else {
-            setImage(file)
+            setImage(file);
         }
     }, [dispatch]);
 

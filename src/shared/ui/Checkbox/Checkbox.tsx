@@ -1,4 +1,4 @@
-import type { ChangeEvent, InputHTMLAttributes } from "react"
+import type { ChangeEvent, InputHTMLAttributes } from 'react';
 
 type CheckBoxType = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'>
 
@@ -11,21 +11,21 @@ export interface CheckBoxProps extends CheckBoxType {
 }
 
 export const Checkbox = (props: CheckBoxProps) => {
-    const { 
+    const {
         onChange,
         checked,
-        className, 
+        className,
         id,
         name,
         ...rest
-        } = props
+    } = props;
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange(e.target.checked)
-    }
+        onChange(e.target.checked);
+    };
 
     return (
-         <input
+        <input
             onChange={changeHandler}
             checked={checked}
             type="checkbox"
@@ -34,5 +34,5 @@ export const Checkbox = (props: CheckBoxProps) => {
             className={className}
             {...rest}
         />
-    )
-}
+    );
+};
