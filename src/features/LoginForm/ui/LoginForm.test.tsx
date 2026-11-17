@@ -2,12 +2,11 @@ import { describe, expect, test } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { LoginForm } from './LoginForm';
 import userEvent from "@testing-library/user-event"
-import { BrowserRouter } from 'react-router';
-import { Provider } from 'react-redux';
 import { createReduxStore } from '@/app/providers/StoreProvider';
 import { server } from "../../../../config/vitest/server"
 import { http, HttpResponse } from 'msw';
 import * as loginByEmail from '../model/services/loginByEmail/loginByEmail';
+import { renderComponent } from '@/shared/lib/tests/renderComponent';
 
 
 describe('button', () => {
@@ -17,12 +16,7 @@ describe('button', () => {
         // arrange
         const user = userEvent.setup()
         const loginSpy = vi.spyOn(loginByEmail, 'loginByEmail')
-        render(
-            <BrowserRouter>
-                <Provider store={store}>
-                    <LoginForm />
-                </Provider>
-            </BrowserRouter>
+        render(renderComponent(store, <LoginForm />)
         );
         const loginButton = screen.getByRole("login")
 
@@ -43,13 +37,8 @@ describe('button', () => {
         // arrange
         const user = userEvent.setup()
         const loginSpy = vi.spyOn(loginByEmail, 'loginByEmail')
-        render(
-            <BrowserRouter>
-                <Provider store={store}>
-                    <LoginForm />
-                </Provider>
-            </BrowserRouter>
-        );
+        render(renderComponent(store, <LoginForm />))
+
         const loginButton = screen.getByRole("login")
         const emailInput = screen.getByRole("email")
 
@@ -68,13 +57,8 @@ describe('button', () => {
         // arrange
         const user = userEvent.setup()
         const loginSpy = vi.spyOn(loginByEmail, 'loginByEmail')
-        render(
-            <BrowserRouter>
-                <Provider store={store}>
-                    <LoginForm />
-                </Provider>
-            </BrowserRouter>
-        );
+        render(renderComponent(store, <LoginForm />))
+
         const loginButton = screen.getByRole("login")
         const passwordField = screen.getByRole("password")
         // act
@@ -98,13 +82,8 @@ describe('button', () => {
         })
         // arrange
         const user = userEvent.setup()
-        render(
-            <BrowserRouter>
-                <Provider store={store}>
-                    <LoginForm />
-                </Provider>
-            </BrowserRouter>
-        );
+        render(renderComponent(store, <LoginForm />))
+
         const loginButton = screen.getByRole("login")
         const emailField = screen.getByRole("email")
         const passwordField = screen.getByRole("password")
@@ -149,13 +128,8 @@ describe('button', () => {
         })
         // arrange
         const user = userEvent.setup()
-        render(
-            <BrowserRouter>
-                <Provider store={store}>
-                    <LoginForm />
-                </Provider>
-            </BrowserRouter>
-        );
+        render(renderComponent(store, <LoginForm />))
+
         const loginButton = screen.getByRole("login")
         const emailField = screen.getByRole("email")
         const passwordField = screen.getByRole("password")
@@ -198,41 +172,5 @@ describe('button', () => {
     });
 
     // test('internal server error', async () => {
-    //     const store = createReduxStore()        
-    //     let resolveRequest!: () => void
-    //     const requestPaused = new Promise<void>((resolve) => {
-    //         resolveRequest = resolve
-    //     })
-    //     // arrange
-    //     const user = userEvent.setup()
-    //     render(
-    //         <BrowserRouter>
-    //             <Provider store={store}>
-    //                 <LoginForm />
-    //             </Provider>
-    //         </BrowserRouter>
-    //     );
-    //     const loginButton = screen.getByRole("login")
-    //     const emailField = screen.getByRole("email")
-    //     const passwordField = screen.getByRole("password")
-    //     // act
-    //     await user.type(emailField, "test@mail.ru")
-    //     await user.type(passwordField, "password")
-
-    //     server.use(
-    //         http.post('*/auth/login', async () => {
-    //             // await requestPaused
-    //             return HttpResponse.json({
-    //             },
-    //                 {
-    //                     status: 500
-    //                 }
-    //             );
-    //         }),
-    //     )
-    //     await user.click(loginButton)
-
-    //     screen.debug()
-    //     console.log(store.getState())
     // });
 });

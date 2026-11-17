@@ -43,6 +43,7 @@ export const SubscribeProgram = (props: SubscribeProgramProps) => {
                     <Button
                         className={classNames(cls.subscribeButton, {}, [cls.unsubscribeButton])}
                         type="button"
+                        role='UnsubscribeButton'
                         onClick={unsubscribeHandler}
                     >
                         <Phone className={cls.icon} />
@@ -55,6 +56,7 @@ export const SubscribeProgram = (props: SubscribeProgramProps) => {
                     className={cls.subscribeButton}
                     onClick={subscribeHandler}
                     type="button"
+                    role='SubscribeButton'
                 >
                     <Phone className={cls.icon} />
                     {t('Добавить в избранное')}

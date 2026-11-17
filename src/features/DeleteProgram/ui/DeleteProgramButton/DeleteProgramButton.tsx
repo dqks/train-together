@@ -9,7 +9,7 @@ interface DeleteProgramButtonProps {
     redirectTo: string;
 }
 
-export const DeleteProgramButton = ({ programId, redirectTo } : DeleteProgramButtonProps) => {
+export const DeleteProgramButton = ({ programId, redirectTo }: DeleteProgramButtonProps) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -21,6 +21,12 @@ export const DeleteProgramButton = ({ programId, redirectTo } : DeleteProgramBut
     };
 
     return (
-        <Button onClick={deleteHandler} type="button">{t('Удалить программу')}</Button>
+        <Button
+            role='DeleteProgramButton'
+            onClick={deleteHandler}
+            type="button"
+        >
+            {t('Удалить программу')}
+        </Button>
     );
 };
