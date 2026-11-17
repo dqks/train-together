@@ -5,12 +5,12 @@ import { Chip } from './Chip.tsx';
 
 describe('button', () => {
     test('render', () => {
-        render(<Chip text="Test" />);
+        render(<Chip value="Test" />);
         expect(screen.getByTestId('chip')).toBeInTheDocument();
     });
 
     test('selects by click', () => {
-        render(<Chip text="Test" />);
+        render(<Chip value="Test" />);
         const element = screen.getByTestId('chip');
         fireEvent.click(element);
         expect(element).toHaveClass(cls.selected);

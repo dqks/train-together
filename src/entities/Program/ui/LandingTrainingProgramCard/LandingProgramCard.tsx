@@ -1,4 +1,4 @@
-import { classNames } from '../../../../shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import cls from './LandingProgramCard.module.scss';
 import Picture from '../../../../shared/assets/icons/picture.svg?react';
 
