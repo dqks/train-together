@@ -7,21 +7,20 @@ import { AuthRoutePath } from '@/shared/config/routeConfig/authRouteConfig.tsx';
 import LeftArrow from '@/shared/assets/icons/leftArrow.svg?react';
 import { EditExercise } from '@/features/EditExercise';
 
-
 export const EditExercisePage = () => {
     const { t } = useTranslation();
     const params = useParams();
 
     if (!params.id) {
-        return null
+        return null;
     }
 
     return (
         <div className={classNames(cls.EditMode, {}, [])}>
             <div className={cls.editHeader}>
                 <div className={cls.editHeaderLeft}>
-                    <AppLink 
-                        className={cls.backLink} 
+                    <AppLink
+                        className={cls.backLink}
                         to={AuthRoutePath.exercises}
                     >
                         <LeftArrow className={cls.backLinkSvg} />

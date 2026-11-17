@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import type { AriaRole } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ErrorMessage.module.scss';
 
@@ -14,21 +15,21 @@ interface ErrorMessageProps {
     className?: string;
     textSize?: TextSize;
     messages: string[] | string | undefined;
-    role?: string
+    role?: AriaRole
 }
 
 export const ErrorMessage = (props : ErrorMessageProps) => {
-    const { 
-        messages, 
-        className, 
+    const {
+        messages,
+        className,
         textSize = TextSize.TINY,
-        role, 
+        role,
     } = props;
     const { t } = useTranslation();
     return (
         messages
         && (
-            <div className={cls.ErrorMessage} role={`ErrorMessage.${role}`}>
+            <div className={cls.ErrorMessage} role={role}>
                 {
                     Array.isArray(messages)
                         ? messages.map((message) => (

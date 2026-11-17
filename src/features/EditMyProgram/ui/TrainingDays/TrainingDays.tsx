@@ -82,7 +82,7 @@ export const TrainingDays = (props : TrainingDaysProps) => {
                 name: dayName,
             };
         });
-        
+
         onChangeTrainingDays(days);
     }, [onChangeTrainingDays, editDaysInfo]);
 
@@ -98,46 +98,45 @@ export const TrainingDays = (props : TrainingDaysProps) => {
             };
         });
         onChangeTrainingDays(days);
-    }, [onChangeTrainingDays, editDaysInfo])
-       
+    }, [onChangeTrainingDays, editDaysInfo]);
+
     const daySort = useMemo(() => {
         if (daysOfWeek) {
-            const sort : Record<number, number> = {}
+            const sort : Record<number, number> = {};
             for (const d of daysOfWeek) {
-                sort[d.id] = d.sortOrder
+                sort[d.id] = d.sortOrder;
             }
-            return sort
+            return sort;
         }
-    }, [daysOfWeek])    
+    }, [daysOfWeek]);
 
     if (!daySort) {
-        return null
+        return null;
     }
 
     const trainingDaysCards = editDaysInfo
-    ?  [...editDaysInfo]
-        ?.sort((t1, t2) => daySort[t1.dayOfWeekId] - daySort[t2.dayOfWeekId])
-        ?.map((td, dayIndex) =>{ 
-            return (
-            <EditableDayCard
-                errors={errorDays}
-                selectedDayOfWeekId={td.dayOfWeekId}
-                daysOfWeek={daysOfWeek}
-                dayIndex={dayIndex}
-                dayNumber={dayIndex + 1}
-                dayId={td.dayId}
-                dayName={td.name}
-                exercises={td.exercises ?? []}
-                key={td.dayId}
-                onChangeExerciseReps={onChangeExerciseReps}
-                onChangeExerciseSets={onChangeExerciseSets}
-                onDeleteDay={onDeleteDay}
-                onDeleteExercise={onDeleteExercise}
-                onSelectExercise={onSelectExercise}
-                onChangeDayName={onChangeDayName}
-                onChangeDayOfWeek={onChangeDayOfWeek}
-            />
-    )}) : null    
+        ? [...editDaysInfo]
+            ?.sort((t1, t2) => daySort[t1.dayOfWeekId] - daySort[t2.dayOfWeekId])
+            ?.map((td, dayIndex) => (
+                <EditableDayCard
+                    errors={errorDays}
+                    selectedDayOfWeekId={td.dayOfWeekId}
+                    daysOfWeek={daysOfWeek}
+                    dayIndex={dayIndex}
+                    dayNumber={dayIndex + 1}
+                    dayId={td.dayId}
+                    dayName={td.name}
+                    exercises={td.exercises ?? []}
+                    key={td.dayId}
+                    onChangeExerciseReps={onChangeExerciseReps}
+                    onChangeExerciseSets={onChangeExerciseSets}
+                    onDeleteDay={onDeleteDay}
+                    onDeleteExercise={onDeleteExercise}
+                    onSelectExercise={onSelectExercise}
+                    onChangeDayName={onChangeDayName}
+                    onChangeDayOfWeek={onChangeDayOfWeek}
+                />
+            )) : null;
 
     return (
         <section className={cls.programSection}>

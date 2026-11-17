@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
+import { useCallback } from 'react';
+import { nanoid } from 'nanoid';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './EditableDayCard.module.scss';
 import { DayHeader } from './DayHeader/DayHeader';
 import { ExerciseRow } from './ExerciseRow/ExerciseRow';
 import { Button, ThemeButton } from '@/shared/ui/Button/Button';
 import type { DayOfWeek, ExerciseDay } from '../../model/types/programSchema';
-import { useCallback } from 'react';
-import { nanoid } from 'nanoid';
 
 interface DayCardProps {
     errors: Partial<Record<string, string[]>> | undefined
@@ -50,9 +50,9 @@ export const EditableDayCard = (props : DayCardProps) => {
 
     const selectExerciseHandler = useCallback(() => {
         if (dayId) {
-            onSelectExercise(dayId)
+            onSelectExercise(dayId);
         }
-    }, [onSelectExercise])
+    }, [dayId, onSelectExercise]);
 
     return (
         <div className={classNames(cls.trainingDayCard, {}, ['editable', className])}>

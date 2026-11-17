@@ -16,8 +16,8 @@ interface FavouriteProgramsPageProps {
 }
 
 const reducers: ReducerList = {
-    favouritePrograms: favouriteProgramsReducer
-}
+    favouritePrograms: favouriteProgramsReducer,
+};
 
 const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
     const { t } = useTranslation();
@@ -33,7 +33,7 @@ const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
 
     return (
         <DynamicModuleLoader reducers={reducers}>
-             <div className={classNames(cls.FavouriteProgramsPage, {}, [className])}>
+            <div className={classNames(cls.FavouriteProgramsPage, {}, [className])}>
                 <div className="page-header">
                     {/* <h1 className="page-title">{t('Избранные программы')}</h1> */}
                     <p className="page-subtitle">
@@ -48,7 +48,7 @@ const FavouriteProgramsPage = ({ className } : FavouriteProgramsPageProps) => {
                 />
             </div>
         </DynamicModuleLoader>
-       
+
     );
 };
 

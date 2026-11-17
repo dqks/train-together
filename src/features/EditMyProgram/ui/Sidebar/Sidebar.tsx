@@ -149,7 +149,7 @@ export const Sidebar = (props : SidebarProps) => {
                 </Button>
             </div>
             {
-                savingResult == "error"
+                savingResult === 'error'
                     ? (
                         <>
                             <ErrorMessage
@@ -162,8 +162,8 @@ export const Sidebar = (props : SidebarProps) => {
                             />
                         </>
                     )
-                    : savingResult == "success" && (
-                        <p>Редактирование прошло успешно</p>
+                    : savingResult === 'success' && (
+                        <p>{t('Редактирование прошло успешно')}</p>
                     )
             }
         </aside>

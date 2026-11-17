@@ -16,7 +16,7 @@ interface ExercisesPageProps {
 
 const reducers: ReducerList = {
     myExercise: myExerciseReducer,
-}
+};
 
 const MyExercisesPage = ({ className } : ExercisesPageProps) => {
     const { t } = useTranslation();
@@ -46,7 +46,7 @@ const MyExercisesPage = ({ className } : ExercisesPageProps) => {
                 <ExerciseCardList exercises={myExercises} isLoading={isLoading} showActions />
             </div>
         </DynamicModuleLoader>
-        
+
     );
 };
 

@@ -29,12 +29,12 @@ export const SelectableExerciseCard = (props : SelectableExerciseCardProps) => {
                 <div className={cls.exerciseMuscles}>
                     <Tag name={exercise?.primaryMuscle?.name} type={TagType.PRIMARY} />
                     {
-                        exercise?.secondaryMuscles 
-                        ? (
-                            exercise?.secondaryMuscles.map((m) => (
-                                <Tag name={m.name} key={m.id} />
-                            )) 
-                        ) : null
+                        exercise?.secondaryMuscles
+                            ? (
+                                exercise?.secondaryMuscles.map((m) => (
+                                    <Tag name={m.name} key={m.id} />
+                                ))
+                            ) : null
                     }
                 </div>
             </div>

@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import cls from './ProgramDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames.ts';
 import {
-    fetchProgramDetails, 
-    getProgramDetails, 
-    getProgramDetailsIsLoading, 
+    fetchProgramDetails,
+    getProgramDetails,
+    getProgramDetailsIsLoading,
     programsDetailsActions,
     programsDetailsReducer,
 } from '@/entities/Program';
@@ -28,8 +28,8 @@ interface ProgramDetailsPageProps {
 }
 
 const reducers: ReducerList = {
-    programDetails: programsDetailsReducer
-}
+    programDetails: programsDetailsReducer,
+};
 
 const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
     const { t, i18n } = useTranslation();
@@ -123,7 +123,7 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
                 </div>
             </div>
         </>
-    )
+    );
 
     if (isLoading) {
         content = <PageLoader />;
@@ -141,7 +141,7 @@ const ProgramDetailsPage = ({ className }: ProgramDetailsPageProps) => {
                 {content}
             </div>
         </DynamicModuleLoader>
-        
+
     );
 };
 

@@ -1,175 +1,168 @@
-import { createReduxStore, type StateSchema } from "@/app/providers/StoreProvider"
-import { SubscribeProgram } from "./SubscribeProgram"
-import { render, screen, waitFor } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
-import { server } from "../../../../config/vitest/server"
-import { http, HttpResponse } from "msw"
-import { programsDetailsReducer } from "@/entities/Program"
-import type { DeepPartial, ReducersMapObject } from "@reduxjs/toolkit"
-import { renderComponent } from "@/shared/lib/tests/renderComponent"
-import * as unsubscribeProgram from "../model/services/unsubscribeProgram/unsubscribeProgram"
-import * as subscribeProgram from "../model/services/subscribeProgram/subscribeProgram"
-
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { http, HttpResponse } from 'msw';
+import type { DeepPartial, ReducersMapObject } from '@reduxjs/toolkit';
+import { vi } from 'vitest';
+import { createReduxStore, type StateSchema } from '@/app/providers/StoreProvider';
+import { SubscribeProgram } from './SubscribeProgram';
+import { server } from '../../../../config/vitest/server';
+import { programsDetailsReducer } from '@/entities/Program';
+import { renderComponent } from '@/shared/lib/tests/renderComponent';
+import * as unsubscribeProgram from '../model/services/unsubscribeProgram/unsubscribeProgram';
+import * as subscribeProgram from '../model/services/subscribeProgram/subscribeProgram';
 
 const initialState: DeepPartial<StateSchema> = {
     programDetails: {
         error: undefined,
         isLoading: false,
         programDetails: {
-            createdAt: "",
+            createdAt: '',
             days: [],
-            description: "",
+            description: '',
             difficulty: {
                 id: 1,
                 level: 2,
-                name: "",
-                nameEng: ""
+                name: '',
+                nameEng: '',
             },
             followsCount: 2,
             goal: {
                 id: 1,
-                name: "",
-                nameEng: "",
-                sortOrder: 0
+                name: '',
+                nameEng: '',
+                sortOrder: 0,
             },
             id: 1,
-            imageUrl: "",
+            imageUrl: '',
             isFollowed: false,
             isPublic: true,
-            name: "",
+            name: '',
             user: {
-                avatarUrl: "",
+                avatarUrl: '',
                 id: 1,
-                nickname: "",
+                nickname: '',
                 programsCount: 2,
-            }
+            },
         },
     },
-}
+};
 
 describe('subscribe button', () => {
-    test("subscribe", async () => {
+    test('subscribe', async () => {
         const store = createReduxStore(
             initialState as StateSchema,
             {
-                programDetails: programsDetailsReducer
-            } as ReducersMapObject<StateSchema> | undefined
+                programDetails: programsDetailsReducer,
+            } as ReducersMapObject<StateSchema> | undefined,
         );
 
-        render(renderComponent(store, <SubscribeProgram isSubscribed={false} programId={1} />))
+        render(renderComponent(store, <SubscribeProgram isSubscribed={false} programId={1} />));
 
-        const user = userEvent.setup()
-        const button = screen.getByRole("SubscribeButton")
-        server.use(http.post('*/training-programs/subscribe/1', async () => {
-            return HttpResponse.json({
-                data: {
-                    success: true
-                }
-            }, {
-                status: 200
-            })
-        },))
+        const user = userEvent.setup();
+        const button = screen.getByRole('button');
+        server.use(http.post('*/training-programs/subscribe/1', async () => HttpResponse.json({
+            data: {
+                success: true,
+            },
+        }, {
+            status: 200,
+        })));
 
         //
-        expect(button).toBeInTheDocument()
-        expect(button).toHaveTextContent("Добавить в избранное")
-        await user.click(button)
+        expect(button).toBeInTheDocument();
+        expect(button).toHaveTextContent('Добавить в избранное');
+        await user.click(button);
 
         await waitFor(() => {
-            expect(store.getState().programDetails?.programDetails?.isFollowed).toBe(true)
-        })
-    })
+            expect(store.getState().programDetails?.programDetails?.isFollowed).toBe(true);
+        });
+    });
 
-    test("unsubscribe", async () => {
+    test('unsubscribe', async () => {
         const store = createReduxStore(
             {
                 ...initialState,
                 programDetails: {
                     programDetails: {
-                        isFollowed: true
-                    }
-                }
+                        isFollowed: true,
+                    },
+                },
             } as StateSchema,
             {
-                programDetails: programsDetailsReducer
-            } as ReducersMapObject<StateSchema> | undefined
+                programDetails: programsDetailsReducer,
+            } as ReducersMapObject<StateSchema> | undefined,
         );
-        render(renderComponent(store, <SubscribeProgram isSubscribed={true} programId={1} />))
+        render(renderComponent(store, <SubscribeProgram isSubscribed programId={1} />));
 
-        server.use(http.delete("*/training-programs/subscribe/1", () => {
-            return HttpResponse.json({ data: { success: true } }, { status: 200 })
-        }))
+        server.use(http.delete(
+            '*/training-programs/subscribe/1',
+            () => HttpResponse.json({ data: { success: true } }, { status: 200 }),
+        ));
 
-        const user = userEvent.setup()
-        const button = screen.getByRole("UnsubscribeButton")
+        const user = userEvent.setup();
+        const button = screen.getByRole('button', { name: 'Удалить из избранного' });
 
-        await user.click(button)
-
-        expect(button).toBeInTheDocument()
-        expect(button).toHaveTextContent("Удалить из избранного")
+        await user.click(button);
 
         await waitFor(() => {
-            expect(store.getState().programDetails?.programDetails?.isFollowed).toBe(false)
-        })
-    })
+            expect(store.getState().programDetails?.programDetails?.isFollowed).toBe(false);
+        });
+    });
 
-    test("undefined program id unsubscribe", async () => {
+    test('undefined program id unsubscribe', async () => {
         const store = createReduxStore(
             {
                 ...initialState,
                 programDetails: {
                     programDetails: {
-                        isFollowed: true
-                    }
-                }
+                        isFollowed: true,
+                    },
+                },
             } as StateSchema,
             {
-                programDetails: programsDetailsReducer
-            } as ReducersMapObject<StateSchema> | undefined
+                programDetails: programsDetailsReducer,
+            } as ReducersMapObject<StateSchema> | undefined,
         );
-        render(renderComponent(store, <SubscribeProgram isSubscribed={true} programId={undefined} />))
+        render(renderComponent(store, <SubscribeProgram isSubscribed programId={undefined} />));
 
-        const spyUnsubscribe = vi.spyOn(unsubscribeProgram, "unsubscribeProgram")
-        const spySubscribe = vi.spyOn(subscribeProgram, "subscribeProgram")
+        const spyUnsubscribe = vi.spyOn(unsubscribeProgram, 'unsubscribeProgram');
+        const spySubscribe = vi.spyOn(subscribeProgram, 'subscribeProgram');
 
-        // server.use(http.delete("*/training-programs/subscribe/1", () => {
-        //     return HttpResponse.json({ data: { success: true } }, { status: 200 })
-        // }))
+        const user = userEvent.setup();
+        const button = screen.getByRole('button', { name: 'Удалить из избранного' });
 
-        const user = userEvent.setup()
-        const button = screen.getByRole("UnsubscribeButton")
+        await user.click(button);
 
-        await user.click(button)
+        expect(spyUnsubscribe).not.toHaveBeenCalled();
+        expect(spySubscribe).not.toHaveBeenCalled();
+    });
 
-        expect(spyUnsubscribe).not.toHaveBeenCalled()
-        expect(spySubscribe).not.toHaveBeenCalled()
-    })
-
-    test("undefined program id subscribe", async () => {
+    test('undefined program id subscribe', async () => {
         const store = createReduxStore(
             {
                 ...initialState,
                 programDetails: {
                     programDetails: {
-                        isFollowed: true
-                    }
-                }
+                        isFollowed: true,
+                    },
+                },
             } as StateSchema,
             {
-                programDetails: programsDetailsReducer
-            } as ReducersMapObject<StateSchema> | undefined
+                programDetails: programsDetailsReducer,
+            } as ReducersMapObject<StateSchema> | undefined,
         );
-        render(renderComponent(store, <SubscribeProgram isSubscribed={false} programId={undefined} />))
+        render(renderComponent(store, <SubscribeProgram isSubscribed={false} programId={undefined} />));
 
-        const spyUnsubscribe = vi.spyOn(unsubscribeProgram, "unsubscribeProgram")
-        const spySubscribe = vi.spyOn(subscribeProgram, "subscribeProgram")
+        const spyUnsubscribe = vi.spyOn(unsubscribeProgram, 'unsubscribeProgram');
+        const spySubscribe = vi.spyOn(subscribeProgram, 'subscribeProgram');
 
-        const user = userEvent.setup()
-        const button = screen.getByRole("SubscribeButton")
+        const user = userEvent.setup();
+        const button = screen.getByRole('button', { name: 'Добавить в избранное' });
+        expect(button).toBeInTheDocument();
 
-        await user.click(button)
+        await user.click(button);
 
-        expect(spyUnsubscribe).not.toHaveBeenCalled()
-        expect(spySubscribe).not.toHaveBeenCalled()
-    })
-})
+        expect(spyUnsubscribe).not.toHaveBeenCalled();
+        expect(spySubscribe).not.toHaveBeenCalled();
+    });
+});

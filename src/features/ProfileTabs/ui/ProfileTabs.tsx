@@ -15,27 +15,26 @@ type Tab = {
 
 const tabs : Tab[] = [
     {
-        name: "overview",
+        name: 'overview',
         search: 'overview',
-        content: "Общее",
+        content: 'Общее',
     },
     {
-        name: "programs",
+        name: 'programs',
         search: 'programs',
-        content: "Программы",
+        content: 'Программы',
     },
     {
-        name: "ratings",
+        name: 'ratings',
         search: 'ratings',
-        content: "Звезды",
+        content: 'Звезды',
     },
-]
+];
 
 export const ProfileTabs = ({ className } : ProfileTabsProps) => {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const tabParam = searchParams.get('tab');
-
 
     return (
         <div className={classNames(cls.ProfileTabs, {}, [className])}>
@@ -45,7 +44,7 @@ export const ProfileTabs = ({ className } : ProfileTabsProps) => {
                         key={tab.name}
                         className={tabParam === tab.name ? cls.tabActive : cls.tab}
                         to={{
-                            search: '?tab=' + tab.search,
+                            search: `?tab=${tab.search}`,
                         }}
                     >
                         {t(tab.content)}

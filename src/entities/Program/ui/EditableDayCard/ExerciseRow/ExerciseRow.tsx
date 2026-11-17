@@ -89,10 +89,10 @@ export const ExerciseRow = (props : ExerciseRowProps) => {
                 </div>
                 {
                     errors && (
-                    <div>
-                        <ErrorMessage messages={errors[`details.${dayIndex}.exercises.${exerciseIndex}.reps`]} />
-                        <ErrorMessage messages={errors[`details.${dayIndex}.exercises.${exerciseIndex}.sets`]} />
-                    </div>
+                        <div>
+                            <ErrorMessage messages={errors[`details.${dayIndex}.exercises.${exerciseIndex}.reps`]} />
+                            <ErrorMessage messages={errors[`details.${dayIndex}.exercises.${exerciseIndex}.sets`]} />
+                        </div>
                     )
                 }
             </div>

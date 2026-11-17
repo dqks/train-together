@@ -14,7 +14,7 @@ interface DeleteExerciseButtonProps {
 export const DeleteExerciseButton = ({ exerciseId } : DeleteExerciseButtonProps) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const [isOpen, openHandler] = useOpen()
+    const [isOpen, openHandler] = useOpen();
 
     const deleteHandler = async () => {
         const response = await deleteExercise(exerciseId);
@@ -25,16 +25,17 @@ export const DeleteExerciseButton = ({ exerciseId } : DeleteExerciseButtonProps)
 
     return (
         <>
-            <ConfirmModal 
-                text='Вы уверены, что хотите удалить упражнение?'
-                isOpen={isOpen} 
-                onOutsideClick={openHandler} 
+            <ConfirmModal
+                text="Вы уверены, что хотите удалить упражнение?"
+                isOpen={isOpen}
+                onOutsideClick={openHandler}
                 callback={deleteHandler}
             />
-            <Button 
-                onClick={openHandler} 
-                type="button">
-                    {t('Удалить')}
+            <Button
+                onClick={openHandler}
+                type="button"
+            >
+                {t('Удалить')}
             </Button>
         </>
     );
