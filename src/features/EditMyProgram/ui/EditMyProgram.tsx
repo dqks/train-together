@@ -248,10 +248,6 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         setIsAddingExercise(true);
     }, [dispatch]);
 
-    console.log(sendUpdateDays, 'sendUpdateDays');
-    console.log(sendUpdateProgramInfo, 'sendUpdateProgramInfo');
-    
-
     let EditMyProgramContent: ReactNode = (
         isAddingExercise
             ? (
