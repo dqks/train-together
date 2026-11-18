@@ -29,6 +29,12 @@ export type ExerciseSelection = {
     selectedPrimaryMuscleId: string
 }
 
+export type SavingResult = { status: 'editing' } |
+    { status: 'success', message: string } |
+    { status: 'error', message: string } 
+    
+export type SentRequests = 'none' | "mainInfo" | "days" | 'both'
+
 export interface EditProgramSchema {
     daysInfo: EditDaysInfo[] | undefined
     programMainInfo: ProgramMainInfo 
@@ -39,6 +45,8 @@ export interface EditProgramSchema {
     isLoadingPrograms: boolean
     sendUpdateDays: boolean
     sendUpdateProgramInfo: boolean
-    savingResult: 'success' | 'error' | 'editing'
+    mainInfoSavingResult: SavingResult
+    daysSavingResult: SavingResult
+    sentRequests: SentRequests
 }
 

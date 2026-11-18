@@ -6,6 +6,7 @@ import { Button, ThemeButton } from '@/shared/ui/Button/Button.tsx';
 import Save from '@/shared/assets/icons/save.svg?react';
 import type { Difficulty, Goal } from '@/entities/Program';
 import { ErrorMessage, TextSize } from '@/shared/ui/ErrorMessage/ErrorMessage.tsx';
+import type { SavingResult, SentRequests } from '../../model/types/editProgramSchema';
 
 interface SidebarProps {
     isPublic: boolean | undefined;
@@ -23,10 +24,12 @@ interface SidebarProps {
     onChangeDiff: (id: string) => void;
     onSave: () => void;
     disableEdit: boolean | undefined;
-    savingResult: 'success' | 'error' | 'editing'
+    daysSavingResult: SavingResult
+    mainInfoSavingResult: SavingResult
+    sentRequests: SentRequests
 }
 
-export const Sidebar = (props : SidebarProps) => {
+export const Sidebar = (props: SidebarProps) => {
     const { t } = useTranslation();
 
     const {
@@ -38,9 +41,11 @@ export const Sidebar = (props : SidebarProps) => {
         selectedProgramDifficultyId,
         daysAmount,
         disableEdit,
-        savingResult,
         errorStatus,
         exerciseAmount,
+        daysSavingResult,
+        mainInfoSavingResult,
+        sentRequests,
         onSave,
         onCancel,
         onChangeIsPublic,
@@ -149,22 +154,44 @@ export const Sidebar = (props : SidebarProps) => {
                 </Button>
             </div>
             {
-                savingResult === 'error'
-                    ? (
-                        <>
-                            <ErrorMessage
-                                messages={t('Произошла ошибка при сохранении')}
-                                textSize={TextSize.BASE}
-                            />
-                            <ErrorMessage
-                                messages={errorStatus}
-                                textSize={TextSize.BASE}
-                            />
-                        </>
-                    )
-                    : savingResult === 'success' && (
-                        <p>{t('Редактирование прошло успешно')}</p>
-                    )
+                daysSavingResult.status === 'error'
+                && (
+                    <>
+                        <ErrorMessage
+                            messages={t(daysSavingResult.message)}
+                            textSize={TextSize.BASE}
+                        />
+                        <ErrorMessage
+                            messages={errorStatus}
+                            textSize={TextSize.BASE}
+                        />
+                    </>
+                )
+            }
+            {
+                mainInfoSavingResult.status === 'error'
+                && (
+                    <>
+                        <ErrorMessage
+                            messages={t(mainInfoSavingResult.message)}
+                            textSize={TextSize.BASE}
+                        />
+                        <ErrorMessage
+                            messages={errorStatus}
+                            textSize={TextSize.BASE}
+                        />
+                    </>
+                )
+            }
+            {
+                (
+                    (sentRequests === 'mainInfo' && (mainInfoSavingResult.status === 'success')) || 
+                    (sentRequests === 'days' && (daysSavingResult.status === 'success')) ||
+                    (sentRequests === 'both' && (daysSavingResult.status === 'success' && mainInfoSavingResult.status === 'success'))
+            ) && 
+                (
+                    <p>Редактирование успешно завершено</p>
+                )
             }
         </aside>
     );

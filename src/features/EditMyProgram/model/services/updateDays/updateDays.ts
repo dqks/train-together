@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { $api, type ResponseType } from '@/shared/api/api.ts';
 import type { ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema.ts';
-import type { LoginErrors } from '@/features/LoginForm/model/types/loginSchema.ts';
 
 type UpdateDaysRequest = {
     programId: number | undefined;
@@ -19,12 +18,14 @@ type UpdateDaysRequest = {
     }[] | undefined
 }
 
+export type UpdateDaysErrors = Partial<Record<'status', string[]>> | undefined
+
 type UpdateDaysResponse = ResponseType<{ success: boolean }, string>
 
 export const updateDays = createAsyncThunk<
     UpdateDaysResponse,
     UpdateDaysRequest,
-    ThunkConfig<LoginErrors>>(
+    ThunkConfig<UpdateDaysErrors>>(
         'editProgram/updateDays',
         async (
             daysData,

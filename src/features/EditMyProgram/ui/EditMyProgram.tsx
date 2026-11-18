@@ -28,7 +28,8 @@ import {
     getIsLoadingPrograms,
     getIsPublic,
     getName,
-    getSavingResult,
+    getDaysSavingResult,
+    getMainInfoSavingResult,
     getSelectedDiffId,
     getSelectedGoalId,
     getSendUpdateDays,
@@ -38,6 +39,7 @@ import {
     getSelectedDayId,
     getSelectedExercises,
     getExercisesAmount,
+    getSentRequests,
 } from '../model/selectors/editProgramSelectors.ts';
 import { updateProgramInfo } from '../model/services/updateProgram/updateProgramInfo.ts';
 import { updateDays } from '../model/services/updateDays/updateDays.ts';
@@ -81,10 +83,12 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
     const errorProgramInfo = useSelector(getErrorProgramInfo);
     const daysOfWeek = useSelector(getDaysOfWeek);
     const errorDays = useSelector(getErrorDays);
-    const savingResult = useSelector(getSavingResult);
+    const daysSavingResult = useSelector(getDaysSavingResult);
+    const mainInfoSavingResult = useSelector(getMainInfoSavingResult);
     const selectedDayId = useSelector(getSelectedDayId);
     const selectedExercises = useSelector(getSelectedExercises);
     const exerciseAmount = useSelector(getExercisesAmount);
+    const sentRequests = useSelector(getSentRequests);
     const [image, setImage] = useState<File | string | undefined>(undefined);
     const [isAddingExercise, setIsAddingExercise] = useState<boolean>(false);
 
@@ -144,7 +148,6 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
             delete error.image;
             dispatch(editProgramActions.setErrorProgramInfo(error));
         }
-        dispatch(editProgramActions.setDiableEdit(false));
         dispatch(editProgramActions.setSendUpdateProgramInfo(true));
     }, [dispatch, errorProgramInfo]);
 
@@ -171,6 +174,7 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                 diffId: selectedDiffId?.toString(),
                 goalId: selectedGoalId?.toString(),
             }));
+            dispatch(editProgramActions.setSentRequests('mainInfo'))
         }
         if (sendUpdateDays) {
             // Бекенд возвращает exericseId в виде string
@@ -191,6 +195,11 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                 programId,
                 details,
             }));
+            dispatch(editProgramActions.setSentRequests('days'))
+        }
+
+        if (sendUpdateDays && sendUpdateProgramInfo) {
+            dispatch(editProgramActions.setSentRequests('both'))
         }
     }, [
         sendUpdateProgramInfo,
@@ -239,6 +248,10 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
         setIsAddingExercise(true);
     }, [dispatch]);
 
+    console.log(sendUpdateDays, 'sendUpdateDays');
+    console.log(sendUpdateProgramInfo, 'sendUpdateProgramInfo');
+    
+
     let EditMyProgramContent: ReactNode = (
         isAddingExercise
             ? (
@@ -271,8 +284,10 @@ export const EditMyProgram = (props: EditMyProgramProps) => {
                             />
                         </div>
                         <Sidebar
+                            sentRequests={sentRequests}
                             exerciseAmount={exerciseAmount}
-                            savingResult={savingResult}
+                            daysSavingResult={daysSavingResult}
+                            mainInfoSavingResult={mainInfoSavingResult}
                             errorStatus={errorDays?.status}
                             disableEdit={!sendUpdateDays && !sendUpdateProgramInfo}
                             daysAmount={daysInfo?.length}

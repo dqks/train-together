@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { EditProgramSchema, EditProgramErrorInfo, EditDaysInfo } from '../types/editProgramSchema';
+import type { EditProgramSchema, EditProgramErrorInfo, EditDaysInfo, SentRequests } from '../types/editProgramSchema';
 import type {  ExerciseDay, ProgramDetails } from '@/entities/Program';
 import { updateDays } from '../services/updateDays/updateDays.ts';
 import { updateProgramInfo } from '../services/updateProgram/updateProgramInfo.ts';
@@ -26,7 +26,9 @@ const initialState: EditProgramSchema = {
     isLoadingPrograms: false,
     sendUpdateDays: false,
     sendUpdateProgramInfo: false,
-    savingResult: 'editing'
+    mainInfoSavingResult: { status: 'editing' },
+    daysSavingResult: { status: 'editing' },
+    sentRequests: 'none'
 };
 
 export const programsSlice = createSlice({
@@ -76,8 +78,6 @@ export const programsSlice = createSlice({
             state.daysInfo = action.payload;
             state.sendUpdateDays = true;
         },
-        setDiableEdit: (state, action: PayloadAction<boolean>) => {
-        },
         setSendUpdateProgramInfo: (state, action: PayloadAction<boolean>) => {
             state.sendUpdateProgramInfo = action.payload;
         },
@@ -99,36 +99,45 @@ export const programsSlice = createSlice({
         setSelectedEquipmentId: (state, action: PayloadAction<string>) => {
             state.exerciseSelection.selectedEquipmentId = action.payload;
         },
+        setSentRequests: (state, action: PayloadAction<SentRequests>) => {
+            state.sentRequests = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(updateDays.pending, (state) => {
                 state.errorDays = undefined;
                 state.isLoadingDays = true;
-                state.savingResult = 'editing';
+                state.daysSavingResult = { status: 'editing' };
+                state.sendUpdateDays = false
             })
             .addCase(updateDays.fulfilled, (state) => {
                 state.isLoadingDays = false;
-                state.savingResult = 'success';
+                state.daysSavingResult = { status: 'success', message: "Редактировние прошло успешно" };
+                state.sendUpdateDays = false
             })
             .addCase(updateDays.rejected, (state, action) => {
                 state.isLoadingDays = false;
                 state.errorDays = action.payload;
-                state.savingResult = 'error';
+                state.daysSavingResult = { status: 'error', message: "Произошла ошибка при сохранении тренировочных дней"};
+                state.sendUpdateDays = true
             })
             .addCase(updateProgramInfo.pending, (state) => {
                 state.errorProgramInfo = null;
                 state.isLoadingPrograms = true;
-                state.savingResult = 'editing';
+                state.mainInfoSavingResult = { status: 'editing' };
+                state.sendUpdateProgramInfo = false 
             })
             .addCase(updateProgramInfo.fulfilled, (state) => {
                 state.isLoadingPrograms = false;
-                state.savingResult = 'success';
+                state.mainInfoSavingResult = { status: 'success', message: "Редактировние прошло успешно" };
+                state.sendUpdateProgramInfo = false 
             })
             .addCase(updateProgramInfo.rejected, (state, action) => {
                 state.isLoadingPrograms = false;
                 state.errorProgramInfo = action.payload;
-                state.savingResult = 'error';
+                state.mainInfoSavingResult = { status: 'error', message: "Произошла ошибка при сохранении информации о программе"};
+                state.sendUpdateProgramInfo = true
             });
     },
 });

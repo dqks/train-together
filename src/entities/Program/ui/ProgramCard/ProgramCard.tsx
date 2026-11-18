@@ -47,6 +47,12 @@ export const ProgramCard = (props : ProgramCardProps) => {
         navigate(`${AuthRoutePath.program_details}${id}`, { state: { from: location.state?.from } });
     };
 
+    let resutlDescription = description
+
+    if (description && description?.length >= 60) {
+        resutlDescription = description?.slice(0, 60) + "..."
+    }
+
     return (
         <div
             className={classNames(cls.previewCard, {}, ['card', className])}
@@ -79,7 +85,7 @@ export const ProgramCard = (props : ProgramCardProps) => {
                     </p>
                 )}
                 <p className="card-text">
-                    {description}
+                    {resutlDescription}
                 </p>
                 <div className={cls.category}>{i18n.language === 'en' ? goalEng : goal}</div>
                 <div className={cls.stats}>

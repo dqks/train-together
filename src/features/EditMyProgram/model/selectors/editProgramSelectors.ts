@@ -14,11 +14,13 @@ export const getIsLoadingDays = (state: StateSchema) => state.editProgram?.isLoa
 export const getErrorProgramInfo = (state: StateSchema) => state.editProgram?.errorProgramInfo;
 export const getErrorDays = (state: StateSchema) => state.editProgram?.errorDays;
 export const getSelectedExercises = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedExercises || [];
-export const getSavingResult = (state: StateSchema) => state.editProgram?.savingResult || 'editing';
+export const getDaysSavingResult = (state: StateSchema) => state.editProgram?.daysSavingResult || { status: 'editing' };
+export const getMainInfoSavingResult = (state: StateSchema) => state.editProgram?.mainInfoSavingResult || { status: 'editing' };
 export const getSelectedDayId = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedDayId;
 export const getSearch = (state: StateSchema) => state.editProgram?.exerciseSelection.search;
 export const getSelectedEquipmentId = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedEquipmentId;
 export const getSelectedPrimaryMuscleId = (state: StateSchema) => state.editProgram?.exerciseSelection.selectedPrimaryMuscleId;
+export const getSentRequests = (state: StateSchema) => state.editProgram?.sentRequests || 'none';
 
 export const getExercisesAmount = createSelector(getDaysInfo, (daysInfo) => {     
      return daysInfo?.reduce((acc, d) => acc + d.exercises.length, 0)
